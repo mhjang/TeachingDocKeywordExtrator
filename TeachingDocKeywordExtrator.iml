@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$USER_HOME$/lemur-galago/core/target/appassembler/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$USER_HOME$/lemur-galago/core/target/appassembler/lib" />
+        </SOURCES>
+        <jarDirectory url="file://$USER_HOME$/lemur-galago/core/target/appassembler/lib" recursive="false" />
+        <jarDirectory url="file://$USER_HOME$/lemur-galago/core/target/appassembler/lib" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/junit.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="tika">
+        <CLASSES>
+          <root url="file://$USER_HOME$/tika-site" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$USER_HOME$/tika-site/tika-app/src/main/java" />
+          <root url="file://$USER_HOME$/tika-site/tika-app/src/test/java" />
+          <root url="file://$USER_HOME$/tika-site/tika-xmp/src/main/java" />
+          <root url="file://$USER_HOME$/tika-site/tika-xmp/src/test/java" />
+          <root url="file://$USER_HOME$/tika-site/tika-core/src/main/java" />
+          <root url="file://$USER_HOME$/tika-site/tika-core/src/test/java" />
+          <root url="file://$USER_HOME$/tika-site/tika-java7/src/main/java/org/apache/tika/filetypedetector" />
+          <root url="file://$USER_HOME$/tika-site/tika-java7/src/test/java" />
+          <root url="file://$USER_HOME$/tika-site/tika-bundle/src/test/java" />
+          <root url="file://$USER_HOME$/tika-site/tika-dotnet/src/main/java" />
+          <root url="file://$USER_HOME$/tika-site/tika-server/src/main/java" />
+          <root url="file://$USER_HOME$/tika-site/tika-server/src/test/java" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="tika-site" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/tika-app-1.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>
+
