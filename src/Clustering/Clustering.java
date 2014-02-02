@@ -13,6 +13,7 @@ import java.util.*;
  * Tuesday 10:30pm
  */
 public class Clustering {
+    private String DUMMY = "dummy";
     public static void main(String[] args) throws IOException {
         Clustering clustering = new Clustering();
         TFIDFCalculator tfidf = new TFIDFCalculator();
@@ -25,7 +26,8 @@ public class Clustering {
         while((line= br.readLine()) != null) {
             topiclist.add(line);
         }
-        clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
+    //    clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
+        clustering.naiveAssignmentLazyUpdate(documentMap, topiclist);
      }
 
     private void stemming(String path) throws IOException {
@@ -65,6 +67,7 @@ public class Clustering {
         AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(documentMap, topics);
         HashMap<String, LinkedList<String>> clusters = entry.getKey();
         HashMap<String, Document> clusterFeatureMap = entry.getValue();
+
         /****
          * clustering
          */
@@ -82,14 +85,14 @@ public class Clustering {
             }
             if(bestTopic == null) {
                 // similarity to all existing cluster labels was 0
-                bestTopic = "dummy";
+                bestTopic = DUMMY;
             }
             LinkedList<String> clusterList = clusters.get(bestTopic);
             clusterList.add(docID);
             clusters.put(docID, clusterList);
 
             // updating cluster features
-            if(bestTopic != "dummy") {
+            if(bestTopic != DUMMY) {
                 Document clusterDoc = clusterFeatureMap.get(bestTopic);
                 clusterDoc.mergeDocument(document);
             }
@@ -99,21 +102,77 @@ public class Clustering {
          * print the clustering result
          */
 
-        for(String topic : topics) {
-            LinkedList<String> cluster = clusters.get(topic);
-            System.out.println(topic + ":" + cluster.toString());
-        }
-        System.out.println(clusters.get("dummy").toString());
+        printCluster(clusters, topics);
+
     }
 
 
-
-
-    public void naiveAssignmentAllAtOnceIterative(HashMap<String, Document> documentMap, ArrayList<String> topics) throws IOException {
+    /**
+     * Written in in 2/2 3:23 pm
+     * assign a set of documents to the cluster whose similarity score to is the maximum at one phase, and update the cluster features.
+     * Then come back to the "dummy" clusters, and deal with the unassigned documents until it converges or there is no document to be assigned.
+     * @param documentMap
+     * @param topics
+     * @throws IOException
+     */
+    public void naiveAssignmentLazyUpdate(HashMap<String, Document> documentMap, ArrayList<String> topics) throws IOException {
         AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(documentMap, topics);
         HashMap<String, LinkedList<String>> clusters = entry.getKey();
         HashMap<String, Document> clusterFeatureMap = entry.getValue();
-    }
+
+        /****
+         * clustering
+         */
+        LinkedList<String> dummyCluster = clusters.get(DUMMY);
+        dummyCluster.addAll(documentMap.keySet());
+        boolean isConverged = false, finished = false;
+        while(!isConverged || !finished) {
+            // since we can't modify the list while enumerating, save the list of items we're moving, and delete them after the loop
+            LinkedList<String> documentMoved = new LinkedList<String>();
+            HashMap<String, LinkedList<String>> clusterUpdate = initializeTopicCluster(topics);
+            isConverged = true;
+            for(String docID : dummyCluster) {
+                Document document = documentMap.get(docID);
+                double sim = 0.0, maxSim = 0.0;
+                String bestTopic = null;
+                for(String clusterTopic : clusterFeatureMap.keySet()) {
+                    if(clusterTopic == DUMMY) continue;
+                    Document clusterDoc = clusterFeatureMap.get(clusterTopic);
+                    sim = CosineSimilarity.CosineSimilarity(document, clusterDoc);
+                    if(sim > maxSim) {
+                        maxSim = sim;
+                        bestTopic = clusterTopic;
+                    }
+                }
+                if(bestTopic != null) {
+                    LinkedList<String> clusterList =  clusterUpdate.get(bestTopic);
+                    clusterList.add(docID);
+                     clusterUpdate.put(bestTopic, clusterList);
+                    isConverged = false;
+                }
+            }
+            int numOfDocMoved = 0;
+            int numOfDummyDocs = dummyCluster.size();
+            // cluster feature update
+            for(String clusterTopic :  clusterUpdate.keySet()) {
+                LinkedList<String> clusterList = clusters.get(clusterTopic);
+                LinkedList<String> clusterListToAttach =  clusterUpdate.get(clusterTopic);
+                // removing the documents from the dummy cluster that were just assigned to clusters
+                dummyCluster.removeAll(clusterListToAttach);
+                numOfDocMoved += clusterListToAttach.size();
+                // updating the cluster (1) by adding the documents and (2) updating the features
+                clusterList.addAll(clusterListToAttach);
+                Document clusterDoc = clusterFeatureMap.get(clusterTopic);
+                for(String docID : clusterListToAttach)
+                    clusterDoc.mergeDocument(documentMap.get(docID));
+                clusterFeatureMap.put(clusterTopic, clusterDoc);
+            }
+            clusters.put(DUMMY, dummyCluster);
+            if(dummyCluster.isEmpty()) finished = true;
+            System.out.println("# of dummy Docs: " + numOfDummyDocs +", # of documents moved: " + numOfDocMoved);
+        }
+        printCluster(clusters, topics);
+   }
 
 
     public void naiveAssignmentSortByPurity(HashMap<String, Document> documentMap, ArrayList<String> topics) throws IOException {
@@ -130,12 +189,17 @@ public class Clustering {
         /***
          * print the clustering result
          */
+        printCluster(clusters, topics);
 
+    }
+
+
+    private void printCluster(HashMap<String, LinkedList<String>> clusters, ArrayList<String> topics) {
         for(String topic : topics) {
             LinkedList<String> cluster = clusters.get(topic);
             System.out.println(topic + ":" + cluster.toString());
         }
-        System.out.println(clusters.get("dummy").toString());
+        System.out.println(clusters.get(DUMMY).toString());
     }
 
 
@@ -150,11 +214,7 @@ public class Clustering {
      */
     private Map.Entry<HashMap<String, LinkedList<String>>, HashMap<String, Document>> convertTopicToDocument(HashMap<String, Document> documentMap, ArrayList<String> topics) throws IOException {
         // initializing the cluster dictionary
-        HashMap<String, LinkedList<String>> clusters = new HashMap<String, LinkedList<String>>();
-        for(String t : topics) {
-            clusters.put(t, new LinkedList<String>());
-        }
-        clusters.put("dummy", new LinkedList<String>());
+        HashMap<String, LinkedList<String>> clusters = initializeTopicCluster(topics);
         /***
          *  constructing tokens for topic queries
          *  data structure and list --> "data" "structure" "and" "list"
@@ -189,6 +249,12 @@ public class Clustering {
         return new AbstractMap.SimpleEntry<HashMap<String, LinkedList<String>>, HashMap<String, Document>>(clusters, clusterFeatureMap);
     }
 
-
-
+    private HashMap<String, LinkedList<String>> initializeTopicCluster(ArrayList<String> topics) {
+        HashMap<String, LinkedList<String>> clusters = new HashMap<String, LinkedList<String>>();
+        for(String t : topics) {
+            clusters.put(t, new LinkedList<String>());
+        }
+        clusters.put(DUMMY, new LinkedList<String>());
+        return clusters;
+    }
 }
