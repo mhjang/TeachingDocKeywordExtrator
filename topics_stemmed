@@ -1,6 +1,6 @@
 analysis of algorithms, insertion sort, mergesort 
 correctness of algorithms, honor's rule 
-asymptotic notation, recurrences, substitution, master method 
+asymtotic notation, recurrences, substitution, master method
 divide-and-conquer: strassen, fibonacci, polynomial multiplication 
 recurrences, sloppiness 
 quicksort, randomized algorithms 

@@ -84,10 +84,14 @@ public class Document {
                 termFrequency.put(w, 1);
                 if(type == Document.UNIGRAM)
                    unigrams.add(w);
-                else if(type == Document.BIGRAM)
+                else if(type == Document.BIGRAM) {
+                    if(bigrams == null) bigrams = new LinkedList<String>();
                     bigrams.add(w);
-                else if(type == Document.TRIGRAM)
+                }
+                else if(type == Document.TRIGRAM) {
+                    if(trigrams == null) trigrams = new LinkedList<String>();
                     trigrams.add(w);
+                }
                 else {
                     System.out.println("ERROR: UNKNOWN N-GRAM TYPE");
                     return;

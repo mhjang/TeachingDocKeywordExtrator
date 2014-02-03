@@ -4,6 +4,8 @@ import Similarity.CosineSimilarity;
 import TFIDF.StopWordRemover;
 import TFIDF.TFIDFCalculator;
 import org.lemurproject.galago.core.parse.stem.KrovetzStemmer;
+import parser.Tokenizer;
+import parser.WikiParser;
 
 import java.io.*;
 import java.util.*;
@@ -26,36 +28,58 @@ public class Clustering {
         while((line= br.readLine()) != null) {
             topiclist.add(line);
         }
-    //    clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
-        clustering.naiveAssignmentLazyUpdate(documentMap, topiclist);
+        clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
+     //   clustering.naiveAssignmentLazyUpdate(documentMap, topiclist);
      }
 
-    private void stemming(String path) throws IOException {
-        File fileEntry = new File(path);
-        LineNumberReader reader = new LineNumberReader(new FileReader(fileEntry));
-        BufferedWriter bw = new BufferedWriter(new FileWriter(new File(fileEntry.getName()+"_stemmed")));
-        String line;
-        KrovetzStemmer stemmer = new KrovetzStemmer();
-        try {
-            line = reader.readLine();
-            while (line != null) {
-                line = line.trim();
-                String [] tokens = line.split(" ,");
-                for( int i=0 ; i<tokens.length ; i++ ) {
-                    String stem = stemmer.stem(tokens[i]);
-                    System.out.println(tokens[i] + " " + stem);
-                    bw.write(stem + " ");
-                }
-                bw.write("\n");
-                bw.flush();
-                line = reader.readLine();
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
+
+
+    /**
+     *
+     * @param topicDocumentMap: a set of documents whose words are initial topic words
+     * @param resourceDir: the directory that contains Wikipedia files
+     *                   I manually downloaded a few matching Wikipedia articles.
+     * Written 2/2/14 8:21pm
+     */
+    private HashMap<String, Document> expandTopicQueries(HashMap<String, Document> topicDocumentMap, String resourceDir) {
+        File directory = new File(resourceDir);
+        File[] listOfFiles = directory.listFiles();
+        WikiParser wikiparser = new WikiParser();
+        Tokenizer tokenizer = new Tokenizer();
+        for(File file: listOfFiles) {
+            String parsedText = wikiparser.parse(file.getPath());
+            // For simplicity, I saved all wikipedi articles with the same topic labels
+            // It ends with ".txt". I just need a name of the file, which is also the topic label
+            String topicName = file.getName().substring(0, file.getName().length()-5);
+
+            Document wikiDoc = tokenizer.tokenize(parsedText, Tokenizer.TRIGRAM);
+            String matchingTopic = getMatchingTopicLabel(topicName.toLowerCase(), topicDocumentMap);
+            Document topicDoc = topicDocumentMap.get(matchingTopic);
+       //     System.out.println("Topic Name: " + topicName);
+            topicDoc.mergeDocument(wikiDoc);
+            topicDocumentMap.put(matchingTopic, topicDoc);
         }
-        bw.close();
+        return topicDocumentMap;
     }
 
+    /**
+     * The name of the Wikipedia article is like "analysis of algorithm" whereas the topic key is "analysis of algorithm, and bubble sort..."
+     * So instead of retrieving the matching document by hashing, we have to see if the key "contains" the given query
+     * The usage of this method is very limited; it works under the assumption that the wikipedia article's filename is always the part of the topic key string.
+     * I hate generating such ad-hoc methods like this, but at this point making it work is more important.
+     *
+     * Written in 2/2/14 8:55 pm
+     * @param articleName
+     * @param topicDocumentMap
+     * @return
+     */
+    private String getMatchingTopicLabel(String articleName, HashMap<String, Document> topicDocumentMap) {
+        for(String label : topicDocumentMap.keySet()) {
+            if(label.contains(articleName))
+                return label;
+        }
+        return null;
+    }
     /**
      *
      * @param documentMap
@@ -68,6 +92,7 @@ public class Clustering {
         HashMap<String, LinkedList<String>> clusters = entry.getKey();
         HashMap<String, Document> clusterFeatureMap = entry.getValue();
 
+   //     clusterFeatureMap = expandTopicQueries(clusterFeatureMap, "./wikiexpansion_resource/stemmed/");
         /****
          * clustering
          */
@@ -119,6 +144,7 @@ public class Clustering {
         AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(documentMap, topics);
         HashMap<String, LinkedList<String>> clusters = entry.getKey();
         HashMap<String, Document> clusterFeatureMap = entry.getValue();
+//        clusterFeatureMap = expandTopicQueries(clusterFeatureMap, "./wikiexpansion_resource/stemmed/");
 
         /****
          * clustering
@@ -145,6 +171,7 @@ public class Clustering {
                     }
                 }
                 if(bestTopic != null) {
+//                    System.out.println(bestTopic);
                     LinkedList<String> clusterList =  clusterUpdate.get(bestTopic);
                     clusterList.add(docID);
                      clusterUpdate.put(bestTopic, clusterList);
