@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://en.wikipedia.org/wiki/Bellman_Ford -->
+<html lang="en" dir="ltr" class="client-js ve-not-available"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8"><title>Bellman–Ford algorithm - Wikipedia, the free encyclopedia</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE"><meta name="generator" content="MediaWiki 1.23wmf11">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&action=edit">
+<link rel="edit" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&action=edit">
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png">
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="Wikipedia (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom feed" href="http://en.wikipedia.org/w/index.php?title=Special:RecentChanges&feed=atom">
+<link rel="canonical" href="http://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm">
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.DRN-wizard%2CReferenceTooltips%2Ccharinsert%2Cteahouse%7Cext.rtlcite%2Cwikihiero%7Cext.visualEditor.viewPageTarget.noscript%7Cmediawiki.legacy.commonPrint%2Cshared%7Cskins.common.interface%7Cskins.vector.styles&only=styles&skin=vector&*">
+<style>
+@-webkit-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-webkit-transform:translateY(-20px)}100%{opacity:1;-webkit-transform:translateY(0)}}@-moz-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-moz-transform:translateY(-20px)}100%{opacity:1;-moz-transform:translateY(0)}}@-o-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-o-transform:translateY(-20px)}100%{opacity:1;-o-transform:translateY(0)}}@keyframes centralAuthPPersonalAnimation{0%{opacity:0;transform:translateY(-20px)}100%{opacity:1;transform:translateY(0)}}.centralAuthPPersonalAnimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralAuthPPersonalAnimation;-moz-animation-name:centralAuthPPersonalAnimation;-o-animation-name:centralAuthPPersonalAnimation;animation-name:centralAuthPPersonalAnimation}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAD1BMVEUZAAD///95eXmqqqrY2NjEIQ0cAAAAAXRSTlMAQObYZgAAACdJREFUCNdjYGBgYGIAASUFENNJCUiqmADZTM5OqExFFZAKRSG4YgBjcwODynSgDwAAAABJRU5ErkJggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/Wikibase/client/resources/images/WBC-Asset-Pencil.png?2014-01-16T16:20:00Z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAD1BMVEWBAADY2Nj///8GRa0zZrtW2AECAAAAAXRSTlMAQObYZgAAACdJREFUCNdjYGBgYGYAAWMDEFPYGEgaOgLZzCLCqEwjQ5AKI2W4YgBg5QOTQPzBuAAAAABJRU5ErkJggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/Wikibase/client/resources/images/WBC-Asset-Pencil-Hover.png?2014-01-16T16:20:00Z)!ie;color:#0645AD !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a963c9df079c8688d25d769892467b5c */
+@media print{#centralNotice{display:none}}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */</style><style>
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABblBMVEUAAAD///////9PfTf///80aRdTgjn///9Feij///////////9Rfzf///////////9PfjZRgDh1o1xOfTb///////+bwYqLtnj///////9PfTa82K////9WhT6YxIL///9QgDdTgzr////////j7uDl7eLq8efi693k7OH///////9UhjuBr2rp9uRUhjr///9YljVKgir///9WiTlYjT3////9/v57vFlbkT5PjC9dlD/5/fhuq09stUTs9uhxuElctCpfnT1huDFloEZloUZmpENmvDZpvDxpvTxqvjxrvT5rvT9rwTxsqktswD5uwkBvuUdxw0NztFBztU9ztVBzwkp0tlJ1xkd2t1R3uVR4w1F4xk54x014yE15uVZ5v1R5xVB6v1R7yFJ8wVh9xVl9yFR9yVd9ylN+xVh+yFd/x1l/yFeAylmEx1+Ny2uY0Hqe04Wj1Ymv3Ze33qLD47TJ5L3O6cPU7Mrq9eb2+/Q4j37OAAAAQHRSTlMAAQIEBAUFBQwPFB4fJCUoKiosQEhJS01RUlZZXmdydXaChYuSlJSWmJmoq6uur8LExcvM19fg5ejt8fX2+Pr7SljgewAAAKpJREFUGBkFwQNCAwAAAMDLtl3LtrG4rWXbtvX77gAgZ6grFwC0bhwNVgKgdPZx8b0dgLi+s7Wn0VoAqpfOI9+BNADZI7fLrz2pSEwGHZuH+78lSK8ZLkLezF3ooyUG3VPXq2USei9WngeyoG195yBYWDF3E/2pAhl1e9Gr8bGT+bfOFCC2fnvh4X7rcqIAQNNu+HT6sxkAjceTL/2ZAIhv+PorBwBJxfkA//dFHSCBy/UTAAAAAElFTkSuQmCC);background-image:url(//bits.wikimedia.org/static-1.23wmf11/resources/mediawiki.action/images/green-checkmark.png?2014-01-16T16:15:00Z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:c897cc6a31411b48f47191422cf15c4a */
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4C59A6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#F7F7F7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #F7F7F7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.RTflipped{padding-top:13px}.referencetooltip.RTflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.RTflipped li+li::after{border-top:0;border-bottom:8px #F7F7F7 solid;position:absolute;margin-top:7px}.RTsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/Cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.RTsettings:hover{opacity:1;filter:alpha(opacity=100)}.RTTarget{border:#080086 2px solid}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playerContainer{overflow:hidden;position:relative;height:100%;background:#000}#videoHolder{position:relative;overflow:hidden}.fullscreen #playerContainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwEmbedPlayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayHTML a:visited{color:white}.loadingSpinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/loading_ani.gif?2014-01-16T16:18:20Z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-01-16T16:18:20Z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button.png?2014-01-16T16:18:20Z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button_hover.png?2014-01-16T16:18:20Z)}.carouselContainer{position :absolute;width :100%;z-index :2}.carouselVideoTitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselVideoTitleText{display :block;padding :10px 10px 10px 20px}.carouselTitleDuration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5A5A5A;color :#D9D9D9;font-size :smaller;z-index :2}.carouselImgTitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselImgDuration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselPrevButton,.carouselNextButton{display :block;position :absolute;bottom:23px}.carouselPrevButton{left :5px}.carouselNextButton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#E6E6E6;padding :5px;border-bottom :1px solid #D1D1D1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:40fb0cce50b2525059dbe7ac545e3c42 */</style><style>
+.suggestions a.mw-searchSuggest-link,.suggestions a.mw-searchSuggest-link:hover,.suggestions a.mw-searchSuggest-link:active,.suggestions a.mw-searchSuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchSuggest-link,.suggestions-result-current a.mw-searchSuggest-link:hover,.suggestions-result-current a.mw-searchSuggest-link:active,.suggestions-result-current a.mw-searchSuggest-link:focus{color:white}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=site&only=styles&skin=vector&*">
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style>
+
+<script src="./bellman ford_files/load.php"></script><script src="./bellman ford_files/load(1).php"></script><style title="spinjs"></style>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Bellman–Ford_algorithm","wgTitle":"Bellman–Ford algorithm","wgCurRevisionId":586534227,"wgRevisionId":586534227,"wgArticleId":221244,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Graph algorithms","Polynomial-time problems","Articles with example C code","Articles with example pseudocode","Dynamic programming"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Bellman–Ford_algorithm","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgRedirectedFrom":"Bellman_Ford","wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":false,"previewDialog":false,"publish":false,"toc":false},"wgArticleFeedbackv5Permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgBetaFeaturesFeatures":[],"wgVisualEditor":{"isPageWatched":false,"magnifyClipIconURL":"//bits.wikimedia.org/static-1.23wmf11/skins/common/images/magnify-clip.png","pageLanguageCode":"en","pageLanguageDir":"ltr"},"wikilove-recipient":"","wikilove-anon":0,"wgGuidedTourHelpGuiderUrl":"Help:Guided tours/guider","wgULSAcceptLanguageList":["en-us","en","ko"],"wgULSCurrentAutonym":"English","wgFlaggedRevsParams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgStableRevisionId":null,"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","Geo":{"city":"","country":""},"wgNoticeProject":"wikipedia","aftv5Article":{"id":221244,"title":"Bellman–Ford algorithm","namespace":0,"categories":["Articles with example C code","Articles with example pseudocode","Dynamic programming","Graph algorithms","Polynomial-time problems"],"permissionLevel":false},"wgWikibaseItemId":"Q816022"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,
+"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true,
+"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","uls-enable":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,
+"searchNs100":false,"searchNs101":false,"searchNs108":false,"searchNs109":false,"searchNs118":false,"searchNs119":false,"searchNs446":false,"searchNs447":false,"searchNs710":false,"searchNs711":false,"searchNs828":false,"searchNs829":false,"gadget-teahouse":1,"gadget-ReferenceTooltips":1,"gadget-DRN-wizard":1,"gadget-charinsert":1,"gadget-mySandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: enwiki:resourceloader:filter:minify-js:7:264b5b04c69e37444d5b2d63c2a65dc9 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualEditor.viewPageTarget.init","wikibase.client.init","ext.centralNotice.bannerController","skins.vector.js"]);
+}</script>
+<script src="./bellman ford_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf11/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Bellman–Ford_algorithm skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<div id="siteNotice"><div id="centralNotice"></div><!-- CentralNotice --></div>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Bellman–Ford algorithm</span></h1>
+			<div id="bodyContent">
+								<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+								<div id="contentSub">&nbsp;&nbsp;(Redirected from <a href="http://en.wikipedia.org/w/index.php?title=Bellman_Ford&redirect=no" title="Bellman Ford">Bellman Ford</a>)</div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="http://en.wikipedia.org/wiki/Bellman_Ford#mw-navigation">navigation</a>, 					<a href="http://en.wikipedia.org/wiki/Bellman_Ford#p-search">search</a>
+				</div>
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table class="infobox" cellspacing="3" style="border-spacing:3px;width:22em;">
+<caption>Bellman–Ford algorithm</caption>
+<tbody><tr>
+<th scope="row" style="text-align:left;">Class</th>
+<td><a href="http://en.wikipedia.org/wiki/Single-source_shortest_path_problem" title="Single-source shortest path problem" class="mw-redirect">Single-source shortest path problem</a> (for weighted directed graphs)</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Data structure</th>
+<td><a href="http://en.wikipedia.org/wiki/Graph_(data_structure)" title="Graph (data structure)" class="mw-redirect">Graph</a></td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;"><a href="http://en.wikipedia.org/wiki/Best,_worst_and_average_case" title="Best, worst and average case">Worst case performance</a></th>
+<td><img class="tex" alt="O (|V| |E|)" src="./bellman ford_files/814c901c78faae8531dbebff5edaa9f4.png"></td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;"><a href="http://en.wikipedia.org/wiki/Best,_worst_and_average_case" title="Best, worst and average case">Worst case space complexity</a></th>
+<td><img class="tex" alt="O (|V|)" src="./bellman ford_files/c08c0e45a937a414cd20dbdf046ca4b5.png"></td>
+</tr>
+</tbody></table>
+<table class="vertical-navbox nowraplinks plainlist" cellspacing="5" cellpadding="0" style="float:right;clear:right;width:22.0em;margin:0 0 1.0em 1.0em;background:#f9f9f9;border:1px solid #aaa;padding:0.2em;border-spacing:0.4em 0;text-align:center;line-height:1.4em;font-size:88%;width:15em;">
+<tbody><tr>
+<th class="navbox-title" style=";padding:0.2em 0.4em 0.2em;;font-size:145%;line-height:1.2em;"><a href="http://en.wikipedia.org/wiki/Graph_traversal" title="Graph traversal">Graph</a> and <a href="http://en.wikipedia.org/wiki/Tree_traversal" title="Tree traversal">tree<br>
+search algorithms</a></th>
+</tr>
+<tr>
+<td class="" style="padding:0 0.1em 0.4em;;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning" title="Alpha–beta pruning">α–β</a></li>
+<li><a href="http://en.wikipedia.org/wiki/A*_search_algorithm" title="A* search algorithm">A*</a></li>
+<li><a href="http://en.wikipedia.org/wiki/B*" title="B*">B*</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Backtracking" title="Backtracking">Backtracking</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Beam_search" title="Beam search">Beam</a></li>
+<li><strong class="selflink">Bellman–Ford</strong></li>
+<li><a href="http://en.wikipedia.org/wiki/Best-first_search" title="Best-first search">Best-first</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Bidirectional_search" title="Bidirectional search">Bidirectional</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Bor%C5%AFvka%27s_algorithm" title="Borůvka&#39;s algorithm">Borůvka</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Branch_and_bound" title="Branch and bound">Branch &amp; bound</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Breadth-first_search" title="Breadth-first search">BFS</a></li>
+<li><a href="http://en.wikipedia.org/wiki/British_Museum_algorithm" title="British Museum algorithm">British Museum</a></li>
+<li><a href="http://en.wikipedia.org/wiki/D*" title="D*">D*</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Depth-first_search" title="Depth-first search">DFS</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Depth-limited_search" title="Depth-limited search">Depth-limited</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Dijkstra%27s_algorithm" title="Dijkstra&#39;s algorithm">Dijkstra</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Edmonds%27_algorithm" title="Edmonds&#39; algorithm">Edmonds</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm" title="Floyd–Warshall algorithm">Floyd–Warshall</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Fringe_search" title="Fringe search">Fringe search</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Hill_climbing" title="Hill climbing">Hill climbing</a></li>
+<li><a href="http://en.wikipedia.org/wiki/IDA*" title="IDA*">IDA*</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Iterative_deepening_depth-first_search" title="Iterative deepening depth-first search">Iterative deepening</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Kruskal%27s_algorithm" title="Kruskal&#39;s algorithm">Kruskal</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Johnson%27s_algorithm" title="Johnson&#39;s algorithm">Johnson</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Lexicographic_breadth-first_search" title="Lexicographic breadth-first search">Lexicographic BFS</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Prim%27s_algorithm" title="Prim&#39;s algorithm">Prim</a></li>
+<li><a href="http://en.wikipedia.org/wiki/SMA*" title="SMA*">SMA*</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Uniform-cost_search" title="Uniform-cost search">Uniform-cost</a></li>
+</ul>
+</td>
+</tr>
+<tr>
+<th class="" style="padding:0.1em;;;">Listings</th>
+</tr>
+<tr>
+<td class="" style="padding:0 0.1em 0.4em;;">
+<ul>
+<li><i><a href="http://en.wikipedia.org/wiki/Category:Graph_algorithms" title="Category:Graph algorithms">Graph algorithms</a></i></li>
+<li><i><a href="http://en.wikipedia.org/wiki/Category:Search_algorithms" title="Category:Search algorithms">Search algorithms</a></i></li>
+<li><i><a href="http://en.wikipedia.org/wiki/List_of_algorithms#Graph_algorithms" title="List of algorithms">List of graph algorithms</a></i></li>
+</ul>
+</td>
+</tr>
+<tr>
+<th class="" style="padding:0.1em;;;">Related topics</th>
+</tr>
+<tr>
+<td class="" style="padding:0 0.1em 0.4em;;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Dynamic_programming" title="Dynamic programming">Dynamic programming</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Graph_traversal" title="Graph traversal">Graph traversal</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Tree_traversal" title="Tree traversal">Tree traversal</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Search_game" title="Search game">Search games</a></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-size:115%;">
+<div class="plainlinks hlist navbar mini" style="">
+<ul>
+<li class="nv-view"><a href="http://en.wikipedia.org/wiki/Template:Graph_search_algorithm" title="Template:Graph search algorithm"><span title="View this template" style="">v</span></a></li>
+<li class="nv-talk"><a href="http://en.wikipedia.org/wiki/Template_talk:Graph_search_algorithm" title="Template talk:Graph search algorithm"><span title="Discuss this template" style="">t</span></a></li>
+<li class="nv-edit"><a class="external text" href="http://en.wikipedia.org/w/index.php?title=Template:Graph_search_algorithm&action=edit"><span title="Edit this template" style="">e</span></a></li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+<p>The <b>Bellman–Ford algorithm</b> is an <a href="http://en.wikipedia.org/wiki/Algorithm" title="Algorithm">algorithm</a> that computes <a href="http://en.wikipedia.org/wiki/Shortest_path" title="Shortest path" class="mw-redirect">shortest paths</a> from a single source <a href="http://en.wikipedia.org/wiki/Vertex_(graph_theory)" title="Vertex (graph theory)">vertex</a> to all of the other vertices in a <a href="http://en.wikipedia.org/wiki/Weighted_digraph" title="Weighted digraph" class="mw-redirect">weighted digraph</a>.<sup id="cite_ref-Bang_1-0" class="reference"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_note-Bang-1"><span>[</span>1<span>]</span></a></sup> It is slower than <a href="http://en.wikipedia.org/wiki/Dijkstra%27s_algorithm" title="Dijkstra&#39;s algorithm">Dijkstra's algorithm</a> for the same problem, but more versatile, as it is capable of handling graphs in which some of the edge weights are negative numbers. The algorithm is usually named after two of its developers, <a href="http://en.wikipedia.org/wiki/Richard_Bellman" title="Richard Bellman" class="mw-redirect">Richard Bellman</a> and <a href="http://en.wikipedia.org/wiki/L._R._Ford,_Jr." title="L. R. Ford, Jr.">Lester Ford, Jr.</a>, who published it in 1958 and 1956, respectively; however, <a href="http://en.wikipedia.org/wiki/Edward_F._Moore" title="Edward F. Moore">Edward F. Moore</a> also published the same algorithm in 1957, and for this reason it is also sometimes called the <b>Bellman–Ford–Moore algorithm</b>.<sup id="cite_ref-Bang_1-1" class="reference"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_note-Bang-1"><span>[</span>1<span>]</span></a></sup></p>
+<p>Negative edge weights are found in various applications of graphs, hence the usefulness of this algorithm.<sup id="cite_ref-FOOTNOTESedgewick2002_2-0" class="reference"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_note-FOOTNOTESedgewick2002-2"><span>[</span>2<span>]</span></a></sup> If a graph contains a "negative cycle" (i.e. a <a href="http://en.wikipedia.org/wiki/Cycle_(graph_theory)" title="Cycle (graph theory)">cycle</a> whose edges sum to a negative value) that is reachable from the source, then there is no <i>cheapest</i> path: any path can be made cheaper by one more <a href="http://en.wikipedia.org/wiki/Walk_(graph_theory)" title="Walk (graph theory)" class="mw-redirect">walk</a> around the negative cycle. In such a case, the Bellman–Ford algorithm can detect negative cycles and report their existence. <sup id="cite_ref-FOOTNOTEKleinbergTardos2006_3-0" class="reference"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_note-FOOTNOTEKleinbergTardos2006-3"><span>[</span>3<span>]</span></a></sup><sup id="cite_ref-Bang_1-2" class="reference"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_note-Bang-1"><span>[</span>1<span>]</span></a></sup></p>
+<p></p>
+<div id="toc" class="toc">
+<div id="toctitle">
+<h2>Contents</h2>
+<span class="toctoggle">&nbsp;[<a href="http://en.wikipedia.org/wiki/Bellman_Ford#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#Algorithm"><span class="tocnumber">1</span> <span class="toctext">Algorithm</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#Proof_of_correctness"><span class="tocnumber">2</span> <span class="toctext">Proof of correctness</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#Finding_negative_cycles"><span class="tocnumber">3</span> <span class="toctext">Finding negative cycles</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#Applications_in_routing"><span class="tocnumber">4</span> <span class="toctext">Applications in routing</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#Improvements"><span class="tocnumber">5</span> <span class="toctext">Improvements</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#Notes"><span class="tocnumber">6</span> <span class="toctext">Notes</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#References"><span class="tocnumber">7</span> <span class="toctext">References</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#Original_sources"><span class="tocnumber">7.1</span> <span class="toctext">Original sources</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#Secondary_sources"><span class="tocnumber">7.2</span> <span class="toctext">Secondary sources</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#External_links"><span class="tocnumber">8</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+<p></p>
+<h2><span class="mw-headline" id="Algorithm">Algorithm</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&action=edit&section=1" title="Edit section: Algorithm">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="thumb tright">
+<div class="thumbinner" style="width:222px;"><a href="http://en.wikipedia.org/wiki/File:Bellman-Ford_worst-case_example.svg" class="image"><img alt="" src="./bellman ford_files/440px-Bellman-Ford_worst-case_example.svg.png" width="220" height="236" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/8/85/Bellman-Ford_worst-case_example.svg/330px-Bellman-Ford_worst-case_example.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/8/85/Bellman-Ford_worst-case_example.svg/440px-Bellman-Ford_worst-case_example.svg.png 2x"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/File:Bellman-Ford_worst-case_example.svg" class="internal" title="Enlarge"><img src="./bellman ford_files/magnify-clip.png" width="15" height="11" alt=""></a></div>
+In this example graph, assuming that A is the source and edges are processed in the worst order, from right to left, it requires the full |V|−1 or 4 iterations for the distance estimates to converge. Conversely, if the edges are processed in the best order, from left to right, the algorithm converges in a single iteration.</div>
+</div>
+</div>
+<p>Like <a href="http://en.wikipedia.org/wiki/Dijkstra%27s_Algorithm" title="Dijkstra&#39;s Algorithm" class="mw-redirect">Dijkstra's Algorithm</a>, Bellman–Ford is based on the principle of <a href="http://en.wikipedia.org/wiki/Relaxation_(approximation)" title="Relaxation (approximation)">relaxation</a>, in which an approximation to the correct distance is gradually replaced by more accurate values until eventually reaching the optimum solution. In both algorithms, the approximate distance to each vertex is always an overestimate of the true distance, and is replaced by the minimum of its old value with the length of a newly found path. However, Dijkstra's algorithm <a href="http://en.wikipedia.org/wiki/Greedy_algorithm" title="Greedy algorithm">greedily</a> selects the minimum-weight node that has not yet been processed, and performs this relaxation process on all of its outgoing edges; in contrast, the Bellman–Ford algorithm simply relaxes <i>all</i> the edges, and does this |<i>V</i> |&nbsp;−&nbsp;1 times, where |<i>V</i> | is the number of vertices in the graph. In each of these repetitions, the number of vertices with correctly calculated distances grows, from which it follows that eventually all vertices will have their correct distances. This method allows the Bellman–Ford algorithm to be applied to a wider class of inputs than Dijkstra.</p>
+<p>Bellman–Ford runs in <span class="texhtml"><a href="http://en.wikipedia.org/wiki/Big_O_notation" title="Big O notation">O</a>(| V | &nbsp;<span style="font-weight:bold;">·</span>  | E |)</span> time, where <span class="texhtml">| V |</span> and <span class="texhtml">| E |</span> are the number of vertices and edges respectively.</p>
+<pre><b>procedure</b> BellmanFord(<i>list</i> vertices, <i>list</i> edges, <i>vertex</i> source)
+   <i>// This implementation takes in a graph, represented as lists of vertices and edges,</i>
+   <i>// and fills two arrays (distance and predecessor) with shortest-path information</i>
+
+   <i>// Step 1: initialize graph</i>
+   <b>for each</b> vertex v <b>in</b> vertices:
+       <b>if</b> v <b>is</b> source <b>then</b> distance[v] := 0
+       <b>else</b> distance[v] := <b>infinity</b>
+       predecessor[v] := <b>null</b>
+
+   <i>// Step 2: relax edges repeatedly</i>
+   <b>for</b> i <b>from</b> 1 <b>to</b> size(vertices)-1:
+       <b>for each</b> edge (u, v) <b>with</b> weight w <b>in</b> edges:
+           <b>if</b> distance[u] + w &lt; distance[v]:
+               distance[v] := distance[u] + w
+               predecessor[v] := u
+
+   <i>// Step 3: check for negative-weight cycles</i>
+   <b>for each</b> edge (u, v) <b>with</b> weight w <b>in</b> edges:
+       <b>if</b> distance[u] + w &lt; distance[v]:
+           <b>error</b> "Graph contains a negative-weight cycle"
+</pre>
+<h2><span class="mw-headline" id="Proof_of_correctness">Proof of correctness</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&action=edit&section=2" title="Edit section: Proof of correctness">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>The correctness of the algorithm can be shown by <a href="http://en.wikipedia.org/wiki/Mathematical_induction" title="Mathematical induction">induction</a>. The precise statement shown by induction is:</p>
+<p><b>Lemma</b>. After <i>i</i> repetitions of <i>for</i> cycle:</p>
+<ul>
+<li>If Distance(<i>u</i>) is not infinity, it is equal to the length of some path from <i>s</i> to <i>u</i>;</li>
+<li>If there is a path from <i>s</i> to <i>u</i> with at most <i>i</i> edges, then Distance(u) is at most the length of the shortest path from <i>s</i> to <i>u</i> with at most <i>i</i> edges.</li>
+</ul>
+<p><b>Proof</b>. For the base case of induction, consider <code>i=0</code> and the moment before <i>for</i> cycle is executed for the first time. Then, for the source vertex, <code>source.distance = 0</code>, which is correct. For other vertices <i>u</i>, <code>u.distance = <b>infinity</b></code>, which is also correct because there is no path from <i>source</i> to <i>u</i> with 0 edges.</p>
+<p>For the inductive case, we first prove the first part. Consider a moment when a vertex's distance is updated by <code>v.distance&nbsp;:= u.distance + uv.weight</code>. By inductive assumption, <code>u.distance</code> is the length of some path from <i>source</i> to <i>u</i>. Then <code>u.distance + uv.weight</code> is the length of the path from <i>source</i> to <i>v</i> that follows the path from <i>source</i> to <i>u</i> and then goes to <i>v</i>.</p>
+<p>For the second part, consider the shortest path from <i>source</i> to <i>u</i> with at most <i>i</i> edges. Let <i>v</i> be the last vertex before <i>u</i> on this path. Then, the part of the path from <i>source</i> to <i>v</i> is the shortest path from <i>source</i> to <i>v</i> with at most <i>i-1</i> edges. By inductive assumption, <code>v.distance</code> after <i>i</i>−1 cycles is at most the length of this path. Therefore, <code>uv.weight + v.distance</code> is at most the length of the path from <i>s</i> to <i>u</i>. In the <i>i<sup>th</sup></i> cycle, <code>u.distance</code> gets compared with <code>uv.weight + v.distance</code>, and is set equal to it if <code>uv.weight + v.distance</code> was smaller. Therefore, after <i>i</i> cycles, <code>u.distance</code> is at most the length of the shortest path from <i>source</i> to <i>u</i> that uses at most <i>i</i> edges.</p>
+<p>If there are no negative-weight cycles, then every shortest path visits each vertex at most once, so at step 3 no further improvements can be made. Conversely, suppose no improvement can be made. Then for any cycle with vertices <i>v</i>[0], ..., <i>v</i>[<i>k</i>−1],</p>
+<p><code>v[i].distance &lt;= v[(i-1) mod k].distance + v[(i-1) mod k]v[i].weight</code></p>
+<p>Summing around the cycle, the <i>v</i>[<i>i</i>].distance terms and the <i>v</i>[<i>i</i>−1 (mod <i>k</i>)] distance terms cancel, leaving</p>
+<p><code>0 &lt;= sum from 1 to k of v[i-1 (mod k)]v[i].weight</code></p>
+<p>I.e., every cycle has nonnegative weight.</p>
+<h2><span class="mw-headline" id="Finding_negative_cycles">Finding negative cycles</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&action=edit&section=3" title="Edit section: Finding negative cycles">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>When the algorithm is used to find shortest paths, the existence of negative cycles is a problem, preventing the algorithm from finding a correct answer. However, since it terminates upon finding a negative cycle, the Bellman–Ford algorithm can be used for applications in which this is the target to be sought - for example in <a href="http://en.wikipedia.org/w/index.php?title=Cycle-cancelling&action=edit&redlink=1" class="new" title="Cycle-cancelling (page does not exist)">cycle-cancelling</a> techniques in <a href="http://en.wikipedia.org/wiki/Flow_network" title="Flow network">network flow</a> analysis.<sup id="cite_ref-Bang_1-3" class="reference"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_note-Bang-1"><span>[</span>1<span>]</span></a></sup></p>
+<h2><span class="mw-headline" id="Applications_in_routing">Applications in routing</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&action=edit&section=4" title="Edit section: Applications in routing">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>A distributed variant of the Bellman–Ford algorithm is used in <a href="http://en.wikipedia.org/wiki/Distance-vector_routing_protocol" title="Distance-vector routing protocol">distance-vector routing protocols</a>, for example the <a href="http://en.wikipedia.org/wiki/Routing_Information_Protocol" title="Routing Information Protocol">Routing Information Protocol</a> (RIP). The algorithm is distributed because it involves a number of nodes (routers) within an <a href="http://en.wikipedia.org/wiki/Autonomous_system_(Internet)" title="Autonomous system (Internet)" class="mw-redirect">Autonomous system</a>, a collection of IP networks typically owned by an ISP. It consists of the following steps:</p>
+<ol>
+<li>Each node calculates the distances between itself and all other nodes within the AS and stores this information as a table.</li>
+<li>Each node sends its table to all neighboring nodes.</li>
+<li>When a node receives distance tables from its neighbors, it calculates the shortest routes to all other nodes and updates its own table to reflect any changes.</li>
+</ol>
+<p>The main disadvantages of the Bellman–Ford algorithm in this setting are as follows:</p>
+<ul>
+<li>It does not scale well.</li>
+<li>Changes in <a href="http://en.wikipedia.org/wiki/Network_topology" title="Network topology">network topology</a> are not reflected quickly since updates are spread node-by-node.</li>
+<li><a href="http://en.wikipedia.org/wiki/Count_to_infinity#Count-to-infinity_problem" title="Count to infinity" class="mw-redirect">Count to infinity</a> (if link or node failures render a node unreachable from some set of other nodes, those nodes may spend forever gradually increasing their estimates of the distance to it, and in the meantime there may be routing loops).</li>
+</ul>
+<h2><span class="mw-headline" id="Improvements">Improvements</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&action=edit&section=5" title="Edit section: Improvements">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>The Bellman–Ford algorithm may be improved in practice (although not in the worst case) by the observation that, if an iteration of the main loop of the algorithm terminates without making any changes, the algorithm can be immediately terminated, as subsequent iterations will not make any more changes. With this early termination condition, the main loop may in some cases use many fewer than |<i>V</i>|&nbsp;−&nbsp;1 iterations, even though the worst case of the algorithm remains unchanged.</p>
+<p><a href="http://en.wikipedia.org/wiki/Bellman_Ford#CITEREFYen1970">Yen (1970</a>) described two more improvements to the Bellman–Ford algorithm for a graph without negative-weight cycles; again, while making the algorithm faster in practice, they do not change its O(|V|*|E|) worst case time bound. His first improvement reduces the number of relaxation steps that need to be performed within each iteration of the algorithm. If a vertex <i>v</i> has a distance value that has not changed since the last time the edges out of <i>v</i> were relaxed, then there is no need to relax the edges out of <i>v</i> a second time. In this way, as the number of vertices with correct distance values grows, the number whose outgoing edges need to be relaxed in each iteration shrinks, leading to a constant-factor savings in time for <a href="http://en.wikipedia.org/wiki/Dense_graph" title="Dense graph">dense graphs</a>.</p>
+<p>Yen's second improvement first assigns some arbitrary linear order on all vertices and then partitions the set of all edges into two subsets. The first subset, <i>E<sub>f</sub></i>, contains all edges (<i>v<sub>i</sub></i>, <i>v<sub>j</sub></i>) such that <i>i</i> &lt; <i>j</i>; the second, <i>E<sub>b</sub></i>, contains edges (<i>v<sub>i</sub></i>, <i>v<sub>j</sub></i>) such that <i>i</i> &gt; <i>j</i>. Each vertex is visited in the order <i>v<sub>1</sub></i>, <i>v<sub>2</sub></i>, ..., <i>v</i><sub>|<i>V</i>|</sub>, relaxing each outgoing edge from that vertex in <i>E<sub>f</sub></i>. Each vertex is then visited in the order <i>v</i><sub>|<i>V</i>|</sub>, <i>v</i><sub>|<i>V</i>|−1</sub>, ..., <i>v</i><sub>1</sub>, relaxing each outgoing edge from that vertex in <i>E<sub>b</sub></i>. Each iteration of the main loop of the algorithm, after the first one, adds at least two edges to the set of edges whose relaxed distances match the correct shortest path distances: one from <i>E<sub>f</sub></i> and one from <i>E<sub>b</sub></i>. This modification reduces the worst-case number of iterations of the main loop of the algorithm from |<i>V</i>|&nbsp;−&nbsp;1 to |<i>V</i>|/2.<sup id="cite_ref-4" class="reference"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_note-4"><span>[</span>4<span>]</span></a></sup><sup id="cite_ref-Sedweb_5-0" class="reference"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_note-Sedweb-5"><span>[</span>5<span>]</span></a></sup></p>
+<p>Another improvement, by <a href="http://en.wikipedia.org/wiki/Bellman_Ford#CITEREFBannisterEppstein2012">Bannister &amp; Eppstein (2012</a>), replaces the arbitrary linear order of the vertices used in Yen's second improvement by a <a href="http://en.wikipedia.org/wiki/Random_permutation" title="Random permutation">random permutation</a>. This change makes the worst case for Yen's improvement (in which the edges of a shortest path strictly alternate between the two subsets <i>E<sub>f</sub></i> and <i>E<sub>b</sub></i>) very unlikely to happen. With a randomly permuted vertex ordering, the <a href="http://en.wikipedia.org/wiki/Expected_value" title="Expected value">expected</a> number of iterations needed in the main loop is at most |<i>V</i>|/3.<sup id="cite_ref-Sedweb_5-1" class="reference"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_note-Sedweb-5"><span>[</span>5<span>]</span></a></sup></p>
+<h2><span class="mw-headline" id="Notes">Notes</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&action=edit&section=6" title="Edit section: Notes">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="reflist" style="list-style-type: decimal;">
+<ol class="references">
+<li id="cite_note-Bang-1"><span class="mw-cite-backlink">^ <a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_ref-Bang_1-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_ref-Bang_1-1"><sup><i><b>b</b></i></sup></a> <a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_ref-Bang_1-2"><sup><i><b>c</b></i></sup></a> <a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_ref-Bang_1-3"><sup><i><b>d</b></i></sup></a></span> <span class="reference-text"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#CITEREFBang-JensenGutin2000">Bang-Jensen &amp; Gutin (2000</a>)</span></li>
+<li id="cite_note-FOOTNOTESedgewick2002-2"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_ref-FOOTNOTESedgewick2002_2-0"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#CITEREFSedgewick2002">Sedgewick (2002)</a>.</span></li>
+<li id="cite_note-FOOTNOTEKleinbergTardos2006-3"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_ref-FOOTNOTEKleinbergTardos2006_3-0"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#CITEREFKleinbergTardos2006">Kleinberg &amp; Tardos (2006)</a>.</span></li>
+<li id="cite_note-4"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_ref-4"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text">Cormen et al., 2nd ed., Problem 24-1, pp. 614–615.</span></li>
+<li id="cite_note-Sedweb-5"><span class="mw-cite-backlink">^ <a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_ref-Sedweb_5-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="http://en.wikipedia.org/wiki/Bellman_Ford#cite_ref-Sedweb_5-1"><sup><i><b>b</b></i></sup></a></span> <span class="reference-text">See Sedgewick's <a rel="nofollow" class="external text" href="http://algs4.cs.princeton.edu/44sp/">web exercises</a> for <i>Algorithms</i>, 4th ed., exercises 5 and 11 (retrieved 2013-01-30).</span></li>
+</ol>
+</div>
+<h2><span class="mw-headline" id="References">References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&action=edit&section=7" title="Edit section: References">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<h3><span class="mw-headline" id="Original_sources">Original sources</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&action=edit&section=8" title="Edit section: Original sources">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<ul>
+<li><span id="CITEREFBellman1958" class="citation journal"><a href="http://en.wikipedia.org/wiki/Richard_Bellman" title="Richard Bellman" class="mw-redirect">Bellman, Richard</a> (1958). "On a routing problem". <i>Quarterly of Applied Mathematics</i> <b>16</b>: 87–90. <a href="http://en.wikipedia.org/wiki/Mathematical_Reviews" title="Mathematical Reviews">MR</a>&nbsp;<a rel="nofollow" class="external text" href="http://www.ams.org/mathscinet-getitem?mr=0102435">0102435</a>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ABellman%E2%80%93Ford+algorithm&amp;rft.atitle=On+a+routing+problem&amp;rft.au=Bellman%2C+Richard&amp;rft.aufirst=Richard&amp;rft.aulast=Bellman&amp;rft.date=1958&amp;rft.genre=article&amp;rft.jtitle=Quarterly+of+Applied+Mathematics&amp;rft.mr=0102435&amp;rft.pages=87%E2%80%9390&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=16" class="Z3988"><span style="display:none;">&nbsp;</span></span></li>
+<li><span class="citation book"><a href="http://en.wikipedia.org/wiki/L._R._Ford,_Jr." title="L. R. Ford, Jr.">Ford Jr., Lester R.</a> (August 14, 1956). <a rel="nofollow" class="external text" href="http://www.rand.org/pubs/papers/P923.html"><i>Network Flow Theory</i></a>. Paper P-923. Santa Monica, California: RAND Corporation.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ABellman%E2%80%93Ford+algorithm&amp;rft.aufirst=Lester+R.&amp;rft.au=Ford+Jr.%2C+Lester+R.&amp;rft.aulast=Ford+Jr.&amp;rft.btitle=Network+Flow+Theory&amp;rft.date=August+14%2C+1956&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fwww.rand.org%2Fpubs%2Fpapers%2FP923.html&amp;rft.place=Santa+Monica%2C+California&amp;rft.pub=RAND+Corporation&amp;rft.series=Paper+P-923&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></li>
+<li><span id="CITEREFMoore1959" class="citation conference"><a href="http://en.wikipedia.org/wiki/Edward_F._Moore" title="Edward F. Moore">Moore, Edward F.</a> (1959). "The shortest path through a maze". <i>Proc. Internat. Sympos. Switching Theory 1957, Part II</i>. Cambridge, Mass.: Harvard Univ. Press. pp.&nbsp;285–292. <a href="http://en.wikipedia.org/wiki/Mathematical_Reviews" title="Mathematical Reviews">MR</a>&nbsp;<a rel="nofollow" class="external text" href="http://www.ams.org/mathscinet-getitem?mr=0114710">0114710</a>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ABellman%E2%80%93Ford+algorithm&amp;rft.atitle=Proc.+Internat.+Sympos.+Switching+Theory+1957%2C+Part+II&amp;rft.aufirst=Edward+F.&amp;rft.aulast=Moore&amp;rft.au=Moore%2C+Edward+F.&amp;rft.btitle=The+shortest+path+through+a+maze&amp;rft.date=1959&amp;rft.genre=bookitem&amp;rft.mr=0114710&amp;rft.pages=285%E2%80%93292&amp;rft.place=Cambridge%2C+Mass.&amp;rft.pub=Harvard+Univ.+Press&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></li>
+<li><span id="CITEREFYen1970" class="citation journal">Yen, Jin Y. (1970). "An algorithm for finding shortest routes from all source nodes to a given destination in general networks". <i>Quarterly of Applied Mathematics</i> <b>27</b>: 526–530. <a href="http://en.wikipedia.org/wiki/Mathematical_Reviews" title="Mathematical Reviews">MR</a>&nbsp;<a rel="nofollow" class="external text" href="http://www.ams.org/mathscinet-getitem?mr=0253822">0253822</a>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ABellman%E2%80%93Ford+algorithm&amp;rft.atitle=An+algorithm+for+finding+shortest+routes+from+all+source+nodes+to+a+given+destination+in+general+networks&amp;rft.aufirst=Jin+Y.&amp;rft.aulast=Yen&amp;rft.au=Yen%2C+Jin+Y.&amp;rft.date=1970&amp;rft.genre=article&amp;rft.jtitle=Quarterly+of+Applied+Mathematics&amp;rft.mr=0253822&amp;rft.pages=526%E2%80%93530&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=27" class="Z3988"><span style="display:none;">&nbsp;</span></span></li>
+<li><span id="CITEREFBannisterEppstein2012" class="citation conference">Bannister, M. J.; <a href="http://en.wikipedia.org/wiki/David_Eppstein" title="David Eppstein">Eppstein, D.</a> (2012). <a rel="nofollow" class="external text" href="http://siam.omnibooksonline.com/2012ANALCO/data/papers/005.pdf">"Randomized speedup of the Bellman–Ford algorithm"</a>. <i>Analytic Algorithmics and Combinatorics (ANALCO12), Kyoto, Japan</i>. pp.&nbsp;41–47. <a href="http://en.wikipedia.org/wiki/ArXiv" title="ArXiv">arXiv</a>:<a rel="nofollow" class="external text" href="http://arxiv.org/abs/1111.5414">1111.5414</a>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ABellman%E2%80%93Ford+algorithm&amp;rft.atitle=Analytic+Algorithmics+and+Combinatorics+%28ANALCO12%29%2C+Kyoto%2C+Japan&amp;rft.au=Bannister%2C+M.+J.&amp;rft.au=Eppstein%2C+D.&amp;rft.aufirst=M.+J.&amp;rft.aulast=Bannister&amp;rft.btitle=Randomized+speedup+of+the+Bellman%E2%80%93Ford+algorithm&amp;rft.date=2012&amp;rft.genre=bookitem&amp;rft_id=http%3A%2F%2Fsiam.omnibooksonline.com%2F2012ANALCO%2Fdata%2Fpapers%2F005.pdf&amp;rft_id=info%3Aarxiv%2F1111.5414&amp;rft.pages=41%E2%80%9347&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></li>
+</ul>
+<h3><span class="mw-headline" id="Secondary_sources">Secondary sources</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&action=edit&section=9" title="Edit section: Secondary sources">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<ul>
+<li><span id="CITEREFBang-JensenGutin2000" class="citation book">Bang-Jensen, Jørgen; Gutin, Gregory (2000). <a rel="nofollow" class="external text" href="http://www.cs.rhul.ac.uk/books/dbook/">"Section 2.3.4: The Bellman-Ford-Moore algorithm"</a>. <i>Digraphs: Theory, Algorithms and Applications</i> (First ed.). <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/978-1-84800-997-4" title="Special:BookSources/978-1-84800-997-4">978-1-84800-997-4</a>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ABellman%E2%80%93Ford+algorithm&amp;rft.atitle=Digraphs%3A+Theory%2C+Algorithms+and+Applications&amp;rft.au=Bang-Jensen%2C+J%C3%B8rgen&amp;rft.aufirst=J%C3%B8rgen&amp;rft.au=Gutin%2C+Gregory&amp;rft.aulast=Bang-Jensen&amp;rft.btitle=Section+2.3.4%3A+The+Bellman-Ford-Moore+algorithm&amp;rft.date=2000&amp;rft.edition=First&amp;rft.genre=bookitem&amp;rft_id=http%3A%2F%2Fwww.cs.rhul.ac.uk%2Fbooks%2Fdbook%2F&amp;rft.isbn=978-1-84800-997-4&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></li>
+<li><span class="citation book"><a href="http://en.wikipedia.org/wiki/Thomas_H._Cormen" title="Thomas H. Cormen">Cormen, Thomas H.</a>; <a href="http://en.wikipedia.org/wiki/Charles_E._Leiserson" title="Charles E. Leiserson">Leiserson, Charles E.</a>, <a href="http://en.wikipedia.org/wiki/Ron_Rivest" title="Ron Rivest">Rivest, Ronald L.</a>. <i><a href="http://en.wikipedia.org/wiki/Introduction_to_Algorithms" title="Introduction to Algorithms">Introduction to Algorithms</a></i>. MIT Press and McGraw-Hill.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ABellman%E2%80%93Ford+algorithm&amp;rft.au=Cormen%2C+Thomas+H.&amp;rft.aufirst=Thomas+H.&amp;rft.aulast=Cormen&amp;rft.au=Leiserson%2C+Charles+E.%2C+Rivest%2C+Ronald+L.&amp;rft.btitle=Introduction+to+Algorithms&amp;rft.genre=book&amp;rft.pub=MIT+Press+and+McGraw-Hill&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span>, Second Edition. MIT Press and McGraw-Hill, 2001. <a href="http://en.wikipedia.org/wiki/Special:BookSources/0262032937" class="internal mw-magiclink-isbn">ISBN 0-262-03293-7</a>. Section 24.1: The Bellman–Ford algorithm, pp.&nbsp;588–592. Problem 24-1, pp.&nbsp;614–615. Third Edition. MIT Press, 2009. <a href="http://en.wikipedia.org/wiki/Special:BookSources/9780262533058" class="internal mw-magiclink-isbn">ISBN 978-0-262-53305-8</a>. Section 24.1: The Bellman–Ford algorithm, pp.&nbsp;651–655.</li>
+<li><span id="CITEREFHeinemanPolliceSelkow2008" class="citation book">Heineman, George T.; Pollice, Gary; Selkow, Stanley (2008). "Chapter 6: Graph Algorithms". <i>Algorithms in a Nutshell</i>. <a href="http://en.wikipedia.org/wiki/O%27Reilly_Media" title="O&#39;Reilly Media">O'Reilly Media</a>. pp.&nbsp;160–164. <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/978-0-596-51624-6" title="Special:BookSources/978-0-596-51624-6">978-0-596-51624-6</a>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ABellman%E2%80%93Ford+algorithm&amp;rft.atitle=Algorithms+in+a+Nutshell&amp;rft.aufirst=George+T.&amp;rft.au=Heineman%2C+George+T.&amp;rft.aulast=Heineman&amp;rft.au=Pollice%2C+Gary&amp;rft.au=Selkow%2C+Stanley&amp;rft.btitle=Chapter+6%3A+Graph+Algorithms&amp;rft.date=2008&amp;rft.genre=bookitem&amp;rft.isbn=978-0-596-51624-6&amp;rft.pages=160%E2%80%93164&amp;rft.pub=O%27Reilly+Media&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></li>
+<li><span id="CITEREFKleinbergTardos2006" class="citation book"><a href="http://en.wikipedia.org/wiki/Jon_Kleinberg" title="Jon Kleinberg">Kleinberg, Jon</a>; <a href="http://en.wikipedia.org/wiki/%C3%89va_Tardos" title="Éva Tardos">Tardos, Éva</a> (2006). <i>Algorithm Design</i>. New York: Pearson Education, Inc.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ABellman%E2%80%93Ford+algorithm&amp;rft.aufirst=Jon&amp;rft.au=Kleinberg%2C+Jon&amp;rft.aulast=Kleinberg&amp;rft.au=Tardos%2C+%C3%89va&amp;rft.btitle=Algorithm+Design&amp;rft.date=2006&amp;rft.genre=book&amp;rft.place=New+York&amp;rft.pub=Pearson+Education%2C+Inc.&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></li>
+<li><span id="CITEREFSedgewick2002" class="citation book"><a href="http://en.wikipedia.org/wiki/Robert_Sedgewick_(computer_scientist)" title="Robert Sedgewick (computer scientist)">Sedgewick, Robert</a> (2002). <a rel="nofollow" class="external text" href="http://safari.oreilly.com/0201361213/ch21lev1sec7">"Section 21.7: Negative Edge Weights"</a>. <i>Algorithms in Java</i> (3rd ed.). <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/0-201-36121-3" title="Special:BookSources/0-201-36121-3">0-201-36121-3</a>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ABellman%E2%80%93Ford+algorithm&amp;rft.atitle=Algorithms+in+Java&amp;rft.aufirst=Robert&amp;rft.aulast=Sedgewick&amp;rft.au=Sedgewick%2C+Robert&amp;rft.btitle=Section+21.7%3A+Negative+Edge+Weights&amp;rft.date=2002&amp;rft.edition=3rd&amp;rft.genre=bookitem&amp;rft_id=http%3A%2F%2Fsafari.oreilly.com%2F0201361213%2Fch21lev1sec7&amp;rft.isbn=0-201-36121-3&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></li>
+</ul>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&action=edit&section=10" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://github.com/xtaci/algorithms/blob/master/include/bellman_ford.h">C++ code example</a></li>
+<li><a rel="nofollow" class="external text" href="http://code.google.com/p/annas/">Open Source Java Graph package with Bellman-Ford Algorithms</a></li>
+</ul>
+
+
+<!-- 
+NewPP limit report
+Parsed by mw1219
+CPU time usage: 0.524 seconds
+Real time usage: 0.582 seconds
+Preprocessor visited node count: 1384/1000000
+Preprocessor generated node count: 9437/1500000
+Post‐expand include size: 29498/2048000 bytes
+Template argument size: 3331/2048000 bytes
+Highest expansion depth: 12/40
+Expensive parser function count: 0/500
+Lua time usage: 0.055s
+Lua memory usage: 2.11 MB
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:221244-0!0!0!!en!4!* and timestamp 20140117055059
+ -->
+<noscript>&lt;img src="//en.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /&gt;</noscript></div>								<div class="printfooter">
+				Retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&oldid=586534227">http://en.wikipedia.org/w/index.php?title=Bellman–Ford_algorithm&amp;oldid=586534227</a>"				</div>
+												<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/Help:Category" title="Help:Category">Categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/Category:Graph_algorithms" title="Category:Graph algorithms">Graph algorithms</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Polynomial-time_problems" title="Category:Polynomial-time problems">Polynomial-time problems</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Dynamic_programming" title="Category:Dynamic programming">Dynamic programming</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/Category:Articles_with_example_C_code" title="Category:Articles with example C code">Articles with example C code</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Articles_with_example_pseudocode" title="Category:Articles with example pseudocode">Articles with example pseudocode</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&returnto=Bellman%E2%80%93Ford+algorithm&type=signup">Create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&returnto=Bellman%E2%80%93Ford+algorithm" title="You&#39;re encouraged to log in; however, it&#39;s not mandatory. [ctrl-option-o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><span><a href="http://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm" title="View the content page [ctrl-option-c]" accesskey="c">Article</a></span></li>
+					<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/Talk:Bellman%E2%80%93Ford_algorithm" title="Discussion about the content page [ctrl-option-t]" accesskey="t">Talk</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label" tabindex="0"><span>Variants</span><a href="http://en.wikipedia.org/wiki/Bellman_Ford#" tabindex="-1"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="http://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm">Read</a></span></li>
+					<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&action=edit" title="You can edit this page. 
+Please review your changes before saving. [ctrl-option-e]" accesskey="e">Edit</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&action=history" title="Past versions of this page [ctrl-option-h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label" tabindex="0"><span>Actions</span><a href="http://en.wikipedia.org/wiki/Bellman_Ford#" tabindex="-1"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="http://en.wikipedia.org/w/index.php" id="searchform">
+				<div id="simpleSearch">
+						<input name="search" placeholder="Search" title="Search Wikipedia [ctrl-option-f]" accesskey="f" id="searchInput" tabindex="1" autocomplete="off">						<button type="submit" name="button" title="Search Wikipedia for this text" id="searchButton"><img src="./bellman ford_files/search-ltr.png" alt="Search" width="12" height="13"></button>								<input type="hidden" name="title" value="Special:Search">
+		</div>
+	</form>
+</div>
+				</div>
+			</div>
+			<div id="mw-panel" class="collapsible-nav">
+					<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png);" href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page"></a></div>
+				<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label">
+	<h3 id="p-navigation-label">Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page [ctrl-option-z]" accesskey="z">Main page</a></li>
+			<li id="n-contents"><a href="http://en.wikipedia.org/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li>
+			<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li>
+			<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li>
+			<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/Special:Random" title="Load a random article [ctrl-option-x]" accesskey="x">Random article</a></li>
+			<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&utm_medium=sidebar&utm_campaign=C13_en.wikipedia.org&uselang=en" title="Support us">Donate to Wikipedia</a></li>
+			<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="Visit the Wikimedia Shop">Wikimedia Shop</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label">
+	<h3 id="p-interaction-label" tabindex="2"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#" aria-haspopup="true" aria-controls="p-interaction-list" role="button" aria-pressed="true" aria-expanded="true">Interaction</a></h3>
+	<div class="body" style="display: block;">
+		<ul id="p-interaction-list">
+			<li id="n-help"><a href="http://en.wikipedia.org/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li>
+			<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li>
+			<li id="n-portal"><a href="http://en.wikipedia.org/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+			<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [ctrl-option-r]" accesskey="r">Recent changes</a></li>
+			<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+	<h3 id="p-tb-label" tabindex="3"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#" aria-haspopup="true" aria-controls="p-tb-list" role="button" aria-pressed="false" aria-expanded="false">Tools</a></h3>
+	<div class="body">
+		<ul id="p-tb-list">
+			<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/Special:WhatLinksHere/Bellman%E2%80%93Ford_algorithm" title="List of all English Wikipedia pages containing links to this page [ctrl-option-j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/Special:RecentChangesLinked/Bellman%E2%80%93Ford_algorithm" title="Recent changes in pages linked from this page [ctrl-option-k]" accesskey="k">Related changes</a></li>
+			<li id="t-upload"><a href="http://en.wikipedia.org/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [ctrl-option-u]" accesskey="u">Upload file</a></li>
+			<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/Special:SpecialPages" title="A list of all special pages [ctrl-option-q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&oldid=586534227" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&action=info">Page information</a></li>
+			<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/Q816022" title="Link to connected data repository item [ctrl-option-g]" accesskey="g">Data item</a></li>
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=Special:Cite&page=Bellman%E2%80%93Ford_algorithm&id=586534227" title="Information on how to cite this page">Cite this page</a></li>		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label">
+	<h3 id="p-coll-print_export-label" tabindex="4"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#" aria-haspopup="true" aria-controls="p-coll-print_export-list" role="button" aria-pressed="false" aria-expanded="false">Print/export</a></h3>
+	<div class="body">
+		<ul id="p-coll-print_export-list">
+			<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&bookcmd=book_creator&referer=Bellman%E2%80%93Ford+algorithm">Create a book</a></li>
+			<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&bookcmd=render_article&arttitle=Bellman%E2%80%93Ford+algorithm&oldid=586534227&writer=rl">Download as PDF</a></li>
+			<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=Bellman%E2%80%93Ford_algorithm&printable=yes" title="Printable version of this page [ctrl-option-p]" accesskey="p">Printable version</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label">
+	<h3 id="p-lang-label" tabindex="5"><a href="http://en.wikipedia.org/wiki/Bellman_Ford#" aria-haspopup="true" aria-controls="p-lang-list" role="button" aria-pressed="true" aria-expanded="true">Languages</a></h3>
+	<div class="body" style="display: block;">
+		<ul id="p-lang-list">
+			<li class="interlanguage-link interwiki-ar"><a href="http://ar.wikipedia.org/wiki/%D8%AE%D9%88%D8%A7%D8%B1%D8%B2%D9%85%D9%8A%D8%A9_%D8%A8%D9%84%D9%85%D8%A7%D9%86-%D9%81%D9%88%D8%B1%D8%AF" title="خوارزمية بلمان-فورد – Arabic" lang="ar" hreflang="ar">العربية</a></li>
+			<li class="interlanguage-link interwiki-ca"><a href="http://ca.wikipedia.org/wiki/Algorisme_de_Bellman-Ford" title="Algorisme de Bellman-Ford – Catalan" lang="ca" hreflang="ca">Català</a></li>
+			<li class="interlanguage-link interwiki-cs"><a href="http://cs.wikipedia.org/wiki/Bellman%C5%AFv-Ford%C5%AFv_algoritmus" title="Bellmanův-Fordův algoritmus – Czech" lang="cs" hreflang="cs">Čeština</a></li>
+			<li class="interlanguage-link interwiki-de"><a href="http://de.wikipedia.org/wiki/Bellman-Ford-Algorithmus" title="Bellman-Ford-Algorithmus – German" lang="de" hreflang="de">Deutsch</a></li>
+			<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/Algoritmo_de_Bellman-Ford" title="Algoritmo de Bellman-Ford – Spanish" lang="es" hreflang="es">Español</a></li>
+			<li class="interlanguage-link interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%D8%A7%D9%84%DA%AF%D9%88%D8%B1%DB%8C%D8%AA%D9%85_%D8%A8%D9%84%D9%85%D9%86%E2%80%93%D9%81%D9%88%D8%B1%D8%AF" title="الگوریتم بلمن–فورد – Persian" lang="fa" hreflang="fa">فارسی</a></li>
+			<li class="interlanguage-link interwiki-fr"><a href="http://fr.wikipedia.org/wiki/Algorithme_de_Bellman-Ford" title="Algorithme de Bellman-Ford – French" lang="fr" hreflang="fr">Français</a></li>
+			<li class="interlanguage-link interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%EB%B2%A8%EB%A8%BC-%ED%8F%AC%EB%93%9C_%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98" title="벨먼-포드 알고리즘 – Korean" lang="ko" hreflang="ko">한국어</a></li>
+			<li class="interlanguage-link interwiki-hy"><a href="http://hy.wikipedia.org/wiki/%D4%B2%D5%A5%D5%AC%D5%AC%D5%A1%D5%B4%D5%A1%D5%B6_-_%D5%96%D5%B8%D6%80%D5%A4%D5%AB_%D5%A1%D5%AC%D5%A3%D5%B8%D6%80%D5%AB%D5%A9%D5%B4" title="Բելլաման - Ֆորդի ալգորիթմ – Armenian" lang="hy" hreflang="hy">Հայերեն</a></li>
+			<li class="interlanguage-link interwiki-id"><a href="http://id.wikipedia.org/wiki/Algoritma_Bellman-Ford" title="Algoritma Bellman-Ford – Indonesian" lang="id" hreflang="id">Bahasa Indonesia</a></li>
+			<li class="interlanguage-link interwiki-it"><a href="http://it.wikipedia.org/wiki/Algoritmo_di_Bellman-Ford" title="Algoritmo di Bellman-Ford – Italian" lang="it" hreflang="it">Italiano</a></li>
+			<li class="interlanguage-link interwiki-he"><a href="http://he.wikipedia.org/wiki/%D7%90%D7%9C%D7%92%D7%95%D7%A8%D7%99%D7%AA%D7%9D_%D7%91%D7%9C%D7%9E%D7%9F-%D7%A4%D7%95%D7%A8%D7%93" title="אלגוריתם בלמן-פורד – Hebrew" lang="he" hreflang="he">עברית</a></li>
+			<li class="interlanguage-link interwiki-ka"><a href="http://ka.wikipedia.org/wiki/%E1%83%91%E1%83%94%E1%83%9A%E1%83%9B%E1%83%90%E1%83%9C-%E1%83%A4%E1%83%9D%E1%83%A0%E1%83%93%E1%83%98%E1%83%A1_%E1%83%90%E1%83%9A%E1%83%92%E1%83%9D%E1%83%A0%E1%83%98%E1%83%97%E1%83%9B%E1%83%98" title="ბელმან-ფორდის ალგორითმი – Georgian" lang="ka" hreflang="ka">ქართული</a></li>
+			<li class="interlanguage-link interwiki-lv"><a href="http://lv.wikipedia.org/wiki/Belmana%E2%80%94Forda_algoritms" title="Belmana—Forda algoritms – Latvian" lang="lv" hreflang="lv">Latviešu</a></li>
+			<li class="interlanguage-link interwiki-nl"><a href="http://nl.wikipedia.org/wiki/Algoritme_van_Bellman-Ford" title="Algoritme van Bellman-Ford – Dutch" lang="nl" hreflang="nl">Nederlands</a></li>
+			<li class="interlanguage-link interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%E3%83%99%E3%83%AB%E3%83%9E%E3%83%B3-%E3%83%95%E3%82%A9%E3%83%BC%E3%83%89%E6%B3%95" title="ベルマン-フォード法 – Japanese" lang="ja" hreflang="ja">日本語</a></li>
+			<li class="interlanguage-link interwiki-pl"><a href="http://pl.wikipedia.org/wiki/Algorytm_Bellmana-Forda" title="Algorytm Bellmana-Forda – Polish" lang="pl" hreflang="pl">Polski</a></li>
+			<li class="interlanguage-link interwiki-pt"><a href="http://pt.wikipedia.org/wiki/Algoritmo_de_Bellman-Ford" title="Algoritmo de Bellman-Ford – Portuguese" lang="pt" hreflang="pt">Português</a></li>
+			<li class="interlanguage-link interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%91%D0%B5%D0%BB%D0%BB%D0%BC%D0%B0%D0%BD%D0%B0_%E2%80%94_%D0%A4%D0%BE%D1%80%D0%B4%D0%B0" title="Алгоритм Беллмана — Форда – Russian" lang="ru" hreflang="ru">Русский</a></li>
+			<li class="interlanguage-link interwiki-sr"><a href="http://sr.wikipedia.org/wiki/%D0%91%D0%B5%D0%BB%D0%BC%D0%B0%D0%BD-%D0%A4%D0%BE%D1%80%D0%B4%D0%BE%D0%B2_%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%B0%D0%BC" title="Белман-Фордов алгоритам – Serbian" lang="sr" hreflang="sr">Српски / srpski</a></li>
+			<li class="interlanguage-link interwiki-th"><a href="http://th.wikipedia.org/wiki/%E0%B8%82%E0%B8%B1%E0%B9%89%E0%B8%99%E0%B8%95%E0%B8%AD%E0%B8%99%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B9%80%E0%B8%9A%E0%B8%A5%E0%B9%81%E0%B8%A1%E0%B8%99-%E0%B8%9F%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%94" title="ขั้นตอนวิธีของเบลแมน-ฟอร์ด – Thai" lang="th" hreflang="th">ไทย</a></li>
+			<li class="interlanguage-link interwiki-uk"><a href="http://uk.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%91%D0%B5%D0%BB%D0%BB%D0%BC%D0%B0%D0%BD%D0%B0%E2%80%94%D0%A4%D0%BE%D1%80%D0%B4%D0%B0" title="Алгоритм Беллмана—Форда – Ukrainian" lang="uk" hreflang="uk">Українська</a></li>
+			<li class="interlanguage-link interwiki-vi"><a href="http://vi.wikipedia.org/wiki/Thu%E1%BA%ADt_to%C3%A1n_Bellman-Ford" title="Thuật toán Bellman-Ford – Vietnamese" lang="vi" hreflang="vi">Tiếng Việt</a></li>
+			<li class="interlanguage-link interwiki-zh"><a href="http://zh.wikipedia.org/wiki/%E8%B4%9D%E5%B0%94%E6%9B%BC-%E7%A6%8F%E7%89%B9%E7%AE%97%E6%B3%95" title="贝尔曼-福特算法 – Chinese" lang="zh" hreflang="zh">中文</a></li>
+			<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/Q816022#sitelinks-wikipedia" title="Edit interlanguage links">Edit links</a></li>
+		</ul>
+	</div>
+</div>
+			</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 17 December 2013 at 19:25.<br></li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+additional terms may apply.  By using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="http://wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy.</a> <br>
+Wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/Privacy_policy" title="wikimedia:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+											<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+											<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://wikimediafoundation.org/"><img src="./bellman ford_files/wikimedia-button.png" width="88" height="31" alt="Wikimedia Foundation"></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="./bellman ford_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.gadget.DRN-wizard","ext.gadget.charinsert","mw.MwEmbedSupport.style","ext.articleFeedbackv5.startup","ext.wikimediaShopLink.core","ext.navigationTiming","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="./bellman ford_files/load(2).php"></script>
+<!-- Served by mw1063 in 0.292 secs. -->
+	
+
+<div class="suggestions" style="display: none; font-size: 12.800000190734863px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html>

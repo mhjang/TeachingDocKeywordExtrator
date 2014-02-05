@@ -1,0 +1,274 @@
+<!doctype html> 
+<!-- saved from url=(0059)http://en.wikipedia.org/wiki/correctness_(computer_science) --> 
+<html lang="en" dir="ltr" class="client-js ve-not-available"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+<meta charset="utf-8"><title>correctness (computer science) - wikipedia, the free encyclopedia</title> 
+<meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="generator" content="mediawiki 1.23wmf11"> 
+<link rel="alternate" type="application/x-wiki" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=correctness_(computer_science)&action=edit"> 
+<link rel="edit" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=correctness_(computer_science)&action=edit"> 
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png"> 
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico"> 
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="wikipedia (en)"> 
+<link rel="edituri" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd"> 
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/"> 
+<link rel="alternate" type="application/atom+xml" title="wikipedia atom feed" href="http://en.wikipedia.org/w/index.php?title=special:recentchanges&feed=atom"> 
+<link rel="canonical" href="./correctness of algorithms_files/correctness of algorithms.html"> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.drn-wizard%2creferencetooltips%2ccharinsert%2cteahouse%7cext.visualeditor.viewpagetarget.noscript%7cext.wikihiero%7cmediawiki.legacy.commonprint%2cshared%7cskins.common.interface%7cskins.vector.styles&only=styles&skin=vector&*"> 
+<style> 
+@-webkit-keyframes centralauthppersonalanimation{0%{opacity:0;-webkit-transform:translatey(-20px)}100%{opacity:1;-webkit-transform:translatey(0)}}@-moz-keyframes centralauthppersonalanimation{0%{opacity:0;-moz-transform:translatey(-20px)}100%{opacity:1;-moz-transform:translatey(0)}}@-o-keyframes centralauthppersonalanimation{0%{opacity:0;-o-transform:translatey(-20px)}100%{opacity:1;-o-transform:translatey(0)}}@keyframes centralauthppersonalanimation{0%{opacity:0;transform:translatey(-20px)}100%{opacity:1;transform:translatey(0)}}.centralauthppersonalanimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralauthppersonalanimation;-moz-animation-name:centralauthppersonalanimation;-o-animation-name:centralauthppersonalanimation;animation-name:centralauthppersonalanimation} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */ 
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */ 
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmveuzaad///95exmqqqry2njeiq0caaaaaxrstlmaqobyzgaaacdjrefucndjygbgygiaasufennjcuiqmadztm5oqexffzakrsg4ygbjcwodynsgdwaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil.png?2014-01-16t16:20:00z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmvewbaady2nj///8gra0zzrtw2aecaaaaaxrstlmaqobyzgaaacdjrefucndjygbgygyaawmdefpygegaoglzzclcqewjq5aki2w4ygbg5qotqpzbuaaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil-hover.png?2014-01-16t16:20:00z)!ie;color:#0645ad !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a963c9df079c8688d25d769892467b5c */ 
+@media print{#centralnotice{display:none}} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */ 
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaabaaaaaqcamaaaaolq9taaabblbmveuaaad///////9pftf///80ardtgjn///9feij///////////9rfzf///////////9pfjzrgdh1o1xoftb///////+bwyqltnj///////9pfta82k////9wht6yxil///9qgddtgzr////////j7udl7elq8efi693k7oh///////9uhjubr2rp9uruhjr///9yljvkgir///9witlyjt3////9/v57vflbkt5pjc9dld/5/fhuq09stuts9uhxuelctcpfnt1hudfloezlouzmpenmvdzpvdxpvtxqvjxrvt5rvt9rwtxsqktswd5uwkbvuudxw0nztfbztu9ztvbzwkp0tlj1xkd2t1r3uvr4w1f4xk54x014ye15uvz5v1r5xvb6v1r7yfj8wvh9xvl9yfr9yvd9yln+xvh+yfd/x1l/yfeaylmex1+ny2uy0hqe04wj1ymv3ze33qld47tj5l3o6cpu7mrq9eb2+/q4j37oaaaaqhrstlmaaqiebaufbqwpfb4fjcuokiosqehjs01rulzzxmdydxachyusljswmjmoq6uur8lexcvm19fg5ejt8fx2+pr7sljgewaaakpjrefugbkfwqncawaaamdltl3ltrg4rwxbtvx77gagz6grfwc0bhwnvgkgdpzx8b0dgli+s7wn0voaqpfoi9+bnadzi7flrz2psewghzuh+78lsk8zlklezf3ooyug3vpxq2usei9wngeyog195ybywdf3e/2pahl1e9gr8bgt+bfofcc2fnvh4x7rcqiaqnnu+ht6sxkajcetl/2zaihv+porbwbjxfka//dfhscby/utaaaaaelftksuqmcc);background-image:url(//bits.wikimedia.org/static-1.23wmf11/resources/mediawiki.action/images/green-checkmark.png?2014-01-16t16:15:00z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:c897cc6a31411b48f47191422cf15c4a */ 
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */ 
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4c59a6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */ 
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */ 
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#f7f7f7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #f7f7f7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.rtflipped{padding-top:13px}.referencetooltip.rtflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.rtflipped li+li::after{border-top:0;border-bottom:8px #f7f7f7 solid;position:absolute;margin-top:7px}.rtsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.rtsettings:hover{opacity:1;filter:alpha(opacity=100)}.rttarget{border:#080086 2px solid} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */ 
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */ 
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playercontainer{overflow:hidden;position:relative;height:100%;background:#000}#videoholder{position:relative;overflow:hidden}.fullscreen #playercontainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwembedplayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayhtml a:visited{color:white}.loadingspinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/loading_ani.gif?2014-01-16t16:18:20z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-01-16t16:18:20z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button.png?2014-01-16t16:18:20z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button_hover.png?2014-01-16t16:18:20z)}.carouselcontainer{position :absolute;width :100%;z-index :2}.carouselvideotitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselvideotitletext{display :block;padding :10px 10px 10px 20px}.carouseltitleduration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5a5a5a;color :#d9d9d9;font-size :smaller;z-index :2}.carouselimgtitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselimgduration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselprevbutton,.carouselnextbutton{display :block;position :absolute;bottom:23px}.carouselprevbutton{left :5px}.carouselnextbutton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#e6e6e6;padding :5px;border-bottom :1px solid #d1d1d1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:40fb0cce50b2525059dbe7ac545e3c42 */</style><style> 
+.suggestions a.mw-searchsuggest-link,.suggestions a.mw-searchsuggest-link:hover,.suggestions a.mw-searchsuggest-link:active,.suggestions a.mw-searchsuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchsuggest-link,.suggestions-result-current a.mw-searchsuggest-link:hover,.suggestions-result-current a.mw-searchsuggest-link:active,.suggestions-result-current a.mw-searchsuggest-link:focus{color:white} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="resourceloaderdynamicstyles" content=""> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=site&only=styles&skin=vector&*"> 
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style> 
+ 
+<script src="./correctness of algorithms_files/load.php"></script><script src="./correctness of algorithms_files/load(1).php"></script><style title="spinjs"></style> 
+<script>if(window.mw){ 
+mw.config.set({"wgcanonicalnamespace":"","wgcanonicalspecialpagename":false,"wgnamespacenumber":0,"wgpagename":"correctness_(computer_science)","wgtitle":"correctness (computer science)","wgcurrevisionid":577348683,"wgrevisionid":577348683,"wgarticleid":357339,"wgisarticle":true,"wgisredirect":false,"wgaction":"view","wgusername":null,"wgusergroups":["*"],"wgcategories":["articles lacking sources from october 2013","all articles lacking sources","all articles with unsourced statements","articles with unsourced statements from june 2013","formal methods terminology","theoretical computer science"],"wgbreakframes":false,"wgpagecontentlanguage":"en","wgpagecontentmodel":"wikitext","wgseparatortransformtable":["",""],"wgdigittransformtable":["",""],"wgdefaultdateformat":"dmy","wgmonthnames":["","january","february","march","april","may","june","july","august","september","october","november","december"],"wgmonthnamesshort":["","jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"],"wgrelevantpagename":"correctness_(computer_science)","wgisprobablyeditable":true,"wgrestrictionedit":[],"wgrestrictionmove":[],"wgwikieditorenabledmodules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateeditor":false,"templates":false,"preview":false,"previewdialog":false,"publish":false,"toc":false},"wgarticlefeedbackv5permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgbetafeaturesfeatures":[],"wgvisualeditor":{"ispagewatched":false,"magnifyclipiconurl":"//bits.wikimedia.org/static-1.23wmf11/skins/common/images/magnify-clip.png","pagelanguagecode":"en","pagelanguagedir":"ltr"},"wikilove-recipient":"","wikilove-anon":0,"wgguidedtourhelpguiderurl":"help:guided tours/guider","wgulsacceptlanguagelist":["en-us","en","ko"],"wgulscurrentautonym":"english","wgflaggedrevsparams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgstablerevisionid":null,"wgcategorytreepagecategoryoptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","geo":{"city":"","country":""},"wgnoticeproject":"wikipedia","aftv5article":{"id":357339,"title":"correctness (computer science)","namespace":0,"categories":["all articles lacking sources","all articles with unsourced statements","articles lacking sources from october 2013","articles with unsourced statements from june 2013","formal methods terminology","theoretical computer science"],"permissionlevel":false},"wgwikibaseitemid":"q360812"}); 
+}</script><script>if(window.mw){ 
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0, 
+"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true, 
+"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","uls-enable":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchns0":true,"searchns1":false,"searchns2":false,"searchns3":false,"searchns4":false,"searchns5":false,"searchns6":false,"searchns7":false,"searchns8":false,"searchns9":false,"searchns10":false,"searchns11":false,"searchns12":false,"searchns13":false,"searchns14":false,"searchns15":false, 
+"searchns100":false,"searchns101":false,"searchns108":false,"searchns109":false,"searchns118":false,"searchns119":false,"searchns446":false,"searchns447":false,"searchns710":false,"searchns711":false,"searchns828":false,"searchns829":false,"gadget-teahouse":1,"gadget-referencetooltips":1,"gadget-drn-wizard":1,"gadget-charinsert":1,"gadget-mysandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"edittoken":"+\\","patroltoken":false,"watchtoken":false});},{},{}); 
+/* cache key: enwiki:resourceloader:filter:minify-js:7:264b5b04c69e37444d5b2d63c2a65dc9 */ 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualeditor.viewpagetarget.init","wikibase.client.init","ext.centralnotice.bannercontroller","skins.vector.js"]); 
+}</script> 
+<script src="./correctness of algorithms_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt ie 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf11/skins/vector/csshover.min.htc")}</style><![endif]--></head> 
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-correctness_computer_science skin-vector action-view vector-animatelayout"> 
+<div id="mw-page-base" class="noprint"></div> 
+<div id="mw-head-base" class="noprint"></div> 
+<div id="content" class="mw-body" role="main"> 
+<a id="top"></a> 
+<div id="mw-js-message" style="display:none;"></div> 
+<div id="sitenotice"><div id="centralnotice"></div><!-- centralnotice --></div> 
+<h1 id="firstheading" class="firstheading" lang="en"><span dir="auto">correctness (computer science)</span></h1> 
+<div id="bodycontent"> 
+<div id="sitesub">from wikipedia, the free encyclopedia</div> 
+<div id="contentsub"></div> 
+<div id="jump-to-nav" class="mw-jump"> 
+jump to:					<a href="http://en.wikipedia.org/wiki/correctness_(computer_science)#mw-navigation">navigation</a>, 					<a href="http://en.wikipedia.org/wiki/correctness_(computer_science)#p-search">search</a> 
+</div> 
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table class="metadata plainlinks ambox ambox-content ambox-unreferenced" role="presentation"> 
+<tbody><tr> 
+<td class="mbox-image"> 
+<div style="width:52px;"><a href="http://en.wikipedia.org/wiki/file:question_book-new.svg" class="image"><img alt="question book-new.svg" src="./correctness of algorithms_files/100px-question_book-new.svg.png" width="50" height="39" srcset="//upload.wikimedia.org/wikipedia/en/thumb/9/99/question_book-new.svg/75px-question_book-new.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/9/99/question_book-new.svg/100px-question_book-new.svg.png 2x"></a></div> 
+</td> 
+<td class="mbox-text"><span class="mbox-text-span">this article <b>does not <a href="http://en.wikipedia.org/wiki/wikipedia:citing_sources" title="wikipedia:citing sources">cite</a> any <a href="http://en.wikipedia.org/wiki/wikipedia:verifiability" title="wikipedia:verifiability">references or sources</a></b>. <span class="hide-when-compact">please help <a class="external text" href="http://en.wikipedia.org/w/index.php?title=correctness_(computer_science)&action=edit">improve this article</a> by <a href="http://en.wikipedia.org/wiki/help:introduction_to_referencing/1" title="help:introduction to referencing/1">adding citations to reliable sources</a>. unsourced material may be challenged and <a href="http://en.wikipedia.org/wiki/wikipedia:verifiability#burden_of_evidence" title="wikipedia:verifiability">removed</a>.</span> <small><i>(october 2013)</i></small></span></td> 
+</tr> 
+</tbody></table> 
+<p>in <a href="http://en.wikipedia.org/wiki/theoretical_computer_science" title="theoretical computer science">theoretical computer science</a>, <b>correctness</b> of an <a href="http://en.wikipedia.org/wiki/algorithm" title="algorithm">algorithm</a> is asserted when it is said that the algorithm is correct with respect to a <a href="http://en.wikipedia.org/wiki/program_specification" title="program specification" class="mw-redirect">specification</a>. <i>functional</i> correctness refers to the input-output behaviour of the algorithm (i.e., for each input it produces the correct output)<sup class="template-fact" style="white-space:nowrap;">[<i><a href="http://en.wikipedia.org/wiki/wikipedia:citation_needed" title="wikipedia:citation needed"><span title="this claim needs references to reliable sources. (june 2013)">citation needed</span></a></i>]</sup>.</p> 
+<p>a distinction is made between <b>total correctness</b>, which additionally requires that the algorithm terminates, and <b>partial correctness</b>, which simply requires that <i>if</i> an answer is returned it will be correct. since there is no general solution to the <a href="http://en.wikipedia.org/wiki/halting_problem" title="halting problem">halting problem</a>, a total correctness assertion may lie much deeper. a <a href="http://en.wikipedia.org/wiki/termination_proof" title="termination proof" class="mw-redirect">termination proof</a> is a type of <a href="http://en.wikipedia.org/wiki/mathematical_proof" title="mathematical proof">mathematical proof</a> that plays a critical role in <a href="http://en.wikipedia.org/wiki/formal_verification" title="formal verification">formal verification</a> because total correctness of an algorithm depends on termination<sup class="template-fact" style="white-space:nowrap;">[<i><a href="http://en.wikipedia.org/wiki/wikipedia:citation_needed" title="wikipedia:citation needed"><span title="this claim needs references to reliable sources. (june 2013)">citation needed</span></a></i>]</sup>.</p> 
+<p>for example, successively searching through <a href="http://en.wikipedia.org/wiki/integer" title="integer">integers</a> 1, 2, 3, … to see if we can find an example of some phenomenon — say an odd <a href="http://en.wikipedia.org/wiki/perfect_number" title="perfect number">perfect number</a> — it is quite easy to write a partially correct program (using long division by two to check <i>n</i> as perfect or not). but to say this program is totally correct would be to assert something <a href="http://en.wikipedia.org/wiki/perfect_number#odd_perfect_numbers" title="perfect number">currently not known</a> in <a href="http://en.wikipedia.org/wiki/number_theory" title="number theory">number theory</a>.</p> 
+<p>a proof would have to be a mathematical proof, assuming both the algorithm and specification are given formally. in particular it is not expected to be a correctness assertion for a given program implementing the algorithm on a given machine. that would involve such considerations as limitations on <a href="http://en.wikipedia.org/wiki/computer_memory" title="computer memory">computer memory</a>.</p> 
+<p>a <a href="http://en.wikipedia.org/wiki/deep_result" title="deep result" class="mw-redirect">deep result</a> in <a href="http://en.wikipedia.org/wiki/proof_theory" title="proof theory">proof theory</a>, the <a href="http://en.wikipedia.org/wiki/curry-howard_correspondence" title="curry-howard correspondence" class="mw-redirect">curry-howard correspondence</a>, states that a proof of functional correctness in <a href="http://en.wikipedia.org/wiki/constructive_logic" title="constructive logic" class="mw-redirect">constructive logic</a> corresponds to a certain program in the <a href="http://en.wikipedia.org/wiki/lambda_calculus" title="lambda calculus">lambda calculus</a>. converting a proof in this way is called <i>program extraction</i>.</p> 
+<p><a href="http://en.wikipedia.org/wiki/hoare_logic" title="hoare logic">hoare logic</a> is a specific <a href="http://en.wikipedia.org/wiki/formal_system" title="formal system">formal system</a> for reasoning rigorously about the correctness of computer programs.</p> 
+<h2><span class="mw-headline" id="see_also">see also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=correctness_(computer_science)&action=edit&section=1" title="edit section: see also">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/formal_verification" title="formal verification">formal verification</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/design_by_contract" title="design by contract">design by contract</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/program_analysis_(computer_science)" title="program analysis (computer science)" class="mw-redirect">program analysis (computer science)</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/model_checking" title="model checking">model checking</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/compiler_correctness" title="compiler correctness">compiler correctness</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/program_derivation" title="program derivation">program derivation</a></li> 
+</ul> 
+ 
+ 
+<!-- 
+newpp limit report 
+parsed by mw1033 
+cpu time usage: 0.428 seconds 
+real time usage: 0.459 seconds 
+preprocessor visited node count: 344/1000000 
+preprocessor generated node count: 1213/1500000 
+post‐expand include size: 7455/2048000 bytes 
+template argument size: 1014/2048000 bytes 
+highest expansion depth: 11/40 
+expensive parser function count: 3/500 
+lua time usage: 0.061s 
+lua memory usage: 904 kb 
+--> 
+ 
+<!-- saved in parser cache with key enwiki:pcache:idhash:357339-0!*!0!*!*!4!* and timestamp 20140106181135 
+--> 
+<noscript>&lt;img src="//en.wikipedia.org/wiki/special:centralautologin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /&gt;</noscript></div>								<div class="printfooter"> 
+retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=correctness_(computer_science)&oldid=577348683">http://en.wikipedia.org/w/index.php?title=correctness_(computer_science)&amp;oldid=577348683</a>"				</div> 
+<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/help:category" title="help:category">categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/category:formal_methods_terminology" title="category:formal methods terminology">formal methods terminology</a></li><li><a href="http://en.wikipedia.org/wiki/category:theoretical_computer_science" title="category:theoretical computer science">theoretical computer science</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/category:articles_lacking_sources_from_october_2013" title="category:articles lacking sources from october 2013">articles lacking sources from october 2013</a></li><li><a href="http://en.wikipedia.org/wiki/category:all_articles_lacking_sources" title="category:all articles lacking sources">all articles lacking sources</a></li><li><a href="http://en.wikipedia.org/wiki/category:all_articles_with_unsourced_statements" title="category:all articles with unsourced statements">all articles with unsourced statements</a></li><li><a href="http://en.wikipedia.org/wiki/category:articles_with_unsourced_statements_from_june_2013" title="category:articles with unsourced statements from june 2013">articles with unsourced statements from june 2013</a></li></ul></div></div>												<div class="visualclear"></div> 
+</div> 
+</div> 
+<div id="mw-navigation"> 
+<h2>navigation menu</h2> 
+<div id="mw-head"> 
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label"> 
+<h3 id="p-personal-label">personal tools</h3> 
+<ul> 
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=correctness+%28computer+science%29&type=signup">create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=correctness+%28computer+science%29" title="you&#39;re encouraged to log in; however, it&#39;s not mandatory. [ctrl-option-o]" accesskey="o">log in</a></li>	</ul> 
+</div> 
+<div id="left-navigation"> 
+<div id="p-namespaces" role="navigation" class="vectortabs" aria-labelledby="p-namespaces-label"> 
+<h3 id="p-namespaces-label">namespaces</h3> 
+<ul> 
+<li id="ca-nstab-main" class="selected"><span><a href="./correctness of algorithms_files/correctness of algorithms.html" title="view the content page [ctrl-option-c]" accesskey="c">article</a></span></li> 
+<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/talk:correctness_(computer_science)" title="discussion about the content page [ctrl-option-t]" accesskey="t">talk</a></span></li> 
+</ul> 
+</div> 
+<div id="p-variants" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-variants-label"> 
+<h3 id="mw-vector-current-variant"> 
+</h3> 
+<h3 id="p-variants-label" tabindex="0"><span>variants</span><a href="http://en.wikipedia.org/wiki/correctness_(computer_science)#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+</div> 
+<div id="right-navigation"> 
+<div id="p-views" role="navigation" class="vectortabs" aria-labelledby="p-views-label"> 
+<h3 id="p-views-label">views</h3> 
+<ul> 
+<li id="ca-view" class="selected"><span><a href="./correctness of algorithms_files/correctness of algorithms.html">read</a></span></li> 
+<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=correctness_(computer_science)&action=edit" title="you can edit this page. 
+please review your changes before saving. [ctrl-option-e]" accesskey="e">edit</a></span></li> 
+<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=correctness_(computer_science)&action=history" title="past versions of this page [ctrl-option-h]" accesskey="h">view history</a></span></li> 
+</ul> 
+</div> 
+<div id="p-cactions" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-cactions-label"> 
+<h3 id="p-cactions-label" tabindex="0"><span>actions</span><a href="http://en.wikipedia.org/wiki/correctness_(computer_science)#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+<div id="p-search" role="search"> 
+<h3><label for="searchinput">search</label></h3> 
+<form action="http://en.wikipedia.org/w/index.php" id="searchform"> 
+<div id="simplesearch"> 
+<input name="search" placeholder="search" title="search wikipedia [ctrl-option-f]" accesskey="f" id="searchinput" tabindex="1" autocomplete="off">						<button type="submit" name="button" title="search wikipedia for this text" id="searchbutton"><img src="./correctness of algorithms_files/search-ltr.png" alt="search" width="12" height="13"></button>								<input type="hidden" name="title" value="special:search"> 
+</div> 
+</form> 
+</div> 
+</div> 
+</div> 
+<div id="mw-panel" class="collapsible-nav"> 
+<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/wiki.png);" href="http://en.wikipedia.org/wiki/main_page" title="visit the main page"></a></div> 
+<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label"> 
+<h3 id="p-navigation-label">navigation</h3> 
+<div class="body"> 
+<ul> 
+<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/main_page" title="visit the main page [ctrl-option-z]" accesskey="z">main page</a></li> 
+<li id="n-contents"><a href="http://en.wikipedia.org/wiki/portal:contents" title="guides to browsing wikipedia">contents</a></li> 
+<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/portal:featured_content" title="featured content – the best of wikipedia">featured content</a></li> 
+<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/portal:current_events" title="find background information on current events">current events</a></li> 
+<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/special:random" title="load a random article [ctrl-option-x]" accesskey="x">random article</a></li> 
+<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/special:fundraiserredirector?utm_source=donate&utm_medium=sidebar&utm_campaign=c13_en.wikipedia.org&uselang=en" title="support us">donate to wikipedia</a></li> 
+<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="visit the wikimedia shop">wikimedia shop</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label"> 
+<h3 id="p-interaction-label" tabindex="2"><a href="http://en.wikipedia.org/wiki/correctness_(computer_science)#" aria-haspopup="true" aria-controls="p-interaction-list" role="button" aria-pressed="true" aria-expanded="true">interaction</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-interaction-list"> 
+<li id="n-help"><a href="http://en.wikipedia.org/wiki/help:contents" title="guidance on how to use and edit wikipedia">help</a></li> 
+<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="find out about wikipedia">about wikipedia</a></li> 
+<li id="n-portal"><a href="http://en.wikipedia.org/wiki/wikipedia:community_portal" title="about the project, what you can do, where to find things">community portal</a></li> 
+<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/special:recentchanges" title="a list of recent changes in the wiki [ctrl-option-r]" accesskey="r">recent changes</a></li> 
+<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact page</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label"> 
+<h3 id="p-tb-label" tabindex="3"><a href="http://en.wikipedia.org/wiki/correctness_(computer_science)#" aria-haspopup="true" aria-controls="p-tb-list" role="button" aria-pressed="false" aria-expanded="false">tools</a></h3> 
+<div class="body"> 
+<ul id="p-tb-list"> 
+<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/special:whatlinkshere/correctness_(computer_science)" title="list of all english wikipedia pages containing links to this page [ctrl-option-j]" accesskey="j">what links here</a></li> 
+<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/special:recentchangeslinked/correctness_(computer_science)" title="recent changes in pages linked from this page [ctrl-option-k]" accesskey="k">related changes</a></li> 
+<li id="t-upload"><a href="http://en.wikipedia.org/wiki/wikipedia:file_upload_wizard" title="upload files [ctrl-option-u]" accesskey="u">upload file</a></li> 
+<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/special:specialpages" title="a list of all special pages [ctrl-option-q]" accesskey="q">special pages</a></li> 
+<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=correctness_(computer_science)&oldid=577348683" title="permanent link to this revision of the page">permanent link</a></li> 
+<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=correctness_(computer_science)&action=info">page information</a></li> 
+<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/q360812" title="link to connected data repository item [ctrl-option-g]" accesskey="g">data item</a></li> 
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=special:cite&page=correctness_%28computer_science%29&id=577348683" title="information on how to cite this page">cite this page</a></li>		</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label"> 
+<h3 id="p-coll-print_export-label" tabindex="4"><a href="http://en.wikipedia.org/wiki/correctness_(computer_science)#" aria-haspopup="true" aria-controls="p-coll-print_export-list" role="button" aria-pressed="false" aria-expanded="false">print/export</a></h3> 
+<div class="body"> 
+<ul id="p-coll-print_export-list"> 
+<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=book_creator&referer=correctness+%28computer+science%29">create a book</a></li> 
+<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=render_article&arttitle=correctness+%28computer+science%29&oldid=577348683&writer=rl">download as pdf</a></li> 
+<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=correctness_(computer_science)&printable=yes" title="printable version of this page [ctrl-option-p]" accesskey="p">printable version</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"> 
+<h3 id="p-lang-label" tabindex="5"><a href="http://en.wikipedia.org/wiki/correctness_(computer_science)#" aria-haspopup="true" aria-controls="p-lang-list" role="button" aria-pressed="true" aria-expanded="true">languages</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-lang-list"> 
+<li class="interlanguage-link interwiki-de"><a href="http://de.wikipedia.org/wiki/korrektheit_(informatik)" title="korrektheit (informatik) – german" lang="de" hreflang="de">deutsch</a></li> 
+<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/correctitud" title="correctitud – spanish" lang="es" hreflang="es">español</a></li> 
+<li class="interlanguage-link interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%e6%ad%a3%e5%bd%93%e6%80%a7_(%e8%a8%88%e7%ae%97%e6%a9%9f%e7%a7%91%e5%ad%a6)" title="正当性 (計算機科学) – japanese" lang="ja" hreflang="ja">日本語</a></li> 
+<li class="interlanguage-link interwiki-pt"><a href="http://pt.wikipedia.org/wiki/corretude_(l%c3%b3gica)" title="corretude (lógica) – portuguese" lang="pt" hreflang="pt">português</a></li> 
+<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/q360812#sitelinks-wikipedia" title="edit interlanguage links">edit links</a></li> 
+</ul> 
+</div> 
+</div> 
+</div> 
+</div> 
+<div id="footer" role="contentinfo"> 
+<ul id="footer-info"> 
+<li id="footer-info-lastmod"> this page was last modified on 15 october 2013 at 22:18.<br></li> 
+<li id="footer-info-copyright">text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/wikipedia:text_of_creative_commons_attribution-sharealike_3.0_unported_license">creative commons attribution-sharealike license</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>; 
+additional terms may apply.  by using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/terms_of_use">terms of use</a> and <a href="http://wikimediafoundation.org/wiki/privacy_policy">privacy policy.</a> <br> 
+wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">wikimedia foundation, inc.</a>, a non-profit organization.</li> 
+</ul> 
+<ul id="footer-places"> 
+<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/privacy_policy" title="wikimedia:privacy policy">privacy policy</a></li> 
+<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="wikipedia:about">about wikipedia</a></li> 
+<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/wikipedia:general_disclaimer" title="wikipedia:general disclaimer">disclaimers</a></li> 
+<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact wikipedia</a></li> 
+<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/special:mylanguage/how_to_contribute">developers</a></li> 
+<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/correctness_(computer_science)" class="noprint stopmobileredirecttoggle">mobile view</a></li> 
+</ul> 
+<ul id="footer-icons" class="noprint"> 
+<li id="footer-copyrightico"> 
+<a href="http://wikimediafoundation.org/"><img src="./correctness of algorithms_files/wikimedia-button.png" width="88" height="31" alt="wikimedia foundation"></a> 
+</li> 
+<li id="footer-poweredbyico"> 
+<a href="http://www.mediawiki.org/"><img src="./correctness of algorithms_files/poweredby_mediawiki_88x31.png" alt="powered by mediawiki" width="88" height="31"></a> 
+</li> 
+</ul> 
+<div style="clear:both"></div> 
+</div> 
+<script>/*<![cdata[*/window.jquery && jquery.ready();/*]]>*/</script><script>if(window.mw){ 
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"}); 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["mobile.desktop","mediawiki.action.view.postedit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchsuggest","ext.gadget.teahouse","ext.gadget.referencetooltips","ext.gadget.drn-wizard","ext.gadget.charinsert","mw.mwembedsupport.style","ext.articlefeedbackv5.startup","ext.wikimediashoplink.core","ext.navigationtiming","skins.vector.collapsiblenav"],null,true); 
+}</script> 
+<script src="./correctness of algorithms_files/load(2).php"></script> 
+<!-- served by mw1187 in 0.142 secs. --> 
+ 
+ 
+<div class="suggestions" style="display: none; font-size: 12.800000190734863px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html> 

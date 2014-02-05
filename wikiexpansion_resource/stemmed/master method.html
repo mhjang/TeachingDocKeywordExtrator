@@ -1,0 +1,487 @@
+<!doctype html> 
+<!-- saved from url=(0042)http://en.wikipedia.org/wiki/master_method --> 
+<html lang="en" dir="ltr" class="client-js ve-not-available"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+<meta charset="utf-8"><title>master theorem - wikipedia, the free encyclopedia</title> 
+<meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="generator" content="mediawiki 1.23wmf11"> 
+<link rel="alternate" type="application/x-wiki" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit"> 
+<link rel="edit" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit"> 
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png"> 
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico"> 
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="wikipedia (en)"> 
+<link rel="edituri" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd"> 
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/"> 
+<link rel="alternate" type="application/atom+xml" title="wikipedia atom feed" href="http://en.wikipedia.org/w/index.php?title=special:recentchanges&feed=atom"> 
+<link rel="canonical" href="http://en.wikipedia.org/wiki/master_theorem"> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.drn-wizard%2creferencetooltips%2ccharinsert%2cteahouse%7cext.rtlcite%2cwikihiero%7cext.visualeditor.viewpagetarget.noscript%7cmediawiki.legacy.commonprint%2cshared%7cskins.common.interface%7cskins.vector.styles&only=styles&skin=vector&*"> 
+<style> 
+@-webkit-keyframes centralauthppersonalanimation{0%{opacity:0;-webkit-transform:translatey(-20px)}100%{opacity:1;-webkit-transform:translatey(0)}}@-moz-keyframes centralauthppersonalanimation{0%{opacity:0;-moz-transform:translatey(-20px)}100%{opacity:1;-moz-transform:translatey(0)}}@-o-keyframes centralauthppersonalanimation{0%{opacity:0;-o-transform:translatey(-20px)}100%{opacity:1;-o-transform:translatey(0)}}@keyframes centralauthppersonalanimation{0%{opacity:0;transform:translatey(-20px)}100%{opacity:1;transform:translatey(0)}}.centralauthppersonalanimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralauthppersonalanimation;-moz-animation-name:centralauthppersonalanimation;-o-animation-name:centralauthppersonalanimation;animation-name:centralauthppersonalanimation} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */ 
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */ 
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmveuzaad///95exmqqqry2njeiq0caaaaaxrstlmaqobyzgaaacdjrefucndjygbgygiaasufennjcuiqmadztm5oqexffzakrsg4ygbjcwodynsgdwaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil.png?2014-01-16t16:20:00z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmvewbaady2nj///8gra0zzrtw2aecaaaaaxrstlmaqobyzgaaacdjrefucndjygbgygyaawmdefpygegaoglzzclcqewjq5aki2w4ygbg5qotqpzbuaaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil-hover.png?2014-01-16t16:20:00z)!ie;color:#0645ad !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a963c9df079c8688d25d769892467b5c */ 
+@media print{#centralnotice{display:none}} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */</style><style> 
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */ 
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaabaaaaaqcamaaaaolq9taaabblbmveuaaad///////9pftf///80ardtgjn///9feij///////////9rfzf///////////9pfjzrgdh1o1xoftb///////+bwyqltnj///////9pfta82k////9wht6yxil///9qgddtgzr////////j7udl7elq8efi693k7oh///////9uhjubr2rp9uruhjr///9yljvkgir///9witlyjt3////9/v57vflbkt5pjc9dld/5/fhuq09stuts9uhxuelctcpfnt1hudfloezlouzmpenmvdzpvdxpvtxqvjxrvt5rvt9rwtxsqktswd5uwkbvuudxw0nztfbztu9ztvbzwkp0tlj1xkd2t1r3uvr4w1f4xk54x014ye15uvz5v1r5xvb6v1r7yfj8wvh9xvl9yfr9yvd9yln+xvh+yfd/x1l/yfeaylmex1+ny2uy0hqe04wj1ymv3ze33qld47tj5l3o6cpu7mrq9eb2+/q4j37oaaaaqhrstlmaaqiebaufbqwpfb4fjcuokiosqehjs01rulzzxmdydxachyusljswmjmoq6uur8lexcvm19fg5ejt8fx2+pr7sljgewaaakpjrefugbkfwqncawaaamdltl3ltrg4rwxbtvx77gagz6grfwc0bhwnvgkgdpzx8b0dgli+s7wn0voaqpfoi9+bnadzi7flrz2psewghzuh+78lsk8zlklezf3ooyug3vpxq2usei9wngeyog195ybywdf3e/2pahl1e9gr8bgt+bfofcc2fnvh4x7rcqiaqnnu+ht6sxkajcetl/2zaihv+porbwbjxfka//dfhscby/utaaaaaelftksuqmcc);background-image:url(//bits.wikimedia.org/static-1.23wmf11/resources/mediawiki.action/images/green-checkmark.png?2014-01-16t16:15:00z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:c897cc6a31411b48f47191422cf15c4a */ 
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */ 
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4c59a6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */ 
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */ 
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#f7f7f7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #f7f7f7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.rtflipped{padding-top:13px}.referencetooltip.rtflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.rtflipped li+li::after{border-top:0;border-bottom:8px #f7f7f7 solid;position:absolute;margin-top:7px}.rtsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.rtsettings:hover{opacity:1;filter:alpha(opacity=100)}.rttarget{border:#080086 2px solid} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */ 
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */ 
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playercontainer{overflow:hidden;position:relative;height:100%;background:#000}#videoholder{position:relative;overflow:hidden}.fullscreen #playercontainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwembedplayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayhtml a:visited{color:white}.loadingspinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/loading_ani.gif?2014-01-16t16:18:20z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-01-16t16:18:20z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button.png?2014-01-16t16:18:20z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button_hover.png?2014-01-16t16:18:20z)}.carouselcontainer{position :absolute;width :100%;z-index :2}.carouselvideotitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselvideotitletext{display :block;padding :10px 10px 10px 20px}.carouseltitleduration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5a5a5a;color :#d9d9d9;font-size :smaller;z-index :2}.carouselimgtitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselimgduration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselprevbutton,.carouselnextbutton{display :block;position :absolute;bottom:23px}.carouselprevbutton{left :5px}.carouselnextbutton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#e6e6e6;padding :5px;border-bottom :1px solid #d1d1d1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:40fb0cce50b2525059dbe7ac545e3c42 */</style><style> 
+.suggestions a.mw-searchsuggest-link,.suggestions a.mw-searchsuggest-link:hover,.suggestions a.mw-searchsuggest-link:active,.suggestions a.mw-searchsuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchsuggest-link,.suggestions-result-current a.mw-searchsuggest-link:hover,.suggestions-result-current a.mw-searchsuggest-link:active,.suggestions-result-current a.mw-searchsuggest-link:focus{color:white} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="resourceloaderdynamicstyles" content=""> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=site&only=styles&skin=vector&*"> 
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style> 
+ 
+<script src="./master method_files/load.php"></script><script src="./master method_files/load(1).php"></script><style title="spinjs"></style> 
+<script>if(window.mw){ 
+mw.config.set({"wgcanonicalnamespace":"","wgcanonicalspecialpagename":false,"wgnamespacenumber":0,"wgpagename":"master_theorem","wgtitle":"master theorem","wgcurrevisionid":590626245,"wgrevisionid":590626245,"wgarticleid":561585,"wgisarticle":true,"wgisredirect":false,"wgaction":"view","wgusername":null,"wgusergroups":["*"],"wgcategories":["asymptotic analysis","theorems in computational complexity theory","recurrence relations","analysis of algorithms"],"wgbreakframes":false,"wgpagecontentlanguage":"en","wgpagecontentmodel":"wikitext","wgseparatortransformtable":["",""],"wgdigittransformtable":["",""],"wgdefaultdateformat":"dmy","wgmonthnames":["","january","february","march","april","may","june","july","august","september","october","november","december"],"wgmonthnamesshort":["","jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"],"wgrelevantpagename":"master_theorem","wgisprobablyeditable":true,"wgrestrictionedit":[],"wgrestrictionmove":[],"wgredirectedfrom":"master_method","wgwikieditorenabledmodules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateeditor":false,"templates":false,"preview":false,"previewdialog":false,"publish":false,"toc":false},"wgarticlefeedbackv5permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgbetafeaturesfeatures":[],"wgvisualeditor":{"ispagewatched":false,"magnifyclipiconurl":"//bits.wikimedia.org/static-1.23wmf11/skins/common/images/magnify-clip.png","pagelanguagecode":"en","pagelanguagedir":"ltr"},"wikilove-recipient":"","wikilove-anon":0,"wgguidedtourhelpguiderurl":"help:guided tours/guider","wgulsacceptlanguagelist":["en-us","en","ko"],"wgulscurrentautonym":"english","wgflaggedrevsparams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgstablerevisionid":null,"wgcategorytreepagecategoryoptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","geo":{"city":"","country":""},"wgnoticeproject":"wikipedia","aftv5article":{"id":561585,"title":"master theorem","namespace":0,"categories":["analysis of algorithms","asymptotic analysis","recurrence relations","theorems in computational complexity theory"],"permissionlevel":false},"wgwikibaseitemid":"q922367"}); 
+}</script><script>if(window.mw){ 
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0, 
+"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true, 
+"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","uls-enable":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchns0":true,"searchns1":false,"searchns2":false,"searchns3":false,"searchns4":false,"searchns5":false,"searchns6":false,"searchns7":false,"searchns8":false,"searchns9":false,"searchns10":false,"searchns11":false,"searchns12":false,"searchns13":false,"searchns14":false,"searchns15":false, 
+"searchns100":false,"searchns101":false,"searchns108":false,"searchns109":false,"searchns118":false,"searchns119":false,"searchns446":false,"searchns447":false,"searchns710":false,"searchns711":false,"searchns828":false,"searchns829":false,"gadget-teahouse":1,"gadget-referencetooltips":1,"gadget-drn-wizard":1,"gadget-charinsert":1,"gadget-mysandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"edittoken":"+\\","patroltoken":false,"watchtoken":false});},{},{}); 
+/* cache key: enwiki:resourceloader:filter:minify-js:7:264b5b04c69e37444d5b2d63c2a65dc9 */ 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualeditor.viewpagetarget.init","wikibase.client.init","ext.centralnotice.bannercontroller","skins.vector.js"]); 
+}</script> 
+<script src="./master method_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt ie 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf11/skins/vector/csshover.min.htc")}</style><![endif]--></head> 
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-master_theorem skin-vector action-view vector-animatelayout"> 
+<div id="mw-page-base" class="noprint"></div> 
+<div id="mw-head-base" class="noprint"></div> 
+<div id="content" class="mw-body" role="main"> 
+<a id="top"></a> 
+<div id="mw-js-message" style="display:none;"></div> 
+<div id="sitenotice"><div id="centralnotice"></div><!-- centralnotice --></div> 
+<h1 id="firstheading" class="firstheading" lang="en"><span dir="auto">master theorem</span></h1> 
+<div id="bodycontent"> 
+<div id="sitesub">from wikipedia, the free encyclopedia</div> 
+<div id="contentsub">&nbsp;&nbsp;(redirected from <a href="http://en.wikipedia.org/w/index.php?title=master_method&redirect=no" title="master method">master method</a>)</div> 
+<div id="jump-to-nav" class="mw-jump"> 
+jump to:					<a href="http://en.wikipedia.org/wiki/master_method#mw-navigation">navigation</a>, 					<a href="http://en.wikipedia.org/wiki/master_method#p-search">search</a> 
+</div> 
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="dablink">for a result in enumerative combinatorics, see <a href="http://en.wikipedia.org/wiki/macmahon_master_theorem" title="macmahon master theorem">macmahon master theorem</a>.</div> 
+<p>in the <a href="http://en.wikipedia.org/wiki/analysis_of_algorithms" title="analysis of algorithms">analysis of algorithms</a>, the <b>master theorem</b> provides a cookbook solution in <a href="http://en.wikipedia.org/wiki/asymptotic" title="asymptotic" class="mw-redirect">asymptotic</a> terms (using <a href="http://en.wikipedia.org/wiki/big_o_notation" title="big o notation">big o notation</a>) for <a href="http://en.wikipedia.org/wiki/recurrence_relation" title="recurrence relation">recurrence relations</a> of types that occur in the <a href="http://en.wikipedia.org/wiki/analysis_of_algorithms" title="analysis of algorithms">analysis</a> of many <a href="http://en.wikipedia.org/wiki/divide_and_conquer_algorithm" title="divide and conquer algorithm">divide and conquer algorithms</a>. it was popularized by the canonical algorithms textbook <i><a href="http://en.wikipedia.org/wiki/introduction_to_algorithms" title="introduction to algorithms">introduction to algorithms</a></i> by <a href="http://en.wikipedia.org/wiki/thomas_h._cormen" title="thomas h. cormen">cormen</a>, <a href="http://en.wikipedia.org/wiki/charles_e._leiserson" title="charles e. leiserson">leiserson</a>, <a href="http://en.wikipedia.org/wiki/ron_rivest" title="ron rivest">rivest</a>, and <a href="http://en.wikipedia.org/wiki/clifford_stein" title="clifford stein">stein</a>, in which it is both introduced and proved. not all recurrence relations can be solved with the use of the master theorem; its generalizations include the <a href="http://en.wikipedia.org/wiki/akra%e2%80%93bazzi_method" title="akra–bazzi method">akra–bazzi method</a>.</p> 
+<p></p> 
+<div id="toc" class="toc"> 
+<div id="toctitle"> 
+<h2>contents</h2> 
+<span class="toctoggle">&nbsp;[<a href="http://en.wikipedia.org/wiki/master_method#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div> 
+<ul> 
+<li class="toclevel-1 tocsection-1"><a href="http://en.wikipedia.org/wiki/master_method#introduction"><span class="tocnumber">1</span> <span class="toctext">introduction</span></a></li> 
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikipedia.org/wiki/master_method#generic_form"><span class="tocnumber">2</span> <span class="toctext">generic form</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-3"><a href="http://en.wikipedia.org/wiki/master_method#case_1"><span class="tocnumber">2.1</span> <span class="toctext">case 1</span></a> 
+<ul> 
+<li class="toclevel-3 tocsection-4"><a href="http://en.wikipedia.org/wiki/master_method#generic_form_2"><span class="tocnumber">2.1.1</span> <span class="toctext">generic form</span></a></li> 
+<li class="toclevel-3 tocsection-5"><a href="http://en.wikipedia.org/wiki/master_method#example"><span class="tocnumber">2.1.2</span> <span class="toctext">example</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-2 tocsection-6"><a href="http://en.wikipedia.org/wiki/master_method#case_2"><span class="tocnumber">2.2</span> <span class="toctext">case 2</span></a> 
+<ul> 
+<li class="toclevel-3 tocsection-7"><a href="http://en.wikipedia.org/wiki/master_method#generic_form_3"><span class="tocnumber">2.2.1</span> <span class="toctext">generic form</span></a></li> 
+<li class="toclevel-3 tocsection-8"><a href="http://en.wikipedia.org/wiki/master_method#example_2"><span class="tocnumber">2.2.2</span> <span class="toctext">example</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-2 tocsection-9"><a href="http://en.wikipedia.org/wiki/master_method#case_3"><span class="tocnumber">2.3</span> <span class="toctext">case 3</span></a> 
+<ul> 
+<li class="toclevel-3 tocsection-10"><a href="http://en.wikipedia.org/wiki/master_method#generic_form_4"><span class="tocnumber">2.3.1</span> <span class="toctext">generic form</span></a></li> 
+<li class="toclevel-3 tocsection-11"><a href="http://en.wikipedia.org/wiki/master_method#example_3"><span class="tocnumber">2.3.2</span> <span class="toctext">example</span></a></li> 
+</ul> 
+</li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-12"><a href="http://en.wikipedia.org/wiki/master_method#inadmissible_equations"><span class="tocnumber">3</span> <span class="toctext">inadmissible equations</span></a></li> 
+<li class="toclevel-1 tocsection-13"><a href="http://en.wikipedia.org/wiki/master_method#see_also"><span class="tocnumber">4</span> <span class="toctext">see also</span></a></li> 
+<li class="toclevel-1 tocsection-14"><a href="http://en.wikipedia.org/wiki/master_method#application_to_common_algorithms"><span class="tocnumber">5</span> <span class="toctext">application to common algorithms</span></a></li> 
+<li class="toclevel-1 tocsection-15"><a href="http://en.wikipedia.org/wiki/master_method#notes"><span class="tocnumber">6</span> <span class="toctext">notes</span></a></li> 
+<li class="toclevel-1 tocsection-16"><a href="http://en.wikipedia.org/wiki/master_method#references"><span class="tocnumber">7</span> <span class="toctext">references</span></a></li> 
+</ul> 
+</div> 
+<p></p> 
+<h2><span class="mw-headline" id="introduction">introduction</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit&section=1" title="edit section: introduction">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>consider a problem that can be solved using a <a href="http://en.wikipedia.org/wiki/recursive_algorithm" title="recursive algorithm" class="mw-redirect">recursive algorithm</a> such as the following:</p> 
+<pre><code> <b>procedure</b> t( n : size of problem ) <b>defined as:</b> 
+<b>if</b> n &lt; 1 <b>then exit</b><br><br>   do work of amount f(n)<br><br>   t(n/b) 
+t(n/b) 
+...repeat for a total of <i>a</i> times... 
+t(n/b) 
+<b>end procedure</b> 
+</code> 
+</pre> 
+<p>in the above algorithm we are dividing the problem into a number of subproblems recursively, each subproblem being of size <i>n/b</i>. this can be visualized as building a call tree with each node of the tree as an instance of one recursive call and its child nodes being instances of subsequent calls. in the above example, each node would have <i>a</i> number of child nodes. each node does an amount of work that corresponds to the size of the sub problem <i>n</i> passed to that instance of the recursive call and given by <img class="tex" alt="f(n)" src="./master method_files/a8988ce0f88f5292aa28b6e49f114d45.png">. the total amount of work done by the entire tree is the sum of the work performed by all the nodes in the tree.</p> 
+<p>algorithms such as above can be represented as a recurrence relation <img class="tex" alt="t(n) = a \; t\left(\frac{n}{b}\right) + f(n)" src="./master method_files/aeae2bc2c6375e2ad420bd3db256ddbf.png">. this recursive relation can be successively substituted into itself and expanded to obtain expression for total amount of work done.<sup id="cite_ref-1" class="reference"><a href="http://en.wikipedia.org/wiki/master_method#cite_note-1"><span>[</span>1<span>]</span></a></sup></p> 
+<p>the master theorem allows us to easily calculate the running time of such a recursive algorithm in <a href="http://en.wikipedia.org/wiki/big_o_notation" title="big o notation">θ-notation</a> without doing an expansion of the recursive relation above.</p> 
+<h2><span class="mw-headline" id="generic_form">generic form</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit&section=2" title="edit section: generic form">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>the master theorem concerns recurrence relations of the form:</p> 
+<dl> 
+<dd><img class="tex" alt="t(n) = a \; t\!\left(\frac{n}{b}\right) + f(n)  \;\;\;\; \mbox{where} \;\; a \geq 1 \mbox{, } b &gt; 1" src="./master method_files/5b1c03811f902a398db6d4de2c55fa55.png"></dd> 
+</dl> 
+<p>in the application to the analysis of a recursive algorithm, the constants and function take on the following significance:</p> 
+<ul> 
+<li><i>n</i> is the size of the problem.</li> 
+<li><i>a</i> is the number of subproblems in the recursion.</li> 
+<li><i>n</i>/<i>b</i> is the size of each subproblem. (here it is assumed that all subproblems are essentially the same size.)</li> 
+<li><i>f</i> (<i>n</i>) is the cost of the work done outside the recursive calls, which includes the cost of dividing the problem and the cost of merging the solutions to the subproblems.</li> 
+</ul> 
+<p>it is possible to determine an asymptotic tight bound in these three cases:</p> 
+<h3><span class="mw-headline" id="case_1">case 1</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit&section=3" title="edit section: case 1">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<h4><span class="mw-headline" id="generic_form_2">generic form</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit&section=4" title="edit section: generic form">edit</a><span class="mw-editsection-bracket">]</span></span></h4> 
+<p>if <img class="tex" alt="f(n) = \theta\left( n^{c} \right)" src="./master method_files/10a3b2fce1aab08af2a3a9fd37355c01.png"> where <img class="tex" alt="c &lt; \log_b a" src="./master method_files/3912a9146c4c49c32c2c0e6d59369fe5.png"> (using <a href="http://en.wikipedia.org/wiki/big_o_notation" title="big o notation">big o notation</a>)</p> 
+<p>then:</p> 
+<dl> 
+<dd><img class="tex" alt="t(n) = \theta\left( n^{\log_b a} \right)" src="./master method_files/83551c0953b5c391e3fdeb90b81deee2.png"></dd> 
+</dl> 
+<h4><span class="mw-headline" id="example">example</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit&section=5" title="edit section: example">edit</a><span class="mw-editsection-bracket">]</span></span></h4> 
+<dl> 
+<dd><img class="tex" alt="t(n) = 8 t\left(\frac{n}{2}\right) + 1000n^2" src="./master method_files/f4054e80c1d9e885afa90c421b6d5876.png"></dd> 
+</dl> 
+<p>as one can see from the formula above:</p> 
+<dl> 
+<dd><img class="tex" alt="a = 8, \, b = 2, \, f(n) = 1000n^2" src="./master method_files/8e156eeceaaf145c0b98e614537b3110.png">, so</dd> 
+<dd><img class="tex" alt="f(n) = \theta\left(n^c\right)" src="./master method_files/629c805aecc47db0ec88caff1f354492.png">, where <img class="tex" alt="c = 2" src="./master method_files/4847acef124418c705153576282ebd02.png"></dd> 
+</dl> 
+<p>next, we see if we satisfy the case 1 condition:</p> 
+<dl> 
+<dd><img class="tex" alt="\log_b a = \log_2 8 = 3&gt;c" src="./master method_files/318dc6642e94299e33657b34fdc1ca40.png">.</dd> 
+</dl> 
+<p>it follows from the first case of the master theorem that</p> 
+<dl> 
+<dd><img class="tex" alt="t(n) = \theta\left( n^{\log_b a} \right) = \theta\left( n^{3} \right)" src="./master method_files/b6c47725f47c7f2d43398175009d4228.png"></dd> 
+</dl> 
+<p>(indeed, the exact solution of the recurrence relation is <img class="tex" alt="t(n) = 1001 n^3 - 1000 n^2" src="./master method_files/82aad787bfb9a5932967a40a6a8be42a.png">, assuming <img class="tex" alt="t(1) = 1" src="./master method_files/32b6d9dccf0df3f3a5f613174b6b2cc4.png">).</p> 
+<h3><span class="mw-headline" id="case_2">case 2</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit&section=6" title="edit section: case 2">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<h4><span class="mw-headline" id="generic_form_3">generic form</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit&section=7" title="edit section: generic form">edit</a><span class="mw-editsection-bracket">]</span></span></h4> 
+<p>if it is true, for some constant <i>k</i>&nbsp;≥&nbsp;0, that:</p> 
+<dl> 
+<dd><img class="tex" alt="f(n) = \theta\left( n^{c} \log^{k} n \right)" src="./master method_files/74b0272730287ce50d438c4c3f0013cb.png"> where <img class="tex" alt="c = \log_b a" src="./master method_files/6b61c387c2164cd31329d0cc6704ec00.png"></dd> 
+</dl> 
+<p>then:</p> 
+<dl> 
+<dd><img class="tex" alt="t(n) = \theta\left( n^{c} \log^{k+1} n \right)" src="./master method_files/75680f693eda9ce15e9038516df07c06.png"></dd> 
+</dl> 
+<h4><span class="mw-headline" id="example_2">example</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit&section=8" title="edit section: example">edit</a><span class="mw-editsection-bracket">]</span></span></h4> 
+<p><img class="tex" alt="t(n) = 2 t\left(\frac{n}{2}\right) + 10n" src="./master method_files/907ea4c39f4be6f0f927582e779e3578.png"></p> 
+<p>as we can see in the formula above the variables get the following values:</p> 
+<dl> 
+<dd><img class="tex" alt="a = 2, \, b = 2, \, c = 1, \, f(n) = 10n" src="./master method_files/10ca7e0cb7eb92adff4e9266a811f6d2.png"></dd> 
+<dd><img class="tex" alt="f(n) = \theta\left(n^{c} \log^{k} n\right)" src="./master method_files/74b0272730287ce50d438c4c3f0013cb.png"> where <img class="tex" alt="c = 1, k = 0" src="./master method_files/8085d06579f3cd1f5962b8cad4fbdba2.png"></dd> 
+</dl> 
+<p>next, we see if we satisfy the case 2 condition:</p> 
+<dl> 
+<dd><img class="tex" alt="\log_b a = \log_2 2 = 1" src="./master method_files/e1d6e7ed74ee1a1a8aa4d920cf9ecd97.png">, and therefore, yes, <img class="tex" alt="c = \log_b a" src="./master method_files/6b61c387c2164cd31329d0cc6704ec00.png"></dd> 
+</dl> 
+<p>so it follows from the second case of the master theorem:</p> 
+<dl> 
+<dd><img class="tex" alt="t(n) = \theta\left( n^{\log_b a} \log^{k+1} n\right) = \theta\left( n^{1} \log^{1} n\right) = \theta\left(n \log n\right)" src="./master method_files/9cd21146d2ba13820581ad122d7bce9f.png"></dd> 
+</dl> 
+<p>thus the given recurrence relation <i>t</i>(<i>n</i>) was in θ(<i>n</i> log <i>n</i>).</p> 
+<p>(this result is confirmed by the exact solution of the recurrence relation, which is <img class="tex" alt="t(n) = n + 10 n\log_2 n" src="./master method_files/8c09ca17357d36020f3015143afc72c9.png">, assuming <img class="tex" alt="t(1) = 1" src="./master method_files/32b6d9dccf0df3f3a5f613174b6b2cc4.png">.</p> 
+<h3><span class="mw-headline" id="case_3">case 3</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit&section=9" title="edit section: case 3">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<h4><span class="mw-headline" id="generic_form_4">generic form</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit&section=10" title="edit section: generic form">edit</a><span class="mw-editsection-bracket">]</span></span></h4> 
+<p>if it is true that:</p> 
+<dl> 
+<dd><img class="tex" alt="f(n) = \theta\left( n^{c} \right)" src="./master method_files/10a3b2fce1aab08af2a3a9fd37355c01.png"> where <img class="tex" alt="c &gt; \log_b a" src="./master method_files/0d543ce7b07ed3bf3f030a56a8d840dd.png"></dd> 
+</dl> 
+<p>then:</p> 
+<dl> 
+<dd><img class="tex" alt="t\left(n \right) = \theta\left(f(n) \right)" src="./master method_files/1fbba6990c7c75987d283a81b3772c0d.png"></dd> 
+</dl> 
+<h4><span class="mw-headline" id="example_3">example</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit&section=11" title="edit section: example">edit</a><span class="mw-editsection-bracket">]</span></span></h4> 
+<dl> 
+<dd><img class="tex" alt="t(n) = 2 t\left(\frac{n}{2}\right) + n^2" src="./master method_files/4708a28ab46283fd3077ddbfb7db2967.png"></dd> 
+</dl> 
+<p>as we can see in the formula above the variables get the following values:</p> 
+<dl> 
+<dd><img class="tex" alt="a = 2, \, b = 2, \, f(n) = n^2" src="./master method_files/9680886983ddfd01c073695d2e3a9c90.png"></dd> 
+<dd><img class="tex" alt="f(n) = \theta\left(n^c\right)" src="./master method_files/629c805aecc47db0ec88caff1f354492.png">, where <img class="tex" alt="c = 2" src="./master method_files/4847acef124418c705153576282ebd02.png"></dd> 
+</dl> 
+<p>next, we see if we satisfy the case 3 condition:</p> 
+<dl> 
+<dd><img class="tex" alt="\log_b a = \log_2 2 = 1" src="./master method_files/e1d6e7ed74ee1a1a8aa4d920cf9ecd97.png">, and therefore, yes, <img class="tex" alt="c &gt; \log_b a" src="./master method_files/0d543ce7b07ed3bf3f030a56a8d840dd.png"></dd> 
+</dl> 
+<p>so it follows from the third case of the master theorem:</p> 
+<dl> 
+<dd><img class="tex" alt="t \left(n \right) = \theta\left(f(n)\right) = \theta \left(n^2 \right)." src="./master method_files/2b9e2c3879ff27744019256f7c7c8efe.png"></dd> 
+</dl> 
+<p>thus the given recurrence relation <i>t</i>(<i>n</i>) was in θ(<i>n</i><sup>2</sup>), that complies with the <i>f</i> (<i>n</i>) of the original formula.</p> 
+<p>(this result is confirmed by the exact solution of the recurrence relation, which is <img class="tex" alt="t(n) = 2 n^2 - n" src="./master method_files/3a73bd862460f60cf869d2b53be05ea3.png">, assuming <img class="tex" alt="t(1) = 1" src="./master method_files/32b6d9dccf0df3f3a5f613174b6b2cc4.png">.)</p> 
+<h2><span class="mw-headline" id="inadmissible_equations">inadmissible equations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit&section=12" title="edit section: inadmissible equations">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>the following equations cannot be solved using the master theorem:<sup id="cite_ref-2" class="reference"><a href="http://en.wikipedia.org/wiki/master_method#cite_note-2"><span>[</span>2<span>]</span></a></sup></p> 
+<ul> 
+<li><img class="tex" alt="t(n) = 2^nt\left (\frac{n}{2}\right )+n^n" src="./master method_files/6814a2abb2219c435cb315a05f31c0ba.png"> 
+<dl> 
+<dd><i>a</i> is not a constant; the number of subproblems should be fixed</dd> 
+</dl> 
+</li> 
+<li><img class="tex" alt="t(n) = 2t\left (\frac{n}{2}\right )+\frac{n}{\log n}" src="./master method_files/b69be452f29f66eef4f818d06923c842.png"> 
+<dl> 
+<dd>non-polynomial difference between f(n) and <img class="tex" alt="n^{\log_b a}" src="./master method_files/650a13be4b7156608390a4f8c214430e.png"> (see below)</dd> 
+</dl> 
+</li> 
+<li><img class="tex" alt="t(n) = 0.5t\left (\frac{n}{2}\right )+n" src="./master method_files/63cc31254078e6147257fca1e4b02946.png"> 
+<dl> 
+<dd><i>a</i>&lt;1 cannot have less than one sub problem</dd> 
+</dl> 
+</li> 
+<li><img class="tex" alt="t(n) = 64t\left (\frac{n}{8}\right )-n^2\log n" src="./master method_files/eba274964a43bf3c8b07cecb5a6bf499.png"> 
+<dl> 
+<dd>f(n) which is the combination time is not positive</dd> 
+</dl> 
+</li> 
+<li><img class="tex" alt="t(n) = t\left (\frac{n}{2}\right )+n(2-\cos n)" src="./master method_files/841c03a1181676a8c9208035c0be39bc.png"> 
+<dl> 
+<dd>case 3 but regularity violation.</dd> 
+</dl> 
+</li> 
+</ul> 
+<p>in the second inadmissible example above, the difference between <img class="tex" alt="f(n)" src="./master method_files/a8988ce0f88f5292aa28b6e49f114d45.png"> and <img class="tex" alt="n^{\log_b a}" src="./master method_files/650a13be4b7156608390a4f8c214430e.png"> can be expressed with the ratio <img class="tex" alt="\frac{f(n)}{n^{\log_b a}} = \frac{\frac{n}{\log n}}{n^{log_2 2}} = \frac{n}{n \log n} = \frac{1}{\log n}" src="./master method_files/3ff8eb5e9e08fc737690ad520990cf59.png">. it is clear that <img class="tex" alt="\frac{1}{\log n} &lt; n^\epsilon" src="./master method_files/aa1409559c2a314fe47d0ed26af437ac.png"> for any constant <img class="tex" alt="\epsilon &gt; 0" src="./master method_files/e778429d8769714354b1994984a23fe5.png">. therefore, the difference is not polynomial and the master theorem does not apply.</p> 
+<h2><span class="mw-headline" id="see_also">see also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit&section=13" title="edit section: see also">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/akra%e2%80%93bazzi_method" title="akra–bazzi method">akra–bazzi method</a></li> 
+</ul> 
+<h2><span class="mw-headline" id="application_to_common_algorithms">application to common algorithms</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit&section=14" title="edit section: application to common algorithms">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<table class="wikitable"> 
+<tbody><tr> 
+<th>algorithm</th> 
+<th>recurrence relationship</th> 
+<th>run time</th> 
+<th>comment</th> 
+</tr> 
+<tr> 
+<td><a href="http://en.wikipedia.org/wiki/binary_search" title="binary search" class="mw-redirect">binary search</a></td> 
+<td><img class="tex" alt="t(n) = t\left(\frac{n}{2}\right) + o(1)" src="./master method_files/35b2f760f028b21628c9cc666acb784e.png"></td> 
+<td><img class="tex" alt="o(\log n)" src="./master method_files/0ca47d9a481af371d1210a620c1945db.png"></td> 
+<td>apply master theorem case <img class="tex" alt="c = \log_b a" src="./master method_files/6b61c387c2164cd31329d0cc6704ec00.png">, where <img class="tex" alt="a = 1, b = 2, c = 0, k = 0" src="./master method_files/051515eae2819292b9b509c23884439b.png"><sup id="cite_ref-dartmouth_3-0" class="reference"><a href="http://en.wikipedia.org/wiki/master_method#cite_note-dartmouth-3"><span>[</span>3<span>]</span></a></sup></td> 
+</tr> 
+<tr> 
+<td>binary tree traversal</td> 
+<td><img class="tex" alt="t(n) = 2 t\left(\frac{n}{2}\right) + o(1)" src="./master method_files/9e2253aeb6374fc0ab0e9b1c90c930eb.png"></td> 
+<td><img class="tex" alt="o(n)" src="./master method_files/7ba55e7c64a9405a0b39a1107e90ca94.png"></td> 
+<td>apply master theorem case <img class="tex" alt="c &lt; \log_b a" src="./master method_files/3912a9146c4c49c32c2c0e6d59369fe5.png"> where <img class="tex" alt="a = 2, b = 2, c = 0" src="./master method_files/e983593f95b60c02a77589541c3f437a.png"><sup id="cite_ref-dartmouth_3-1" class="reference"><a href="http://en.wikipedia.org/wiki/master_method#cite_note-dartmouth-3"><span>[</span>3<span>]</span></a></sup></td> 
+</tr> 
+<tr> 
+<td>optimal sorted matrix search</td> 
+<td><img class="tex" alt="t(n) = 2 t\left(\frac{n}{2}\right) + o(\log n)" src="./master method_files/352a86abc1d041c6c7f3197b081043ba.png"></td> 
+<td><img class="tex" alt="o(n)" src="./master method_files/7ba55e7c64a9405a0b39a1107e90ca94.png"></td> 
+<td>apply <a href="http://en.wikipedia.org/wiki/akra-bazzi_theorem" title="akra-bazzi theorem" class="mw-redirect">akra-bazzi theorem</a> for <img class="tex" alt="p=1" src="./master method_files/cff19eeeeb9692cbf8a6b0864c461f5e.png"> and <img class="tex" alt="g(u)=\log(u)" src="./master method_files/7f51855817c1c159d3a0e9d2855971cd.png"> to get <img class="tex" alt="\theta(2n - \log n)" src="./master method_files/661a4a77acff8c8d038b94c5cb0e935f.png"></td> 
+</tr> 
+<tr> 
+<td><a href="http://en.wikipedia.org/wiki/merge_sort" title="merge sort" class="mw-redirect">merge sort</a></td> 
+<td><img class="tex" alt="t(n) = 2 t\left(\frac{n}{2}\right) + o(n)" src="./master method_files/408ac00d36883aba1808ce2af1f87ba9.png"></td> 
+<td><img class="tex" alt="o(n \log n)" src="./master method_files/f49341ab621f12e8cb93d0146ea51d34.png"></td> 
+<td>apply master theorem case <img class="tex" alt="c = \log_b a" src="./master method_files/6b61c387c2164cd31329d0cc6704ec00.png">, where <img class="tex" alt="a = 2, b = 2, c = 1, k = 0" src="./master method_files/49209072d53f663e29fc7dbf82716619.png"></td> 
+</tr> 
+</tbody></table> 
+<h2><span class="mw-headline" id="notes">notes</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit&section=15" title="edit section: notes">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<div class="reflist" style="list-style-type: decimal;"> 
+<ol class="references"> 
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/master_method#cite_ref-1"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">duke university, "big-oh for recursive functions: recurrence relations", <a rel="nofollow" class="external free" href="http://www.cs.duke.edu/~ola/ap/recurrence.html">http://www.cs.duke.edu/~ola/ap/recurrence.html</a></span></li> 
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/master_method#cite_ref-2"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">massachusetts institute of technology (mit), "master theorem: practice problems and solutions", <a rel="nofollow" class="external free" href="http://www.csail.mit.edu/~thies/6.046-web/master.pdf">http://www.csail.mit.edu/~thies/6.046-web/master.pdf</a></span></li> 
+<li id="cite_note-dartmouth-3"><span class="mw-cite-backlink">^ <a href="http://en.wikipedia.org/wiki/master_method#cite_ref-dartmouth_3-0"><span class="cite-accessibility-label">jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="http://en.wikipedia.org/wiki/master_method#cite_ref-dartmouth_3-1"><sup><i><b>b</b></i></sup></a></span> <span class="reference-text">dartmouth college, <a rel="nofollow" class="external free" href="http://www.math.dartmouth.edu/archive/m19w03/public_html/section5-2.pdf">http://www.math.dartmouth.edu/archive/m19w03/public_html/section5-2.pdf</a></span></li> 
+</ol> 
+</div> 
+<h2><span class="mw-headline" id="references">references</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit&section=16" title="edit section: references">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/thomas_h._cormen" title="thomas h. cormen">thomas h. cormen</a>, <a href="http://en.wikipedia.org/wiki/charles_e._leiserson" title="charles e. leiserson">charles e. leiserson</a>, <a href="http://en.wikipedia.org/wiki/ronald_l._rivest" title="ronald l. rivest" class="mw-redirect">ronald l. rivest</a>, and <a href="http://en.wikipedia.org/wiki/clifford_stein" title="clifford stein">clifford stein</a>. <i><a href="http://en.wikipedia.org/wiki/introduction_to_algorithms" title="introduction to algorithms">introduction to algorithms</a></i>, second edition. mit press and mcgraw-hill, 2001. <a href="http://en.wikipedia.org/wiki/special:booksources/0262032937" class="internal mw-magiclink-isbn">isbn 0-262-03293-7</a>. sections 4.3 (the master method) and 4.4 (proof of the master theorem), pp.&nbsp;73–90.</li> 
+<li><a href="http://en.wikipedia.org/wiki/michael_t._goodrich" title="michael t. goodrich">michael t. goodrich</a> and <a href="http://en.wikipedia.org/wiki/roberto_tamassia" title="roberto tamassia">roberto tamassia</a>. <i>algorithm design: foundation, analysis, and internet examples</i>. wiley, 2002. <a href="http://en.wikipedia.org/wiki/special:booksources/0471383651" class="internal mw-magiclink-isbn">isbn 0-471-38365-1</a>. the master theorem (including the version of case 2 included here, which is stronger than the one from clrs) is on pp.&nbsp;268–270.</li> 
+</ul> 
+ 
+ 
+<!-- 
+newpp limit report 
+parsed by mw1038 
+cpu time usage: 0.252 seconds 
+real time usage: 0.503 seconds 
+preprocessor visited node count: 784/1000000 
+preprocessor generated node count: 2176/1500000 
+post‐expand include size: 408/2048000 bytes 
+template argument size: 173/2048000 bytes 
+highest expansion depth: 5/40 
+expensive parser function count: 0/500 
+--> 
+ 
+<!-- saved in parser cache with key enwiki:pcache:idhash:561585-0!0!0!!en!*!* and timestamp 20140114061839 
+--> 
+<noscript>&lt;img src="//en.wikipedia.org/wiki/special:centralautologin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /&gt;</noscript></div>								<div class="printfooter"> 
+retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=master_theorem&oldid=590626245">http://en.wikipedia.org/w/index.php?title=master_theorem&amp;oldid=590626245</a>"				</div> 
+<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/help:category" title="help:category">categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/category:asymptotic_analysis" title="category:asymptotic analysis">asymptotic analysis</a></li><li><a href="http://en.wikipedia.org/wiki/category:theorems_in_computational_complexity_theory" title="category:theorems in computational complexity theory">theorems in computational complexity theory</a></li><li><a href="http://en.wikipedia.org/wiki/category:recurrence_relations" title="category:recurrence relations">recurrence relations</a></li><li><a href="http://en.wikipedia.org/wiki/category:analysis_of_algorithms" title="category:analysis of algorithms">analysis of algorithms</a></li></ul></div></div>												<div class="visualclear"></div> 
+</div> 
+</div> 
+<div id="mw-navigation"> 
+<h2>navigation menu</h2> 
+<div id="mw-head"> 
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label"> 
+<h3 id="p-personal-label">personal tools</h3> 
+<ul> 
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=master+theorem&type=signup">create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=master+theorem" title="you&#39;re encouraged to log in; however, it&#39;s not mandatory. [ctrl-option-o]" accesskey="o">log in</a></li>	</ul> 
+</div> 
+<div id="left-navigation"> 
+<div id="p-namespaces" role="navigation" class="vectortabs" aria-labelledby="p-namespaces-label"> 
+<h3 id="p-namespaces-label">namespaces</h3> 
+<ul> 
+<li id="ca-nstab-main" class="selected"><span><a href="http://en.wikipedia.org/wiki/master_theorem" title="view the content page [ctrl-option-c]" accesskey="c">article</a></span></li> 
+<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/talk:master_theorem" title="discussion about the content page [ctrl-option-t]" accesskey="t">talk</a></span></li> 
+</ul> 
+</div> 
+<div id="p-variants" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-variants-label"> 
+<h3 id="mw-vector-current-variant"> 
+</h3> 
+<h3 id="p-variants-label" tabindex="0"><span>variants</span><a href="http://en.wikipedia.org/wiki/master_method#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+</div> 
+<div id="right-navigation"> 
+<div id="p-views" role="navigation" class="vectortabs" aria-labelledby="p-views-label"> 
+<h3 id="p-views-label">views</h3> 
+<ul> 
+<li id="ca-view" class="selected"><span><a href="http://en.wikipedia.org/wiki/master_theorem">read</a></span></li> 
+<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=edit" title="you can edit this page. 
+please review your changes before saving. [ctrl-option-e]" accesskey="e">edit</a></span></li> 
+<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=history" title="past versions of this page [ctrl-option-h]" accesskey="h">view history</a></span></li> 
+</ul> 
+</div> 
+<div id="p-cactions" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-cactions-label"> 
+<h3 id="p-cactions-label" tabindex="0"><span>actions</span><a href="http://en.wikipedia.org/wiki/master_method#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+<div id="p-search" role="search"> 
+<h3><label for="searchinput">search</label></h3> 
+<form action="http://en.wikipedia.org/w/index.php" id="searchform"> 
+<div id="simplesearch"> 
+<input name="search" placeholder="search" title="search wikipedia [ctrl-option-f]" accesskey="f" id="searchinput" tabindex="1" autocomplete="off">						<button type="submit" name="button" title="search wikipedia for this text" id="searchbutton"><img src="./master method_files/search-ltr.png" alt="search" width="12" height="13"></button>								<input type="hidden" name="title" value="special:search"> 
+</div> 
+</form> 
+</div> 
+</div> 
+</div> 
+<div id="mw-panel" class="collapsible-nav"> 
+<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/wiki.png);" href="http://en.wikipedia.org/wiki/main_page" title="visit the main page"></a></div> 
+<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label"> 
+<h3 id="p-navigation-label">navigation</h3> 
+<div class="body"> 
+<ul> 
+<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/main_page" title="visit the main page [ctrl-option-z]" accesskey="z">main page</a></li> 
+<li id="n-contents"><a href="http://en.wikipedia.org/wiki/portal:contents" title="guides to browsing wikipedia">contents</a></li> 
+<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/portal:featured_content" title="featured content – the best of wikipedia">featured content</a></li> 
+<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/portal:current_events" title="find background information on current events">current events</a></li> 
+<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/special:random" title="load a random article [ctrl-option-x]" accesskey="x">random article</a></li> 
+<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/special:fundraiserredirector?utm_source=donate&utm_medium=sidebar&utm_campaign=c13_en.wikipedia.org&uselang=en" title="support us">donate to wikipedia</a></li> 
+<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="visit the wikimedia shop">wikimedia shop</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label"> 
+<h3 id="p-interaction-label" tabindex="2"><a href="http://en.wikipedia.org/wiki/master_method#" aria-haspopup="true" aria-controls="p-interaction-list" role="button" aria-pressed="true" aria-expanded="true">interaction</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-interaction-list"> 
+<li id="n-help"><a href="http://en.wikipedia.org/wiki/help:contents" title="guidance on how to use and edit wikipedia">help</a></li> 
+<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="find out about wikipedia">about wikipedia</a></li> 
+<li id="n-portal"><a href="http://en.wikipedia.org/wiki/wikipedia:community_portal" title="about the project, what you can do, where to find things">community portal</a></li> 
+<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/special:recentchanges" title="a list of recent changes in the wiki [ctrl-option-r]" accesskey="r">recent changes</a></li> 
+<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact page</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label"> 
+<h3 id="p-tb-label" tabindex="3"><a href="http://en.wikipedia.org/wiki/master_method#" aria-haspopup="true" aria-controls="p-tb-list" role="button" aria-pressed="false" aria-expanded="false">tools</a></h3> 
+<div class="body"> 
+<ul id="p-tb-list"> 
+<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/special:whatlinkshere/master_theorem" title="list of all english wikipedia pages containing links to this page [ctrl-option-j]" accesskey="j">what links here</a></li> 
+<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/special:recentchangeslinked/master_theorem" title="recent changes in pages linked from this page [ctrl-option-k]" accesskey="k">related changes</a></li> 
+<li id="t-upload"><a href="http://en.wikipedia.org/wiki/wikipedia:file_upload_wizard" title="upload files [ctrl-option-u]" accesskey="u">upload file</a></li> 
+<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/special:specialpages" title="a list of all special pages [ctrl-option-q]" accesskey="q">special pages</a></li> 
+<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&oldid=590626245" title="permanent link to this revision of the page">permanent link</a></li> 
+<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&action=info">page information</a></li> 
+<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/q922367" title="link to connected data repository item [ctrl-option-g]" accesskey="g">data item</a></li> 
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=special:cite&page=master_theorem&id=590626245" title="information on how to cite this page">cite this page</a></li>		</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label"> 
+<h3 id="p-coll-print_export-label" tabindex="4"><a href="http://en.wikipedia.org/wiki/master_method#" aria-haspopup="true" aria-controls="p-coll-print_export-list" role="button" aria-pressed="false" aria-expanded="false">print/export</a></h3> 
+<div class="body"> 
+<ul id="p-coll-print_export-list"> 
+<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=book_creator&referer=master+theorem">create a book</a></li> 
+<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=render_article&arttitle=master+theorem&oldid=590626245&writer=rl">download as pdf</a></li> 
+<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=master_theorem&printable=yes" title="printable version of this page [ctrl-option-p]" accesskey="p">printable version</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"> 
+<h3 id="p-lang-label" tabindex="5"><a href="http://en.wikipedia.org/wiki/master_method#" aria-haspopup="true" aria-controls="p-lang-list" role="button" aria-pressed="true" aria-expanded="true">languages</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-lang-list"> 
+<li class="interlanguage-link interwiki-cs"><a href="http://cs.wikipedia.org/wiki/master_theorem" title="master theorem – czech" lang="cs" hreflang="cs">čeština</a></li> 
+<li class="interlanguage-link interwiki-de"><a href="http://de.wikipedia.org/wiki/master-theorem" title="master-theorem – german" lang="de" hreflang="de">deutsch</a></li> 
+<li class="interlanguage-link interwiki-el"><a href="http://el.wikipedia.org/wiki/%ce%9c%ce%ac%cf%83%cf%84%ce%b5%cf%81_%ce%98%ce%b5%cf%8e%cf%81%ce%b7%ce%bc%ce%b1" title="μάστερ θεώρημα – greek" lang="el" hreflang="el">ελληνικά</a></li> 
+<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/teorema_maestro" title="teorema maestro – spanish" lang="es" hreflang="es">español</a></li> 
+<li class="interlanguage-link interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%d9%82%d8%b6%db%8c%d9%87_%d8%a7%d8%b5%d9%84%db%8c_%d9%88%d8%a7%da%a9%d8%a7%d9%88%db%8c_%d8%a7%d9%84%da%af%d9%88%d8%b1%db%8c%d8%aa%d9%85%e2%80%8c%d9%87%d8%a7" title="قضیه اصلی واکاوی الگوریتم‌ها – persian" lang="fa" hreflang="fa">فارسی</a></li> 
+<li class="interlanguage-link interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%eb%a7%88%ec%8a%a4%ed%84%b0_%ec%a0%95%eb%a6%ac" title="마스터 정리 – korean" lang="ko" hreflang="ko">한국어</a></li> 
+<li class="interlanguage-link interwiki-it"><a href="http://it.wikipedia.org/wiki/teorema_principale_(informatica)" title="teorema principale (informatica) – italian" lang="it" hreflang="it">italiano</a></li> 
+<li class="interlanguage-link interwiki-he"><a href="http://he.wikipedia.org/wiki/%d7%a9%d7%99%d7%98%d7%aa_%d7%94%d7%90%d7%91" title="שיטת האב – hebrew" lang="he" hreflang="he">עברית</a></li> 
+<li class="interlanguage-link interwiki-hu"><a href="http://hu.wikipedia.org/wiki/mester-t%c3%a9tel" title="mester-tétel – hungarian" lang="hu" hreflang="hu">magyar</a></li> 
+<li class="interlanguage-link interwiki-nl"><a href="http://nl.wikipedia.org/wiki/master_theorem" title="master theorem – dutch" lang="nl" hreflang="nl">nederlands</a></li> 
+<li class="interlanguage-link interwiki-pl"><a href="http://pl.wikipedia.org/wiki/twierdzenie_o_rekurencji_uniwersalnej" title="twierdzenie o rekurencji uniwersalnej – polish" lang="pl" hreflang="pl">polski</a></li> 
+<li class="interlanguage-link interwiki-sr"><a href="http://sr.wikipedia.org/wiki/%d0%9c%d0%b0%d1%81%d1%82%d0%b5%d1%80_%d1%82%d0%b5%d0%be%d1%80%d0%b5%d0%bc%d0%b0" title="мастер теорема – serbian" lang="sr" hreflang="sr">српски / srpski</a></li> 
+<li class="interlanguage-link interwiki-uk"><a href="http://uk.wikipedia.org/wiki/%d0%9c%d0%b0%d0%b9%d1%81%d1%82%d0%b5%d1%80-%d0%bc%d0%b5%d1%82%d0%be%d0%b4" title="майстер-метод – ukrainian" lang="uk" hreflang="uk">українська</a></li> 
+<li class="interlanguage-link interwiki-zh"><a href="http://zh.wikipedia.org/wiki/%e4%b8%bb%e5%ae%9a%e7%90%86" title="主定理 – chinese" lang="zh" hreflang="zh">中文</a></li> 
+<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/q922367#sitelinks-wikipedia" title="edit interlanguage links">edit links</a></li> 
+</ul> 
+</div> 
+</div> 
+</div> 
+</div> 
+<div id="footer" role="contentinfo"> 
+<ul id="footer-info"> 
+<li id="footer-info-lastmod"> this page was last modified on 14 january 2014 at 06:18.<br></li> 
+<li id="footer-info-copyright">text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/wikipedia:text_of_creative_commons_attribution-sharealike_3.0_unported_license">creative commons attribution-sharealike license</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>; 
+additional terms may apply.  by using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/terms_of_use">terms of use</a> and <a href="http://wikimediafoundation.org/wiki/privacy_policy">privacy policy.</a> <br> 
+wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">wikimedia foundation, inc.</a>, a non-profit organization.</li> 
+</ul> 
+<ul id="footer-places"> 
+<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/privacy_policy" title="wikimedia:privacy policy">privacy policy</a></li> 
+<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="wikipedia:about">about wikipedia</a></li> 
+<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/wikipedia:general_disclaimer" title="wikipedia:general disclaimer">disclaimers</a></li> 
+<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact wikipedia</a></li> 
+<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/special:mylanguage/how_to_contribute">developers</a></li> 
+<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/master_theorem" class="noprint stopmobileredirecttoggle">mobile view</a></li> 
+</ul> 
+<ul id="footer-icons" class="noprint"> 
+<li id="footer-copyrightico"> 
+<a href="http://wikimediafoundation.org/"><img src="./master method_files/wikimedia-button.png" width="88" height="31" alt="wikimedia foundation"></a> 
+</li> 
+<li id="footer-poweredbyico"> 
+<a href="http://www.mediawiki.org/"><img src="./master method_files/poweredby_mediawiki_88x31.png" alt="powered by mediawiki" width="88" height="31"></a> 
+</li> 
+</ul> 
+<div style="clear:both"></div> 
+</div> 
+<script>/*<![cdata[*/window.jquery && jquery.ready();/*]]>*/</script><script>if(window.mw){ 
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"}); 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postedit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchsuggest","ext.gadget.teahouse","ext.gadget.referencetooltips","ext.gadget.drn-wizard","ext.gadget.charinsert","mw.mwembedsupport.style","ext.articlefeedbackv5.startup","ext.wikimediashoplink.core","ext.navigationtiming","skins.vector.collapsiblenav"],null,true); 
+}</script> 
+<script src="./master method_files/load(2).php"></script> 
+<!-- served by mw1111 in 0.155 secs. --> 
+ 
+ 
+<div class="suggestions" style="display: none; font-size: 12.800000190734863px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html> 

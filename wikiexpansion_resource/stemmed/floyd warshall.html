@@ -1,0 +1,514 @@
+<!doctype html> 
+<!-- saved from url=(0043)http://en.wikipedia.org/wiki/floyd_warshall --> 
+<html lang="en" dir="ltr" class="client-js ve-not-available"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+<meta charset="utf-8"><title>floyd–warshall algorithm - wikipedia, the free encyclopedia</title> 
+<meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="generator" content="mediawiki 1.23wmf11"> 
+<link rel="alternate" type="application/x-wiki" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&action=edit"> 
+<link rel="edit" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&action=edit"> 
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png"> 
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico"> 
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="wikipedia (en)"> 
+<link rel="edituri" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd"> 
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/"> 
+<link rel="alternate" type="application/atom+xml" title="wikipedia atom feed" href="http://en.wikipedia.org/w/index.php?title=special:recentchanges&feed=atom"> 
+<link rel="canonical" href="http://en.wikipedia.org/wiki/floyd%e2%80%93warshall_algorithm"> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.drn-wizard%2creferencetooltips%2ccharinsert%2cteahouse%7cext.rtlcite%2cwikihiero%7cext.visualeditor.viewpagetarget.noscript%7cmediawiki.legacy.commonprint%2cshared%7cskins.common.interface%7cskins.vector.styles&only=styles&skin=vector&*"> 
+<style> 
+@-webkit-keyframes centralauthppersonalanimation{0%{opacity:0;-webkit-transform:translatey(-20px)}100%{opacity:1;-webkit-transform:translatey(0)}}@-moz-keyframes centralauthppersonalanimation{0%{opacity:0;-moz-transform:translatey(-20px)}100%{opacity:1;-moz-transform:translatey(0)}}@-o-keyframes centralauthppersonalanimation{0%{opacity:0;-o-transform:translatey(-20px)}100%{opacity:1;-o-transform:translatey(0)}}@keyframes centralauthppersonalanimation{0%{opacity:0;transform:translatey(-20px)}100%{opacity:1;transform:translatey(0)}}.centralauthppersonalanimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralauthppersonalanimation;-moz-animation-name:centralauthppersonalanimation;-o-animation-name:centralauthppersonalanimation;animation-name:centralauthppersonalanimation} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */ 
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */ 
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmveuzaad///95exmqqqry2njeiq0caaaaaxrstlmaqobyzgaaacdjrefucndjygbgygiaasufennjcuiqmadztm5oqexffzakrsg4ygbjcwodynsgdwaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil.png?2014-01-16t16:20:00z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmvewbaady2nj///8gra0zzrtw2aecaaaaaxrstlmaqobyzgaaacdjrefucndjygbgygyaawmdefpygegaoglzzclcqewjq5aki2w4ygbg5qotqpzbuaaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil-hover.png?2014-01-16t16:20:00z)!ie;color:#0645ad !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a963c9df079c8688d25d769892467b5c */ 
+@media print{#centralnotice{display:none}} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */</style><style> 
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */ 
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaabaaaaaqcamaaaaolq9taaabblbmveuaaad///////9pftf///80ardtgjn///9feij///////////9rfzf///////////9pfjzrgdh1o1xoftb///////+bwyqltnj///////9pfta82k////9wht6yxil///9qgddtgzr////////j7udl7elq8efi693k7oh///////9uhjubr2rp9uruhjr///9yljvkgir///9witlyjt3////9/v57vflbkt5pjc9dld/5/fhuq09stuts9uhxuelctcpfnt1hudfloezlouzmpenmvdzpvdxpvtxqvjxrvt5rvt9rwtxsqktswd5uwkbvuudxw0nztfbztu9ztvbzwkp0tlj1xkd2t1r3uvr4w1f4xk54x014ye15uvz5v1r5xvb6v1r7yfj8wvh9xvl9yfr9yvd9yln+xvh+yfd/x1l/yfeaylmex1+ny2uy0hqe04wj1ymv3ze33qld47tj5l3o6cpu7mrq9eb2+/q4j37oaaaaqhrstlmaaqiebaufbqwpfb4fjcuokiosqehjs01rulzzxmdydxachyusljswmjmoq6uur8lexcvm19fg5ejt8fx2+pr7sljgewaaakpjrefugbkfwqncawaaamdltl3ltrg4rwxbtvx77gagz6grfwc0bhwnvgkgdpzx8b0dgli+s7wn0voaqpfoi9+bnadzi7flrz2psewghzuh+78lsk8zlklezf3ooyug3vpxq2usei9wngeyog195ybywdf3e/2pahl1e9gr8bgt+bfofcc2fnvh4x7rcqiaqnnu+ht6sxkajcetl/2zaihv+porbwbjxfka//dfhscby/utaaaaaelftksuqmcc);background-image:url(//bits.wikimedia.org/static-1.23wmf11/resources/mediawiki.action/images/green-checkmark.png?2014-01-16t16:15:00z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:c897cc6a31411b48f47191422cf15c4a */ 
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */ 
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4c59a6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */ 
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */ 
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#f7f7f7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #f7f7f7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.rtflipped{padding-top:13px}.referencetooltip.rtflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.rtflipped li+li::after{border-top:0;border-bottom:8px #f7f7f7 solid;position:absolute;margin-top:7px}.rtsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.rtsettings:hover{opacity:1;filter:alpha(opacity=100)}.rttarget{border:#080086 2px solid} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */ 
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */ 
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playercontainer{overflow:hidden;position:relative;height:100%;background:#000}#videoholder{position:relative;overflow:hidden}.fullscreen #playercontainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwembedplayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayhtml a:visited{color:white}.loadingspinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/loading_ani.gif?2014-01-16t16:18:20z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-01-16t16:18:20z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button.png?2014-01-16t16:18:20z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button_hover.png?2014-01-16t16:18:20z)}.carouselcontainer{position :absolute;width :100%;z-index :2}.carouselvideotitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselvideotitletext{display :block;padding :10px 10px 10px 20px}.carouseltitleduration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5a5a5a;color :#d9d9d9;font-size :smaller;z-index :2}.carouselimgtitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselimgduration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselprevbutton,.carouselnextbutton{display :block;position :absolute;bottom:23px}.carouselprevbutton{left :5px}.carouselnextbutton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#e6e6e6;padding :5px;border-bottom :1px solid #d1d1d1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:40fb0cce50b2525059dbe7ac545e3c42 */</style><style> 
+.suggestions a.mw-searchsuggest-link,.suggestions a.mw-searchsuggest-link:hover,.suggestions a.mw-searchsuggest-link:active,.suggestions a.mw-searchsuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchsuggest-link,.suggestions-result-current a.mw-searchsuggest-link:hover,.suggestions-result-current a.mw-searchsuggest-link:active,.suggestions-result-current a.mw-searchsuggest-link:focus{color:white} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="resourceloaderdynamicstyles" content=""> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=site&only=styles&skin=vector&*"> 
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style> 
+ 
+<script src="./floyd warshall_files/load.php"></script><script src="./floyd warshall_files/load(1).php"></script><style title="spinjs"></style> 
+<script>if(window.mw){ 
+mw.config.set({"wgcanonicalnamespace":"","wgcanonicalspecialpagename":false,"wgnamespacenumber":0,"wgpagename":"floyd–warshall_algorithm","wgtitle":"floyd–warshall algorithm","wgcurrevisionid":590754757,"wgrevisionid":590754757,"wgarticleid":230401,"wgisarticle":true,"wgisredirect":false,"wgaction":"view","wgusername":null,"wgusergroups":["*"],"wgcategories":["pages with citations using unsupported parameters","graph algorithms","routing algorithms","polynomial-time problems","articles with example pseudocode","dynamic programming"],"wgbreakframes":false,"wgpagecontentlanguage":"en","wgpagecontentmodel":"wikitext","wgseparatortransformtable":["",""],"wgdigittransformtable":["",""],"wgdefaultdateformat":"dmy","wgmonthnames":["","january","february","march","april","may","june","july","august","september","october","november","december"],"wgmonthnamesshort":["","jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"],"wgrelevantpagename":"floyd–warshall_algorithm","wgisprobablyeditable":true,"wgrestrictionedit":[],"wgrestrictionmove":[],"wgredirectedfrom":"floyd_warshall","wgwikieditorenabledmodules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateeditor":false,"templates":false,"preview":false,"previewdialog":false,"publish":false,"toc":false},"wgarticlefeedbackv5permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgbetafeaturesfeatures":[],"wgvisualeditor":{"ispagewatched":false,"magnifyclipiconurl":"//bits.wikimedia.org/static-1.23wmf11/skins/common/images/magnify-clip.png","pagelanguagecode":"en","pagelanguagedir":"ltr"},"wikilove-recipient":"","wikilove-anon":0,"wgguidedtourhelpguiderurl":"help:guided tours/guider","wgulsacceptlanguagelist":["en-us","en","ko"],"wgulscurrentautonym":"english","wgflaggedrevsparams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgstablerevisionid":null,"wgcategorytreepagecategoryoptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","geo":{"city":"","country":""},"wgnoticeproject":"wikipedia","aftv5article":{"id":230401,"title":"floyd–warshall algorithm","namespace":0,"categories":["articles with example pseudocode","dynamic programming","graph algorithms","pages with citations using unsupported parameters","polynomial-time problems","routing algorithms"],"permissionlevel":false},"wgwikibaseitemid":"q1047576"}); 
+}</script><script>if(window.mw){ 
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0, 
+"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true, 
+"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","uls-enable":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchns0":true,"searchns1":false,"searchns2":false,"searchns3":false,"searchns4":false,"searchns5":false,"searchns6":false,"searchns7":false,"searchns8":false,"searchns9":false,"searchns10":false,"searchns11":false,"searchns12":false,"searchns13":false,"searchns14":false,"searchns15":false, 
+"searchns100":false,"searchns101":false,"searchns108":false,"searchns109":false,"searchns118":false,"searchns119":false,"searchns446":false,"searchns447":false,"searchns710":false,"searchns711":false,"searchns828":false,"searchns829":false,"gadget-teahouse":1,"gadget-referencetooltips":1,"gadget-drn-wizard":1,"gadget-charinsert":1,"gadget-mysandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"edittoken":"+\\","patroltoken":false,"watchtoken":false});},{},{}); 
+/* cache key: enwiki:resourceloader:filter:minify-js:7:264b5b04c69e37444d5b2d63c2a65dc9 */ 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualeditor.viewpagetarget.init","wikibase.client.init","ext.centralnotice.bannercontroller","skins.vector.js"]); 
+}</script> 
+<script src="./floyd warshall_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt ie 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf11/skins/vector/csshover.min.htc")}</style><![endif]--></head> 
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-floyd–warshall_algorithm skin-vector action-view vector-animatelayout"> 
+<div id="mw-page-base" class="noprint"></div> 
+<div id="mw-head-base" class="noprint"></div> 
+<div id="content" class="mw-body" role="main"> 
+<a id="top"></a> 
+<div id="mw-js-message" style="display:none;"></div> 
+<div id="sitenotice"><div id="centralnotice"></div><!-- centralnotice --></div> 
+<h1 id="firstheading" class="firstheading" lang="en"><span dir="auto">floyd–warshall algorithm</span></h1> 
+<div id="bodycontent"> 
+<div id="sitesub">from wikipedia, the free encyclopedia</div> 
+<div id="contentsub">&nbsp;&nbsp;(redirected from <a href="http://en.wikipedia.org/w/index.php?title=floyd_warshall&redirect=no" title="floyd warshall">floyd warshall</a>)</div> 
+<div id="jump-to-nav" class="mw-jump"> 
+jump to:					<a href="http://en.wikipedia.org/wiki/floyd_warshall#mw-navigation">navigation</a>, 					<a href="http://en.wikipedia.org/wiki/floyd_warshall#p-search">search</a> 
+</div> 
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="dablink">"floyd's algorithm" redirects here. for cycle detection, see <a href="http://en.wikipedia.org/wiki/floyd%27s_cycle-finding_algorithm" title="floyd&#39;s cycle-finding algorithm" class="mw-redirect">floyd's cycle-finding algorithm</a>.  for computer graphics, see <a href="http://en.wikipedia.org/wiki/floyd%e2%80%93steinberg_dithering" title="floyd–steinberg dithering">floyd–steinberg dithering</a>.</div> 
+<table class="infobox" cellspacing="3" style="border-spacing:3px;width:22em;"> 
+<caption>floyd–warshall algorithm</caption> 
+<tbody><tr> 
+<th scope="row" style="text-align:left;">class</th> 
+<td><a href="http://en.wikipedia.org/wiki/all-pairs_shortest_path_problem" title="all-pairs shortest path problem" class="mw-redirect">all-pairs shortest path problem</a> (for weighted graphs)</td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;">data structure</th> 
+<td><a href="http://en.wikipedia.org/wiki/graph_(data_structure)" title="graph (data structure)" class="mw-redirect">graph</a></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;"><a href="http://en.wikipedia.org/wiki/best,_worst_and_average_case" title="best, worst and average case">worst case performance</a></th> 
+<td><img class="tex" alt="o(|v|^3)" src="./floyd warshall_files/5d8227b0508cc339501bd5ed54db0ced.png"></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;"><a href="http://en.wikipedia.org/wiki/best,_worst_and_average_case" title="best, worst and average case">best case performance</a></th> 
+<td><img class="tex" alt="\omega (|v|^3)" src="./floyd warshall_files/1a1cc8f821e493e33e4866ddee80e5f6.png"></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;"><a href="http://en.wikipedia.org/wiki/best,_worst_and_average_case" title="best, worst and average case">worst case space complexity</a></th> 
+<td><img class="tex" alt="\theta(|v|^2)" src="./floyd warshall_files/e62dd1ed7a85fd4dc1b528a0a2250169.png"></td> 
+</tr> 
+</tbody></table> 
+<table class="vertical-navbox nowraplinks plainlist" cellspacing="5" cellpadding="0" style="float:right;clear:right;width:22.0em;margin:0 0 1.0em 1.0em;background:#f9f9f9;border:1px solid #aaa;padding:0.2em;border-spacing:0.4em 0;text-align:center;line-height:1.4em;font-size:88%;width:15em;"> 
+<tbody><tr> 
+<th class="navbox-title" style=";padding:0.2em 0.4em 0.2em;;font-size:145%;line-height:1.2em;"><a href="http://en.wikipedia.org/wiki/graph_traversal" title="graph traversal">graph</a> and <a href="http://en.wikipedia.org/wiki/tree_traversal" title="tree traversal">tree<br> 
+search algorithms</a></th> 
+</tr> 
+<tr> 
+<td class="" style="padding:0 0.1em 0.4em;;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/alpha%e2%80%93beta_pruning" title="alpha–beta pruning">α–β</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/a*_search_algorithm" title="a* search algorithm">a*</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/b*" title="b*">b*</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/backtracking" title="backtracking">backtracking</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/beam_search" title="beam search">beam</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/bellman%e2%80%93ford_algorithm" title="bellman–ford algorithm">bellman–ford</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/best-first_search" title="best-first search">best-first</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/bidirectional_search" title="bidirectional search">bidirectional</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/bor%c5%afvka%27s_algorithm" title="borůvka&#39;s algorithm">borůvka</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/branch_and_bound" title="branch and bound">branch &amp; bound</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/breadth-first_search" title="breadth-first search">bfs</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/british_museum_algorithm" title="british museum algorithm">british museum</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/d*" title="d*">d*</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/depth-first_search" title="depth-first search">dfs</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/depth-limited_search" title="depth-limited search">depth-limited</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/dijkstra%27s_algorithm" title="dijkstra&#39;s algorithm">dijkstra</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/edmonds%27_algorithm" title="edmonds&#39; algorithm">edmonds</a></li> 
+<li><strong class="selflink">floyd–warshall</strong></li> 
+<li><a href="http://en.wikipedia.org/wiki/fringe_search" title="fringe search">fringe search</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/hill_climbing" title="hill climbing">hill climbing</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/ida*" title="ida*">ida*</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/iterative_deepening_depth-first_search" title="iterative deepening depth-first search">iterative deepening</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/kruskal%27s_algorithm" title="kruskal&#39;s algorithm">kruskal</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/johnson%27s_algorithm" title="johnson&#39;s algorithm">johnson</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/lexicographic_breadth-first_search" title="lexicographic breadth-first search">lexicographic bfs</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/prim%27s_algorithm" title="prim&#39;s algorithm">prim</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/sma*" title="sma*">sma*</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/uniform-cost_search" title="uniform-cost search">uniform-cost</a></li> 
+</ul> 
+</td> 
+</tr> 
+<tr> 
+<th class="" style="padding:0.1em;;;">listings</th> 
+</tr> 
+<tr> 
+<td class="" style="padding:0 0.1em 0.4em;;"> 
+<ul> 
+<li><i><a href="http://en.wikipedia.org/wiki/category:graph_algorithms" title="category:graph algorithms">graph algorithms</a></i></li> 
+<li><i><a href="http://en.wikipedia.org/wiki/category:search_algorithms" title="category:search algorithms">search algorithms</a></i></li> 
+<li><i><a href="http://en.wikipedia.org/wiki/list_of_algorithms#graph_algorithms" title="list of algorithms">list of graph algorithms</a></i></li> 
+</ul> 
+</td> 
+</tr> 
+<tr> 
+<th class="" style="padding:0.1em;;;">related topics</th> 
+</tr> 
+<tr> 
+<td class="" style="padding:0 0.1em 0.4em;;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/dynamic_programming" title="dynamic programming">dynamic programming</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/graph_traversal" title="graph traversal">graph traversal</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/tree_traversal" title="tree traversal">tree traversal</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/search_game" title="search game">search games</a></li> 
+</ul> 
+</td> 
+</tr> 
+<tr> 
+<td style="text-align:right;font-size:115%;"> 
+<div class="plainlinks hlist navbar mini" style=""> 
+<ul> 
+<li class="nv-view"><a href="http://en.wikipedia.org/wiki/template:graph_search_algorithm" title="template:graph search algorithm"><span title="view this template" style="">v</span></a></li> 
+<li class="nv-talk"><a href="http://en.wikipedia.org/wiki/template_talk:graph_search_algorithm" title="template talk:graph search algorithm"><span title="discuss this template" style="">t</span></a></li> 
+<li class="nv-edit"><a class="external text" href="http://en.wikipedia.org/w/index.php?title=template:graph_search_algorithm&action=edit"><span title="edit this template" style="">e</span></a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+</tbody></table> 
+<p>in <a href="http://en.wikipedia.org/wiki/computer_science" title="computer science">computer science</a>, the <b>floyd–warshall algorithm</b> (also known as <b>floyd's algorithm</b>, <b>roy–warshall algorithm</b>, <b>roy–floyd algorithm</b>, or the <b>wfi algorithm</b>) is a <a href="http://en.wikipedia.org/wiki/graph_(mathematics)" title="graph (mathematics)">graph</a> analysis <a href="http://en.wikipedia.org/wiki/algorithm" title="algorithm">algorithm</a> for finding <a href="http://en.wikipedia.org/wiki/shortest_path_problem" title="shortest path problem">shortest paths</a> in a <a href="http://en.wikipedia.org/wiki/weighted_graph" title="weighted graph" class="mw-redirect">weighted graph</a> with positive or negative edge weights (but with no negative cycles, see below) and also for finding <a href="http://en.wikipedia.org/wiki/transitive_closure" title="transitive closure">transitive closure</a> of a relation <img class="tex" alt="r" src="./floyd warshall_files/e1e1d3d40573127e9ee0480caf1283d6.png">. a single execution of the algorithm will find the lengths (summed weights) of the shortest paths between <i>all</i> pairs of vertices, though it does not return details of the paths themselves.</p> 
+<p>the floyd-warshall algorithm was published in its currently recognized form by <a href="http://en.wikipedia.org/wiki/robert_floyd" title="robert floyd" class="mw-redirect">robert floyd</a> in 1962. however, it is essentially the same as algorithms previously published by <a href="http://en.wikipedia.org/wiki/bernard_roy" title="bernard roy">bernard roy</a> in 1959 and also by <a href="http://en.wikipedia.org/wiki/stephen_warshall" title="stephen warshall">stephen warshall</a> in 1962 for finding the transitive closure of a graph.<sup id="cite_ref-1" class="reference"><a href="http://en.wikipedia.org/wiki/floyd_warshall#cite_note-1"><span>[</span>1<span>]</span></a></sup> the modern formulation of warshall's algorithm as three nested for-loops was first described by peter ingerman, also in 1962.</p> 
+<p>the algorithm is an example of <a href="http://en.wikipedia.org/wiki/dynamic_programming" title="dynamic programming">dynamic programming</a>.</p> 
+<p></p> 
+<div id="toc" class="toc"> 
+<div id="toctitle"> 
+<h2>contents</h2> 
+<span class="toctoggle">&nbsp;[<a href="http://en.wikipedia.org/wiki/floyd_warshall#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div> 
+<ul> 
+<li class="toclevel-1 tocsection-1"><a href="http://en.wikipedia.org/wiki/floyd_warshall#algorithm"><span class="tocnumber">1</span> <span class="toctext">algorithm</span></a></li> 
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikipedia.org/wiki/floyd_warshall#example"><span class="tocnumber">2</span> <span class="toctext">example</span></a></li> 
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikipedia.org/wiki/floyd_warshall#behavior_with_negative_cycles"><span class="tocnumber">3</span> <span class="toctext">behavior with negative cycles</span></a></li> 
+<li class="toclevel-1 tocsection-4"><a href="http://en.wikipedia.org/wiki/floyd_warshall#path_reconstruction"><span class="tocnumber">4</span> <span class="toctext">path reconstruction</span></a></li> 
+<li class="toclevel-1 tocsection-5"><a href="http://en.wikipedia.org/wiki/floyd_warshall#analysis"><span class="tocnumber">5</span> <span class="toctext">analysis</span></a></li> 
+<li class="toclevel-1 tocsection-6"><a href="http://en.wikipedia.org/wiki/floyd_warshall#applications_and_generalizations"><span class="tocnumber">6</span> <span class="toctext">applications and generalizations</span></a></li> 
+<li class="toclevel-1 tocsection-7"><a href="http://en.wikipedia.org/wiki/floyd_warshall#implementations"><span class="tocnumber">7</span> <span class="toctext">implementations</span></a></li> 
+<li class="toclevel-1 tocsection-8"><a href="http://en.wikipedia.org/wiki/floyd_warshall#see_also"><span class="tocnumber">8</span> <span class="toctext">see also</span></a></li> 
+<li class="toclevel-1 tocsection-9"><a href="http://en.wikipedia.org/wiki/floyd_warshall#references"><span class="tocnumber">9</span> <span class="toctext">references</span></a></li> 
+<li class="toclevel-1 tocsection-10"><a href="http://en.wikipedia.org/wiki/floyd_warshall#external_links"><span class="tocnumber">10</span> <span class="toctext">external links</span></a></li> 
+</ul> 
+</div> 
+<p></p> 
+<h2><span class="mw-headline" id="algorithm">algorithm</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&action=edit&section=1" title="edit section: algorithm">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>the floyd–warshall algorithm compares all possible paths through the graph between each pair of vertices. it is able to do this with θ(|<i>v</i>|<sup>3</sup>) comparisons in a graph. this is remarkable considering that there may be up to ω(|<i>v</i>|<sup>2</sup>) edges in the graph, and every combination of edges is tested. it does so by incrementally improving an estimate on the shortest path between two vertices, until the estimate is optimal.</p> 
+<p>consider a graph <i>g</i> with vertices <i>v</i> numbered 1 through&nbsp;<i>n</i>. further consider a function shortestpath(<i>i</i>,&nbsp;<i>j</i>,&nbsp;<i>k</i>) that returns the shortest possible path from <i>i</i> to <i>j</i> using vertices only from the set {1,2,...,<i>k</i>} as intermediate points along the way. now, given this function, our goal is to find the shortest path from each <i>i</i> to each <i>j</i> using only vertices 1 to&nbsp;<i>k</i>&nbsp;+&nbsp;1.</p> 
+<p>for each of these pairs of vertices, the true shortest path could be either (1) a path that only uses vertices in the set {1,&nbsp;...,&nbsp;<i>k</i>} or (2) a path that goes from <i>i</i> to <i>k</i>&nbsp;+&nbsp;1 and then from <i>k</i>&nbsp;+&nbsp;1 to <i>j</i>. we know that the best path from <i>i</i> to <i>j</i> that only uses vertices 1 through <i>k</i> is defined by shortestpath(<i>i</i>,&nbsp;<i>j</i>,&nbsp;<i>k</i>), and it is clear that if there were a better path from <i>i</i> to <i>k</i>&nbsp;+&nbsp;1 to <i>j</i>, then the length of this path would be the concatenation of the shortest path from <i>i</i> to <i>k</i>&nbsp;+&nbsp;1 (using vertices in {1,&nbsp;...,&nbsp;<i>k</i>}) and the shortest path from <i>k</i>&nbsp;+&nbsp;1 to <i>j</i> (also using vertices in&nbsp;{1,&nbsp;...,&nbsp;<i>k</i>}).</p> 
+<p>if <img class="tex" alt="w(i, j)" src="./floyd warshall_files/2c60f20b3e6bd71a556b478712321fa1.png"> is the weight of the edge between vertices <i>i</i> and <i>j</i>, we can define shortestpath(<i>i</i>,&nbsp;<i>j</i>,&nbsp;<i>k</i> + 1) in terms of the following <a href="http://en.wikipedia.org/wiki/recursion" title="recursion">recursive</a> formula: the base case is</p> 
+<dl> 
+<dd><img class="tex" alt="\textrm{shortestpath}(i, j, 0) = w(i, j)" src="./floyd warshall_files/6d90d64e88ff91afce2ad4688c9c64f4.png"></dd> 
+</dl> 
+<p>and the recursive case is</p> 
+<dl> 
+<dd><img class="tex" alt="\textrm{shortestpath}(i,j,k+1) = \min(\textrm{shortestpath}(i,j,k),\,\textrm{shortestpath}(i,k+1,k) + \textrm{shortestpath}(k+1,j,k))" src="./floyd warshall_files/2928b6ef864866b2243a6323dc780cc9.png"></dd> 
+</dl> 
+<p>this formula is the heart of the floyd–warshall algorithm. the algorithm works by first computing shortestpath(<i>i</i>,&nbsp;<i>j</i>,&nbsp;<i>k</i>) for all (<i>i</i>,&nbsp;<i>j</i>) pairs for <i>k</i>&nbsp;=&nbsp;1, then <i>k</i>&nbsp;=&nbsp;2, etc. this process continues until <i>k</i>&nbsp;=&nbsp;<i>n</i>, and we have found the shortest path for all (<i>i</i>,&nbsp;<i>j</i>) pairs using any intermediate vertices. pseudocode for this basic version follows:</p> 
+<pre>1 <b>let</b> dist be a |v| × |v| array of minimum distances initialized to ∞ (infinity) 
+2 <b>for each</b> vertex <i>v</i> 
+3    dist[<i>v</i>][<i>v</i>] ← 0 
+4 <b>for each</b> edge (<i>u</i>,<i>v</i>) 
+5    dist[<i>u</i>][<i>v</i>] ← w(<i>u</i>,<i>v</i>)  <i>// the weight of the edge (</i>u<i>,</i>v<i>)</i> 
+6 <b>for</b> <i>k</i> <b>from</b> 1 <b>to</b> |v| 
+7    <b>for</b> <i>i</i> <b>from</b> 1 <b>to</b> |v| 
+8       <b>for</b> <i>j</i> <b>from</b> 1 <b>to</b> |v| 
+9          <b>if</b> dist[<i>i</i>][<i>j</i>] &gt; dist[<i>i</i>][<i>k</i>] + dist[<i>k</i>][<i>j</i>] 
+10             dist[<i>i</i>][<i>j</i>] ← dist[<i>i</i>][<i>k</i>] + dist[<i>k</i>][<i>j</i>] 
+11         <b>end if</b> 
+</pre> 
+<h2><span class="mw-headline" id="example">example</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&action=edit&section=2" title="edit section: example">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>the algorithm above is executed on the graph on the left below:</p> 
+<p><a href="http://en.wikipedia.org/wiki/file:floyd-warshall_example.svg" class="image"><img alt="floyd-warshall example.svg" src="./floyd warshall_files/1200px-floyd-warshall_example.svg.png" width="600" height="242" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/2/2e/floyd-warshall_example.svg/900px-floyd-warshall_example.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/2/2e/floyd-warshall_example.svg/1200px-floyd-warshall_example.svg.png 2x"></a></p> 
+<p>prior to the first iteration of the outer loop, labeled <i>k</i>=0 above, the only known paths correspond to the single edges in the graph. at k=1, paths that go through the vertex 1 are found: in particular, the path 2→1→3 is found, replacing the path 2→3 which has fewer edges but is longer. at k=2, paths going through the vertices {1,2} are found. the red and blue boxes show how the path 4→2→1→3 is assembled from the two known paths 4→2 and 2→1→3 encountered in previous iterations, with 2 in the intersection. the path 4→2→3 is not considered, because 2→1→3 is the shortest path encountered so far from 2 to 3. at k=3, paths going through the vertices {1,2,3} are found. finally, at k=4, all shortest paths are found.</p> 
+<h2><span class="mw-headline" id="behavior_with_negative_cycles">behavior with negative cycles</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&action=edit&section=3" title="edit section: behavior with negative cycles">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>a negative cycle is a cycle whose edges sum to a negative value. there is no shortest path between any pair of vertices i, j which form part of a negative cycle, because path-lengths from i to j can be arbitrarily small (negative). for numerically meaningful output, the floyd–warshall algorithm assumes that there are no negative cycles. nevertheless, if there are negative cycles, the floyd–warshall algorithm can be used to detect them. the intuition is as follows:</p> 
+<ul> 
+<li>the floyd–warshall algorithm iteratively revises path lengths between all pairs of vertices (<i>i</i>,&nbsp;<i>j</i>), including where <i>i</i>&nbsp;=&nbsp;<i>j</i>;</li> 
+<li>initially, the length of the path (<i>i</i>,<i>i</i>) is zero;</li> 
+<li>a path {(<i>i</i>,<i>k</i>), (<i>k</i>,<i>i</i>)} can only improve upon this if it has length less than zero, i.e. denotes a negative cycle;</li> 
+<li>thus, after the algorithm, (<i>i</i>,<i>i</i>) will be negative if there exists a negative-length path from <i>i</i> back to <i>i</i>.</li> 
+</ul> 
+<p>hence, to detect negative <a href="http://en.wikipedia.org/wiki/cycle_(graph_theory)" title="cycle (graph theory)">cycles</a> using the floyd–warshall algorithm, one can inspect the diagonal of the path matrix, and the presence of a negative number indicates that the graph contains at least one negative cycle.<sup id="cite_ref-2" class="reference"><a href="http://en.wikipedia.org/wiki/floyd_warshall#cite_note-2"><span>[</span>2<span>]</span></a></sup> obviously, in an undirected graph a negative edge creates a negative cycle (i.e., a closed walk) involving its incident vertices.</p> 
+<h2><span class="mw-headline" id="path_reconstruction">path reconstruction</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&action=edit&section=4" title="edit section: path reconstruction">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>the floyd–warshall algorithm typically only provides the lengths of the paths between all pairs of vertices. with simple modifications, it is possible to create a method to reconstruct the actual path between any two endpoint vertices. while one may be inclined to store the actual path from each vertex to each other vertex, this is not necessary, and in fact, is very costly in terms of memory. for each vertex, one need only store the information about the highest index intermediate vertex one must pass through if one wishes to arrive at any given vertex. therefore, information to reconstruct all paths can be stored in a single |v| × |v| matrix <i>next</i> where next[<i>i</i>][<i>j</i>] represents the highest index vertex one must travel through if one intends to take the shortest path from <i>i</i> to <i>j</i>.</p> 
+<p>to implement this, when a new shortest path is found between two vertices, the matrix containing the paths is updated. the <i>next</i> matrix is updated along with the matrix of minimum distances <i>dist</i>, so at completion both tables are complete and accurate, and any entries which are infinite in the <i>dist</i> table will be null in the <i>next</i> table. the path from <i>i</i> to <i>j</i> is the path from <i>i</i> to next[<i>i</i>][<i>j</i>], followed by the path from next[<i>i</i>][<i>j</i>] to <i>j</i>. these two shorter paths are determined recursively. this modified algorithm runs with the same time and space complexity as the unmodified algorithm.</p> 
+<pre><b>let</b> dist be a |v| × |v| array of minimum distances initialized to ∞ (infinity) 
+<b>let</b> next be a |v| × |v| array of vertex indices initialized to <b>null</b> 
+ 
+<b>procedure</b> <i>floydwarshallwithpathreconstruction</i> () 
+<b>for each</b> vertex v 
+dist[v][v] ← 0 
+<b>for each</b> edge (u,v) 
+dist[u][v] ← w(u,v)  <i>// the weight of the edge (u,v)</i> 
+<b>for</b> k <b>from</b> 1 <b>to</b> |v| 
+<b>for</b> i <b>from</b> 1 <b>to</b> |v| 
+<b>for</b> j <b>from</b> 1 <b>to</b> |v| 
+<b>if</b> dist[i][k] + dist[k][j] &lt; dist[i][j] <b>then</b> 
+dist[i][j] ← dist[i][k] + dist[k][j] 
+next[i][j] ← k 
+ 
+<b>function</b> <i>path</i> (i, j) 
+<b>if</b> dist[i][j] = ∞ <b>then</b> 
+<b>return</b> "no path" 
+<b>var</b> intermediate ← next[i][j] 
+<b>if</b> intermediate = <b>null</b> <b>then</b> 
+<b>return</b> " "   <i>// the direct edge from i to j gives the shortest path</i> 
+<b>else</b> 
+<b>return</b> path(i, intermediate) + intermediate + path(intermediate, j) 
+</pre> 
+<h2><span class="mw-headline" id="analysis">analysis</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&action=edit&section=5" title="edit section: analysis">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>let <i>n</i> be |v|, the number of vertices. to find all <i>n</i><sup>2</sup> of shortestpath(<i>i</i>,<i>j</i>,<i>k</i>) (for all <i>i</i> and <i>j</i>) from those of shortestpath(<i>i</i>,<i>j</i>,<i>k</i>−1) requires 2<i>n</i><sup>2</sup> operations. since we begin with shortestpath(<i>i</i>,<i>j</i>,0)&nbsp;=&nbsp;edgecost(<i>i</i>,<i>j</i>) and compute the sequence of <i>n</i> matrices shortestpath(<i>i</i>,<i>j</i>,1), shortestpath(<i>i</i>,<i>j</i>,2), …, shortestpath(<i>i</i>,<i>j</i>,<i>n</i>), the total number of operations used is <i>n</i> · 2<i>n</i><sup>2</sup>&nbsp;=&nbsp;2<i>n</i><sup>3</sup>. therefore, the <a href="http://en.wikipedia.org/wiki/computational_complexity_theory" title="computational complexity theory">complexity</a> of the algorithm is <a href="http://en.wikipedia.org/wiki/big_theta" title="big theta" class="mw-redirect">θ(<i>n</i><sup>3</sup>)</a>.</p> 
+<h2><span class="mw-headline" id="applications_and_generalizations">applications and generalizations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&action=edit&section=6" title="edit section: applications and generalizations">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>the floyd–warshall algorithm can be used to solve the following problems, among others:</p> 
+<ul> 
+<li>shortest paths in directed graphs (floyd's algorithm).</li> 
+<li><a href="http://en.wikipedia.org/wiki/transitive_closure" title="transitive closure">transitive closure</a> of directed graphs (warshall's algorithm). in warshall's original formulation of the algorithm, the graph is unweighted and represented by a boolean adjacency matrix. then the addition operation is replaced by <a href="http://en.wikipedia.org/wiki/logical_conjunction" title="logical conjunction">logical conjunction</a> (and) and the minimum operation by <a href="http://en.wikipedia.org/wiki/logical_disjunction" title="logical disjunction">logical disjunction</a> (or).</li> 
+<li>finding a <a href="http://en.wikipedia.org/wiki/regular_expression" title="regular expression">regular expression</a> denoting the <a href="http://en.wikipedia.org/wiki/regular_language" title="regular language">regular language</a> accepted by a <a href="http://en.wikipedia.org/wiki/finite_automaton" title="finite automaton" class="mw-redirect">finite automaton</a> (kleene's algorithm)</li> 
+<li><a href="http://en.wikipedia.org/wiki/invertible_matrix" title="invertible matrix">inversion</a> of <a href="http://en.wikipedia.org/wiki/real_number" title="real number">real</a> <a href="http://en.wikipedia.org/wiki/matrix_(mathematics)" title="matrix (mathematics)">matrices</a> (<a href="http://en.wikipedia.org/wiki/gauss%e2%80%93jordan_elimination" title="gauss–jordan elimination" class="mw-redirect">gauss–jordan algorithm</a>) <sup id="cite_ref-3" class="reference"><a href="http://en.wikipedia.org/wiki/floyd_warshall#cite_note-3"><span>[</span>3<span>]</span></a></sup></li> 
+<li>optimal routing. in this application one is interested in finding the path with the maximum flow between two vertices. this means that, rather than taking minima as in the pseudocode above, one instead takes maxima. the edge weights represent fixed constraints on flow. path weights represent bottlenecks; so the addition operation above is replaced by the minimum operation.</li> 
+<li>fast computation of <a href="http://en.wikipedia.org/wiki/pathfinder_network" title="pathfinder network">pathfinder networks</a>.</li> 
+<li><a href="http://en.wikipedia.org/wiki/widest_path_problem" title="widest path problem">widest paths/maximum bandwidth paths</a></li> 
+</ul> 
+<h2><span class="mw-headline" id="implementations">implementations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&action=edit&section=7" title="edit section: implementations">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>implementations are available for many <a href="http://en.wikipedia.org/wiki/programming_language" title="programming language">programming languages</a>.</p> 
+<ul> 
+<li>for <a href="http://en.wikipedia.org/wiki/c%2b%2b" title="c++">c++</a>, in the <a rel="nofollow" class="external text" href="http://www.boost.org/libs/graph/doc/">boost::graph</a> library</li> 
+<li>for <a href="http://en.wikipedia.org/wiki/c_sharp_(programming_language)" title="c sharp (programming language)">c#</a>, at <a rel="nofollow" class="external text" href="http://www.codeplex.com/quickgraph">quickgraph</a></li> 
+<li>for <a href="http://en.wikipedia.org/wiki/java_(programming_language)" title="java (programming language)">java</a>, in the <a rel="nofollow" class="external text" href="http://commons.apache.org/sandbox/commons-graph/">apache commons graph</a> library</li> 
+<li>for <a href="http://en.wikipedia.org/wiki/javascript" title="javascript">javascript</a>, at <a rel="nofollow" class="external text" href="http://www.turb0js.com/a/floyd%e2%80%93warshall_algorithm">turb0js</a></li> 
+<li>for <a href="http://en.wikipedia.org/wiki/matlab" title="matlab">matlab</a>, in the <a rel="nofollow" class="external text" href="http://www.mathworks.com/matlabcentral/fileexchange/10922">matlab_bgl</a> package</li> 
+<li>for <a href="http://en.wikipedia.org/wiki/perl" title="perl">perl</a>, in the <a rel="nofollow" class="external text" href="https://metacpan.org/module/graph">graph</a> module</li> 
+<li>for <a href="http://en.wikipedia.org/wiki/php" title="php">php</a>, on <a rel="nofollow" class="external text" href="http://www.microshell.com/programming/computing-degrees-of-separation-in-social-networking/2/">page</a> and <a href="http://en.wikipedia.org/wiki/pl/pgsql" title="pl/pgsql">pl/pgsql</a>, on <a rel="nofollow" class="external text" href="http://www.microshell.com/programming/floyd-warshal-algorithm-in-postgresql-plpgsql/3/">page</a> at microshell</li> 
+<li>for <a href="http://en.wikipedia.org/wiki/python_(programming_language)" title="python (programming language)">python</a>, in the <a href="http://en.wikipedia.org/wiki/networkx" title="networkx">networkx</a> library</li> 
+<li>for <a href="http://en.wikipedia.org/wiki/r_programming_language" title="r programming language" class="mw-redirect">r</a>, in package <a rel="nofollow" class="external text" href="http://cran.r-project.org/web/packages/e1071/index.html">e1071</a></li> 
+<li>for <a href="http://en.wikipedia.org/wiki/ruby_(programming_language)" title="ruby (programming language)">ruby</a>, in <a rel="nofollow" class="external text" href="https://github.com/chollier/ruby-floyd">script</a></li> 
+</ul> 
+<h2><span class="mw-headline" id="see_also">see also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&action=edit&section=8" title="edit section: see also">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/dijkstra%27s_algorithm" title="dijkstra&#39;s algorithm">dijkstra's algorithm</a>, an algorithm for finding single-source shortest paths in a more restrictive class of inputs, graphs in which all edge weights are non-negative</li> 
+<li><a href="http://en.wikipedia.org/wiki/johnson%27s_algorithm" title="johnson&#39;s algorithm">johnson's algorithm</a>, an algorithm for solving the same problem as the floyd–warshall algorithm, all pairs shortest paths in graphs with some edge weights negative. compared to the floyd–warshall algorithm, johnson's algorithm is more efficient for <a href="http://en.wikipedia.org/wiki/sparse_graph" title="sparse graph" class="mw-redirect">sparse graphs</a>.</li> 
+</ul> 
+<h2><span class="mw-headline" id="references">references</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&action=edit&section=9" title="edit section: references">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<div class="reflist" style="list-style-type: decimal;"> 
+<ol class="references"> 
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/floyd_warshall#cite_ref-1"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web"><a href="http://en.wikipedia.org/wiki/eric_w._weisstein" title="eric w. weisstein">weisstein, eric</a>. <a rel="nofollow" class="external text" href="http://mathworld.wolfram.com/floyd-warshallalgorithm.html">"floyd-warshall algorithm"</a>. <i><a href="http://en.wikipedia.org/wiki/wolfram_mathworld" title="wolfram mathworld" class="mw-redirect">wolfram mathworld</a></i><span class="reference-accessdate">. retrieved 13 november 2009</span>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3afloyd%e2%80%93warshall+algorithm&amp;rft.atitle=floyd-warshall+algorithm&amp;rft.aufirst=eric&amp;rft.aulast=weisstein&amp;rft.au=weisstein%2c+eric&amp;rft.genre=article&amp;rft_id=http%3a%2f%2fmathworld.wolfram.com%2ffloyd-warshallalgorithm.html&amp;rft.jtitle=wolfram+mathworld&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3ajournal" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/floyd_warshall#cite_ref-2"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web"><a rel="nofollow" class="external text" href="http://www.ieor.berkeley.edu/~ieor266/lecture12.pdf">"lecture 12: shortest paths (continued)"</a> (<a href="http://en.wikipedia.org/wiki/pdf" title="pdf" class="mw-redirect">pdf</a>). <i>network flows and graphs</i>. department of industrial engineering and operations research, <a href="http://en.wikipedia.org/wiki/university_of_california,_berkeley" title="university of california, berkeley">university of california, berkeley</a>. 7 october 2008.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3afloyd%e2%80%93warshall+algorithm&amp;rft.atitle=lecture+12%3a+shortest+paths+%28continued%29&amp;rft.date=7+october+2008&amp;rft.genre=article&amp;rft_id=http%3a%2f%2fwww.ieor.berkeley.edu%2f~ieor266%2flecture12.pdf&amp;rft.jtitle=network+flows+and+graphs&amp;rft.pub=department+of+industrial+engineering+and+operations+research%2c+university+of+california%2c+berkeley&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3ajournal" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+<li id="cite_note-3"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/floyd_warshall#cite_ref-3"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web">penaloza, rafael. <a rel="nofollow" class="external text" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.71.7650">"algebraic structures for transitive closure"</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3afloyd%e2%80%93warshall+algorithm&amp;rft.aufirst=rafael&amp;rft.aulast=penaloza&amp;rft.au=penaloza%2c+rafael&amp;rft.btitle=algebraic+structures+for+transitive+closure&amp;rft.genre=book&amp;rft_id=http%3a%2f%2fciteseerx.ist.psu.edu%2fviewdoc%2fsummary%3fdoi%3d10.1.1.71.7650&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+</ol> 
+</div> 
+<ul> 
+<li><span class="citation book"><a href="http://en.wikipedia.org/wiki/thomas_h._cormen" title="thomas h. cormen">cormen, thomas h.</a>; <a href="http://en.wikipedia.org/wiki/charles_e._leiserson" title="charles e. leiserson">leiserson, charles e.</a>, <a href="http://en.wikipedia.org/wiki/ron_rivest" title="ron rivest">rivest, ronald l.</a> (1990). <i><a href="http://en.wikipedia.org/wiki/introduction_to_algorithms" title="introduction to algorithms">introduction to algorithms</a></i> (1st ed.). mit press and mcgraw-hill. <a href="http://en.wikipedia.org/wiki/international_standard_book_number" title="international standard book number">isbn</a>&nbsp;<a href="http://en.wikipedia.org/wiki/special:booksources/0-262-03141-8" title="special:booksources/0-262-03141-8">0-262-03141-8</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3afloyd%e2%80%93warshall+algorithm&amp;rft.au=cormen%2c+thomas+h.&amp;rft.aufirst=thomas+h.&amp;rft.aulast=cormen&amp;rft.au=leiserson%2c+charles+e.%2c+rivest%2c+ronald+l.&amp;rft.btitle=introduction+to+algorithms&amp;rft.date=1990&amp;rft.edition=1st&amp;rft.genre=book&amp;rft.isbn=0-262-03141-8&amp;rft.pub=mit+press+and+mcgraw-hill&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span> 
+<ul> 
+<li>section 26.2, "the floyd–warshall algorithm", pp.&nbsp;558–565;</li> 
+<li>section 26.4, "a general framework for solving path problems in directed graphs", pp.&nbsp;570–576.</li> 
+</ul> 
+</li> 
+<li><span class="citation journal"><a href="http://en.wikipedia.org/wiki/robert_w._floyd" title="robert w. floyd">floyd, robert w.</a> (june 1962). "algorithm 97: shortest path". <i><a href="http://en.wikipedia.org/wiki/communications_of_the_acm" title="communications of the acm">communications of the acm</a></i> <b>5</b> (6): 345. <a href="http://en.wikipedia.org/wiki/digital_object_identifier" title="digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="http://dx.doi.org/10.1145%2f367766.368168">10.1145/367766.368168</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3afloyd%e2%80%93warshall+algorithm&amp;rft.atitle=algorithm+97%3a+shortest+path&amp;rft.aufirst=robert+w.&amp;rft.au=floyd%2c+robert+w.&amp;rft.aulast=floyd&amp;rft.date=june+1962&amp;rft.genre=article&amp;rft_id=info%3adoi%2f10.1145%2f367766.368168&amp;rft.issue=6&amp;rft.jtitle=communications+of+the+acm&amp;rft.pages=345&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3ajournal&amp;rft.volume=5" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+<li><span class="citation journal">ingerman, peter z. (november 1962). "algorithm 141: path matrix". <i><a href="http://en.wikipedia.org/w/index.php?title=template:communications_of_the_acm&action=edit&redlink=1" class="new" title="template:communications of the acm (page does not exist)">template:communications of the acm</a></i> <b>5</b> (11): 556. <a href="http://en.wikipedia.org/wiki/digital_object_identifier" title="digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="http://dx.doi.org/10.1145%2f368996.369016">10.1145/368996.369016</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3afloyd%e2%80%93warshall+algorithm&amp;rft.atitle=algorithm+141%3a+path+matrix&amp;rft.aufirst=peter+z.&amp;rft.au=ingerman%2c+peter+z.&amp;rft.aulast=ingerman&amp;rft.date=november+1962&amp;rft.genre=article&amp;rft_id=info%3adoi%2f10.1145%2f368996.369016&amp;rft.issue=11&amp;rft.jtitle=%3atemplate%3acommunications+of+the+acm&amp;rft.pages=556&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3ajournal&amp;rft.volume=5" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+<li><span class="citation book"><a href="http://en.wikipedia.org/wiki/stephen_cole_kleene" title="stephen cole kleene">kleene, s. c.</a> (1956). "representation of events in nerve nets and finite automata". in <a href="http://en.wikipedia.org/wiki/claude_elwood_shannon" title="claude elwood shannon" class="mw-redirect">c. e. shannon</a> and <a href="http://en.wikipedia.org/wiki/john_mccarthy_(computer_scientist)" title="john mccarthy (computer scientist)">j. mccarthy</a>. <i>automata studies</i>. princeton university press. pp.&nbsp;3–42.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3afloyd%e2%80%93warshall+algorithm&amp;rft.atitle=automata+studies&amp;rft.aufirst=s.+c.&amp;rft.au=kleene%2c+s.+c.&amp;rft.aulast=kleene&amp;rft.btitle=representation+of+events+in+nerve+nets+and+finite+automata&amp;rft.date=1956&amp;rft.genre=bookitem&amp;rft.pages=3%e2%80%9342&amp;rft.pub=princeton+university+press&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+<li><span class="citation journal">warshall, stephen (january 1962). "a theorem on boolean matrices". <i><a href="http://en.wikipedia.org/wiki/journal_of_the_acm" title="journal of the acm">journal of the acm</a></i> <b>9</b> (1): 11–12. <a href="http://en.wikipedia.org/wiki/digital_object_identifier" title="digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="http://dx.doi.org/10.1145%2f321105.321107">10.1145/321105.321107</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3afloyd%e2%80%93warshall+algorithm&amp;rft.atitle=a+theorem+on+boolean+matrices&amp;rft.aufirst=stephen&amp;rft.aulast=warshall&amp;rft.au=warshall%2c+stephen&amp;rft.date=january+1962&amp;rft.genre=article&amp;rft_id=info%3adoi%2f10.1145%2f321105.321107&amp;rft.issue=1&amp;rft.jtitle=journal+of+the+acm&amp;rft.pages=11%e2%80%9312&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3ajournal&amp;rft.volume=9" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+<li><span class="citation book">kenneth h. rosen (2003). <i>discrete mathematics and its applications, 5th edition</i>. addison wesley. <a href="http://en.wikipedia.org/wiki/international_standard_book_number" title="international standard book number">isbn</a>&nbsp;<a href="http://en.wikipedia.org/wiki/special:booksources/0-07-119881-4" title="special:booksources/0-07-119881-4">0-07-119881-4</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3afloyd%e2%80%93warshall+algorithm&amp;rft.au=kenneth+h.+rosen&amp;rft.aulast=kenneth+h.+rosen&amp;rft.btitle=discrete+mathematics+and+its+applications%2c+5th+edition&amp;rft.date=2003&amp;rft.genre=book&amp;rft.isbn=0-07-119881-4&amp;rft.pub=addison+wesley&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span> <span style="font-size:100%" class="error citation-comment">unknown parameter <code>|isbn status=</code> ignored (<a href="http://en.wikipedia.org/wiki/help:cs1_errors#parameter_ignored" title="help:cs1 errors">help</a>)</span></li> 
+<li><span class="citation journal">roy, bernard (1959). "transitivité et connexité.". <i><a href="http://en.wikipedia.org/wiki/c._r._acad._sci._paris" title="c. r. acad. sci. paris" class="mw-redirect">c. r. acad. sci. paris</a></i> <b>249</b>: 216–218.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3afloyd%e2%80%93warshall+algorithm&amp;rft.atitle=transitivit%c3%a9+et+connexit%c3%a9.&amp;rft.aufirst=bernard&amp;rft.aulast=roy&amp;rft.au=roy%2c+bernard&amp;rft.date=1959&amp;rft.genre=article&amp;rft.jtitle=c.+r.+acad.+sci.+paris&amp;rft.pages=216%e2%80%93218&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3ajournal&amp;rft.volume=249" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+</ul> 
+<h2><span class="mw-headline" id="external_links">external links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&action=edit&section=10" title="edit section: external links">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li><a rel="nofollow" class="external text" href="http://www.pms.informatik.uni-muenchen.de/lehre/compgeometry/gosper/shortest_path/shortest_path.html#visualization">interactive animation of the floyd–warshall algorithm</a></li> 
+<li><a rel="nofollow" class="external text" href="http://quickgraph.codeplex.com/">the floyd–warshall algorithm in c#, as part of quickgraph</a></li> 
+<li><a rel="nofollow" class="external text" href="http://students.ceid.upatras.gr/~papagel/english/java_docs/allmin.htm">visualization of floyd's algorithm</a></li> 
+</ul> 
+ 
+ 
+<!-- 
+newpp limit report 
+parsed by mw1034 
+cpu time usage: 0.604 seconds 
+real time usage: 0.673 seconds 
+preprocessor visited node count: 1008/1000000 
+preprocessor generated node count: 8443/1500000 
+post‐expand include size: 28391/2048000 bytes 
+template argument size: 3611/2048000 bytes 
+highest expansion depth: 12/40 
+expensive parser function count: 1/500 
+lua time usage: 0.078s 
+lua memory usage: 2.13 mb 
+--> 
+ 
+<!-- saved in parser cache with key enwiki:pcache:idhash:230401-0!0!0!!en!4!* and timestamp 20140129145259 
+--> 
+<noscript>&lt;img src="//en.wikipedia.org/wiki/special:centralautologin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /&gt;</noscript></div>								<div class="printfooter"> 
+retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&oldid=590754757">http://en.wikipedia.org/w/index.php?title=floyd–warshall_algorithm&amp;oldid=590754757</a>"				</div> 
+<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/help:category" title="help:category">categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/category:graph_algorithms" title="category:graph algorithms">graph algorithms</a></li><li><a href="http://en.wikipedia.org/wiki/category:routing_algorithms" title="category:routing algorithms">routing algorithms</a></li><li><a href="http://en.wikipedia.org/wiki/category:polynomial-time_problems" title="category:polynomial-time problems">polynomial-time problems</a></li><li><a href="http://en.wikipedia.org/wiki/category:dynamic_programming" title="category:dynamic programming">dynamic programming</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/category:pages_with_citations_using_unsupported_parameters" title="category:pages with citations using unsupported parameters">pages with citations using unsupported parameters</a></li><li><a href="http://en.wikipedia.org/wiki/category:articles_with_example_pseudocode" title="category:articles with example pseudocode">articles with example pseudocode</a></li></ul></div></div>												<div class="visualclear"></div> 
+</div> 
+</div> 
+<div id="mw-navigation"> 
+<h2>navigation menu</h2> 
+<div id="mw-head"> 
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label"> 
+<h3 id="p-personal-label">personal tools</h3> 
+<ul> 
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=floyd%e2%80%93warshall+algorithm&type=signup">create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=floyd%e2%80%93warshall+algorithm" title="you&#39;re encouraged to log in; however, it&#39;s not mandatory. [ctrl-option-o]" accesskey="o">log in</a></li>	</ul> 
+</div> 
+<div id="left-navigation"> 
+<div id="p-namespaces" role="navigation" class="vectortabs" aria-labelledby="p-namespaces-label"> 
+<h3 id="p-namespaces-label">namespaces</h3> 
+<ul> 
+<li id="ca-nstab-main" class="selected"><span><a href="http://en.wikipedia.org/wiki/floyd%e2%80%93warshall_algorithm" title="view the content page [ctrl-option-c]" accesskey="c">article</a></span></li> 
+<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/talk:floyd%e2%80%93warshall_algorithm" title="discussion about the content page [ctrl-option-t]" accesskey="t">talk</a></span></li> 
+</ul> 
+</div> 
+<div id="p-variants" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-variants-label"> 
+<h3 id="mw-vector-current-variant"> 
+</h3> 
+<h3 id="p-variants-label" tabindex="0"><span>variants</span><a href="http://en.wikipedia.org/wiki/floyd_warshall#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+</div> 
+<div id="right-navigation"> 
+<div id="p-views" role="navigation" class="vectortabs" aria-labelledby="p-views-label"> 
+<h3 id="p-views-label">views</h3> 
+<ul> 
+<li id="ca-view" class="selected"><span><a href="http://en.wikipedia.org/wiki/floyd%e2%80%93warshall_algorithm">read</a></span></li> 
+<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&action=edit" title="you can edit this page. 
+please review your changes before saving. [ctrl-option-e]" accesskey="e">edit</a></span></li> 
+<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&action=history" title="past versions of this page [ctrl-option-h]" accesskey="h">view history</a></span></li> 
+</ul> 
+</div> 
+<div id="p-cactions" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-cactions-label"> 
+<h3 id="p-cactions-label" tabindex="0"><span>actions</span><a href="http://en.wikipedia.org/wiki/floyd_warshall#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+<div id="p-search" role="search"> 
+<h3><label for="searchinput">search</label></h3> 
+<form action="http://en.wikipedia.org/w/index.php" id="searchform"> 
+<div id="simplesearch"> 
+<input name="search" placeholder="search" title="search wikipedia [ctrl-option-f]" accesskey="f" id="searchinput" tabindex="1" autocomplete="off">						<button type="submit" name="button" title="search wikipedia for this text" id="searchbutton"><img src="./floyd warshall_files/search-ltr.png" alt="search" width="12" height="13"></button>								<input type="hidden" name="title" value="special:search"> 
+</div> 
+</form> 
+</div> 
+</div> 
+</div> 
+<div id="mw-panel" class="collapsible-nav"> 
+<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/wiki.png);" href="http://en.wikipedia.org/wiki/main_page" title="visit the main page"></a></div> 
+<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label"> 
+<h3 id="p-navigation-label">navigation</h3> 
+<div class="body"> 
+<ul> 
+<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/main_page" title="visit the main page [ctrl-option-z]" accesskey="z">main page</a></li> 
+<li id="n-contents"><a href="http://en.wikipedia.org/wiki/portal:contents" title="guides to browsing wikipedia">contents</a></li> 
+<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/portal:featured_content" title="featured content – the best of wikipedia">featured content</a></li> 
+<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/portal:current_events" title="find background information on current events">current events</a></li> 
+<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/special:random" title="load a random article [ctrl-option-x]" accesskey="x">random article</a></li> 
+<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/special:fundraiserredirector?utm_source=donate&utm_medium=sidebar&utm_campaign=c13_en.wikipedia.org&uselang=en" title="support us">donate to wikipedia</a></li> 
+<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="visit the wikimedia shop">wikimedia shop</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label"> 
+<h3 id="p-interaction-label" tabindex="2"><a href="http://en.wikipedia.org/wiki/floyd_warshall#" aria-haspopup="true" aria-controls="p-interaction-list" role="button" aria-pressed="true" aria-expanded="true">interaction</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-interaction-list"> 
+<li id="n-help"><a href="http://en.wikipedia.org/wiki/help:contents" title="guidance on how to use and edit wikipedia">help</a></li> 
+<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="find out about wikipedia">about wikipedia</a></li> 
+<li id="n-portal"><a href="http://en.wikipedia.org/wiki/wikipedia:community_portal" title="about the project, what you can do, where to find things">community portal</a></li> 
+<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/special:recentchanges" title="a list of recent changes in the wiki [ctrl-option-r]" accesskey="r">recent changes</a></li> 
+<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact page</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label"> 
+<h3 id="p-tb-label" tabindex="3"><a href="http://en.wikipedia.org/wiki/floyd_warshall#" aria-haspopup="true" aria-controls="p-tb-list" role="button" aria-pressed="false" aria-expanded="false">tools</a></h3> 
+<div class="body"> 
+<ul id="p-tb-list"> 
+<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/special:whatlinkshere/floyd%e2%80%93warshall_algorithm" title="list of all english wikipedia pages containing links to this page [ctrl-option-j]" accesskey="j">what links here</a></li> 
+<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/special:recentchangeslinked/floyd%e2%80%93warshall_algorithm" title="recent changes in pages linked from this page [ctrl-option-k]" accesskey="k">related changes</a></li> 
+<li id="t-upload"><a href="http://en.wikipedia.org/wiki/wikipedia:file_upload_wizard" title="upload files [ctrl-option-u]" accesskey="u">upload file</a></li> 
+<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/special:specialpages" title="a list of all special pages [ctrl-option-q]" accesskey="q">special pages</a></li> 
+<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&oldid=590754757" title="permanent link to this revision of the page">permanent link</a></li> 
+<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&action=info">page information</a></li> 
+<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/q1047576" title="link to connected data repository item [ctrl-option-g]" accesskey="g">data item</a></li> 
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=special:cite&page=floyd%e2%80%93warshall_algorithm&id=590754757" title="information on how to cite this page">cite this page</a></li>		</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label"> 
+<h3 id="p-coll-print_export-label" tabindex="4"><a href="http://en.wikipedia.org/wiki/floyd_warshall#" aria-haspopup="true" aria-controls="p-coll-print_export-list" role="button" aria-pressed="false" aria-expanded="false">print/export</a></h3> 
+<div class="body"> 
+<ul id="p-coll-print_export-list"> 
+<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=book_creator&referer=floyd%e2%80%93warshall+algorithm">create a book</a></li> 
+<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=render_article&arttitle=floyd%e2%80%93warshall+algorithm&oldid=590754757&writer=rl">download as pdf</a></li> 
+<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=floyd%e2%80%93warshall_algorithm&printable=yes" title="printable version of this page [ctrl-option-p]" accesskey="p">printable version</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"> 
+<h3 id="p-lang-label" tabindex="5"><a href="http://en.wikipedia.org/wiki/floyd_warshall#" aria-haspopup="true" aria-controls="p-lang-list" role="button" aria-pressed="true" aria-expanded="true">languages</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-lang-list"> 
+<li class="interlanguage-link interwiki-cs"><a href="http://cs.wikipedia.org/wiki/floyd%c5%afv-warshall%c5%afv_algoritmus" title="floydův-warshallův algoritmus – czech" lang="cs" hreflang="cs">čeština</a></li> 
+<li class="interlanguage-link interwiki-de"><a href="http://de.wikipedia.org/wiki/algorithmus_von_floyd_und_warshall" title="algorithmus von floyd und warshall – german" lang="de" hreflang="de">deutsch</a></li> 
+<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/algoritmo_de_floyd-warshall" title="algoritmo de floyd-warshall – spanish" lang="es" hreflang="es">español</a></li> 
+<li class="interlanguage-link interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%d8%a7%d9%84%da%af%d9%88%d8%b1%db%8c%d8%aa%d9%85_%d9%81%d9%84%d9%88%db%8c%d8%af-%d9%88%d8%a7%d8%b1%d8%b4%d8%a7%d9%84" title="الگوریتم فلوید-وارشال – persian" lang="fa" hreflang="fa">فارسی</a></li> 
+<li class="interlanguage-link interwiki-fr"><a href="http://fr.wikipedia.org/wiki/algorithme_de_floyd-warshall" title="algorithme de floyd-warshall – french" lang="fr" hreflang="fr">français</a></li> 
+<li class="interlanguage-link interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%ed%94%8c%eb%a1%9c%ec%9d%b4%eb%93%9c-%ec%99%80%ec%85%9c_%ec%95%8c%ea%b3%a0%eb%a6%ac%ec%a6%98" title="플로이드-와셜 알고리즘 – korean" lang="ko" hreflang="ko">한국어</a></li> 
+<li class="interlanguage-link interwiki-id"><a href="http://id.wikipedia.org/wiki/algoritma_floyd-warshall" title="algoritma floyd-warshall – indonesian" lang="id" hreflang="id">bahasa indonesia</a></li> 
+<li class="interlanguage-link interwiki-it"><a href="http://it.wikipedia.org/wiki/algoritmo_di_floyd-warshall" title="algoritmo di floyd-warshall – italian" lang="it" hreflang="it">italiano</a></li> 
+<li class="interlanguage-link interwiki-he"><a href="http://he.wikipedia.org/wiki/%d7%90%d7%9c%d7%92%d7%95%d7%a8%d7%99%d7%aa%d7%9d_%d7%a4%d7%9c%d7%95%d7%99%d7%93-%d7%95%d7%95%d7%a8%d7%a9%d7%90%d7%9c" title="אלגוריתם פלויד-וורשאל – hebrew" lang="he" hreflang="he">עברית</a></li> 
+<li class="interlanguage-link interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%e3%83%af%e3%83%bc%e3%82%b7%e3%83%a3%e3%83%ab-%e3%83%95%e3%83%ad%e3%82%a4%e3%83%89%e6%b3%95" title="ワーシャル-フロイド法 – japanese" lang="ja" hreflang="ja">日本語</a></li> 
+<li class="interlanguage-link interwiki-pl"><a href="http://pl.wikipedia.org/wiki/algorytm_floyda-warshalla" title="algorytm floyda-warshalla – polish" lang="pl" hreflang="pl">polski</a></li> 
+<li class="interlanguage-link interwiki-pt"><a href="http://pt.wikipedia.org/wiki/algoritmo_de_floyd-warshall" title="algoritmo de floyd-warshall – portuguese" lang="pt" hreflang="pt">português</a></li> 
+<li class="interlanguage-link interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%d0%90%d0%bb%d0%b3%d0%be%d1%80%d0%b8%d1%82%d0%bc_%d0%a4%d0%bb%d0%be%d0%b9%d0%b4%d0%b0_%e2%80%94_%d0%a3%d0%be%d1%80%d1%88%d0%b5%d0%bb%d0%bb%d0%b0" title="алгоритм флойда — уоршелла – russian" lang="ru" hreflang="ru">русский</a></li> 
+<li class="interlanguage-link interwiki-sr"><a href="http://sr.wikipedia.org/wiki/%d0%a4%d0%bb%d0%be%d1%98%d0%b4-%d0%92%d0%be%d1%80%d1%88%d0%b0%d0%bb%d0%be%d0%b2_%d0%b0%d0%bb%d0%b3%d0%be%d1%80%d0%b8%d1%82%d0%b0%d0%bc" title="флојд-воршалов алгоритам – serbian" lang="sr" hreflang="sr">српски / srpski</a></li> 
+<li class="interlanguage-link interwiki-th"><a href="http://th.wikipedia.org/wiki/%e0%b8%82%e0%b8%b1%e0%b9%89%e0%b8%99%e0%b8%95%e0%b8%ad%e0%b8%99%e0%b8%a7%e0%b8%b4%e0%b8%98%e0%b8%b5%e0%b8%82%e0%b8%ad%e0%b8%87%e0%b8%9f%e0%b8%a5%e0%b8%ad%e0%b8%a2%e0%b8%94%e0%b9%8c-%e0%b8%a7%e0%b8%ad%e0%b8%a3%e0%b9%8c%e0%b9%81%e0%b8%8a%e0%b8%a5" title="ขั้นตอนวิธีของฟลอยด์-วอร์แชล – thai" lang="th" hreflang="th">ไทย</a></li> 
+<li class="interlanguage-link interwiki-uk"><a href="http://uk.wikipedia.org/wiki/%d0%90%d0%bb%d0%b3%d0%be%d1%80%d0%b8%d1%82%d0%bc_%d0%a4%d0%bb%d0%be%d0%b9%d0%b4%d0%b0_%e2%80%94_%d0%92%d0%be%d1%80%d1%88%d0%b5%d0%bb%d0%bb%d0%b0" title="алгоритм флойда — воршелла – ukrainian" lang="uk" hreflang="uk">українська</a></li> 
+<li class="interlanguage-link interwiki-vi"><a href="http://vi.wikipedia.org/wiki/thu%e1%ba%adt_to%c3%a1n_floyd-warshall" title="thuật toán floyd-warshall – vietnamese" lang="vi" hreflang="vi">tiếng việt</a></li> 
+<li class="interlanguage-link interwiki-zh"><a href="http://zh.wikipedia.org/wiki/%e5%bc%97%e6%b4%9b%e4%bc%8a%e5%be%b7%e7%ae%97%e6%b3%95" title="弗洛伊德算法 – chinese" lang="zh" hreflang="zh">中文</a></li> 
+<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/q1047576#sitelinks-wikipedia" title="edit interlanguage links">edit links</a></li> 
+</ul> 
+</div> 
+</div> 
+</div> 
+</div> 
+<div id="footer" role="contentinfo"> 
+<ul id="footer-info"> 
+<li id="footer-info-lastmod"> this page was last modified on 15 january 2014 at 01:47.<br></li> 
+<li id="footer-info-copyright">text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/wikipedia:text_of_creative_commons_attribution-sharealike_3.0_unported_license">creative commons attribution-sharealike license</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>; 
+additional terms may apply.  by using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/terms_of_use">terms of use</a> and <a href="http://wikimediafoundation.org/wiki/privacy_policy">privacy policy.</a> <br> 
+wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">wikimedia foundation, inc.</a>, a non-profit organization.</li> 
+</ul> 
+<ul id="footer-places"> 
+<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/privacy_policy" title="wikimedia:privacy policy">privacy policy</a></li> 
+<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="wikipedia:about">about wikipedia</a></li> 
+<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/wikipedia:general_disclaimer" title="wikipedia:general disclaimer">disclaimers</a></li> 
+<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact wikipedia</a></li> 
+<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/special:mylanguage/how_to_contribute">developers</a></li> 
+<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/floyd%e2%80%93warshall_algorithm" class="noprint stopmobileredirecttoggle">mobile view</a></li> 
+</ul> 
+<ul id="footer-icons" class="noprint"> 
+<li id="footer-copyrightico"> 
+<a href="http://wikimediafoundation.org/"><img src="./floyd warshall_files/wikimedia-button.png" width="88" height="31" alt="wikimedia foundation"></a> 
+</li> 
+<li id="footer-poweredbyico"> 
+<a href="http://www.mediawiki.org/"><img src="./floyd warshall_files/poweredby_mediawiki_88x31.png" alt="powered by mediawiki" width="88" height="31"></a> 
+</li> 
+</ul> 
+<div style="clear:both"></div> 
+</div> 
+<script>/*<![cdata[*/window.jquery && jquery.ready();/*]]>*/</script><script>if(window.mw){ 
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"}); 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postedit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchsuggest","ext.gadget.teahouse","ext.gadget.referencetooltips","ext.gadget.drn-wizard","ext.gadget.charinsert","mw.mwembedsupport.style","ext.articlefeedbackv5.startup","ext.wikimediashoplink.core","ext.navigationtiming","skins.vector.collapsiblenav"],null,true); 
+}</script> 
+<script src="./floyd warshall_files/load(2).php"></script> 
+<!-- served by mw1211 in 0.165 secs. --> 
+ 
+ 
+<div class="suggestions" style="display: none; font-size: 12.800000190734863px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html> 

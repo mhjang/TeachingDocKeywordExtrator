@@ -1,0 +1,969 @@
+<!doctype html> 
+<!-- saved from url=(0039)http://en.wikipedia.org/wiki/radix_sort --> 
+<html lang="en" dir="ltr" class="client-js ve-not-available"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+<meta charset="utf-8"><title>radix sort - wikipedia, the free encyclopedia</title> 
+<meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="generator" content="mediawiki 1.23wmf11"> 
+<link rel="alternate" type="application/x-wiki" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit"> 
+<link rel="edit" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit"> 
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png"> 
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico"> 
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="wikipedia (en)"> 
+<link rel="edituri" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd"> 
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/"> 
+<link rel="alternate" type="application/atom+xml" title="wikipedia atom feed" href="http://en.wikipedia.org/w/index.php?title=special:recentchanges&feed=atom"> 
+<link rel="canonical" href="./radix sort_files/radix sort.html"> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.drn-wizard%2creferencetooltips%2ccharinsert%2cteahouse%7cext.geshi.local%7cext.rtlcite%2cwikihiero%7cext.visualeditor.viewpagetarget.noscript%7cmediawiki.legacy.commonprint%2cshared%7cskins.common.interface%7cskins.vector.styles&only=styles&skin=vector&*"> 
+<style> 
+@-webkit-keyframes centralauthppersonalanimation{0%{opacity:0;-webkit-transform:translatey(-20px)}100%{opacity:1;-webkit-transform:translatey(0)}}@-moz-keyframes centralauthppersonalanimation{0%{opacity:0;-moz-transform:translatey(-20px)}100%{opacity:1;-moz-transform:translatey(0)}}@-o-keyframes centralauthppersonalanimation{0%{opacity:0;-o-transform:translatey(-20px)}100%{opacity:1;-o-transform:translatey(0)}}@keyframes centralauthppersonalanimation{0%{opacity:0;transform:translatey(-20px)}100%{opacity:1;transform:translatey(0)}}.centralauthppersonalanimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralauthppersonalanimation;-moz-animation-name:centralauthppersonalanimation;-o-animation-name:centralauthppersonalanimation;animation-name:centralauthppersonalanimation} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */ 
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */ 
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmveuzaad///95exmqqqry2njeiq0caaaaaxrstlmaqobyzgaaacdjrefucndjygbgygiaasufennjcuiqmadztm5oqexffzakrsg4ygbjcwodynsgdwaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil.png?2014-01-16t16:20:00z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmvewbaady2nj///8gra0zzrtw2aecaaaaaxrstlmaqobyzgaaacdjrefucndjygbgygyaawmdefpygegaoglzzclcqewjq5aki2w4ygbg5qotqpzbuaaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil-hover.png?2014-01-16t16:20:00z)!ie;color:#0645ad !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a963c9df079c8688d25d769892467b5c */ 
+@media print{#centralnotice{display:none}} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */</style><style> 
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */ 
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaabaaaaaqcamaaaaolq9taaabblbmveuaaad///////9pftf///80ardtgjn///9feij///////////9rfzf///////////9pfjzrgdh1o1xoftb///////+bwyqltnj///////9pfta82k////9wht6yxil///9qgddtgzr////////j7udl7elq8efi693k7oh///////9uhjubr2rp9uruhjr///9yljvkgir///9witlyjt3////9/v57vflbkt5pjc9dld/5/fhuq09stuts9uhxuelctcpfnt1hudfloezlouzmpenmvdzpvdxpvtxqvjxrvt5rvt9rwtxsqktswd5uwkbvuudxw0nztfbztu9ztvbzwkp0tlj1xkd2t1r3uvr4w1f4xk54x014ye15uvz5v1r5xvb6v1r7yfj8wvh9xvl9yfr9yvd9yln+xvh+yfd/x1l/yfeaylmex1+ny2uy0hqe04wj1ymv3ze33qld47tj5l3o6cpu7mrq9eb2+/q4j37oaaaaqhrstlmaaqiebaufbqwpfb4fjcuokiosqehjs01rulzzxmdydxachyusljswmjmoq6uur8lexcvm19fg5ejt8fx2+pr7sljgewaaakpjrefugbkfwqncawaaamdltl3ltrg4rwxbtvx77gagz6grfwc0bhwnvgkgdpzx8b0dgli+s7wn0voaqpfoi9+bnadzi7flrz2psewghzuh+78lsk8zlklezf3ooyug3vpxq2usei9wngeyog195ybywdf3e/2pahl1e9gr8bgt+bfofcc2fnvh4x7rcqiaqnnu+ht6sxkajcetl/2zaihv+porbwbjxfka//dfhscby/utaaaaaelftksuqmcc);background-image:url(//bits.wikimedia.org/static-1.23wmf11/resources/mediawiki.action/images/green-checkmark.png?2014-01-16t16:15:00z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:c897cc6a31411b48f47191422cf15c4a */ 
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */ 
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4c59a6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */ 
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */ 
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#f7f7f7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #f7f7f7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.rtflipped{padding-top:13px}.referencetooltip.rtflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.rtflipped li+li::after{border-top:0;border-bottom:8px #f7f7f7 solid;position:absolute;margin-top:7px}.rtsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.rtsettings:hover{opacity:1;filter:alpha(opacity=100)}.rttarget{border:#080086 2px solid} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */ 
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */ 
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playercontainer{overflow:hidden;position:relative;height:100%;background:#000}#videoholder{position:relative;overflow:hidden}.fullscreen #playercontainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwembedplayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayhtml a:visited{color:white}.loadingspinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/loading_ani.gif?2014-01-16t16:18:20z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-01-16t16:18:20z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button.png?2014-01-16t16:18:20z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button_hover.png?2014-01-16t16:18:20z)}.carouselcontainer{position :absolute;width :100%;z-index :2}.carouselvideotitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselvideotitletext{display :block;padding :10px 10px 10px 20px}.carouseltitleduration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5a5a5a;color :#d9d9d9;font-size :smaller;z-index :2}.carouselimgtitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselimgduration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselprevbutton,.carouselnextbutton{display :block;position :absolute;bottom:23px}.carouselprevbutton{left :5px}.carouselnextbutton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#e6e6e6;padding :5px;border-bottom :1px solid #d1d1d1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:40fb0cce50b2525059dbe7ac545e3c42 */</style><style> 
+.suggestions a.mw-searchsuggest-link,.suggestions a.mw-searchsuggest-link:hover,.suggestions a.mw-searchsuggest-link:active,.suggestions a.mw-searchsuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchsuggest-link,.suggestions-result-current a.mw-searchsuggest-link:hover,.suggestions-result-current a.mw-searchsuggest-link:active,.suggestions-result-current a.mw-searchsuggest-link:focus{color:white} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="resourceloaderdynamicstyles" content=""> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=site&only=styles&skin=vector&*"> 
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style> 
+ 
+<script src="./radix sort_files/load.php"></script><script src="./radix sort_files/load(1).php"></script><style title="spinjs"></style> 
+<script>if(window.mw){ 
+mw.config.set({"wgcanonicalnamespace":"","wgcanonicalspecialpagename":false,"wgnamespacenumber":0,"wgpagename":"radix_sort","wgtitle":"radix sort","wgcurrevisionid":593123886,"wgrevisionid":593123886,"wgarticleid":25980,"wgisarticle":true,"wgisredirect":false,"wgaction":"view","wgusername":null,"wgusergroups":["*"],"wgcategories":["use dmy dates from january 2012","sorting algorithms","stable sorts"],"wgbreakframes":false,"wgpagecontentlanguage":"en","wgpagecontentmodel":"wikitext","wgseparatortransformtable":["",""],"wgdigittransformtable":["",""],"wgdefaultdateformat":"dmy","wgmonthnames":["","january","february","march","april","may","june","july","august","september","october","november","december"],"wgmonthnamesshort":["","jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"],"wgrelevantpagename":"radix_sort","wgisprobablyeditable":true,"wgrestrictionedit":[],"wgrestrictionmove":[],"wgwikieditorenabledmodules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateeditor":false,"templates":false,"preview":false,"previewdialog":false,"publish":false,"toc":false},"wgarticlefeedbackv5permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgbetafeaturesfeatures":[],"wgvisualeditor":{"ispagewatched":false,"magnifyclipiconurl":"//bits.wikimedia.org/static-1.23wmf11/skins/common/images/magnify-clip.png","pagelanguagecode":"en","pagelanguagedir":"ltr"},"wikilove-recipient":"","wikilove-anon":0,"wgguidedtourhelpguiderurl":"help:guided tours/guider","wgulsacceptlanguagelist":["en-us","en"],"wgulscurrentautonym":"english","wgflaggedrevsparams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgstablerevisionid":null,"wgcategorytreepagecategoryoptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","geo":{"city":"","country":""},"wgnoticeproject":"wikipedia","aftv5article":{"id":25980,"title":"radix sort","namespace":0,"categories":["sorting algorithms","stable sorts","use dmy dates from january 2012"],"permissionlevel":false},"wgwikibaseitemid":"q830223"}); 
+}</script><script>if(window.mw){ 
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0, 
+"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true, 
+"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","uls-enable":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchns0":true,"searchns1":false,"searchns2":false,"searchns3":false,"searchns4":false,"searchns5":false,"searchns6":false,"searchns7":false,"searchns8":false,"searchns9":false,"searchns10":false,"searchns11":false,"searchns12":false,"searchns13":false,"searchns14":false,"searchns15":false, 
+"searchns100":false,"searchns101":false,"searchns108":false,"searchns109":false,"searchns118":false,"searchns119":false,"searchns446":false,"searchns447":false,"searchns710":false,"searchns711":false,"searchns828":false,"searchns829":false,"gadget-teahouse":1,"gadget-referencetooltips":1,"gadget-drn-wizard":1,"gadget-charinsert":1,"gadget-mysandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"edittoken":"+\\","patroltoken":false,"watchtoken":false});},{},{}); 
+/* cache key: enwiki:resourceloader:filter:minify-js:7:264b5b04c69e37444d5b2d63c2a65dc9 */ 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualeditor.viewpagetarget.init","wikibase.client.init","ext.centralnotice.bannercontroller","skins.vector.js"]); 
+}</script> 
+<style type="text/css">/*<![cdata[*/ 
+.source-c {line-height: normal;} 
+.source-c li, .source-c pre { 
+line-height: normal; border: 0px none white; 
+} 
+/** 
+* geshi dynamically generated stylesheet 
+* -------------------------------------- 
+* dynamically generated stylesheet for c 
+* css class: source-c, css id: 
+* geshi (c) 2004 - 2007 nigel mcnie, 2007 - 2008 benny baumann 
+* (http://qbnz.com/highlighter/ and http://geshi.org/) 
+* -------------------------------------- 
+*/ 
+.c.source-c .de1, .c.source-c .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;} 
+.c.source-c  {font-family:monospace;} 
+.c.source-c .imp {font-weight: bold; color: red;} 
+.c.source-c li, .c.source-c .li1 {font-weight: normal; vertical-align:top;} 
+.c.source-c .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;} 
+.c.source-c .li2 {font-weight: bold; vertical-align:top;} 
+.c.source-c .kw1 {color: #b1b100;} 
+.c.source-c .kw2 {color: #000000; font-weight: bold;} 
+.c.source-c .kw3 {color: #000066;} 
+.c.source-c .kw4 {color: #993333;} 
+.c.source-c .co1 {color: #666666; font-style: italic;} 
+.c.source-c .co2 {color: #339933;} 
+.c.source-c .comulti {color: #808080; font-style: italic;} 
+.c.source-c .es0 {color: #000099; font-weight: bold;} 
+.c.source-c .es1 {color: #000099; font-weight: bold;} 
+.c.source-c .es2 {color: #660099; font-weight: bold;} 
+.c.source-c .es3 {color: #660099; font-weight: bold;} 
+.c.source-c .es4 {color: #660099; font-weight: bold;} 
+.c.source-c .es5 {color: #006699; font-weight: bold;} 
+.c.source-c .br0 {color: #009900;} 
+.c.source-c .sy0 {color: #339933;} 
+.c.source-c .st0 {color: #ff0000;} 
+.c.source-c .nu0 {color: #0000dd;} 
+.c.source-c .nu6 {color: #208080;} 
+.c.source-c .nu8 {color: #208080;} 
+.c.source-c .nu12 {color: #208080;} 
+.c.source-c .nu16 {color:#800080;} 
+.c.source-c .nu17 {color:#800080;} 
+.c.source-c .nu18 {color:#800080;} 
+.c.source-c .nu19 {color:#800080;} 
+.c.source-c .me1 {color: #202020;} 
+.c.source-c .me2 {color: #202020;} 
+.c.source-c .ln-xtra, .c.source-c li.ln-xtra, .c.source-c div.ln-xtra {background-color: #ffc;} 
+.c.source-c span.xtra { display:block; } 
+ 
+/*]]>*/ 
+</style><style type="text/css">/*<![cdata[*/ 
+.source-python {line-height: normal;} 
+.source-python li, .source-python pre { 
+line-height: normal; border: 0px none white; 
+} 
+/** 
+* geshi dynamically generated stylesheet 
+* -------------------------------------- 
+* dynamically generated stylesheet for python 
+* css class: source-python, css id: 
+* geshi (c) 2004 - 2007 nigel mcnie, 2007 - 2008 benny baumann 
+* (http://qbnz.com/highlighter/ and http://geshi.org/) 
+* -------------------------------------- 
+*/ 
+.python.source-python .de1, .python.source-python .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;} 
+.python.source-python  {font-family:monospace;} 
+.python.source-python .imp {font-weight: bold; color: red;} 
+.python.source-python li, .python.source-python .li1 {font-weight: normal; vertical-align:top;} 
+.python.source-python .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;} 
+.python.source-python .li2 {font-weight: bold; vertical-align:top;} 
+.python.source-python .kw1 {color: #ff7700;font-weight:bold;} 
+.python.source-python .kw2 {color: #008000;} 
+.python.source-python .kw3 {color: #dc143c;} 
+.python.source-python .kw4 {color: #0000cd;} 
+.python.source-python .co1 {color: #808080; font-style: italic;} 
+.python.source-python .comulti {color: #808080; font-style: italic;} 
+.python.source-python .es0 {color: #000099; font-weight: bold;} 
+.python.source-python .br0 {color: black;} 
+.python.source-python .sy0 {color: #66cc66;} 
+.python.source-python .st0 {color: #483d8b;} 
+.python.source-python .nu0 {color: #ff4500;} 
+.python.source-python .me1 {color: black;} 
+.python.source-python .ln-xtra, .python.source-python li.ln-xtra, .python.source-python div.ln-xtra {background-color: #ffc;} 
+.python.source-python span.xtra { display:block; } 
+ 
+/*]]>*/ 
+</style><script src="./radix sort_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt ie 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf11/skins/vector/csshover.min.htc")}</style><![endif]--></head> 
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-radix_sort skin-vector action-view vector-animatelayout"> 
+<div id="mw-page-base" class="noprint"></div> 
+<div id="mw-head-base" class="noprint"></div> 
+<div id="content" class="mw-body" role="main"> 
+<a id="top"></a> 
+<div id="mw-js-message" style="display:none;"></div> 
+<div id="sitenotice"><div id="centralnotice"></div><!-- centralnotice --></div> 
+<h1 id="firstheading" class="firstheading" lang="en"><span dir="auto">radix sort</span></h1> 
+<div id="bodycontent"> 
+<div id="sitesub">from wikipedia, the free encyclopedia</div> 
+<div id="contentsub"></div> 
+<div id="jump-to-nav" class="mw-jump"> 
+jump to:					<a href="http://en.wikipedia.org/wiki/radix_sort#mw-navigation">navigation</a>, 					<a href="http://en.wikipedia.org/wiki/radix_sort#p-search">search</a> 
+</div> 
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table class="infobox" cellspacing="3" style="border-spacing:3px;width:22em;"> 
+<caption>radix sort</caption> 
+<tbody><tr> 
+<th scope="row" style="text-align:left;">class</th> 
+<td><a href="http://en.wikipedia.org/wiki/sorting_algorithm" title="sorting algorithm">sorting algorithm</a></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;">data structure</th> 
+<td><a href="http://en.wikipedia.org/wiki/array_data_type" title="array data type">array</a></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;"><a href="http://en.wikipedia.org/wiki/best,_worst_and_average_case" title="best, worst and average case">worst case performance</a></th> 
+<td><img class="tex" alt="o(kn)" src="./radix sort_files/7a660bef0896e72440147aba3c8233c9.png"></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;"><a href="http://en.wikipedia.org/wiki/best,_worst_and_average_case" title="best, worst and average case">worst case space complexity</a></th> 
+<td><img class="tex" alt="o(k + n)" src="./radix sort_files/166581839181c981de347354a919a2d6.png"></td> 
+</tr> 
+</tbody></table> 
+<p>in <a href="http://en.wikipedia.org/wiki/computer_science" title="computer science">computer science</a>, <b>radix sort</b> is a non-<a href="http://en.wikipedia.org/wiki/comparison_sort" title="comparison sort">comparative</a> <a href="http://en.wikipedia.org/wiki/integer_sorting" title="integer sorting">integer</a> <a href="http://en.wikipedia.org/wiki/sorting_algorithm" title="sorting algorithm">sorting algorithm</a> that sorts data with integer keys by grouping keys by the individual digits which share the same <a href="http://en.wikipedia.org/wiki/significant_figures" title="significant figures">significant</a> position and value. a <a href="http://en.wikipedia.org/wiki/positional_notation" title="positional notation">positional notation</a> is required, but because integers can represent strings of characters (e.g., names or dates) and specially formatted floating point numbers, <a href="http://en.wikipedia.org/wiki/radix" title="radix">radix</a> sort is not limited to integers. radix sort dates back as far as 1887 to the work of <a href="http://en.wikipedia.org/wiki/herman_hollerith" title="herman hollerith">herman hollerith</a> on <a href="http://en.wikipedia.org/wiki/tabulating_machines" title="tabulating machines" class="mw-redirect">tabulating machines</a>.<sup id="cite_ref-1" class="reference"><a href="http://en.wikipedia.org/wiki/radix_sort#cite_note-1"><span>[</span>1<span>]</span></a></sup></p> 
+<p>most digital computers internally represent all of their data as electronic representations of binary numbers, so processing the digits of integer representations by groups of binary digit representations is most convenient. two classifications of radix sorts are <a href="http://en.wikipedia.org/wiki/least_significant_digit" title="least significant digit" class="mw-redirect">least significant digit</a> (lsd) radix sorts and <a href="http://en.wikipedia.org/wiki/most_significant_digit" title="most significant digit" class="mw-redirect">most significant digit</a> (msd) radix sorts. lsd radix sorts process the integer representations starting from the least digit and move towards the most significant digit. msd radix sorts work the other way around.</p> 
+<p>the integer representations that are processed by sorting algorithms are often called "keys", which can exist all by themselves or be associated with other data.</p> 
+<p>lsd radix sorts typically use the following sorting order: short keys come before longer keys, and keys of the same length are sorted lexicographically. this coincides with the normal order of integer representations, such as the sequence 1, 2, 3, 4, 5, 6, 7, 8, 9, 10.</p> 
+<p>msd radix sorts use lexicographic order, which is suitable for sorting strings, such as words, or fixed-length integer representations. a sequence such as "b, c, d, e, f, g, h, i, j, ba" would be lexicographically sorted as "b, ba, c, d, e, f, g, h, i, j". if lexicographic ordering is used to sort variable-length integer representations, then the representations of the numbers from 1 to 10 would be output as 1, 10, 2, 3, 4, 5, 6, 7, 8, 9, as if the shorter keys were left-justified and padded on the right with blank characters to make the shorter keys as long as the longest key for the purpose of determining sorted order.</p> 
+<p></p> 
+<div id="toc" class="toc"> 
+<div id="toctitle"> 
+<h2>contents</h2> 
+<span class="toctoggle">&nbsp;[<a href="http://en.wikipedia.org/wiki/radix_sort#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div> 
+<ul> 
+<li class="toclevel-1 tocsection-1"><a href="http://en.wikipedia.org/wiki/radix_sort#efficiency"><span class="tocnumber">1</span> <span class="toctext">efficiency</span></a></li> 
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikipedia.org/wiki/radix_sort#least_significant_digit_radix_sorts"><span class="tocnumber">2</span> <span class="toctext">least significant digit radix sorts</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-3"><a href="http://en.wikipedia.org/wiki/radix_sort#definition"><span class="tocnumber">2.1</span> <span class="toctext">definition</span></a></li> 
+<li class="toclevel-2 tocsection-4"><a href="http://en.wikipedia.org/wiki/radix_sort#an_example"><span class="tocnumber">2.2</span> <span class="toctext">an example</span></a></li> 
+<li class="toclevel-2 tocsection-5"><a href="http://en.wikipedia.org/wiki/radix_sort#iterative_version_using_queues"><span class="tocnumber">2.3</span> <span class="toctext">iterative version using queues</span></a></li> 
+<li class="toclevel-2 tocsection-6"><a href="http://en.wikipedia.org/wiki/radix_sort#example_in_c"><span class="tocnumber">2.4</span> <span class="toctext">example in c</span></a></li> 
+<li class="toclevel-2 tocsection-7"><a href="http://en.wikipedia.org/wiki/radix_sort#example_in_python"><span class="tocnumber">2.5</span> <span class="toctext">example in python</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-8"><a href="http://en.wikipedia.org/wiki/radix_sort#most_significant_digit_radix_sorts"><span class="tocnumber">3</span> <span class="toctext">most significant digit radix sorts</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-9"><a href="http://en.wikipedia.org/wiki/radix_sort#recursion"><span class="tocnumber">3.1</span> <span class="toctext">recursion</span></a> 
+<ul> 
+<li class="toclevel-3 tocsection-10"><a href="http://en.wikipedia.org/wiki/radix_sort#implementation"><span class="tocnumber">3.1.1</span> <span class="toctext">implementation</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-2 tocsection-11"><a href="http://en.wikipedia.org/wiki/radix_sort#recursive_forward_radix_sort_example"><span class="tocnumber">3.2</span> <span class="toctext">recursive forward radix sort example</span></a></li> 
+<li class="toclevel-2 tocsection-12"><a href="http://en.wikipedia.org/wiki/radix_sort#in-place_msd_radix_sort_implementations"><span class="tocnumber">3.3</span> <span class="toctext">in-place msd radix sort implementations</span></a></li> 
+<li class="toclevel-2 tocsection-13"><a href="http://en.wikipedia.org/wiki/radix_sort#stable_msd_radix_sort_implementations"><span class="tocnumber">3.4</span> <span class="toctext">stable msd radix sort implementations</span></a></li> 
+<li class="toclevel-2 tocsection-14"><a href="http://en.wikipedia.org/wiki/radix_sort#hybrid_approaches"><span class="tocnumber">3.5</span> <span class="toctext">hybrid approaches</span></a></li> 
+<li class="toclevel-2 tocsection-15"><a href="http://en.wikipedia.org/wiki/radix_sort#application_to_parallel_computing"><span class="tocnumber">3.6</span> <span class="toctext">application to parallel computing</span></a></li> 
+<li class="toclevel-2 tocsection-16"><a href="http://en.wikipedia.org/wiki/radix_sort#incremental_trie-based_radix_sort"><span class="tocnumber">3.7</span> <span class="toctext">incremental trie-based radix sort</span></a> 
+<ul> 
+<li class="toclevel-3 tocsection-17"><a href="http://en.wikipedia.org/wiki/radix_sort#snow_white_analogy"><span class="tocnumber">3.7.1</span> <span class="toctext">snow white analogy</span></a></li> 
+</ul> 
+</li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-18"><a href="http://en.wikipedia.org/wiki/radix_sort#see_also"><span class="tocnumber">4</span> <span class="toctext">see also</span></a></li> 
+<li class="toclevel-1 tocsection-19"><a href="http://en.wikipedia.org/wiki/radix_sort#references"><span class="tocnumber">5</span> <span class="toctext">references</span></a></li> 
+<li class="toclevel-1 tocsection-20"><a href="http://en.wikipedia.org/wiki/radix_sort#external_links"><span class="tocnumber">6</span> <span class="toctext">external links</span></a></li> 
+</ul> 
+</div> 
+<p></p> 
+<h2><span class="mw-headline" id="efficiency">efficiency</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=1" title="edit section: efficiency">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>radix sort efficiency is o(<i>d</i>·<i>n</i>) for n keys which have <i>d</i> or fewer digits. sometimes <i>d</i> is presented as a constant, which would make radix sort better (for sufficiently large <i>n</i>) than the best comparison-based sorting algorithms, which are all o(<i>n</i>·log(<i>n</i>)). however, in general <i>d</i> cannot be considered a constant. in particular, under the common (but sometimes implicit) assumption that all keys are distinct, then <i>d</i> must be at least of the order of log(<i>n</i>), however other sorting methods become o(log (n) * log (n) * n) under similar constraints as they also need to step through an ever increasing number of symbols to do the comparisons.</p> 
+<h2><span class="mw-headline" id="least_significant_digit_radix_sorts">least significant digit radix sorts</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=2" title="edit section: least significant digit radix sorts">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>a <a href="http://en.wikipedia.org/wiki/least_significant_digit" title="least significant digit" class="mw-redirect">least significant digit</a> (lsd) radix sort is a fast <a href="http://en.wikipedia.org/wiki/stable_sort" title="stable sort" class="mw-redirect">stable</a> <a href="http://en.wikipedia.org/wiki/sorting_algorithm" title="sorting algorithm">sorting algorithm</a> which can be used to sort keys in integer representation order. keys may be a <a href="http://en.wikipedia.org/wiki/string_(computer_science)" title="string (computer science)">string</a> of characters, or numerical digits in a given 'radix'. the processing of the keys begins at the <a href="http://en.wikipedia.org/wiki/least_significant_digit" title="least significant digit" class="mw-redirect">least significant digit</a> (i.e., the rightmost digit), and proceeds to the <a href="http://en.wikipedia.org/wiki/most_significant_digit" title="most significant digit" class="mw-redirect">most significant digit</a> (i.e., the leftmost digit). the sequence in which digits are processed by a <a href="http://en.wikipedia.org/wiki/least_significant_digit" title="least significant digit" class="mw-redirect">lsd</a> radix sort is the opposite of the sequence in which digits are processed by a <a href="http://en.wikipedia.org/wiki/most_significant_digit" title="most significant digit" class="mw-redirect">most significant digit</a> (msd) radix sort.</p> 
+<p>an <a href="http://en.wikipedia.org/wiki/least_significant_digit" title="least significant digit" class="mw-redirect">lsd</a> radix sort operates in <a href="http://en.wikipedia.org/wiki/big_o_notation" title="big o notation">o</a>(<i>nk</i>) time, where <i>n</i> is the number of keys, and <i>k</i> is the average key length. this kind of performance for variable-length keys can be achieved by grouping all of the keys that have the same length together and separately performing an lsd radix sort on each group of keys for each length, from shortest to longest, in order to avoid processing the whole list of keys on every sorting pass.</p> 
+<p>a radix sorting algorithm was originally used to sort <a href="http://en.wikipedia.org/wiki/punched_card" title="punched card">punched cards</a> in several passes. a computer algorithm was invented for radix sort in 1954 at <a href="http://en.wikipedia.org/wiki/massachusetts_institute_of_technology" title="massachusetts institute of technology">mit</a> by <a href="http://en.wikipedia.org/wiki/harold_h._seward" title="harold h. seward">harold h. seward</a>. in many large applications needing speed, the computer radix sort is an improvement on (slower) comparison sorts.</p> 
+<p>lsd radix sorts have resurfaced as an alternative to high performance <a href="http://en.wikipedia.org/wiki/comparison_sort" title="comparison sort">comparison-based sorting algorithms</a> (like <a href="http://en.wikipedia.org/wiki/heapsort" title="heapsort">heapsort</a> and <a href="http://en.wikipedia.org/wiki/mergesort" title="mergesort" class="mw-redirect">mergesort</a>) that require o(<i>n</i> · log <i>n</i>) comparisons, where <i>n</i> is the number of items to be sorted. <a href="http://en.wikipedia.org/wiki/comparison_sort" title="comparison sort">comparison sorts</a> can do no better than o(<i>n</i> · log <i>n</i>) execution time but offer the flexibility of being able to sort with respect to more complicated orderings than a lexicographic one; however, this ability is of little importance in many practical applications.</p> 
+<h3><span class="mw-headline" id="definition">definition</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=3" title="edit section: definition">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>each key is first figuratively dropped into one level of buckets corresponding to the value of the rightmost digit. each bucket preserves the original order of the keys as the keys are dropped into the bucket. there is a one-to-one correspondence between the number of buckets and the number of values that can be represented by the rightmost digit. then, the process repeats with the next neighbouring more significant digit until there are no more digits to process. in other words:</p> 
+<ol> 
+<li>take the least significant digit (or group of bits, both being examples of <a href="http://en.wikipedia.org/wiki/radix" title="radix">radices</a>) of each key.</li> 
+<li>group the keys based on that digit, but otherwise keep the original order of keys. (this is what makes the lsd radix sort a <a href="http://en.wikipedia.org/wiki/stable_sort" title="stable sort" class="mw-redirect">stable sort</a>).</li> 
+<li>repeat the grouping process with each more significant digit.</li> 
+</ol> 
+<p>the sort in step&nbsp;2 is usually done using <a href="http://en.wikipedia.org/wiki/bucket_sort" title="bucket sort">bucket sort</a> or <a href="http://en.wikipedia.org/wiki/counting_sort" title="counting sort">counting sort</a>, which are efficient in this case since there are usually only a small number of digits.</p> 
+<h3><span class="mw-headline" id="an_example">an example</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=4" title="edit section: an example">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>original, unsorted list:</p> 
+<dl> 
+<dd>170, 45, 75, 90, 802, 2,24, 66</dd> 
+</dl> 
+<p>sorting by least significant digit (1s place) gives:</p> 
+<dl> 
+<dd>17<u>0</u>, 9<u>0</u>, 80<u>2</u>, <u>2</u>, 2<u>4</u>, 4<u>5</u>, 7<u>5</u>, 6<u>6</u></dd> 
+</dl> 
+<dl> 
+<dd><small>notice that we keep 802 before 2, because 802 occurred before 2 in the original list, and similarly for pairs 170 &amp; 90 and 45 &amp; 75.</small></dd> 
+</dl> 
+<p>sorting by next digit (10s place) gives:</p> 
+<dl> 
+<dd>8<u>0</u>2, 2, <u>2</u>4, <u>4</u>5, <u>6</u>6, 1<u>7</u>0, <u>7</u>5, <u>9</u>0</dd> 
+</dl> 
+<dl> 
+<dd><small>notice that 802 again comes before 2 as 802 comes before 2 in the previous list.</small></dd> 
+</dl> 
+<p>sorting by most significant digit (100s place) gives:</p> 
+<dl> 
+<dd>2, 24, 45, 66, 75, 90, <u>1</u>70, <u>8</u>02</dd> 
+</dl> 
+<p>it is important to realize that each of the above steps requires just a single pass over the data, since each item can be placed in its correct bucket without having to be compared with other items.</p> 
+<p>some lsd radix sort implementations allocate space for buckets by first counting the number of keys that belong in each bucket before moving keys into those buckets. the number of times that each digit occurs is stored in an <a href="http://en.wikipedia.org/wiki/array_data_type" title="array data type">array</a>. consider the previous list of keys viewed in a different way:</p> 
+<dl> 
+<dd>170, 045, 075, 090, 002, 024, 802, 066</dd> 
+</dl> 
+<p>the first counting pass starts on the least significant digit of each key, producing an array of bucket sizes:</p> 
+<dl> 
+<dd>2 (bucket size for digits of 0: 17<u>0</u>, 09<u>0</u>)</dd> 
+<dd>2 (bucket size for digits of 2: 00<u>2</u>, 80<u>2</u>)</dd> 
+<dd>1 (bucket size for digits of 4: 02<u>4</u>)</dd> 
+<dd>2 (bucket size for digits of 5: 04<u>5</u>, 07<u>5</u>)</dd> 
+<dd>1 (bucket size for digits of 6: 06<u>6</u>)</dd> 
+</dl> 
+<p>a second counting pass on the next more significant digit of each key will produce an array of bucket sizes:</p> 
+<dl> 
+<dd>2 (bucket size for digits of 0: 0<u>0</u>2, 8<u>0</u>2)</dd> 
+<dd>1 (bucket size for digits of 2: 0<u>2</u>4)</dd> 
+<dd>1 (bucket size for digits of 4: 0<u>4</u>5)</dd> 
+<dd>1 (bucket size for digits of 6: 0<u>6</u>6)</dd> 
+<dd>2 (bucket size for digits of 7: 1<u>7</u>0, 0<u>7</u>5)</dd> 
+<dd>1 (bucket size for digits of 9: 0<u>9</u>0)</dd> 
+</dl> 
+<p>a third and final counting pass on the most significant digit of each key will produce an array of bucket sizes:</p> 
+<dl> 
+<dd>6 (bucket size for digits of 0: <u>0</u>02, <u>0</u>24, <u>0</u>45, <u>0</u>66, <u>0</u>75, <u>0</u>90)</dd> 
+<dd>1 (bucket size for digits of 1: <u>1</u>70)</dd> 
+<dd>1 (bucket size for digits of 8: <u>8</u>02)</dd> 
+</dl> 
+<p>at least one lsd radix sort implementation now counts the number of times that each digit occurs in each column for all columns in a single counting pass. (see the <a href="http://en.wikipedia.org/wiki/radix_sort#external_links" title="radix sort">external links</a> section.) other lsd radix sort implementations allocate space for buckets dynamically as the space is needed.</p> 
+<h3><span class="mw-headline" id="iterative_version_using_queues">iterative version using queues</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=5" title="edit section: iterative version using queues">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>a simple version of an lsd radix sort can be achieved using <a href="http://en.wikipedia.org/wiki/queue_(data_structure)" title="queue (data structure)" class="mw-redirect">queues</a> as buckets. the following process is repeated for a number of times equal to the length of the longest key:</p> 
+<ol> 
+<li>the integers are enqueued into an array of ten separate queues based on their digits from right to left. computers often represent integers internally as fixed-length binary digits. here, we will do something analogous with fixed-length decimal digits. so, using the numbers from the previous example, the queues for the 1st pass would be: 
+<dl> 
+<dd>0: 17<u>0</u>, 09<u>0</u></dd> 
+<dd>1: none</dd> 
+<dd>2: 00<u>2</u>, 80<u>2</u></dd> 
+<dd>3: none</dd> 
+<dd>4: 02<u>4</u></dd> 
+<dd>5: 04<u>5</u>, 07<u>5</u></dd> 
+<dd>6: 06<u>6</u></dd> 
+<dd>7–9: none</dd> 
+</dl> 
+</li> 
+<li>the queues are dequeued back into an array of integers, in increasing order. using the same numbers, the array will look like this after the first pass: 
+<dl> 
+<dd>170, 090, 002, 802, 024, 045, 075, 066</dd> 
+</dl> 
+</li> 
+<li>for the second pass: 
+<dl> 
+<dd>queues: 
+<dl> 
+<dd>0: 0<u>0</u>2, 8<u>0</u>2</dd> 
+<dd>1: none</dd> 
+<dd>2: 0<u>2</u>4</dd> 
+<dd>3: none</dd> 
+<dd>4: 0<u>4</u>5</dd> 
+<dd>5: none</dd> 
+<dd>6: 0<u>6</u>6</dd> 
+<dd>7: 1<u>7</u>0, 0<u>7</u>5</dd> 
+<dd>8: none</dd> 
+<dd>9: 0<u>9</u>0</dd> 
+</dl> 
+</dd> 
+<dd>array: 
+<dl> 
+<dd>002, 802, 024, 045, 066, 170, 075, 090<br> 
+(note that at this point only 802 and 170 are out of order)</dd> 
+</dl> 
+</dd> 
+</dl> 
+</li> 
+<li>for the third pass: 
+<dl> 
+<dd>queues: 
+<dl> 
+<dd>0: <u>0</u>02, <u>0</u>24, <u>0</u>45, <u>0</u>66, <u>0</u>75, <u>0</u>90</dd> 
+<dd>1: <u>1</u>70</dd> 
+<dd>2–7: none</dd> 
+<dd>8: <u>8</u>02</dd> 
+<dd>9: none</dd> 
+</dl> 
+</dd> 
+<dd>array: 
+<dl> 
+<dd>002, 024, 045, 066, 075, 090, 170, 802 (sorted)</dd> 
+</dl> 
+</dd> 
+</dl> 
+</li> 
+</ol> 
+<p>while this may not be the most efficient radix sort algorithm, it is relatively simple, and still quite efficient. during all tests on 100m or fewer random 64-bit integers, qsort algorithm behaves faster.</p> 
+<h3><span class="mw-headline" id="example_in_c">example in c</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=6" title="edit section: example in c">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="c source-c"> 
+<pre class="de1"><span class="co2">#include&lt;stdio.h&gt;</span> 
+<span class="co2">#define max 20</span> 
+<span class="co2">#define showpass</span> 
+<span class="co2">#define base 10</span> 
+<span class="kw4">void</span> print<span class="br0">(</span><span class="kw4">int</span> <span class="sy0">*</span>a<span class="sy0">,</span> <span class="kw4">int</span> n<span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw4">int</span> i<span class="sy0">;</span> 
+<span class="kw1">for</span> <span class="br0">(</span>i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">)</span> 
+<span class="kw3">printf</span><span class="br0">(</span><span class="st0">"%d<span class="es1">\t</span>"</span><span class="sy0">,</span> a<span class="br0">[</span>i<span class="br0">]</span><span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+ 
+<span class="kw4">void</span> radixsort<span class="br0">(</span><span class="kw4">int</span> <span class="sy0">*</span>a<span class="sy0">,</span> <span class="kw4">int</span> n<span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw4">int</span> i<span class="sy0">,</span> b<span class="br0">[</span>max<span class="br0">]</span><span class="sy0">,</span> m <span class="sy0">=</span> a<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span><span class="sy0">,</span> <span class="kw3">exp</span> <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">;</span> 
+<span class="kw1">for</span> <span class="br0">(</span>i <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw1">if</span> <span class="br0">(</span>a<span class="br0">[</span>i<span class="br0">]</span> <span class="sy0">&gt;</span> m<span class="br0">)</span> 
+m <span class="sy0">=</span> a<span class="br0">[</span>i<span class="br0">]</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+ 
+<span class="kw1">while</span> <span class="br0">(</span>m <span class="sy0">/</span> <span class="kw3">exp</span> <span class="sy0">&gt;</span> <span class="nu0">0</span><span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw4">int</span> bucket<span class="br0">[</span>base<span class="br0">]</span> <span class="sy0">=</span><span class="br0">{</span>  <span class="nu0">0</span> <span class="br0">}</span><span class="sy0">;</span> 
+<span class="kw1">for</span> <span class="br0">(</span>i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">)</span> 
+bucket<span class="br0">[</span><span class="br0">(</span>a<span class="br0">[</span>i<span class="br0">]</span> <span class="sy0">/</span> <span class="kw3">exp</span><span class="br0">)</span> <span class="sy0">%</span> base<span class="br0">]</span><span class="sy0">++;</span> 
+<span class="kw1">for</span> <span class="br0">(</span>i <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> base<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">)</span> 
+bucket<span class="br0">[</span>i<span class="br0">]</span> <span class="sy0">+=</span> bucket<span class="br0">[</span>i <span class="sy0">-</span> <span class="nu0">1</span><span class="br0">]</span><span class="sy0">;</span> 
+<span class="kw1">for</span> <span class="br0">(</span>i <span class="sy0">=</span> n <span class="sy0">-</span> <span class="nu0">1</span><span class="sy0">;</span> i <span class="sy0">&gt;=</span> <span class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">--</span><span class="br0">)</span> 
+b<span class="br0">[</span><span class="sy0">--</span>bucket<span class="br0">[</span><span class="br0">(</span>a<span class="br0">[</span>i<span class="br0">]</span> <span class="sy0">/</span> <span class="kw3">exp</span><span class="br0">)</span> <span class="sy0">%</span> base<span class="br0">]</span><span class="br0">]</span> <span class="sy0">=</span> a<span class="br0">[</span>i<span class="br0">]</span><span class="sy0">;</span> 
+<span class="kw1">for</span> <span class="br0">(</span>i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">)</span> 
+a<span class="br0">[</span>i<span class="br0">]</span> <span class="sy0">=</span> b<span class="br0">[</span>i<span class="br0">]</span><span class="sy0">;</span> 
+<span class="kw3">exp</span> <span class="sy0">*=</span> base<span class="sy0">;</span> 
+ 
+<span class="co2">#ifdef showpass</span> 
+<span class="kw3">printf</span><span class="br0">(</span><span class="st0">"<span class="es1">\n</span>pass   : "</span><span class="br0">)</span><span class="sy0">;</span> 
+print<span class="br0">(</span>a<span class="sy0">,</span> n<span class="br0">)</span><span class="sy0">;</span> 
+<span class="co2">#endif</span> 
+<span class="br0">}</span> 
+<span class="br0">}</span> 
+ 
+<span class="kw4">int</span> main<span class="br0">(</span><span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw4">int</span> arr<span class="br0">[</span>max<span class="br0">]</span><span class="sy0">;</span> 
+<span class="kw4">int</span> i<span class="sy0">,</span> n<span class="sy0">;</span> 
+<span class="kw3">printf</span><span class="br0">(</span><span class="st0">"enter total elements (n &lt;= %d) : "</span><span class="sy0">,</span> max<span class="br0">)</span><span class="sy0">;</span> 
+<span class="kw3">scanf</span><span class="br0">(</span><span class="st0">"%d"</span><span class="sy0">,</span> <span class="sy0">&amp;</span>n<span class="br0">)</span><span class="sy0">;</span> 
+n <span class="sy0">=</span> n <span class="sy0">&lt;</span> max <span class="sy0">?</span> n <span class="sy0">:</span> max<span class="sy0">;</span> 
+ 
+<span class="kw3">printf</span><span class="br0">(</span><span class="st0">"enter %d elements : "</span><span class="sy0">,</span> n<span class="br0">)</span><span class="sy0">;</span> 
+<span class="kw1">for</span> <span class="br0">(</span>i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">)</span> 
+<span class="kw3">scanf</span><span class="br0">(</span><span class="st0">"%d"</span><span class="sy0">,</span> <span class="sy0">&amp;</span>arr<span class="br0">[</span>i<span class="br0">]</span><span class="br0">)</span><span class="sy0">;</span> 
+ 
+<span class="kw3">printf</span><span class="br0">(</span><span class="st0">"<span class="es1">\n</span>array  : "</span><span class="br0">)</span><span class="sy0">;</span> 
+print<span class="br0">(</span><span class="sy0">&amp;</span>arr<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span><span class="sy0">,</span> n<span class="br0">)</span><span class="sy0">;</span> 
+ 
+radixsort<span class="br0">(</span><span class="sy0">&amp;</span>arr<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span><span class="sy0">,</span> n<span class="br0">)</span><span class="sy0">;</span> 
+ 
+<span class="kw3">printf</span><span class="br0">(</span><span class="st0">"<span class="es1">\n</span>sorted : "</span><span class="br0">)</span><span class="sy0">;</span> 
+print<span class="br0">(</span><span class="sy0">&amp;</span>arr<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span><span class="sy0">,</span> n<span class="br0">)</span><span class="sy0">;</span> 
+<span class="kw3">printf</span><span class="br0">(</span><span class="st0">"<span class="es1">\n</span>"</span><span class="br0">)</span><span class="sy0">;</span> 
+ 
+<span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+</pre></div> 
+</div> 
+<h3><span class="mw-headline" id="example_in_python">example in python</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=7" title="edit section: example in python">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>this example written in the python programming language will perform the radix sort for any radix (base) of 2 or greater. simplicity of exposition is chosen over clever programming, and so the <i>log</i> function is used instead of bit shifting techniques.</p> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="python source-python"> 
+<pre class="de1"><span class="co1">#python2.6 &lt;</span> 
+<span class="kw1">from</span> <span class="kw3">math</span> <span class="kw1">import</span> log 
+ 
+<span class="kw1">def</span> getdigit<span class="br0">(</span>num<span class="sy0">,</span> base<span class="sy0">,</span> digit_num<span class="br0">)</span>: 
+<span class="co1"># pulls the selected digit</span> 
+<span class="kw1">return</span> <span class="br0">(</span>num // base ** digit_num<span class="br0">)</span> % base 
+ 
+<span class="kw1">def</span> makeblanks<span class="br0">(</span>size<span class="br0">)</span>: 
+<span class="co1"># create a list of empty lists to hold the split by digit</span> 
+<span class="kw1">return</span> <span class="br0">[</span><span class="br0">[</span><span class="br0">]</span> <span class="kw1">for</span> _ <span class="kw1">in</span> <span class="kw2">xrange</span><span class="br0">(</span>size<span class="br0">)</span><span class="br0">]</span> 
+ 
+<span class="kw1">def</span> split<span class="br0">(</span>a_list<span class="sy0">,</span> base<span class="sy0">,</span> digit_num<span class="br0">)</span>: 
+buckets <span class="sy0">=</span> makeblanks<span class="br0">(</span>base<span class="br0">)</span> 
+<span class="kw1">for</span> num <span class="kw1">in</span> a_list: 
+<span class="co1"># append the number to the list selected by the digit</span> 
+buckets<span class="br0">[</span>getdigit<span class="br0">(</span>num<span class="sy0">,</span> base<span class="sy0">,</span> digit_num<span class="br0">)</span><span class="br0">]</span>.<span class="me1">append</span><span class="br0">(</span>num<span class="br0">)</span> 
+<span class="kw1">return</span> buckets 
+ 
+<span class="co1"># concatenate the lists back in order for the next step</span> 
+<span class="kw1">def</span> merge<span class="br0">(</span>a_list<span class="br0">)</span>: 
+new_list <span class="sy0">=</span> <span class="br0">[</span><span class="br0">]</span> 
+<span class="kw1">for</span> sublist <span class="kw1">in</span> a_list: 
+new_list.<span class="me1">extend</span><span class="br0">(</span>sublist<span class="br0">)</span> 
+<span class="kw1">return</span> new_list 
+ 
+<span class="kw1">def</span> maxabs<span class="br0">(</span>a_list<span class="br0">)</span>: 
+<span class="co1"># largest abs value element of a list</span> 
+<span class="kw1">return</span> <span class="kw2">max</span><span class="br0">(</span><span class="kw2">abs</span><span class="br0">(</span>num<span class="br0">)</span> <span class="kw1">for</span> num <span class="kw1">in</span> a_list<span class="br0">)</span> 
+ 
+<span class="kw1">def</span> radixsort<span class="br0">(</span>a_list<span class="sy0">,</span> base<span class="br0">)</span>: 
+<span class="co1"># there are as many passes as there are digits in the longest number</span> 
+passes <span class="sy0">=</span> <span class="kw2">int</span><span class="br0">(</span><span class="kw2">round</span><span class="br0">(</span>log<span class="br0">(</span>maxabs<span class="br0">(</span>a_list<span class="br0">)</span><span class="sy0">,</span> base<span class="br0">)</span><span class="br0">)</span> + <span class="nu0">1</span><span class="br0">)</span> 
+new_list <span class="sy0">=</span> a_list<span class="br0">[</span>:<span class="br0">]</span> 
+<span class="kw1">for</span> digit_num <span class="kw1">in</span> <span class="kw2">range</span><span class="br0">(</span>passes<span class="br0">)</span>: 
+new_list <span class="sy0">=</span> merge<span class="br0">(</span>split<span class="br0">(</span>new_list<span class="sy0">,</span> base<span class="sy0">,</span> digit_num<span class="br0">)</span><span class="br0">)</span> 
+<span class="kw1">return</span> new_list 
+</pre></div> 
+</div> 
+<h2><span class="mw-headline" id="most_significant_digit_radix_sorts">most significant digit radix sorts</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=8" title="edit section: most significant digit radix sorts">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>a <a href="http://en.wikipedia.org/wiki/most_significant_digit" title="most significant digit" class="mw-redirect">most significant digit</a> (msd) radix sort can be used to sort keys in <a href="http://en.wikipedia.org/wiki/lexicographic_order" title="lexicographic order" class="mw-redirect">lexicographic order</a>. unlike a least significant digit (lsd) radix sort, a most significant digit radix sort <a href="http://en.wikipedia.org/wiki/stable_sort" title="stable sort" class="mw-redirect">does not necessarily preserve the original order of duplicate keys</a>. an msd radix sort starts processing the keys from the <a href="http://en.wikipedia.org/wiki/most_significant_digit" title="most significant digit" class="mw-redirect">most significant digit</a>, leftmost digit, to the <a href="http://en.wikipedia.org/wiki/least_significant_digit" title="least significant digit" class="mw-redirect">least significant digit</a>, rightmost digit. this sequence is opposite that of <a href="http://en.wikipedia.org/wiki/least_significant_digit" title="least significant digit" class="mw-redirect">least significant digit</a> (lsd) radix sorts. an msd radix sort stops rearranging the position of a key when the processing reaches a unique prefix of the key. some msd radix sorts use one level of buckets in which to group the keys. see the <a href="http://en.wikipedia.org/wiki/counting_sort" title="counting sort">counting sort</a> and <a href="http://en.wikipedia.org/wiki/pigeonhole_sort" title="pigeonhole sort">pigeonhole sort</a> articles. other msd radix sorts use multiple levels of buckets, which form a <a href="http://en.wikipedia.org/wiki/trie" title="trie">trie</a> or a path in a trie. a <a href="http://en.wikipedia.org/wiki/bucket_sort#postman.27s_sort" title="bucket sort">postman's sort / postal sort</a> is a kind of msd radix sort.</p> 
+<h3><span class="mw-headline" id="recursion">recursion</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=9" title="edit section: recursion">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>a <a href="http://en.wikipedia.org/wiki/recursion" title="recursion">recursively</a> subdividing msd radix sort algorithm works as follows:</p> 
+<ol> 
+<li>take the most significant digit of each key.</li> 
+<li>sort the list of elements based on that digit, grouping elements with the same digit into one <a href="http://en.wikipedia.org/wiki/bucket_(computing)" title="bucket (computing)">bucket</a>.</li> 
+<li>recursively sort each bucket, starting with the next digit to the right.</li> 
+<li><a href="http://en.wikipedia.org/wiki/concatenate" title="concatenate" class="mw-redirect">concatenate</a> the buckets together in order.</li> 
+</ol> 
+<h4><span class="mw-headline" id="implementation">implementation</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=10" title="edit section: implementation">edit</a><span class="mw-editsection-bracket">]</span></span></h4> 
+<p>a two-pass method can be used to first find out how big each bucket needs to be and then place each key (or pointer to the key) into the appropriate bucket. a single-pass system can also be used, where each bucket is dynamically allocated and resized as needed, but this runs the risk of serious memory fragmentation, discontiguous allocations of memory, which may degrade performance. this memory fragmentation could be avoided if a fixed allocation of buckets is used for all possible values of a digit, but, for an 8-bit digit, this would require 256 (2<sup>8</sup>) buckets, even if not all of the buckets were used. so, this approach might use up all available memory quickly and go into paging space, where data is stored and accessed on a hard drive or some other secondary memory device instead of main memory, which would radically degrade performance. a fixed allocation approach would only make sense if each digit was very small, such as a single bit.</p> 
+<h3><span class="mw-headline" id="recursive_forward_radix_sort_example">recursive forward radix sort example</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=11" title="edit section: recursive forward radix sort example">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>sort the list:<br> 
+170, 045, 075, 090, 002, 024, 802, 066</p> 
+<ol> 
+<li>sorting by most significant digit (100s place) gives:<br> 
+zero hundreds bucket: <u>0</u>45, <u>0</u>75, <u>0</u>90, <u>0</u>02, <u>0</u>24, <u>0</u>66<br> 
+one hundreds bucket: <u>1</u>70<br> 
+eight hundreds bucket: <u>8</u>02</li> 
+<li>sorting by next digit (10s place) is only needed for those numbers in the zero hundreds bucket (no other buckets contain more than one item):<br> 
+zero tens bucket: 0<u>0</u>2<br> 
+twenties bucket: 0<u>2</u>4<br> 
+forties bucket: 0<u>4</u>5<br> 
+sixties bucket: 0<u>6</u>6<br> 
+seventies bucket: 0<u>7</u>5<br> 
+nineties bucket: 0<u>9</u>0</li> 
+</ol> 
+<p>sorting by least significant digit (1s place) is not needed, as there is no tens bucket with more than one number. therefore, the now sorted zero hundreds bucket is concatenated, joined in sequence, with the one hundreds bucket and eight hundreds bucket to give:<br> 
+002, 024, 045, 066, 075, 090, 170, 802</p> 
+<p>this example used <a href="http://en.wikipedia.org/wiki/base_(exponentiation)" title="base (exponentiation)">base</a> ten digits for the sake of readability, but of course binary digits or perhaps <a href="http://en.wikipedia.org/wiki/byte" title="byte">bytes</a> might make more sense for a binary computer to process.</p> 
+<h3><span class="mw-headline" id="in-place_msd_radix_sort_implementations">in-place msd radix sort implementations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=12" title="edit section: in-place msd radix sort implementations">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>binary msd radix sort, also called binary quicksort, can be implemented in-place by splitting the input array into two bins - the 0s bin and the 1's bin. the 0s bin is grown from the beginning of the array, whereas the 1's bin is grown from the end of the array. the 0s bin boundary is placed before the first array element. the 1's bin boundary is placed after the last array element. the most significant bit of the first array element is examined. if this bit is a 1, then the first element is swapped with the element in front of the 1's bin boundary (the last element of the array), and the 1's bin is grown by one element by decrementing the 1's boundary array index. if this bit is a 0, then the first element remains at its current location, and the 0s bin is grown by one element. the next array element examined is the one in front of the 0s bin boundary (i.e. the first element that is not in the 0s bin or the 1's bin). this process continues until the 0s bin and the 1's bin reach each other. the 0s bin and the 1's bin are then sorted recursively based on the next bit of each array element. recursive processing continues until the least significant bit has been used for sorting.<sup id="cite_ref-2" class="reference"><a href="http://en.wikipedia.org/wiki/radix_sort#cite_note-2"><span>[</span>2<span>]</span></a></sup><sup id="cite_ref-3" class="reference"><a href="http://en.wikipedia.org/wiki/radix_sort#cite_note-3"><span>[</span>3<span>]</span></a></sup> handling signed integers requires treating the most significant bit with the opposite sense, followed by unsigned treatment of the rest of the bits.</p> 
+<p>in-place msd binary-radix sort can be extended to larger radix and retain in-place capability. <a href="http://en.wikipedia.org/wiki/counting_sort" title="counting sort">counting sort</a> is used to determine the size of each bin and their starting index. swapping is used to place the current element into its bin, followed by expanding the bin boundary. as the array elements are scanned the bins are skipped over and only elements between bins are processed, until the entire array has been processed and all elements end up in their respective bins. the number of bins is the same as the radix used - e.g. 16 bins for 16-radix. each pass is based on a single digit (e.g. 4-bits per digit in the case of 16-radix), starting from the <a href="http://en.wikipedia.org/wiki/most_significant_digit" title="most significant digit" class="mw-redirect">most significant digit</a>. each bin is then processed recursively using the next digit, until all digits have been used for sorting.<sup id="cite_ref-4" class="reference"><a href="http://en.wikipedia.org/wiki/radix_sort#cite_note-4"><span>[</span>4<span>]</span></a></sup><sup id="cite_ref-5" class="reference"><a href="http://en.wikipedia.org/wiki/radix_sort#cite_note-5"><span>[</span>5<span>]</span></a></sup></p> 
+<p>neither in-place binary-radix sort nor n-bit-radix sort, discussed in paragraphs above, are <a href="http://en.wikipedia.org/wiki/sorting_algorithm" title="sorting algorithm">stable algorithms</a>.</p> 
+<h3><span class="mw-headline" id="stable_msd_radix_sort_implementations">stable msd radix sort implementations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=13" title="edit section: stable msd radix sort implementations">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>msd radix sort can be implemented as a stable algorithm, but requires the use of a memory buffer of the same size as the input array. this extra memory allows the input buffer to be scanned from the first array element to last, and move the array elements to the destination bins in the same order. thus, equal elements will be placed in the memory buffer in the same order they were in the input array. the msd-based algorithm uses the extra memory buffer as the output on the first level of recursion, but swaps the input and output on the next level of recursion, to avoid the overhead of copying the output result back to the input buffer. each of the bins are recursively processed, as is done for the in-place msd radix sort. after the sort by the last digit has been completed, the output buffer is checked to see if it is the original input array, and if it's not, then a single copy is performed. if the digit size is chosen such that the key size divided by the digit size is an even number, the copy at the end is avoided.<sup id="cite_ref-6" class="reference"><a href="http://en.wikipedia.org/wiki/radix_sort#cite_note-6"><span>[</span>6<span>]</span></a></sup></p> 
+<h3><span class="mw-headline" id="hybrid_approaches">hybrid approaches</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=14" title="edit section: hybrid approaches">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>radix sort, such as two pass method where <a href="http://en.wikipedia.org/wiki/counting_sort" title="counting sort">counting sort</a> is used during the first pass of each level of recursion, has a large constant overhead. thus, when the bins get small, other sorting algorithms should be used, such as <a href="http://en.wikipedia.org/wiki/insertion_sort" title="insertion sort">insertion sort</a>. a good implementation of <a href="http://en.wikipedia.org/wiki/insertion_sort" title="insertion sort">insertion sort</a> is fast for small arrays, stable, in-place, and can significantly speed up radix sort.</p> 
+<h3><span class="mw-headline" id="application_to_parallel_computing">application to parallel computing</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=15" title="edit section: application to parallel computing">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>note that this recursive sorting algorithm has particular application to <a href="http://en.wikipedia.org/wiki/parallel_computing" title="parallel computing">parallel computing</a>, as each of the bins can be sorted independently. in this case, each bin is passed to the next available processor. a single processor would be used at the start (the most significant digit). by the second or third digit, all available processors would likely be engaged. ideally, as each subdivision is fully sorted, fewer and fewer processors would be utilized. in the worst case, all of the keys will be identical or nearly identical to each other, with the result that there will be little to no advantage to using parallel computing to sort the keys.</p> 
+<p>in the top level of recursion, opportunity for parallelism is in the <a href="http://en.wikipedia.org/wiki/counting_sort" title="counting sort">counting sort</a> portion of the algorithm. counting is highly parallel, amenable to the parallel_reduce pattern, and splits the work well across multiple cores until reaching memory bandwidth limit. this portion of the algorithm has data-independent parallelism. processing each bin in subsequent recursion levels is data-dependent, however. for example, if all keys were of the same value, then there would be only a single bin with any elements in it, and no parallelism would be available. for random inputs all bins would be near equally populated and a large amount of parallelism opportunity would be available.<sup id="cite_ref-7" class="reference"><a href="http://en.wikipedia.org/wiki/radix_sort#cite_note-7"><span>[</span>7<span>]</span></a></sup></p> 
+<p>note that there are faster sorting algorithms available, for example optimal complexity o(log(<i>n</i>)) are those of the three hungarians and richard cole<sup id="cite_ref-8" class="reference"><a href="http://en.wikipedia.org/wiki/radix_sort#cite_note-8"><span>[</span>8<span>]</span></a></sup><sup id="cite_ref-9" class="reference"><a href="http://en.wikipedia.org/wiki/radix_sort#cite_note-9"><span>[</span>9<span>]</span></a></sup> and <a href="http://en.wikipedia.org/wiki/batcher" title="batcher" class="mw-redirect">batcher</a>'s bitonic merge sort has an algorithmic complexity of o(log<sup>2</sup>(<i>n</i>)), all of which have a lower algorithmic time complexity to radix sort on a crew-<a href="http://en.wikipedia.org/wiki/parallel_random_access_machine" title="parallel random access machine" class="mw-redirect">pram</a>. the fastest known <a href="http://en.wikipedia.org/wiki/parallel_random_access_machine" title="parallel random access machine" class="mw-redirect">pram</a> sorts were described in 1991 by david powers with a parallelized quicksort that can operate in o(log(n)) time on a crcw-<a href="http://en.wikipedia.org/wiki/parallel_random_access_machine" title="parallel random access machine" class="mw-redirect">pram</a> with <i>n</i> processors by performing partitioning implicitly, as well as a radixsort that operates using the same trick in o(<i>k</i>), where <i>k</i> is the maximum keylength.<sup id="cite_ref-10" class="reference"><a href="http://en.wikipedia.org/wiki/radix_sort#cite_note-10"><span>[</span>10<span>]</span></a></sup> however, neither the <a href="http://en.wikipedia.org/wiki/parallel_random_access_machine" title="parallel random access machine" class="mw-redirect">pram</a> architecture or a single sequential processor can actually be built in a way that will scale without the number of constant <a href="http://en.wikipedia.org/wiki/fanout" title="fanout" class="mw-redirect">fanout</a> gate delays per cycle increasing as o(log(<i>n</i>)), so that in effect a pipelined version of batcher's bitonic mergesort and the o(log(<i>n</i>)) <a href="http://en.wikipedia.org/wiki/parallel_random_access_machine" title="parallel random access machine" class="mw-redirect">pram</a> sorts are all o(log<sup>2</sup>(<i>n</i>)) in terms of clock cycles, with powers acknowledging that batcher's would have lower constant in terms of gate delays than his parallel <a href="http://en.wikipedia.org/wiki/quicksort" title="quicksort">quicksort</a> and radix sort, or cole's <a href="http://en.wikipedia.org/wiki/merge_sort" title="merge sort">merge sort</a>, for a keylength-independent <a href="http://en.wikipedia.org/wiki/sorting_network" title="sorting network">sorting network</a> of o(nlog<sup>2</sup>(<i>n</i>)).<sup id="cite_ref-11" class="reference"><a href="http://en.wikipedia.org/wiki/radix_sort#cite_note-11"><span>[</span>11<span>]</span></a></sup></p> 
+<h3><span class="mw-headline" id="incremental_trie-based_radix_sort">incremental trie-based radix sort</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=16" title="edit section: incremental trie-based radix sort">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>another way to proceed with an msd radix sort is to use more memory to create a <a href="http://en.wikipedia.org/wiki/trie" title="trie">trie</a> to represent the keys and then traverse the trie to visit each key in order. a <a href="http://en.wikipedia.org/wiki/depth-first_search" title="depth-first search">depth-first traversal</a> of a trie starting from the <a href="http://en.wikipedia.org/wiki/root_node" title="root node" class="mw-redirect">root node</a> will visit each key in order. a depth-first traversal of a trie, or any other kind of <a href="http://en.wikipedia.org/wiki/directed_acyclic_graph" title="directed acyclic graph">acyclic</a> tree structure, is equivalent to traversing a maze via the <a href="http://en.wikipedia.org/wiki/maze_solving_algorithm#wall_follower" title="maze solving algorithm">right-hand rule</a>.</p> 
+<p>a trie essentially represents a <a href="http://en.wikipedia.org/wiki/set_(mathematics)" title="set (mathematics)">set</a> of strings or numbers, and a radix sort which uses a trie structure is not necessarily stable, which means that the original order of duplicate keys is not necessarily preserved, because a set does not contain duplicate elements. additional information will have to be associated with each key to indicate the population count or original order of any duplicate keys in a trie-based radix sort if keeping track of that information is important for a particular application. it may even be desirable to discard any duplicate strings as the trie creation proceeds if the goal is to find only unique strings in sorted order. some people sort a list of strings first and then make a separate pass through the sorted list to discard duplicate strings, which can be slower than using a trie to simultaneously sort and discard duplicate strings in one pass.</p> 
+<p>one of the advantages of maintaining the trie structure is that the trie makes it possible to determine quickly if a particular key is a member of the set of keys in a time that is proportional to the length of the key, <i>k</i>, in o(<i>k</i>) time, that is <i>independent</i> of the total number of keys. determining set membership in a plain list, as opposed to determining set membership in a trie, requires <a href="http://en.wikipedia.org/wiki/binary_search" title="binary search" class="mw-redirect">binary search</a>, o(<i>k log(n)</i>) time; <a href="http://en.wikipedia.org/wiki/linear_search" title="linear search">linear search</a>, o(<i>kn</i>) time; or some other method whose execution time is in some way <u>dependent</u> on the total number, <i>n</i>, of all of the keys in the worst case. it is sometimes possible to determine set membership in a plain list in o(<i>k</i>) time, in a time that is independent of the total number of keys, such as when the list is known to be in an <a href="http://en.wikipedia.org/wiki/arithmetic_sequence" title="arithmetic sequence" class="mw-redirect">arithmetic sequence</a> or some other computable sequence.</p> 
+<p>maintaining the trie structure also makes it possible to insert new keys into the set incrementally or delete keys from the set incrementally while maintaining sorted order in o(<i>k</i>) time, in a time that is independent of the total number of keys. in contrast, other radix sorting algorithms must, in the worst case, re-sort the entire list of keys each time that a new key is added or deleted from an existing list, requiring o(<i>kn</i>) time.</p> 
+<h4><span class="mw-headline" id="snow_white_analogy">snow white analogy</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=17" title="edit section: snow white analogy">edit</a><span class="mw-editsection-bracket">]</span></span></h4> 
+<div class="center"> 
+<div class="floatnone"><a href="http://en.wikipedia.org/wiki/file:7dwarves.svg" class="image"><img alt="7dwarves.svg" src="./radix sort_files/986px-7dwarves.svg.png" width="493" height="182" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/7/7f/7dwarves.svg/740px-7dwarves.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/7/7f/7dwarves.svg/986px-7dwarves.svg.png 2x"></a></div> 
+</div> 
+<p>if the nodes were rooms connected by hallways, then here is how snow white might proceed to visit all of the dwarfs if the place were dark, keeping her right hand on a wall at all times:</p> 
+<ol> 
+<li>she travels down hall b to find bashful.</li> 
+<li>she continues moving forward with her right hand on the wall, which takes her around the room and back up hall b.</li> 
+<li>she moves down halls d, o, and c to find doc.</li> 
+<li>continuing to follow the wall with her right hand, she goes back up hall c, then down hall p, where she finds dopey.</li> 
+<li>she continues back up halls p, o, d, and then goes down hall g to find grumpy.</li> 
+<li>she goes back up hall g, with her right hand still on the wall, and goes down hall h to the room where happy is.</li> 
+<li>she travels back up hall h and turns right down halls s and l, where she finds sleepy.</li> 
+<li>she goes back up hall l, down hall n, where she finally finds sneezy.</li> 
+<li>she travels back up halls n and s to her starting point and knows that she is done.</li> 
+</ol> 
+<p>these series of steps serve to illustrate the path taken in the trie by snow white via a <a href="http://en.wikipedia.org/wiki/depth-first_search" title="depth-first search">depth-first traversal</a> to visit the dwarfs by the ascending order of their names, bashful, doc, dopey, grumpy, happy, sleepy, and sneezy. the algorithm for performing some operation on the data associated with each node of a tree first, such as printing the data, and then moving deeper into the tree is called a <a href="http://en.wikipedia.org/wiki/pre-order_traversal" title="pre-order traversal" class="mw-redirect">pre-order traversal</a>, which is a kind of <a href="http://en.wikipedia.org/wiki/depth-first_search" title="depth-first search">depth-first traversal</a>. a pre-order traversal is used to process the contents of a trie in ascending order. if snow white wanted to visit the dwarfs by the descending order of their names, then she could walk backwards while following the wall with her right hand, or, alternatively, walk forward while following the wall with her left hand. the algorithm for moving deeper into a tree first until no further descent to unvisited nodes is possible and then performing some operation on the data associated with each node is called <a href="http://en.wikipedia.org/wiki/post-order_traversal" title="post-order traversal" class="mw-redirect">post-order traversal</a>, which is another kind of depth-first traversal. a <a href="http://en.wikipedia.org/wiki/post-order_traversal" title="post-order traversal" class="mw-redirect">post-order traversal</a> is used to process the contents of a trie in descending order.</p> 
+<p>the <a href="http://en.wikipedia.org/wiki/root_node" title="root node" class="mw-redirect">root node</a> of the <a href="http://en.wikipedia.org/wiki/trie" title="trie">trie</a> in the diagram essentially represents a null string, an empty string, which can be useful for keeping track of the number of blank lines in a list of words. the null string can be associated with a circularly <a href="http://en.wikipedia.org/wiki/linked_list" title="linked list">linked list</a> with the null string initially as its only member, with the forward and backward pointers both initially pointing to the null string. the circularly linked list can then be expanded as each new key is inserted into the <a href="http://en.wikipedia.org/wiki/trie" title="trie">trie</a>. the circularly linked list is represented in the following diagram as thick, grey, horizontally linked lines:</p> 
+<div class="center"> 
+<div class="floatnone"><a href="http://en.wikipedia.org/wiki/file:7dwarvesthreaded.svg" class="image"><img alt="7dwarvesthreaded.svg" src="./radix sort_files/1050px-7dwarvesthreaded.svg.png" width="525" height="165" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/1/12/7dwarvesthreaded.svg/788px-7dwarvesthreaded.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/1/12/7dwarvesthreaded.svg/1050px-7dwarvesthreaded.svg.png 2x"></a></div> 
+</div> 
+<p>if a new key, other than the null string, is inserted into a <a href="http://en.wikipedia.org/wiki/leaf_node" title="leaf node" class="mw-redirect">leaf node</a> of the <a href="http://en.wikipedia.org/wiki/trie" title="trie">trie</a>, then the computer can go to the last preceding node where there was a key or a bifurcation to perform a <a href="http://en.wikipedia.org/wiki/depth-first_search" title="depth-first search">depth-first search</a> to find the lexicographic successor or predecessor of the inserted key for the purpose of splicing the new key into the circularly <a href="http://en.wikipedia.org/wiki/linked_list" title="linked list">linked list</a>. the last preceding node where there was a key or a bifurcation, a fork in the path, is a <a href="http://en.wikipedia.org/wiki/parent_node" title="parent node" class="mw-redirect">parent node</a> in the type of trie shown here, where only unique string prefixes are represented as paths in the trie. if there is already a key associated with the parent node that would have been visited during a movement <i>away</i> from the root during a right-hand, forward-moving, depth-first traversal, then that immediately ends the depth-first search, as that key is the predecessor of the inserted key. for example, if bashful is inserted into the trie, then the predecessor is the null string in the parent node, which is the <a href="http://en.wikipedia.org/wiki/root_node" title="root node" class="mw-redirect">root node</a> in this case. in other words, if the key that is being inserted is on the leftmost branch of the parent node, then any string contained in the parent node is the lexicographic predecessor of the key that is being inserted, else the lexicographic predecessor of the key that is being inserted exists down the parent node's branch that is immediately to the left of the branch where the new key is being inserted. for example, if grumpy were the last key inserted into the trie, then the computer would have a choice of trying to find either the predecessor, dopey, or the successor, happy, with a <a href="http://en.wikipedia.org/wiki/depth-first_search" title="depth-first search">depth-first search</a> starting from the parent node of grumpy. with no additional information to indicate which path is longer, the computer might traverse the longer path, d, o, p. if dopey were the last key inserted into the trie, then the depth-first search starting from the parent node of dopey would soon find the predecessor, "doc", because that would be the only choice.</p> 
+<p>if a new key is inserted into an <a href="http://en.wikipedia.org/wiki/internal_node" title="internal node" class="mw-redirect">internal node</a>, then a depth-first search can be started from the <a href="http://en.wikipedia.org/wiki/internal_node" title="internal node" class="mw-redirect">internal node</a> to find the lexicographic successor. for example, if the literal string "do" were inserted in the node at the end of the path d, o, then a depth-first search could be started from that internal node to find the successor, "doc", for the purpose of splicing the new string into the circularly <a href="http://en.wikipedia.org/wiki/linked_list" title="linked list">linked list</a>.</p> 
+<p>forming the circularly linked list requires more memory but allows the keys to be visited more directly in either ascending or descending order via a linear traversal of the <a href="http://en.wikipedia.org/wiki/linked_list" title="linked list">linked list</a> rather than a <a href="http://en.wikipedia.org/wiki/depth-first_search" title="depth-first search">depth-first traversal</a> of the entire trie. this concept of a circularly linked trie structure is similar to the concept of a <a href="http://en.wikipedia.org/wiki/threaded_binary_tree" title="threaded binary tree">threaded binary tree</a>. this structure will be called a circularly threaded trie.</p> 
+<div class="center"> 
+<div class="floatnone"><a href="http://en.wikipedia.org/wiki/file:trie002.svg" class="image"><img alt="trie002.svg" src="./radix sort_files/666px-trie002.svg.png" width="333" height="141" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/a/a7/trie002.svg/500px-trie002.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/a/a7/trie002.svg/666px-trie002.svg.png 2x"></a></div> 
+</div> 
+<p>when a <a href="http://en.wikipedia.org/wiki/trie" title="trie">trie</a> is used to sort numbers, the number representations must all be the same length unless you are willing to perform a <a href="http://en.wikipedia.org/wiki/breadth-first_search" title="breadth-first search">breadth-first traversal</a>. when the number representations will be visited via <a href="http://en.wikipedia.org/wiki/depth-first_search" title="depth-first search">depth-first traversal</a>, as in the above diagram, the number representations will always be on the <a href="http://en.wikipedia.org/wiki/leaf_node" title="leaf node" class="mw-redirect">leaf nodes</a> of the <a href="http://en.wikipedia.org/wiki/trie" title="trie">trie</a>. note how similar in concept this particular example of a trie is to the <a href="http://en.wikipedia.org/wiki/radix_sort#recursive_forward_radix_sort_example" title="radix sort">recursive forward radix sort example</a> which involves the use of buckets instead of a trie. performing a radix sort with the buckets is like creating a trie and then discarding the non-leaf nodes.</p> 
+<h2><span class="mw-headline" id="see_also">see also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=18" title="edit section: see also">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/ibm_80_series_card_sorters" title="ibm 80 series card sorters" class="mw-redirect">ibm 80 series card sorters</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/spaghetti_sort" title="spaghetti sort">spaghetti sort</a></li> 
+</ul> 
+<h2><span class="mw-headline" id="references">references</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=19" title="edit section: references">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<div class="reflist" style="list-style-type: decimal;"> 
+<ol class="references"> 
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/radix_sort#cite_ref-1"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span class="citation patent"><a rel="nofollow" class="external text" href="http://worldwide.espacenet.com/textdoc?db=epodoc&idx=us395781">us 395781</a></span><span class="z3988" title="ctx_ver=z39.88-2004&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3apatent&amp;rft.number=395781&amp;rft.cc=us&amp;rft.title="><span style="display: none;">&nbsp;</span></span> and <span class="citation patent"><a rel="nofollow" class="external text" href="http://worldwide.espacenet.com/textdoc?db=epodoc&idx=uk327">uk 327</a></span><span class="z3988" title="ctx_ver=z39.88-2004&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3apatent&amp;rft.number=327&amp;rft.cc=uk&amp;rft.title="><span style="display: none;">&nbsp;</span></span></span></li> 
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/radix_sort#cite_ref-2"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">r. sedgewick, "algorithms in c++", third edition, 1998, p. 424-427</span></li> 
+<li id="cite_note-3"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/radix_sort#cite_ref-3"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://www.drdobbs.com/architecture-and-design/220300654">v. j. duvanenko, "in-place hybrid binary-radix sort", dr. dobb's journal, 1 october 2009</a></span></li> 
+<li id="cite_note-4"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/radix_sort#cite_ref-4"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://www.drdobbs.com/architecture-and-design/221600153">v. j. duvanenko, "in-place hybrid n-bit-radix sort", dr. dobb's journal, november 2009</a></span></li> 
+<li id="cite_note-5"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/radix_sort#cite_ref-5"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://www.drdobbs.com/high-performance-computing/229000734">v. j. duvanenko, "parallel in-place radix sort simplified", dr. dobb's journal, january 2011</a></span></li> 
+<li id="cite_note-6"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/radix_sort#cite_ref-6"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://www.drdobbs.com/tools/222200161">v. j. duvanenko, "stable hybrid n-bit-radix sort", dr. dobb's journal, january 2010</a></span></li> 
+<li id="cite_note-7"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/radix_sort#cite_ref-7"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://www.drdobbs.com/high-performance-computing/226600004">v. j. duvanenko, "parallel in-place n-bit-radix sort", dr. dobb's journal, august 2010</a></span></li> 
+<li id="cite_note-8"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/radix_sort#cite_ref-8"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">a. gibbons and <a href="http://en.wikipedia.org/wiki/wojciech_rytter" title="wojciech rytter">w. rytter</a>, "efficient parallel algorithms". cambridge university press, 1988.</span></li> 
+<li id="cite_note-9"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/radix_sort#cite_ref-9"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">h. casanova et al, "parallel algorithms". chapman &amp; hall, 2008.</span></li> 
+<li id="cite_note-10"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/radix_sort#cite_ref-10"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">david m. w. powers, <a rel="nofollow" class="external text" href="http://citeseer.ist.psu.edu/327487.html">parallelized quicksort and radixsort with optimal speedup</a>, <i>proceedings of international conference on parallel computing technologies</i>. <a href="http://en.wikipedia.org/wiki/novosibirsk" title="novosibirsk">novosibirsk</a>. 1991.</span></li> 
+<li id="cite_note-11"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/radix_sort#cite_ref-11"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">david m. w. powers, <a rel="nofollow" class="external text" href="http://david.wardpowers.info/research/ai/papers/199501-acaw-pupc.pdf">parallel unification: practical complexity</a>, australasian computer architecture workshop, flinders university, january 1995</span></li> 
+</ol> 
+</div> 
+<h2><span class="mw-headline" id="external_links">external links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit&section=20" title="edit section: external links">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<table class="metadata mbox-small plainlinks" style="border:1px solid #aaa; background-color:#f9f9f9;"> 
+<tbody><tr> 
+<td class="mbox-image"><img alt="" src="./radix sort_files/80px-wikibooks-logo-en-noslogan.svg.png" width="40" height="40" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/d/df/wikibooks-logo-en-noslogan.svg/60px-wikibooks-logo-en-noslogan.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/d/df/wikibooks-logo-en-noslogan.svg/80px-wikibooks-logo-en-noslogan.svg.png 2x"></td> 
+<td class="mbox-text plainlist" style="">the wikibook <i><a href="http://en.wikibooks.org/wiki/algorithm_implementation" class="extiw" title="wikibooks:algorithm implementation">algorithm implementation</a></i> has a page on the topic of: <i><b><a href="http://en.wikibooks.org/wiki/algorithm_implementation/sorting/radix_sort" class="extiw" title="wikibooks:algorithm implementation/sorting/radix sort">radix sort</a></b></i></td> 
+</tr> 
+</tbody></table> 
+<ul> 
+<li><a rel="nofollow" class="external text" href="http://www.csse.monash.edu.au/~lloyd/tildealgds/sort/radix/">demonstration and comparison</a> of radix sort with <a href="http://en.wikipedia.org/wiki/bubble_sort" title="bubble sort">bubble sort</a>, <a href="http://en.wikipedia.org/wiki/merge_sort" title="merge sort">merge sort</a> and <a href="http://en.wikipedia.org/wiki/quicksort" title="quicksort">quicksort</a> implemented in <a href="http://en.wikipedia.org/wiki/javascript" title="javascript">javascript</a></li> 
+<li><a rel="nofollow" class="external text" href="http://www.codercorner.com/radixsortrevisited.htm">article</a> about radix sorting <a href="http://en.wikipedia.org/wiki/ieee_floating-point_standard" title="ieee floating-point standard" class="mw-redirect">ieee floating-point</a> numbers with implementation. 
+<dl> 
+<dd><a rel="nofollow" class="external text" href="http://www.stereopsis.com/radix.html">faster floating point sorting and multiple histogramming</a> with implementation in c++</dd> 
+</dl> 
+</li> 
+<li>pointers to <a rel="nofollow" class="external text" href="http://web-cat.cs.vt.edu/algovizwiki/radixsort">radix sort visualizations</a></li> 
+<li><a rel="nofollow" class="external text" href="http://bitbucket.org/ais/usort/wiki/home">usort library</a> contains tuned implementations of radix sort for most numerical c types (c99)</li> 
+</ul> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/donald_knuth" title="donald knuth">donald knuth</a>. <i>the art of computer programming</i>, volume 3: <i>sorting and searching</i>, third edition. addison-wesley, 1997. <a href="http://en.wikipedia.org/wiki/special:booksources/0201896850" class="internal mw-magiclink-isbn">isbn 0-201-89685-0</a>. section 5.2.5: sorting by distribution, pp.&nbsp;168–179.</li> 
+<li><a href="http://en.wikipedia.org/wiki/thomas_h._cormen" title="thomas h. cormen">thomas h. cormen</a>, <a href="http://en.wikipedia.org/wiki/charles_e._leiserson" title="charles e. leiserson">charles e. leiserson</a>, <a href="http://en.wikipedia.org/wiki/ronald_l._rivest" title="ronald l. rivest" class="mw-redirect">ronald l. rivest</a>, and <a href="http://en.wikipedia.org/wiki/clifford_stein" title="clifford stein">clifford stein</a>. <i><a href="http://en.wikipedia.org/wiki/introduction_to_algorithms" title="introduction to algorithms">introduction to algorithms</a></i>, second edition. mit press and mcgraw-hill, 2001. <a href="http://en.wikipedia.org/wiki/special:booksources/0262032937" class="internal mw-magiclink-isbn">isbn 0-262-03293-7</a>. section 8.3: radix sort, pp.&nbsp;170–173.</li> 
+<li><a rel="nofollow" class="external text" href="http://web.archive.org/web/20010714213118/www.chinet.com/~edlee/bradsort.c">bradsort v1.50 source code</a></li> 
+<li><a rel="nofollow" class="external text" href="http://goanna.cs.rmit.edu.au/~jz/fulltext/acsc03sz.pdf">efficient trie-based sorting of large sets of strings</a>, by ranjan sinha and justin zobel. this paper describes a method of creating tries of buckets which figuratively burst into sub-tries when the buckets hold more than a predetermined capacity of strings, hence the name, "burstsort".</li> 
+<li><a rel="nofollow" class="external text" href="http://opendatastructures.org/versions/edition-0.1e/ods-java/11_2_counting_sort_radix_so.html">open data structures - java edition - section 11.2 - counting sort and radix sort</a></li> 
+<li><a rel="nofollow" class="external text" href="http://opendatastructures.org/ods-cpp/11_2_counting_sort_radix_so.html">open data structures - c++ edition - section 11.2 - counting sort and radix sort</a></li> 
+</ul> 
+<table cellspacing="0" class="navbox" style="border-spacing:0;"> 
+<tbody><tr> 
+<td style="padding:2px;"> 
+<table cellspacing="0" class="nowraplinks collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" id="collapsibletable0"> 
+<tbody><tr> 
+<th scope="col" class="navbox-title" colspan="2"><span class="collapsebutton">[<a id="collapsebutton0" href="http://en.wikipedia.org/wiki/radix_sort#">hide</a>]</span> 
+<div class="plainlinks hlist navbar mini"> 
+<ul> 
+<li class="nv-view"><a href="http://en.wikipedia.org/wiki/template:sorting" title="template:sorting"><span title="view this template" style=";;background:none transparent;border:none;;">v</span></a></li> 
+<li class="nv-talk"><a href="http://en.wikipedia.org/wiki/template_talk:sorting" title="template talk:sorting"><span title="discuss this template" style=";;background:none transparent;border:none;;">t</span></a></li> 
+<li class="nv-edit"><a class="external text" href="http://en.wikipedia.org/w/index.php?title=template:sorting&action=edit"><span title="edit this template" style=";;background:none transparent;border:none;;">e</span></a></li> 
+</ul> 
+</div> 
+<div style="font-size:110%;"><a href="http://en.wikipedia.org/wiki/sorting_algorithm" title="sorting algorithm">sorting algorithms</a></div> 
+</th> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">theory</th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/computational_complexity_theory" title="computational complexity theory">computational complexity theory</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/big_o_notation" title="big o notation">big o notation</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/total_order" title="total order">total order</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/list_(computing)" title="list (computing)" class="mw-redirect">lists</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/in-place_algorithm" title="in-place algorithm">inplacement</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/sorting_algorithm#stability" title="sorting algorithm">stability</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/comparison_sort" title="comparison sort">comparison sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/adaptive_sort" title="adaptive sort">adaptive sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/sorting_network" title="sorting network">sorting network</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/integer_sorting" title="integer sorting">integer sorting</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">exchange sorts</th> 
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/bubble_sort" title="bubble sort">bubble sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/cocktail_sort" title="cocktail sort">cocktail sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/odd%e2%80%93even_sort" title="odd–even sort">odd–even sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/comb_sort" title="comb sort">comb sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/gnome_sort" title="gnome sort">gnome sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/quicksort" title="quicksort">quicksort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/stooge_sort" title="stooge sort">stooge sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/bogosort" title="bogosort">bogosort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/selection_algorithm" title="selection algorithm">selection sorts</a></th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/selection_sort" title="selection sort">selection sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/heapsort" title="heapsort">heapsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/smoothsort" title="smoothsort">smoothsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/cartesian_tree#application_in_sorting" title="cartesian tree">cartesian tree sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/tournament_sort" title="tournament sort">tournament sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/cycle_sort" title="cycle sort">cycle sort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">insertion sorts</th> 
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/insertion_sort" title="insertion sort">insertion sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/shellsort" title="shellsort">shellsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/splaysort" title="splaysort">splaysort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/tree_sort" title="tree sort">tree sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/library_sort" title="library sort">library sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/patience_sorting" title="patience sorting">patience sorting</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">merge sorts</th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/merge_sort" title="merge sort">merge sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/cascade_merge_sort" title="cascade merge sort">cascade merge sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/oscillating_merge_sort" title="oscillating merge sort">oscillating merge sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/polyphase_merge_sort" title="polyphase merge sort">polyphase merge sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/strand_sort" title="strand sort">strand sort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">distribution sorts</th> 
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/american_flag_sort" title="american flag sort">american flag sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/bead_sort" title="bead sort">bead sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/bucket_sort" title="bucket sort">bucket sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/burstsort" title="burstsort">burstsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/counting_sort" title="counting sort">counting sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/pigeonhole_sort" title="pigeonhole sort">pigeonhole sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/proxmap_sort" title="proxmap sort">proxmap sort</a></li> 
+<li><strong class="selflink">radix sort</strong></li> 
+<li><a href="http://en.wikipedia.org/wiki/flashsort" title="flashsort">flashsort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">concurrent sorts</th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/bitonic_sorter" title="bitonic sorter">bitonic sorter</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/batcher_odd%e2%80%93even_mergesort" title="batcher odd–even mergesort">batcher odd–even mergesort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/pairwise_sorting_network" title="pairwise sorting network">pairwise sorting network</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/hybrid_algorithm" title="hybrid algorithm">hybrid sorts</a></th> 
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/timsort" title="timsort">timsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/introsort" title="introsort">introsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/spreadsort" title="spreadsort">spreadsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/unshuffle_sort" title="unshuffle sort">unshuffle sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/jsort" title="jsort">jsort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">other</th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/topological_sorting" title="topological sorting">topological sorting</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/pancake_sorting" title="pancake sorting">pancake sorting</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/spaghetti_sort" title="spaghetti sort">spaghetti sort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+</tbody></table> 
+</td> 
+</tr> 
+</tbody></table> 
+ 
+ 
+<!-- 
+newpp limit report 
+parsed by mw1213 
+cpu time usage: 0.568 seconds 
+real time usage: 0.926 seconds 
+preprocessor visited node count: 1006/1000000 
+preprocessor generated node count: 5302/1500000 
+post‐expand include size: 19878/2048000 bytes 
+template argument size: 1224/2048000 bytes 
+highest expansion depth: 14/40 
+expensive parser function count: 3/500 
+lua time usage: 0.022s 
+lua memory usage: 808 kb 
+--> 
+ 
+<!-- saved in parser cache with key enwiki:pcache:idhash:25980-0!0!0!!en!4!* and timestamp 20140130145704 
+--> 
+<noscript>&lt;img src="//en.wikipedia.org/wiki/special:centralautologin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /&gt;</noscript></div>								<div class="printfooter"> 
+retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=radix_sort&oldid=593123886">http://en.wikipedia.org/w/index.php?title=radix_sort&amp;oldid=593123886</a>"				</div> 
+<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/help:category" title="help:category">categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/category:sorting_algorithms" title="category:sorting algorithms">sorting algorithms</a></li><li><a href="http://en.wikipedia.org/wiki/category:stable_sorts" title="category:stable sorts">stable sorts</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/category:use_dmy_dates_from_january_2012" title="category:use dmy dates from january 2012">use dmy dates from january 2012</a></li></ul></div></div>												<div class="visualclear"></div> 
+</div> 
+</div> 
+<div id="mw-navigation"> 
+<h2>navigation menu</h2> 
+<div id="mw-head"> 
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label"> 
+<h3 id="p-personal-label">personal tools</h3> 
+<ul> 
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=radix+sort&type=signup">create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=radix+sort" title="you&#39;re encouraged to log in; however, it&#39;s not mandatory. [ctrl-option-o]" accesskey="o">log in</a></li>	</ul> 
+</div> 
+<div id="left-navigation"> 
+<div id="p-namespaces" role="navigation" class="vectortabs" aria-labelledby="p-namespaces-label"> 
+<h3 id="p-namespaces-label">namespaces</h3> 
+<ul> 
+<li id="ca-nstab-main" class="selected"><span><a href="./radix sort_files/radix sort.html" title="view the content page [ctrl-option-c]" accesskey="c">article</a></span></li> 
+<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/talk:radix_sort" title="discussion about the content page [ctrl-option-t]" accesskey="t">talk</a></span></li> 
+</ul> 
+</div> 
+<div id="p-variants" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-variants-label"> 
+<h3 id="mw-vector-current-variant"> 
+</h3> 
+<h3 id="p-variants-label" tabindex="0"><span>variants</span><a href="http://en.wikipedia.org/wiki/radix_sort#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+</div> 
+<div id="right-navigation"> 
+<div id="p-views" role="navigation" class="vectortabs" aria-labelledby="p-views-label"> 
+<h3 id="p-views-label">views</h3> 
+<ul> 
+<li id="ca-view" class="selected"><span><a href="./radix sort_files/radix sort.html">read</a></span></li> 
+<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=edit" title="you can edit this page. 
+please review your changes before saving. [ctrl-option-e]" accesskey="e">edit</a></span></li> 
+<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=history" title="past versions of this page [ctrl-option-h]" accesskey="h">view history</a></span></li> 
+</ul> 
+</div> 
+<div id="p-cactions" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-cactions-label"> 
+<h3 id="p-cactions-label" tabindex="0"><span>actions</span><a href="http://en.wikipedia.org/wiki/radix_sort#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+<div id="p-search" role="search"> 
+<h3><label for="searchinput">search</label></h3> 
+<form action="http://en.wikipedia.org/w/index.php" id="searchform"> 
+<div id="simplesearch"> 
+<input name="search" placeholder="search" title="search wikipedia [ctrl-option-f]" accesskey="f" id="searchinput" tabindex="1" autocomplete="off">						<button type="submit" name="button" title="search wikipedia for this text" id="searchbutton"><img src="./radix sort_files/search-ltr.png" alt="search" width="12" height="13"></button>								<input type="hidden" name="title" value="special:search"> 
+</div> 
+</form> 
+</div> 
+</div> 
+</div> 
+<div id="mw-panel" class="collapsible-nav"> 
+<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/wiki.png);" href="http://en.wikipedia.org/wiki/main_page" title="visit the main page"></a></div> 
+<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label"> 
+<h3 id="p-navigation-label">navigation</h3> 
+<div class="body"> 
+<ul> 
+<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/main_page" title="visit the main page [ctrl-option-z]" accesskey="z">main page</a></li> 
+<li id="n-contents"><a href="http://en.wikipedia.org/wiki/portal:contents" title="guides to browsing wikipedia">contents</a></li> 
+<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/portal:featured_content" title="featured content – the best of wikipedia">featured content</a></li> 
+<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/portal:current_events" title="find background information on current events">current events</a></li> 
+<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/special:random" title="load a random article [ctrl-option-x]" accesskey="x">random article</a></li> 
+<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/special:fundraiserredirector?utm_source=donate&utm_medium=sidebar&utm_campaign=c13_en.wikipedia.org&uselang=en" title="support us">donate to wikipedia</a></li> 
+<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="visit the wikimedia shop">wikimedia shop</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label"> 
+<h3 id="p-interaction-label" tabindex="2"><a href="http://en.wikipedia.org/wiki/radix_sort#" aria-haspopup="true" aria-controls="p-interaction-list" role="button" aria-pressed="true" aria-expanded="true">interaction</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-interaction-list"> 
+<li id="n-help"><a href="http://en.wikipedia.org/wiki/help:contents" title="guidance on how to use and edit wikipedia">help</a></li> 
+<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="find out about wikipedia">about wikipedia</a></li> 
+<li id="n-portal"><a href="http://en.wikipedia.org/wiki/wikipedia:community_portal" title="about the project, what you can do, where to find things">community portal</a></li> 
+<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/special:recentchanges" title="a list of recent changes in the wiki [ctrl-option-r]" accesskey="r">recent changes</a></li> 
+<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact page</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label"> 
+<h3 id="p-tb-label" tabindex="3"><a href="http://en.wikipedia.org/wiki/radix_sort#" aria-haspopup="true" aria-controls="p-tb-list" role="button" aria-pressed="false" aria-expanded="false">tools</a></h3> 
+<div class="body"> 
+<ul id="p-tb-list"> 
+<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/special:whatlinkshere/radix_sort" title="list of all english wikipedia pages containing links to this page [ctrl-option-j]" accesskey="j">what links here</a></li> 
+<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/special:recentchangeslinked/radix_sort" title="recent changes in pages linked from this page [ctrl-option-k]" accesskey="k">related changes</a></li> 
+<li id="t-upload"><a href="http://en.wikipedia.org/wiki/wikipedia:file_upload_wizard" title="upload files [ctrl-option-u]" accesskey="u">upload file</a></li> 
+<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/special:specialpages" title="a list of all special pages [ctrl-option-q]" accesskey="q">special pages</a></li> 
+<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&oldid=593123886" title="permanent link to this revision of the page">permanent link</a></li> 
+<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&action=info">page information</a></li> 
+<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/q830223" title="link to connected data repository item [ctrl-option-g]" accesskey="g">data item</a></li> 
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=special:cite&page=radix_sort&id=593123886" title="information on how to cite this page">cite this page</a></li>		</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label"> 
+<h3 id="p-coll-print_export-label" tabindex="4"><a href="http://en.wikipedia.org/wiki/radix_sort#" aria-haspopup="true" aria-controls="p-coll-print_export-list" role="button" aria-pressed="false" aria-expanded="false">print/export</a></h3> 
+<div class="body"> 
+<ul id="p-coll-print_export-list"> 
+<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=book_creator&referer=radix+sort">create a book</a></li> 
+<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=render_article&arttitle=radix+sort&oldid=593123886&writer=rl">download as pdf</a></li> 
+<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=radix_sort&printable=yes" title="printable version of this page [ctrl-option-p]" accesskey="p">printable version</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"> 
+<h3 id="p-lang-label" tabindex="5"><a href="http://en.wikipedia.org/wiki/radix_sort#" aria-haspopup="true" aria-controls="p-lang-list" role="button" aria-pressed="true" aria-expanded="true">languages</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-lang-list"> 
+<li class="interlanguage-link interwiki-cs"><a href="http://cs.wikipedia.org/wiki/radix_sort" title="radix sort – czech" lang="cs" hreflang="cs">čeština</a></li> 
+<li class="interlanguage-link interwiki-de"><a href="http://de.wikipedia.org/wiki/radixsort" title="radixsort – german" lang="de" hreflang="de">deutsch</a></li> 
+<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/ordenamiento_radix" title="ordenamiento radix – spanish" lang="es" hreflang="es">español</a></li> 
+<li class="interlanguage-link interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%d9%85%d8%b1%d8%aa%d8%a8%e2%80%8c%d8%b3%d8%a7%d8%b2%db%8c_%d9%be%d8%a7%db%8c%d9%87%e2%80%8c%d8%a7%db%8c" title="مرتب‌سازی پایه‌ای – persian" lang="fa" hreflang="fa">فارسی</a></li> 
+<li class="interlanguage-link interwiki-fr"><a href="http://fr.wikipedia.org/wiki/tri_par_base" title="tri par base – french" lang="fr" hreflang="fr">français</a></li> 
+<li class="interlanguage-link interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%ea%b8%b0%ec%88%98_%ec%a0%95%eb%a0%ac" title="기수 정렬 – korean" lang="ko" hreflang="ko">한국어</a></li> 
+<li class="interlanguage-link interwiki-hy"><a href="http://hy.wikipedia.org/wiki/%d4%bf%d5%a1%d6%80%d5%a3%d5%a1%d5%b5%d5%ab%d5%b6_%d5%bf%d5%a5%d5%bd%d5%a1%d5%af%d5%a1%d5%be%d5%b8%d6%80%d5%b8%d6%82%d5%b4" title="կարգային տեսակավորում – armenian" lang="hy" hreflang="hy">հայերեն</a></li> 
+<li class="interlanguage-link interwiki-it"><a href="http://it.wikipedia.org/wiki/radix_sort" title="radix sort – italian" lang="it" hreflang="it">italiano</a></li> 
+<li class="interlanguage-link interwiki-he"><a href="http://he.wikipedia.org/wiki/%d7%9e%d7%99%d7%95%d7%9f_%d7%91%d7%a1%d7%99%d7%a1" title="מיון בסיס – hebrew" lang="he" hreflang="he">עברית</a></li> 
+<li class="interlanguage-link interwiki-lt"><a href="http://lt.wikipedia.org/wiki/skaitmeninis_rikiavimo_algoritmas" title="skaitmeninis rikiavimo algoritmas – lithuanian" lang="lt" hreflang="lt">lietuvių</a></li> 
+<li class="interlanguage-link interwiki-nl"><a href="http://nl.wikipedia.org/wiki/radix_sort" title="radix sort – dutch" lang="nl" hreflang="nl">nederlands</a></li> 
+<li class="interlanguage-link interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%e5%9f%ba%e6%95%b0%e3%82%bd%e3%83%bc%e3%83%88" title="基数ソート – japanese" lang="ja" hreflang="ja">日本語</a></li> 
+<li class="interlanguage-link interwiki-no"><a href="http://no.wikipedia.org/wiki/sorteringsalgoritme#radix-sortering" title="sorteringsalgoritme – norwegian (bokmål)" lang="no" hreflang="no">norsk bokmål</a></li> 
+<li class="interlanguage-link interwiki-pl"><a href="http://pl.wikipedia.org/wiki/sortowanie_pozycyjne" title="sortowanie pozycyjne – polish" lang="pl" hreflang="pl">polski</a></li> 
+<li class="interlanguage-link interwiki-pt"><a href="http://pt.wikipedia.org/wiki/radix_sort" title="radix sort – portuguese" lang="pt" hreflang="pt">português</a></li> 
+<li class="interlanguage-link interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%d0%9f%d0%be%d1%80%d0%b0%d0%b7%d1%80%d1%8f%d0%b4%d0%bd%d0%b0%d1%8f_%d1%81%d0%be%d1%80%d1%82%d0%b8%d1%80%d0%be%d0%b2%d0%ba%d0%b0" title="поразрядная сортировка – russian" lang="ru" hreflang="ru">русский</a></li> 
+<li class="interlanguage-link interwiki-sk"><a href="http://sk.wikipedia.org/wiki/radix_sort" title="radix sort – slovak" lang="sk" hreflang="sk">slovenčina</a></li> 
+<li class="interlanguage-link interwiki-sr"><a href="http://sr.wikipedia.org/wiki/%d0%a0%d0%b0%d0%b4%d0%b8%d0%ba%d1%81_%d1%81%d0%be%d1%80%d1%82%d0%b8%d1%80%d0%b0%d1%9a%d0%b5" title="радикс сортирање – serbian" lang="sr" hreflang="sr">српски / srpski</a></li> 
+<li class="interlanguage-link interwiki-fi"><a href="http://fi.wikipedia.org/wiki/kantalukulajittelu" title="kantalukulajittelu – finnish" lang="fi" hreflang="fi">suomi</a></li> 
+<li class="interlanguage-link interwiki-tr"><a href="http://tr.wikipedia.org/wiki/basama%c4%9fa_g%c3%b6re_s%c4%b1ralama" title="basamağa göre sıralama – turkish" lang="tr" hreflang="tr">türkçe</a></li> 
+<li class="interlanguage-link interwiki-uk"><a href="http://uk.wikipedia.org/wiki/%d0%a1%d0%be%d1%80%d1%82%d1%83%d0%b2%d0%b0%d0%bd%d0%bd%d1%8f_%d0%b7%d0%b0_%d1%80%d0%be%d0%b7%d1%80%d1%8f%d0%b4%d0%b0%d0%bc%d0%b8" title="сортування за розрядами – ukrainian" lang="uk" hreflang="uk">українська</a></li> 
+<li class="interlanguage-link interwiki-vi"><a href="http://vi.wikipedia.org/wiki/s%e1%ba%afp_x%e1%ba%bfp_theo_c%c6%a1_s%e1%bb%91" title="sắp xếp theo cơ số – vietnamese" lang="vi" hreflang="vi">tiếng việt</a></li> 
+<li class="interlanguage-link interwiki-zh"><a href="http://zh.wikipedia.org/wiki/%e5%9f%ba%e6%95%b0%e6%8e%92%e5%ba%8f" title="基数排序 – chinese" lang="zh" hreflang="zh">中文</a></li> 
+<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/q830223#sitelinks-wikipedia" title="edit interlanguage links">edit links</a></li> 
+</ul> 
+</div> 
+</div> 
+</div> 
+</div> 
+<div id="footer" role="contentinfo"> 
+<ul id="footer-info"> 
+<li id="footer-info-lastmod"> this page was last modified on 30 january 2014 at 14:57.<br></li> 
+<li id="footer-info-copyright">text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/wikipedia:text_of_creative_commons_attribution-sharealike_3.0_unported_license">creative commons attribution-sharealike license</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>; 
+additional terms may apply.  by using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/terms_of_use">terms of use</a> and <a href="http://wikimediafoundation.org/wiki/privacy_policy">privacy policy.</a> <br> 
+wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">wikimedia foundation, inc.</a>, a non-profit organization.</li> 
+</ul> 
+<ul id="footer-places"> 
+<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/privacy_policy" title="wikimedia:privacy policy">privacy policy</a></li> 
+<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="wikipedia:about">about wikipedia</a></li> 
+<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/wikipedia:general_disclaimer" title="wikipedia:general disclaimer">disclaimers</a></li> 
+<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact wikipedia</a></li> 
+<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/special:mylanguage/how_to_contribute">developers</a></li> 
+<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/radix_sort" class="noprint stopmobileredirecttoggle">mobile view</a></li> 
+</ul> 
+<ul id="footer-icons" class="noprint"> 
+<li id="footer-copyrightico"> 
+<a href="http://wikimediafoundation.org/"><img src="./radix sort_files/wikimedia-button.png" width="88" height="31" alt="wikimedia foundation"></a> 
+</li> 
+<li id="footer-poweredbyico"> 
+<a href="http://www.mediawiki.org/"><img src="./radix sort_files/poweredby_mediawiki_88x31.png" alt="powered by mediawiki" width="88" height="31"></a> 
+</li> 
+</ul> 
+<div style="clear:both"></div> 
+</div> 
+<script>/*<![cdata[*/window.jquery && jquery.ready();/*]]>*/</script><script>if(window.mw){ 
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"}); 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postedit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchsuggest","ext.gadget.teahouse","ext.gadget.referencetooltips","ext.gadget.drn-wizard","ext.gadget.charinsert","mw.mwembedsupport.style","ext.articlefeedbackv5.startup","ext.wikimediashoplink.core","ext.navigationtiming","skins.vector.collapsiblenav"],null,true); 
+}</script> 
+<script src="./radix sort_files/load(2).php"></script> 
+<!-- served by mw1029 in 0.238 secs. --> 
+ 
+ 
+<div class="suggestions" style="display: none; font-size: 12.800000190734863px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html> 

@@ -1,0 +1,1263 @@
+<!doctype html> 
+<!-- saved from url=(0043)http://en.wikipedia.org/wiki/red_black_tree --> 
+<html lang="en" dir="ltr" class="client-js ve-not-available"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+<meta charset="utf-8"><title>red–black tree - wikipedia, the free encyclopedia</title> 
+<meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="generator" content="mediawiki 1.23wmf11"> 
+<link rel="alternate" type="application/x-wiki" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit"> 
+<link rel="edit" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit"> 
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png"> 
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico"> 
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="wikipedia (en)"> 
+<link rel="edituri" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd"> 
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/"> 
+<link rel="alternate" type="application/atom+xml" title="wikipedia atom feed" href="http://en.wikipedia.org/w/index.php?title=special:recentchanges&feed=atom"> 
+<link rel="canonical" href="http://en.wikipedia.org/wiki/red%e2%80%93black_tree"> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.drn-wizard%2creferencetooltips%2ccharinsert%2cteahouse%7cext.geshi.local%7cext.rtlcite%2cwikihiero%7cext.visualeditor.viewpagetarget.noscript%7cmediawiki.legacy.commonprint%2cshared%7cskins.common.interface%7cskins.vector.styles&only=styles&skin=vector&*"> 
+<style> 
+@-webkit-keyframes centralauthppersonalanimation{0%{opacity:0;-webkit-transform:translatey(-20px)}100%{opacity:1;-webkit-transform:translatey(0)}}@-moz-keyframes centralauthppersonalanimation{0%{opacity:0;-moz-transform:translatey(-20px)}100%{opacity:1;-moz-transform:translatey(0)}}@-o-keyframes centralauthppersonalanimation{0%{opacity:0;-o-transform:translatey(-20px)}100%{opacity:1;-o-transform:translatey(0)}}@keyframes centralauthppersonalanimation{0%{opacity:0;transform:translatey(-20px)}100%{opacity:1;transform:translatey(0)}}.centralauthppersonalanimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralauthppersonalanimation;-moz-animation-name:centralauthppersonalanimation;-o-animation-name:centralauthppersonalanimation;animation-name:centralauthppersonalanimation} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */ 
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */ 
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmveuzaad///95exmqqqry2njeiq0caaaaaxrstlmaqobyzgaaacdjrefucndjygbgygiaasufennjcuiqmadztm5oqexffzakrsg4ygbjcwodynsgdwaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil.png?2014-01-16t16:20:00z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmvewbaady2nj///8gra0zzrtw2aecaaaaaxrstlmaqobyzgaaacdjrefucndjygbgygyaawmdefpygegaoglzzclcqewjq5aki2w4ygbg5qotqpzbuaaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil-hover.png?2014-01-16t16:20:00z)!ie;color:#0645ad !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a963c9df079c8688d25d769892467b5c */ 
+@media print{#centralnotice{display:none}} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */</style><style> 
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */ 
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaabaaaaaqcamaaaaolq9taaabblbmveuaaad///////9pftf///80ardtgjn///9feij///////////9rfzf///////////9pfjzrgdh1o1xoftb///////+bwyqltnj///////9pfta82k////9wht6yxil///9qgddtgzr////////j7udl7elq8efi693k7oh///////9uhjubr2rp9uruhjr///9yljvkgir///9witlyjt3////9/v57vflbkt5pjc9dld/5/fhuq09stuts9uhxuelctcpfnt1hudfloezlouzmpenmvdzpvdxpvtxqvjxrvt5rvt9rwtxsqktswd5uwkbvuudxw0nztfbztu9ztvbzwkp0tlj1xkd2t1r3uvr4w1f4xk54x014ye15uvz5v1r5xvb6v1r7yfj8wvh9xvl9yfr9yvd9yln+xvh+yfd/x1l/yfeaylmex1+ny2uy0hqe04wj1ymv3ze33qld47tj5l3o6cpu7mrq9eb2+/q4j37oaaaaqhrstlmaaqiebaufbqwpfb4fjcuokiosqehjs01rulzzxmdydxachyusljswmjmoq6uur8lexcvm19fg5ejt8fx2+pr7sljgewaaakpjrefugbkfwqncawaaamdltl3ltrg4rwxbtvx77gagz6grfwc0bhwnvgkgdpzx8b0dgli+s7wn0voaqpfoi9+bnadzi7flrz2psewghzuh+78lsk8zlklezf3ooyug3vpxq2usei9wngeyog195ybywdf3e/2pahl1e9gr8bgt+bfofcc2fnvh4x7rcqiaqnnu+ht6sxkajcetl/2zaihv+porbwbjxfka//dfhscby/utaaaaaelftksuqmcc);background-image:url(//bits.wikimedia.org/static-1.23wmf11/resources/mediawiki.action/images/green-checkmark.png?2014-01-16t16:15:00z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:c897cc6a31411b48f47191422cf15c4a */ 
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */ 
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4c59a6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */ 
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */ 
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#f7f7f7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #f7f7f7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.rtflipped{padding-top:13px}.referencetooltip.rtflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.rtflipped li+li::after{border-top:0;border-bottom:8px #f7f7f7 solid;position:absolute;margin-top:7px}.rtsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.rtsettings:hover{opacity:1;filter:alpha(opacity=100)}.rttarget{border:#080086 2px solid} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */ 
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */ 
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playercontainer{overflow:hidden;position:relative;height:100%;background:#000}#videoholder{position:relative;overflow:hidden}.fullscreen #playercontainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwembedplayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayhtml a:visited{color:white}.loadingspinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/loading_ani.gif?2014-01-16t16:18:20z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-01-16t16:18:20z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button.png?2014-01-16t16:18:20z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button_hover.png?2014-01-16t16:18:20z)}.carouselcontainer{position :absolute;width :100%;z-index :2}.carouselvideotitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselvideotitletext{display :block;padding :10px 10px 10px 20px}.carouseltitleduration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5a5a5a;color :#d9d9d9;font-size :smaller;z-index :2}.carouselimgtitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselimgduration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselprevbutton,.carouselnextbutton{display :block;position :absolute;bottom:23px}.carouselprevbutton{left :5px}.carouselnextbutton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#e6e6e6;padding :5px;border-bottom :1px solid #d1d1d1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:40fb0cce50b2525059dbe7ac545e3c42 */</style><style> 
+.suggestions a.mw-searchsuggest-link,.suggestions a.mw-searchsuggest-link:hover,.suggestions a.mw-searchsuggest-link:active,.suggestions a.mw-searchsuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchsuggest-link,.suggestions-result-current a.mw-searchsuggest-link:hover,.suggestions-result-current a.mw-searchsuggest-link:active,.suggestions-result-current a.mw-searchsuggest-link:focus{color:white} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="resourceloaderdynamicstyles" content=""> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=site&only=styles&skin=vector&*"> 
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style> 
+ 
+<script src="./red-black trees_files/load.php"></script><script src="./red-black trees_files/load(1).php"></script><style title="spinjs"></style> 
+<script>if(window.mw){ 
+mw.config.set({"wgcanonicalnamespace":"","wgcanonicalspecialpagename":false,"wgnamespacenumber":0,"wgpagename":"red–black_tree","wgtitle":"red–black tree","wgcurrevisionid":592909736,"wgrevisionid":592909736,"wgarticleid":26397,"wgisarticle":true,"wgisredirect":false,"wgaction":"view","wgusername":null,"wgusergroups":["*"],"wgcategories":["articles needing additional references from october 2012","all articles needing additional references","articles with unsourced quotes","vague or ambiguous time from january 2013","articles lacking in-text citations from july 2013","all articles lacking in-text citations","1972 in computer science","articles containing proofs","articles with example c code","binary trees"],"wgbreakframes":false,"wgpagecontentlanguage":"en","wgpagecontentmodel":"wikitext","wgseparatortransformtable":["",""],"wgdigittransformtable":["",""],"wgdefaultdateformat":"dmy","wgmonthnames":["","january","february","march","april","may","june","july","august","september","october","november","december"],"wgmonthnamesshort":["","jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"],"wgrelevantpagename":"red–black_tree","wgisprobablyeditable":true,"wgrestrictionedit":[],"wgrestrictionmove":[],"wgredirectedfrom":"red_black_tree","wgwikieditorenabledmodules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateeditor":false,"templates":false,"preview":false,"previewdialog":false,"publish":false,"toc":false},"wgarticlefeedbackv5permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgbetafeaturesfeatures":[],"wgvisualeditor":{"ispagewatched":false,"magnifyclipiconurl":"//bits.wikimedia.org/static-1.23wmf11/skins/common/images/magnify-clip.png","pagelanguagecode":"en","pagelanguagedir":"ltr"},"wikilove-recipient":"","wikilove-anon":0,"wgguidedtourhelpguiderurl":"help:guided tours/guider","wgulsacceptlanguagelist":["en-us","en","de"],"wgulscurrentautonym":"english","wgflaggedrevsparams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgstablerevisionid":null,"wgcategorytreepagecategoryoptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","geo":{"city":"","country":""},"wgnoticeproject":"wikipedia","aftv5article":{"id":26397,"title":"red–black tree","namespace":0,"categories":["1972 in computer science","all articles lacking in-text citations","all articles needing additional references","articles containing proofs","articles lacking in-text citations from july 2013","articles needing additional references from october 2012","articles with example c code","articles with unsourced quotes","binary trees","vague or ambiguous time from january 2013"],"permissionlevel":false},"wgwikibaseitemid":"q506496"}); 
+}</script><script>if(window.mw){ 
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0, 
+"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true, 
+"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","uls-enable":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchns0":true,"searchns1":false,"searchns2":false,"searchns3":false,"searchns4":false,"searchns5":false,"searchns6":false,"searchns7":false,"searchns8":false,"searchns9":false,"searchns10":false,"searchns11":false,"searchns12":false,"searchns13":false,"searchns14":false,"searchns15":false, 
+"searchns100":false,"searchns101":false,"searchns108":false,"searchns109":false,"searchns118":false,"searchns119":false,"searchns446":false,"searchns447":false,"searchns710":false,"searchns711":false,"searchns828":false,"searchns829":false,"gadget-teahouse":1,"gadget-referencetooltips":1,"gadget-drn-wizard":1,"gadget-charinsert":1,"gadget-mysandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"edittoken":"+\\","patroltoken":false,"watchtoken":false});},{},{}); 
+/* cache key: enwiki:resourceloader:filter:minify-js:7:264b5b04c69e37444d5b2d63c2a65dc9 */ 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualeditor.viewpagetarget.init","wikibase.client.init","ext.centralnotice.bannercontroller","skins.vector.js"]); 
+}</script> 
+<style type="text/css">/*<![cdata[*/ 
+.source-c {line-height: normal;} 
+.source-c li, .source-c pre { 
+line-height: normal; border: 0px none white; 
+} 
+/** 
+* geshi dynamically generated stylesheet 
+* -------------------------------------- 
+* dynamically generated stylesheet for c 
+* css class: source-c, css id: 
+* geshi (c) 2004 - 2007 nigel mcnie, 2007 - 2008 benny baumann 
+* (http://qbnz.com/highlighter/ and http://geshi.org/) 
+* -------------------------------------- 
+*/ 
+.c.source-c .de1, .c.source-c .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;} 
+.c.source-c  {font-family:monospace;} 
+.c.source-c .imp {font-weight: bold; color: red;} 
+.c.source-c li, .c.source-c .li1 {font-weight: normal; vertical-align:top;} 
+.c.source-c .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;} 
+.c.source-c .li2 {font-weight: bold; vertical-align:top;} 
+.c.source-c .kw1 {color: #b1b100;} 
+.c.source-c .kw2 {color: #000000; font-weight: bold;} 
+.c.source-c .kw3 {color: #000066;} 
+.c.source-c .kw4 {color: #993333;} 
+.c.source-c .co1 {color: #666666; font-style: italic;} 
+.c.source-c .co2 {color: #339933;} 
+.c.source-c .comulti {color: #808080; font-style: italic;} 
+.c.source-c .es0 {color: #000099; font-weight: bold;} 
+.c.source-c .es1 {color: #000099; font-weight: bold;} 
+.c.source-c .es2 {color: #660099; font-weight: bold;} 
+.c.source-c .es3 {color: #660099; font-weight: bold;} 
+.c.source-c .es4 {color: #660099; font-weight: bold;} 
+.c.source-c .es5 {color: #006699; font-weight: bold;} 
+.c.source-c .br0 {color: #009900;} 
+.c.source-c .sy0 {color: #339933;} 
+.c.source-c .st0 {color: #ff0000;} 
+.c.source-c .nu0 {color: #0000dd;} 
+.c.source-c .nu6 {color: #208080;} 
+.c.source-c .nu8 {color: #208080;} 
+.c.source-c .nu12 {color: #208080;} 
+.c.source-c .nu16 {color:#800080;} 
+.c.source-c .nu17 {color:#800080;} 
+.c.source-c .nu18 {color:#800080;} 
+.c.source-c .nu19 {color:#800080;} 
+.c.source-c .me1 {color: #202020;} 
+.c.source-c .me2 {color: #202020;} 
+.c.source-c .ln-xtra, .c.source-c li.ln-xtra, .c.source-c div.ln-xtra {background-color: #ffc;} 
+.c.source-c span.xtra { display:block; } 
+ 
+/*]]>*/ 
+</style><script src="./red-black trees_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt ie 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf11/skins/vector/csshover.min.htc")}</style><![endif]--></head> 
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-red–black_tree skin-vector action-view vector-animatelayout"> 
+<div id="mw-page-base" class="noprint"></div> 
+<div id="mw-head-base" class="noprint"></div> 
+<div id="content" class="mw-body" role="main"> 
+<a id="top"></a> 
+<div id="mw-js-message" style="display:none;"></div> 
+<div id="sitenotice"><div id="centralnotice"></div><!-- centralnotice --></div> 
+<h1 id="firstheading" class="firstheading" lang="en"><span dir="auto">red–black tree</span></h1> 
+<div id="bodycontent"> 
+<div id="sitesub">from wikipedia, the free encyclopedia</div> 
+<div id="contentsub">&nbsp;&nbsp;(redirected from <a href="http://en.wikipedia.org/w/index.php?title=red_black_tree&redirect=no" title="red black tree">red black tree</a>)</div> 
+<div id="jump-to-nav" class="mw-jump"> 
+jump to:					<a href="http://en.wikipedia.org/wiki/red_black_tree#mw-navigation">navigation</a>, 					<a href="http://en.wikipedia.org/wiki/red_black_tree#p-search">search</a> 
+</div> 
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table class="metadata plainlinks ambox ambox-content ambox-refimprove" role="presentation"> 
+<tbody><tr> 
+<td class="mbox-image"> 
+<div style="width:52px;"><a href="http://en.wikipedia.org/wiki/file:question_book-new.svg" class="image"><img alt="" src="./red-black trees_files/100px-question_book-new.svg.png" width="50" height="39" srcset="//upload.wikimedia.org/wikipedia/en/thumb/9/99/question_book-new.svg/75px-question_book-new.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/9/99/question_book-new.svg/100px-question_book-new.svg.png 2x"></a></div> 
+</td> 
+<td class="mbox-text"><span class="mbox-text-span">this article <b>needs additional citations for <a href="http://en.wikipedia.org/wiki/wikipedia:verifiability" title="wikipedia:verifiability">verification</a></b>. <span class="hide-when-compact">please help <a class="external text" href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit">improve this article</a> by <a href="http://en.wikipedia.org/wiki/help:introduction_to_referencing/1" title="help:introduction to referencing/1">adding citations to reliable sources</a>. unsourced material may be challenged and removed.</span> <small><i>(october 2012)</i></small></span></td> 
+</tr> 
+</tbody></table> 
+<table class="infobox" style="width: 22em"> 
+<tbody><tr> 
+<th colspan="3" style="font-size: 125%; text-align: center;">red–black tree</th> 
+</tr> 
+<tr> 
+<th><a href="http://en.wikipedia.org/wiki/list_of_data_structures" title="list of data structures">type</a></th> 
+<td colspan="2"><a href="http://en.wikipedia.org/wiki/tree_(data_structure)" title="tree (data structure)">tree</a></td> 
+</tr> 
+<tr> 
+<th>invented</th> 
+<td colspan="2">1972</td> 
+</tr> 
+<tr> 
+<th>invented by</th> 
+<td colspan="2"><a href="http://en.wikipedia.org/wiki/rudolf_bayer" title="rudolf bayer">rudolf bayer</a></td> 
+</tr> 
+<tr> 
+<th colspan="3" class="navbox-abovebelow"><a href="http://en.wikipedia.org/wiki/time_complexity" title="time complexity">time complexity</a><br> 
+in <a href="http://en.wikipedia.org/wiki/big_o_notation" title="big o notation">big o notation</a></th> 
+</tr> 
+<tr> 
+<td></td> 
+<td>average</td> 
+<td>worst case</td> 
+</tr> 
+<tr> 
+<th>space</th> 
+<td>o(n)</td> 
+<td>o(n)</td> 
+</tr> 
+<tr> 
+<th>search</th> 
+<td>o(log n)</td> 
+<td>o(log n)</td> 
+</tr> 
+<tr> 
+<th>insert</th> 
+<td>o(log n)</td> 
+<td>o(log n)</td> 
+</tr> 
+<tr> 
+<th>delete</th> 
+<td>o(log n)</td> 
+<td>o(log n)</td> 
+</tr> 
+</tbody></table> 
+<p>a <b>red–black tree</b> is a type of <a href="http://en.wikipedia.org/wiki/self-balancing_binary_search_tree" title="self-balancing binary search tree">self-balancing binary search tree</a>, a <a href="http://en.wikipedia.org/wiki/data_structure" title="data structure">data structure</a> used in <a href="http://en.wikipedia.org/wiki/computer_science" title="computer science">computer science</a>.</p> 
+<p>the self-balancing is provided by painting each node with one of two colors (these are typically called 'red' and 'black', hence the name of the trees) in such a way that the resulting painted tree satisfies certain properties that don't allow it to become significantly unbalanced. when the tree is modified, the new tree is subsequently rearranged and repainted to restore the coloring properties. the properties are designed in such a way that this rearranging and recoloring can be performed efficiently.</p> 
+<p>the balancing of the tree is not perfect but it is good enough to allow it to guarantee searching in <a href="http://en.wikipedia.org/wiki/big-o_notation" title="big-o notation" class="mw-redirect">o</a>(log <i>n</i>) time, where <i>n</i> is the total number of elements in the tree. the insertion, and deletion operations, along with the tree rearrangement and recoloring are also performed in <a href="http://en.wikipedia.org/wiki/big-o_notation" title="big-o notation" class="mw-redirect">o</a>(log <i>n</i>) time.<sup id="cite_ref-1" class="reference"><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_note-1"><span>[</span>1<span>]</span></a></sup></p> 
+<p>tracking the color of each node requires only 1 bit of information per node because there are only two colors. the tree does not contain any other data specific to its being a red–black tree so its memory footprint is almost identical to classic (uncolored) binary search tree. in many cases the additional bit of information can be stored at no additional memory cost.</p> 
+<p></p> 
+<div id="toc" class="toc"> 
+<div id="toctitle"> 
+<h2>contents</h2> 
+<span class="toctoggle">&nbsp;[<a href="http://en.wikipedia.org/wiki/red_black_tree#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div> 
+<ul> 
+<li class="toclevel-1 tocsection-1"><a href="http://en.wikipedia.org/wiki/red_black_tree#history"><span class="tocnumber">1</span> <span class="toctext">history</span></a></li> 
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikipedia.org/wiki/red_black_tree#terminology"><span class="tocnumber">2</span> <span class="toctext">terminology</span></a></li> 
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikipedia.org/wiki/red_black_tree#properties"><span class="tocnumber">3</span> <span class="toctext">properties</span></a></li> 
+<li class="toclevel-1 tocsection-4"><a href="http://en.wikipedia.org/wiki/red_black_tree#analogy_to_b-trees_of_order_4"><span class="tocnumber">4</span> <span class="toctext">analogy to b-trees of order 4</span></a></li> 
+<li class="toclevel-1 tocsection-5"><a href="http://en.wikipedia.org/wiki/red_black_tree#applications_and_related_data_structures"><span class="tocnumber">5</span> <span class="toctext">applications and related data structures</span></a></li> 
+<li class="toclevel-1 tocsection-6"><a href="http://en.wikipedia.org/wiki/red_black_tree#operations"><span class="tocnumber">6</span> <span class="toctext">operations</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-7"><a href="http://en.wikipedia.org/wiki/red_black_tree#insertion"><span class="tocnumber">6.1</span> <span class="toctext">insertion</span></a></li> 
+<li class="toclevel-2 tocsection-8"><a href="http://en.wikipedia.org/wiki/red_black_tree#removal"><span class="tocnumber">6.2</span> <span class="toctext">removal</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-9"><a href="http://en.wikipedia.org/wiki/red_black_tree#proof_of_asymptotic_bounds"><span class="tocnumber">7</span> <span class="toctext">proof of asymptotic bounds</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-10"><a href="http://en.wikipedia.org/wiki/red_black_tree#insertion_complexity"><span class="tocnumber">7.1</span> <span class="toctext">insertion complexity</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-11"><a href="http://en.wikipedia.org/wiki/red_black_tree#parallel_algorithms"><span class="tocnumber">8</span> <span class="toctext">parallel algorithms</span></a></li> 
+<li class="toclevel-1 tocsection-12"><a href="http://en.wikipedia.org/wiki/red_black_tree#see_also"><span class="tocnumber">9</span> <span class="toctext">see also</span></a></li> 
+<li class="toclevel-1 tocsection-13"><a href="http://en.wikipedia.org/wiki/red_black_tree#notes"><span class="tocnumber">10</span> <span class="toctext">notes</span></a></li> 
+<li class="toclevel-1 tocsection-14"><a href="http://en.wikipedia.org/wiki/red_black_tree#references"><span class="tocnumber">11</span> <span class="toctext">references</span></a></li> 
+<li class="toclevel-1 tocsection-15"><a href="http://en.wikipedia.org/wiki/red_black_tree#external_links"><span class="tocnumber">12</span> <span class="toctext">external links</span></a></li> 
+</ul> 
+</div> 
+<p></p> 
+<h2><span class="mw-headline" id="history">history</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit&section=1" title="edit section: history">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>the original data structure was invented in 1972 by <a href="http://en.wikipedia.org/wiki/rudolf_bayer" title="rudolf bayer">rudolf bayer</a><sup id="cite_ref-bayer72_2-0" class="reference"><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_note-bayer72-2"><span>[</span>2<span>]</span></a></sup> and named "symmetric binary <a href="http://en.wikipedia.org/wiki/b-tree" title="b-tree">b-tree</a>," but acquired its modern name in a paper in 1978 by <a href="http://en.wikipedia.org/wiki/leonidas_j._guibas" title="leonidas j. guibas">leonidas j. guibas</a> and <a href="http://en.wikipedia.org/wiki/robert_sedgewick_(computer_scientist)" title="robert sedgewick (computer scientist)">robert sedgewick</a> entitled "a dichromatic framework for balanced trees".<sup id="cite_ref-gs78_3-0" class="reference"><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_note-gs78-3"><span>[</span>3<span>]</span></a></sup> the color "red" was chosen because it was the best-looking color produced by the color laser printer available to the authors while working at <a href="http://en.wikipedia.org/wiki/xerox_parc" title="xerox parc" class="mw-redirect">xerox parc</a>.<sup id="cite_ref-sedgewick12_4-0" class="reference"><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_note-sedgewick12-4"><span>[</span>4<span>]</span></a></sup></p> 
+<h2><span class="mw-headline" id="terminology">terminology</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit&section=2" title="edit section: terminology">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>a red–black tree is a special type of <a href="http://en.wikipedia.org/wiki/binary_tree" title="binary tree">binary tree</a>, used in <a href="http://en.wikipedia.org/wiki/computer_science" title="computer science">computer science</a> to organize pieces of comparable <a href="http://en.wikipedia.org/wiki/data" title="data">data</a>, such as text fragments or numbers.</p> 
+<p>the <a href="http://en.wikipedia.org/wiki/leaf_node" title="leaf node" class="mw-redirect">leaf nodes</a> of red–black trees do not contain data. these leaves need not be explicit in computer memory—a null child pointer can encode the fact that this child is a leaf—but it simplifies some algorithms for operating on red–black trees if the leaves really are explicit nodes. to save memory, sometimes a single <a href="http://en.wikipedia.org/wiki/sentinel_node" title="sentinel node">sentinel node</a> performs the role of all leaf nodes; all references from <a href="http://en.wikipedia.org/wiki/tree_(data_structure)#internal_nodes" title="tree (data structure)">internal nodes</a> to leaf nodes then point to the sentinel node.</p> 
+<p>red–black trees, like all <a href="http://en.wikipedia.org/wiki/binary_search_tree" title="binary search tree">binary search trees</a>, allow efficient <a href="http://en.wikipedia.org/wiki/in-order_traversal" title="in-order traversal" class="mw-redirect">in-order traversal</a> (that is: in the order left–root–right) of their elements. the search-time results from the traversal from root to leaf, and therefore a balanced tree of <i>n</i> nodes, having the least possible tree height, results in o(log <i>n</i>) search time.</p> 
+<h2><span class="mw-headline" id="properties">properties</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit&section=3" title="edit section: properties">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<div class="thumb tright"> 
+<div class="thumbinner" style="width:502px;"><a href="http://en.wikipedia.org/wiki/file:red-black_tree_example.svg" class="image"><img alt="diagram of binary tree. the black root node has two red children and four black grandchildren. the child nodes of the grandchildren are black nil pointers or red nodes with black nil pointers." src="./red-black trees_files/1000px-red-black_tree_example.svg.png" width="500" height="241" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/6/66/red-black_tree_example.svg/750px-red-black_tree_example.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/6/66/red-black_tree_example.svg/1000px-red-black_tree_example.svg.png 2x"></a> 
+<div class="thumbcaption"> 
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/file:red-black_tree_example.svg" class="internal" title="enlarge"><img src="./red-black trees_files/magnify-clip.png" width="15" height="11" alt=""></a></div> 
+an example of a red–black tree</div> 
+</div> 
+</div> 
+<p>in addition to the requirements imposed on a <a href="http://en.wikipedia.org/wiki/binary_search_tree" title="binary search tree">binary search tree</a> the following must be satisfied by a red–black tree:<sup id="cite_ref-5" class="reference"><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_note-5"><span>[</span>5<span>]</span></a></sup></p> 
+<ol> 
+<li>a node is either red or black.</li> 
+<li>the root is black. (this rule is sometimes omitted. since the root can always be changed from red to black, but not necessarily vice-versa, this rule has little effect on analysis.)</li> 
+<li>all leaves (nil) are black. (all leaves are same color as the root.)</li> 
+<li>every red node must have two black child nodes.</li> 
+<li>every <a href="http://en.wikipedia.org/wiki/path_(graph_theory)" title="path (graph theory)">path</a> from a given node to any of its descendant leaves contains the same number of black nodes.</li> 
+</ol> 
+<p>these constraints enforce a critical property of red–black trees: that the path from the root to the furthest leaf is no more than twice as long as the path from the root to the nearest leaf. the result is that the tree is roughly height-balanced. since operations such as inserting, deleting, and finding values require worst-case time proportional to the height of the tree, this theoretical upper bound on the height allows red–black trees to be efficient in the worst case, unlike ordinary <a href="http://en.wikipedia.org/wiki/binary_search_tree" title="binary search tree">binary search trees</a>.</p> 
+<p>to see why this is guaranteed, it suffices to consider the effect of properties 4 and 5 together. for a red–black tree t, let b be the number of black nodes in property 5. let the shortest possible path from the root of t to any leaf consist of b black nodes. longer possible paths may be constructed by inserting red nodes. however, property 4 makes it impossible to insert more than one consecutive red node. therefore the longest possible path consists of 2b nodes, alternating black and red.</p> 
+<p>the shortest possible path has all black nodes, and the longest possible path alternates between red and black nodes. since all maximal paths have the same number of black nodes, by property 5, this shows that no path is more than twice as long as any other path.</p> 
+<h2><span class="mw-headline" id="analogy_to_b-trees_of_order_4">analogy to b-trees of order 4</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit&section=4" title="edit section: analogy to b-trees of order 4">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<div class="thumb tright"> 
+<div class="thumbinner" style="width:502px;"><a href="http://en.wikipedia.org/wiki/file:red-black_tree_example_(b-tree_analogy).svg" class="image"><img alt="" src="./red-black trees_files/1000px-red-black_tree_example_(b-tree_analogy).svg.png" width="500" height="179" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/7/72/red-black_tree_example_%28b-tree_analogy%29.svg/750px-red-black_tree_example_%28b-tree_analogy%29.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/7/72/red-black_tree_example_%28b-tree_analogy%29.svg/1000px-red-black_tree_example_%28b-tree_analogy%29.svg.png 2x"></a> 
+<div class="thumbcaption"> 
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/file:red-black_tree_example_(b-tree_analogy).svg" class="internal" title="enlarge"><img src="./red-black trees_files/magnify-clip.png" width="15" height="11" alt=""></a></div> 
+the same red–black tree as in the example above, seen as a b-tree.</div> 
+</div> 
+</div> 
+<p>a red–black tree is similar in structure to a <a href="http://en.wikipedia.org/wiki/b-tree" title="b-tree">b-tree</a> of order<sup id="cite_ref-6" class="reference"><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_note-6"><span>[</span>note 1<span>]</span></a></sup> 4, where each node can contain between 1 and 3 values and (accordingly) between 2 and 4 child pointers. in such a b-tree, each node will contain only one value matching the value in a black node of the red–black tree, with an optional value before and/or after it in the same node, both matching an equivalent red node of the red–black tree.</p> 
+<p>one way to see this equivalence is to "move up" the red nodes in a graphical representation of the red–black tree, so that they align horizontally with their parent black node, by creating together a horizontal cluster. in the b-tree, or in the modified graphical representation of the red–black tree, all leaf nodes are at the same depth.</p> 
+<p>the red–black tree is then structurally equivalent to a b-tree of order 4, with a minimum fill factor of 33% of values per cluster with a maximum capacity of 3 values.</p> 
+<p>this b-tree type is still more general than a red–black tree though, as it allows ambiguity in a red–black tree conversion—multiple red–black trees can be produced from an equivalent b-tree of order 4. if a b-tree cluster contains only 1 value, it is the minimum, black, and has two child pointers. if a cluster contains 3 values, then the central value will be black and each value stored on its sides will be red. if the cluster contains two values, however, either one can become the black node in the red–black tree (and the other one will be red).</p> 
+<p>so the order-4 b-tree does not maintain which of the values contained in each cluster is the root black tree for the whole cluster and the parent of the other values in the same cluster. despite this, the operations on red–black trees are more economical in time because you don't have to maintain the vector of values. it may be costly if values are stored directly in each node rather than being stored by reference. b-tree nodes, however, are more economical in space because you don't need to store the color attribute for each node. instead, you have to know which slot in the cluster vector is used. if values are stored by reference, e.g. objects, null references can be used and so the cluster can be represented by a vector containing 3 slots for value pointers plus 4 slots for child references in the tree. in that case, the b-tree can be more compact in memory, improving data locality.</p> 
+<p>the same analogy can be made with b-trees with larger orders that can be structurally equivalent to a colored binary tree: you just need more colors. suppose that you add blue, then the blue–red–black tree defined like red–black trees but with the additional constraint that no two successive nodes in the hierarchy will be blue and all blue nodes will be children of a red node, then it becomes equivalent to a b-tree whose clusters will have at most 7 values in the following colors: blue, red, blue, black, blue, red, blue (for each cluster, there will be at most 1 black node, 2 red nodes, and 4 blue nodes).</p> 
+<p>for moderate volumes of values, insertions and deletions in a colored binary tree are faster compared to b-trees because colored trees don't attempt to maximize the fill factor of each horizontal cluster of nodes (only the minimum fill factor is guaranteed in colored binary trees, limiting the number of splits or junctions of clusters). b-trees will be faster for performing rotations (because rotations will frequently occur within the same cluster rather than with multiple separate nodes in a colored binary tree). however for storing large volumes, b-trees will be much faster as they will be more compact by grouping several children in the same cluster where they can be accessed locally.</p> 
+<p>all optimizations possible in b-trees to increase the average fill factors of clusters are possible in the equivalent multicolored binary tree. notably, maximizing the average fill factor in a structurally equivalent b-tree is the same as reducing the total height of the multicolored tree, by increasing the number of non-black nodes. the worst case occurs when all nodes in a colored binary tree are black, the best case occurs when only a third of them are black (and the other two thirds are red nodes).</p> 
+<div style="color: black; background: none; margin: 0; overflow: hidden; padding-top: .5em; padding-bottom: .17em; font-size: 132%; font-weight: bold; margin-bottom: .3em; page-break-after: avoid;">notes</div> 
+<div class="reflist columns references-column-width" style="-moz-column-width: close; -webkit-column-width: close; column-width: close; list-style-type: decimal;"> 
+<ol class="references"> 
+<li id="cite_note-6"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_ref-6"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">using knuth's definition of order: the maximum number of children</span></li> 
+</ol> 
+</div> 
+<h2><span class="mw-headline" id="applications_and_related_data_structures">applications and related data structures</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit&section=5" title="edit section: applications and related data structures">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>red–black trees offer worst-case guarantees for insertion time, deletion time, and search time. not only does this make them valuable in time-sensitive applications such as <a href="http://en.wikipedia.org/wiki/real-time_computing" title="real-time computing">real-time applications</a>, but it makes them valuable building blocks in other data structures which provide worst-case guarantees; for example, many data structures used in <a href="http://en.wikipedia.org/wiki/computational_geometry" title="computational geometry">computational geometry</a> can be based on red–black trees, and the <a href="http://en.wikipedia.org/wiki/completely_fair_scheduler" title="completely fair scheduler">completely fair scheduler</a> used in current <a href="http://en.wikipedia.org/wiki/linux" title="linux">linux</a> kernels uses red–black trees.</p> 
+<p>the <a href="http://en.wikipedia.org/wiki/avl_tree" title="avl tree">avl tree</a> is another structure supporting o(log <i>n</i>) search, insertion, and removal. it is more rigidly balanced than red–black trees, leading to slower insertion and removal but faster retrieval. this makes it attractive for data structures that may be built once and loaded without reconstruction, such as language dictionaries (or program dictionaries, such as the opcodes of an assembler or interpreter).</p> 
+<p>red–black trees are also particularly valuable in <a href="http://en.wikipedia.org/wiki/functional_programming" title="functional programming">functional programming</a>, where they are one of the most common <a href="http://en.wikipedia.org/wiki/persistent_data_structure" title="persistent data structure">persistent data structures</a>, used to construct <a href="http://en.wikipedia.org/wiki/associative_array" title="associative array">associative arrays</a> and <a href="http://en.wikipedia.org/wiki/set_(computer_science)" title="set (computer science)" class="mw-redirect">sets</a> which can retain previous versions after mutations. the persistent version of red–black trees requires o(log <i>n</i>) space for each insertion or deletion, in addition to time.</p> 
+<p>for every <a href="http://en.wikipedia.org/wiki/2-4_tree" title="2-4 tree" class="mw-redirect">2-4 tree</a>, there are corresponding red–black trees with data elements in the same order. the insertion and deletion operations on 2-4 trees are also equivalent to color-flipping and rotations in red–black trees. this makes 2-4 trees an important tool for understanding the logic behind red–black trees, and this is why many introductory algorithm texts introduce 2-4 trees just before red–black trees, even though 2-4 trees are not often used in practice.</p> 
+<p>in 2008, <a href="http://en.wikipedia.org/wiki/robert_sedgewick_(computer_scientist)" title="robert sedgewick (computer scientist)">sedgewick</a> introduced a simpler version of the red–black tree called the <a href="http://en.wikipedia.org/wiki/left-leaning_red%e2%80%93black_tree" title="left-leaning red–black tree">left-leaning red–black tree</a><sup id="cite_ref-cs.princeton.edu_7-0" class="reference"><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_note-cs.princeton.edu-7"><span>[</span>6<span>]</span></a></sup> by eliminating a previously unspecified degree of freedom in the implementation. the llrb maintains an additional invariant that all red links must lean left except during inserts and deletes. red–black trees can be made isometric to either <a href="http://en.wikipedia.org/wiki/2-3_tree" title="2-3 tree" class="mw-redirect">2-3 trees</a>,<sup id="cite_ref-8" class="reference"><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_note-8"><span>[</span>7<span>]</span></a></sup> or 2-4 trees,<sup id="cite_ref-cs.princeton.edu_7-1" class="reference"><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_note-cs.princeton.edu-7"><span>[</span>6<span>]</span></a></sup> for any sequence of operations. the 2-4 tree isometry was described in 1978 by sedgewick.<sup class="noprint inline-template" style="white-space:nowrap;">[<i><a href="http://en.wikipedia.org/wiki/wikipedia:quotations" title="wikipedia:quotations"><span title="the text near this tag needs citation. (january 2013)">this quote needs a citation</span></a></i>]</sup> with 2-4 trees, the isometry is resolved by a "color flip," corresponding to a split, in which the red color of two children nodes leaves the children and moves to the parent node. the <a href="http://en.wikipedia.org/wiki/tango_tree" title="tango tree">tango tree</a>, a type of tree optimized for fast searches, usually<sup class="noprint inline-template" style="white-space:nowrap;">[<i><a href="http://en.wikipedia.org/wiki/wikipedia:manual_of_style/dates_and_numbers#chronological_items" title="wikipedia:manual of style/dates and numbers"><span title="the time period mentioned near this tag is ambiguous. (january 2013)">when?</span></a></i>]</sup> uses red–black trees as part of its data structure.</p> 
+<h2><span class="mw-headline" id="operations">operations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit&section=6" title="edit section: operations">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>read-only operations on a red–black tree require no modification from those used for <a href="http://en.wikipedia.org/wiki/binary_search_tree" title="binary search tree">binary search trees</a>, because every red–black tree is a special case of a simple binary search tree. however, the immediate result of an insertion or removal may violate the properties of a red–black tree. restoring the red–black properties requires a small number (<a href="http://en.wikipedia.org/wiki/big-o_notation" title="big-o notation" class="mw-redirect">o</a>(log <i>n</i>) or <a href="http://en.wikipedia.org/wiki/amortized_analysis" title="amortized analysis">amortized o(1)</a>) of color changes (which are very quick in practice) and no more than three <a href="http://en.wikipedia.org/wiki/tree_rotation" title="tree rotation">tree rotations</a> (two for insertion). although insert and delete operations are complicated, their times remain o(log <i>n</i>).</p> 
+<h3><span class="mw-headline" id="insertion">insertion</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit&section=7" title="edit section: insertion">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>insertion begins by adding the node as any <a href="http://en.wikipedia.org/wiki/binary_search_tree#insertion" title="binary search tree">binary search tree insertion</a> does and by coloring it red. whereas in the binary search tree, we always add a leaf, in the red–black tree leaves contain no information, so instead we add a red interior node, with two black leaves, in place of an existing black leaf.</p> 
+<p>what happens next depends on the color of other nearby nodes. the term <i>uncle node</i> will be used to refer to the sibling of a node's parent, as in human family trees. note that:</p> 
+<ul> 
+<li>property 3 (all leaves are black) always holds.</li> 
+<li>property 4 (both children of every red node are black) is threatened only by adding a red node, repainting a black node red, or a rotation.</li> 
+<li>property 5 (all paths from any given node to its leaf nodes contain the same number of black nodes) is threatened only by adding a black node, repainting a red node black (or vice versa), or a rotation.</li> 
+</ul> 
+<dl> 
+<dd><i>note</i>: the label <b>n</b> will be used to denote the current node (colored red). at the beginning, this is the new node being inserted, but the entire procedure may also be applied recursively to other nodes (see case 3). <b>p</b> will denote <b>n'</b>s parent node, <b>g</b> will denote <b>n'</b>s grandparent, and <b>u</b> will denote <b>n'</b>s uncle. note that in between some cases, the roles and labels of the nodes are exchanged, but in each case, every label continues to represent the same node it represented at the beginning of the case. any color shown in the diagram is either assumed in its case or implied by those assumptions. a numbered triangle represents a subtree of unspecified depth. a black circle atop the triangle designates a black root node, otherwise the root node's color is unspecified.</dd> 
+</dl> 
+<p>each case will be demonstrated with example <a href="http://en.wikipedia.org/wiki/c_(programming_language)" title="c (programming language)">c</a> code. the uncle and grandparent nodes can be found by these functions:</p> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="c source-c"> 
+<pre class="de1"><span class="kw4">struct</span> node <span class="sy0">*</span>grandparent<span class="br0">(</span><span class="kw4">struct</span> node <span class="sy0">*</span>n<span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw1">if</span> <span class="br0">(</span><span class="br0">(</span>n <span class="sy0">!=</span> null<span class="br0">)</span> <span class="sy0">&amp;&amp;</span> <span class="br0">(</span>n<span class="sy0">-&gt;</span>parent <span class="sy0">!=</span> null<span class="br0">)</span><span class="br0">)</span> 
+<span class="kw1">return</span> n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>parent<span class="sy0">;</span> 
+<span class="kw1">else</span> 
+<span class="kw1">return</span> null<span class="sy0">;</span> 
+<span class="br0">}</span> 
+ 
+<span class="kw4">struct</span> node <span class="sy0">*</span>uncle<span class="br0">(</span><span class="kw4">struct</span> node <span class="sy0">*</span>n<span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw4">struct</span> node <span class="sy0">*</span>g <span class="sy0">=</span> grandparent<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+<span class="kw1">if</span> <span class="br0">(</span>g <span class="sy0">==</span> null<span class="br0">)</span> 
+<span class="kw1">return</span> null<span class="sy0">;</span> <span class="co1">// no grandparent means no uncle</span> 
+<span class="kw1">if</span> <span class="br0">(</span>n<span class="sy0">-&gt;</span>parent <span class="sy0">==</span> g<span class="sy0">-&gt;</span>left<span class="br0">)</span> 
+<span class="kw1">return</span> g<span class="sy0">-&gt;</span>right<span class="sy0">;</span> 
+<span class="kw1">else</span> 
+<span class="kw1">return</span> g<span class="sy0">-&gt;</span>left<span class="sy0">;</span> 
+<span class="br0">}</span> 
+</pre></div> 
+</div> 
+<p><b>case 1:</b> the current node <b>n</b> is at the root of the tree. in this case, it is repainted black to satisfy property 2 (the root is black). since this adds one black node to every path at once, property 5 (all paths from any given node to its leaf nodes contain the same number of black nodes) is not violated.</p> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="c source-c"> 
+<pre class="de1"><span class="kw4">void</span> insert_case1<span class="br0">(</span><span class="kw4">struct</span> node <span class="sy0">*</span>n<span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw1">if</span> <span class="br0">(</span>n<span class="sy0">-&gt;</span>parent <span class="sy0">==</span> null<span class="br0">)</span> 
+n<span class="sy0">-&gt;</span>color <span class="sy0">=</span> black<span class="sy0">;</span> 
+<span class="kw1">else</span> 
+insert_case2<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+</pre></div> 
+</div> 
+<p><b>case 2:</b> the current node's parent <b>p</b> is black, so property 4 (both children of every red node are black) is not invalidated. in this case, the tree is still valid. property 5 (all paths from any given node to its leaf nodes contain the same number of black nodes) is not threatened, because the current node <b>n</b> has two black leaf children, but because <b>n</b> is red, the paths through each of its children have the same number of black nodes as the path through the leaf it replaced, which was black, and so this property remains satisfied.</p> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="c source-c"> 
+<pre class="de1"><span class="kw4">void</span> insert_case2<span class="br0">(</span><span class="kw4">struct</span> node <span class="sy0">*</span>n<span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw1">if</span> <span class="br0">(</span>n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>color <span class="sy0">==</span> black<span class="br0">)</span> 
+<span class="kw1">return</span><span class="sy0">;</span> <span class="comulti">/* tree is still valid */</span> 
+<span class="kw1">else</span> 
+insert_case3<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+</pre></div> 
+</div> 
+<dl> 
+<dd><i>note:</i> in the following cases it can be assumed that <b>n</b> has a grandparent node <b>g</b>, because its parent <b>p</b> is red, and if it were the root, it would be black. thus, <b>n</b> also has an uncle node <b>u</b>, although it may be a leaf in cases 4 and 5.</dd> 
+</dl> 
+<table> 
+<tbody><tr> 
+<td> 
+<div class="floatright"><a href="http://en.wikipedia.org/wiki/file:red-black_tree_insert_case_3.png" class="image" title="diagram of case 3"><img alt="diagram of case 3" src="./red-black trees_files/red-black_tree_insert_case_3.png" width="300" height="139"></a></div> 
+<p><b>case 3:</b> if both the parent <b>p</b> and the uncle <b>u</b> are red, then both of them can be repainted black and the grandparent <b>g</b> becomes red (to maintain property 5 (all paths from any given node to its leaf nodes contain the same number of black nodes)). now, the current red node <b>n</b> has a black parent. since any path through the parent or uncle must pass through the grandparent, the number of black nodes on these paths has not changed. however, the grandparent <b>g</b> may now violate properties 2 (the root is black) or 4 (both children of every red node are black) (property 4 possibly being violated since <b>g</b> may have a red parent). to fix this, the entire procedure is recursively performed on <b>g</b> from case 1. note that this is a tail-recursive call, so it could be rewritten as a loop; since this is the only loop, and any rotations occur after this loop, this proves that a constant number of rotations occur.</p> 
+</td> 
+</tr> 
+</tbody></table> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="c source-c"> 
+<pre class="de1"><span class="kw4">void</span> insert_case3<span class="br0">(</span><span class="kw4">struct</span> node <span class="sy0">*</span>n<span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw4">struct</span> node <span class="sy0">*</span>u <span class="sy0">=</span> uncle<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">,</span> <span class="sy0">*</span>g<span class="sy0">;</span> 
+ 
+<span class="kw1">if</span> <span class="br0">(</span><span class="br0">(</span>u <span class="sy0">!=</span> null<span class="br0">)</span> <span class="sy0">&amp;&amp;</span> <span class="br0">(</span>u<span class="sy0">-&gt;</span>color <span class="sy0">==</span> red<span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span> 
+n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>color <span class="sy0">=</span> black<span class="sy0">;</span> 
+u<span class="sy0">-&gt;</span>color <span class="sy0">=</span> black<span class="sy0">;</span> 
+g <span class="sy0">=</span> grandparent<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+g<span class="sy0">-&gt;</span>color <span class="sy0">=</span> red<span class="sy0">;</span> 
+insert_case1<span class="br0">(</span>g<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> <span class="kw1">else</span> <span class="br0">{</span> 
+insert_case4<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+<span class="br0">}</span> 
+</pre></div> 
+</div> 
+<dl> 
+<dd><i>note:</i> in the remaining cases, it is assumed that the parent node <b>p</b> is the left child of its parent. if it is the right child, <i>left</i> and <i>right</i> should be reversed throughout cases 4 and 5. the code samples take care of this.</dd> 
+</dl> 
+<table> 
+<tbody><tr> 
+<td> 
+<div class="floatleft"><a href="http://en.wikipedia.org/wiki/file:red-black_tree_insert_case_4.png" class="image" title="diagram of case 4"><img alt="diagram of case 4" src="./red-black trees_files/red-black_tree_insert_case_4.png" width="283" height="138"></a></div> 
+<p><b>case 4:</b> the parent <b>p</b> is red but the uncle <b>u</b> is black; also, the current node <b>n</b> is the right child of <b>p</b>, and <b>p</b> in turn is the left child of its parent <b>g</b>. in this case, a <a href="http://en.wikipedia.org/wiki/tree_rotation" title="tree rotation">left rotation</a> on <b>p</b> that switches the roles of the current node <b>n</b> and its parent <b>p</b> can be performed; then, the former parent node <b>p</b> is dealt with using case 5 (relabeling <b>n</b> and <b>p</b>) because property 4 (both children of every red node are black) is still violated. the rotation causes some paths (those in the sub-tree labelled "1") to pass through the node <b>n</b> where they did not before. it also causes some paths (those in the sub-tree labelled "3") not to pass through the node <b>p</b> where they did before. however, both of these nodes are red, so property 5 (all paths from any given node to its leaf nodes contain the same number of black nodes) is not violated by the rotation. after this case has been completed, property 4 (both children of every red node are black) is still violated, but now we can resolve this by continuing to case 5.</p> 
+</td> 
+</tr> 
+</tbody></table> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="c source-c"> 
+<pre class="de1"><span class="kw4">void</span> insert_case4<span class="br0">(</span><span class="kw4">struct</span> node <span class="sy0">*</span>n<span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw4">struct</span> node <span class="sy0">*</span>g <span class="sy0">=</span> grandparent<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+ 
+<span class="kw1">if</span> <span class="br0">(</span><span class="br0">(</span>n <span class="sy0">==</span> n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>right<span class="br0">)</span> <span class="sy0">&amp;&amp;</span> <span class="br0">(</span>n<span class="sy0">-&gt;</span>parent <span class="sy0">==</span> g<span class="sy0">-&gt;</span>left<span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span> 
+rotate_left<span class="br0">(</span>n<span class="sy0">-&gt;</span>parent<span class="br0">)</span><span class="sy0">;</span> 
+ 
+<span class="comulti">/* 
+* rotate_left can be the below because of already having *g =  grandparent(n) 
+* 
+* struct node *saved_p=g-&gt;left, *saved_left_n=n-&gt;left; 
+* g-&gt;left=n; 
+* n-&gt;left=saved_p; 
+* saved_p-&gt;right=saved_left_n; 
+* 
+* and modify the parent's nodes properly 
+*/</span> 
+ 
+n <span class="sy0">=</span> n<span class="sy0">-&gt;</span>left<span class="sy0">;</span> 
+ 
+<span class="br0">}</span> <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span><span class="br0">(</span>n <span class="sy0">==</span> n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>left<span class="br0">)</span> <span class="sy0">&amp;&amp;</span> <span class="br0">(</span>n<span class="sy0">-&gt;</span>parent <span class="sy0">==</span> g<span class="sy0">-&gt;</span>right<span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span> 
+rotate_right<span class="br0">(</span>n<span class="sy0">-&gt;</span>parent<span class="br0">)</span><span class="sy0">;</span> 
+ 
+<span class="comulti">/* 
+* rotate_right can be the below to take advantage of already having *g =  grandparent(n) 
+* 
+* struct node *saved_p=g-&gt;right, *saved_right_n=n-&gt;right; 
+* g-&gt;right=n; 
+* n-&gt;right=saved_p; 
+* saved_p-&gt;left=saved_right_n; 
+* 
+*/</span> 
+ 
+n <span class="sy0">=</span> n<span class="sy0">-&gt;</span>right<span class="sy0">;</span> 
+<span class="br0">}</span> 
+insert_case5<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+</pre></div> 
+</div> 
+<table> 
+<tbody><tr> 
+<td> 
+<div class="floatright"><a href="http://en.wikipedia.org/wiki/file:red-black_tree_insert_case_5.png" class="image" title="diagram of case 5"><img alt="diagram of case 5" src="./red-black trees_files/red-black_tree_insert_case_5.png" width="310" height="138"></a></div> 
+<p><b>case 5:</b> the parent <b>p</b> is red but the uncle <b>u</b> is black, the current node <b>n</b> is the left child of <b>p</b>, and <b>p</b> is the left child of its parent <b>g</b>. in this case, a <a href="http://en.wikipedia.org/wiki/tree_rotation" title="tree rotation">right rotation</a> on <b>g</b> is performed; the result is a tree where the former parent <b>p</b> is now the parent of both the current node <b>n</b> and the former grandparent <b>g</b>. <b>g</b> is known to be black, since its former child <b>p</b> could not have been red otherwise (without violating property 4). then, the colors of <b>p</b> and <b>g</b> are switched, and the resulting tree satisfies property 4 (both children of every red node are black). property 5 (all paths from any given node to its leaf nodes contain the same number of black nodes) also remains satisfied, since all paths that went through any of these three nodes went through <b>g</b> before, and now they all go through <b>p</b>. in each case, this is the only black node of the three.</p> 
+</td> 
+</tr> 
+</tbody></table> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="c source-c"> 
+<pre class="de1"><span class="kw4">void</span> insert_case5<span class="br0">(</span><span class="kw4">struct</span> node <span class="sy0">*</span>n<span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw4">struct</span> node <span class="sy0">*</span>g <span class="sy0">=</span> grandparent<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+ 
+n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>color <span class="sy0">=</span> black<span class="sy0">;</span> 
+g<span class="sy0">-&gt;</span>color <span class="sy0">=</span> red<span class="sy0">;</span> 
+<span class="kw1">if</span> <span class="br0">(</span>n <span class="sy0">==</span> n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>left<span class="br0">)</span> 
+rotate_right<span class="br0">(</span>g<span class="br0">)</span><span class="sy0">;</span> 
+<span class="kw1">else</span> 
+rotate_left<span class="br0">(</span>g<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+</pre></div> 
+</div> 
+<p>note that inserting is actually <a href="http://en.wikipedia.org/wiki/in-place_algorithm" title="in-place algorithm">in-place</a>, since all the calls above use <a href="http://en.wikipedia.org/wiki/tail_recursion" title="tail recursion" class="mw-redirect">tail recursion</a>.</p> 
+<h3><span class="mw-headline" id="removal">removal</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit&section=8" title="edit section: removal">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>in a regular binary search tree when deleting a node with two non-leaf children, we find either the maximum element in its left subtree (which is the in-order predecessor) or the minimum element in its right subtree (which is the in-order successor) and move its value into the node being deleted (as shown <a href="http://en.wikipedia.org/wiki/binary_search_tree#deletion" title="binary search tree">here</a>). we then delete the node we copied the value from, which must have fewer than two non-leaf children. (non-leaf children, rather than all children, are specified here because unlike normal binary search trees, red–black trees can have leaf nodes anywhere, so that all nodes are either internal nodes with two children or leaf nodes with, by definition, zero children. in effect, internal nodes having two leaf children in a red–black tree are like the leaf nodes in a regular binary search tree.) because merely copying a value does not violate any red–black properties, this reduces to the problem of deleting a node with at most one non-leaf child. once we have solved that problem, the solution applies equally to the case where the node we originally want to delete has at most one non-leaf child as to the case just considered where it has two non-leaf children.</p> 
+<p>therefore, for the remainder of this discussion we address the deletion of a node with at most one non-leaf child. we use the label <b>m</b> to denote the node to be deleted; <b>c</b> will denote a selected child of <b>m</b>, which we will also call "its child". if <b>m</b> does have a non-leaf child, call that its child, <b>c</b>; otherwise, choose either leaf as its child, <b>c</b>.</p> 
+<p>if <b>m</b> is a red node, we simply replace it with its child <b>c</b>, which must be black by property 4. (this can only occur when <b>m</b> has two leaf children, because if the red node <b>m</b> had a black non-leaf child on one side but just a leaf child on the other side, then the count of black nodes on both sides would be different, thus the tree would violate property 5.) all paths through the deleted node will simply pass through one fewer red node, and both the deleted node's parent and child must be black, so property 3 (all leaves are black) and property 4 (both children of every red node are black) still hold.</p> 
+<p>another simple case is when <b>m</b> is black and <b>c</b> is red. simply removing a black node could break properties 4 (“both children of every red node are black”) and 5 (“all paths from any given node to its leaf nodes contain the same number of black nodes”), but if we repaint <b>c</b> black, both of these properties are preserved.</p> 
+<p>the complex case is when both <b>m</b> and <b>c</b> are black. (this can only occur when deleting a black node which has two leaf children, because if the black node <b>m</b> had a black non-leaf child on one side but just a leaf child on the other side, then the count of black nodes on both sides would be different, thus the tree would have been an invalid red–black tree by violation of property 5.) we begin by replacing <b>m</b> with its child <b>c</b>. we will call (or <i>label</i>—that is, <i>relabel</i>) this child (in its new position) <b>n</b>, and its sibling (its new parent's other child) <b>s</b>. (<b>s</b> was previously the sibling of <b>m</b>.) in the diagrams below, we will also use <b>p</b> for <b>n'</b>s new parent (<b>m'</b>s old parent), <b>s<sub>l</sub></b> for <b>s'</b>s left child, and <b>s<sub>r</sub></b> for <b>s'</b>s right child (<b>s</b> cannot be a leaf because if <b>m</b> and <b>c</b> were black, then <b>p'</b>s one subtree which included <b>m</b> counted two black-height and thus <b>p'</b>s other subtree which includes <b>s</b> must also count two black-height, which cannot be the case if <b>s</b> is a leaf node).</p> 
+<dl> 
+<dd><i>note</i>: in between some cases, we exchange the roles and labels of the nodes, but in each case, every label continues to represent the same node it represented at the beginning of the case. any color shown in the diagram is either assumed in its case or implied by those assumptions. white represents an unknown color (either red or black).</dd> 
+</dl> 
+<p>we will find the sibling using this function:</p> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="c source-c"> 
+<pre class="de1"><span class="kw4">struct</span> node <span class="sy0">*</span>sibling<span class="br0">(</span><span class="kw4">struct</span> node <span class="sy0">*</span>n<span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw1">if</span> <span class="br0">(</span>n <span class="sy0">==</span> n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>left<span class="br0">)</span> 
+<span class="kw1">return</span> n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>right<span class="sy0">;</span> 
+<span class="kw1">else</span> 
+<span class="kw1">return</span> n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>left<span class="sy0">;</span> 
+<span class="br0">}</span> 
+</pre></div> 
+</div> 
+<dl> 
+<dd><i>note</i>: in order that the tree remains well-defined, we need that every null leaf remains a leaf after all transformations (that it will not have any children). if the node we are deleting has a non-leaf (non-null) child <b>n</b>, it is easy to see that the property is satisfied. if, on the other hand, <b>n</b> would be a null leaf, it can be verified from the diagrams (or code) for all the cases that the property is satisfied as well.</dd> 
+</dl> 
+<p>we can perform the steps outlined above with the following code, where the function <code>replace_node</code> substitutes <code>child</code> into <code>n</code>'s place in the tree. for convenience, code in this section will assume that null leaves are represented by actual node objects rather than null (the code in the <i>insertion</i> section works with either representation).</p> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="c source-c"> 
+<pre class="de1"><span class="kw4">void</span> delete_one_child<span class="br0">(</span><span class="kw4">struct</span> node <span class="sy0">*</span>n<span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="comulti">/* 
+* precondition: n has at most one non-null child. 
+*/</span> 
+<span class="kw4">struct</span> node <span class="sy0">*</span>child <span class="sy0">=</span> is_leaf<span class="br0">(</span>n<span class="sy0">-&gt;</span>right<span class="br0">)</span> <span class="sy0">?</span> n<span class="sy0">-&gt;</span>left <span class="sy0">:</span> n<span class="sy0">-&gt;</span>right<span class="sy0">;</span> 
+ 
+replace_node<span class="br0">(</span>n<span class="sy0">,</span> child<span class="br0">)</span><span class="sy0">;</span> 
+<span class="kw1">if</span> <span class="br0">(</span>n<span class="sy0">-&gt;</span>color <span class="sy0">==</span> black<span class="br0">)</span> <span class="br0">{</span> 
+<span class="kw1">if</span> <span class="br0">(</span>child<span class="sy0">-&gt;</span>color <span class="sy0">==</span> red<span class="br0">)</span> 
+child<span class="sy0">-&gt;</span>color <span class="sy0">=</span> black<span class="sy0">;</span> 
+<span class="kw1">else</span> 
+delete_case1<span class="br0">(</span>child<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+<span class="kw3">free</span><span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+</pre></div> 
+</div> 
+<dl> 
+<dd><i>note</i>: if <b>n</b> is a null leaf and we do not want to represent null leaves as actual node objects, we can modify the algorithm by first calling delete_case1() on its parent (the node that we delete, <code>n</code> in the code above) and deleting it afterwards. we can do this because the parent is black, so it behaves in the same way as a null leaf (and is sometimes called a 'phantom' leaf). and we can safely delete it at the end as <code>n</code> will remain a leaf after all operations, as shown above.</dd> 
+</dl> 
+<p>if both <b>n</b> and its original parent are black, then deleting this original parent causes paths which proceed through <b>n</b> to have one fewer black node than paths that do not. as this violates property 5 (all paths from any given node to its leaf nodes contain the same number of black nodes), the tree must be rebalanced. there are several cases to consider:</p> 
+<p><b>case 1:</b> <b>n</b> is the new root. in this case, we are done. we removed one black node from every path, and the new root is black, so the properties are preserved.</p> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="c source-c"> 
+<pre class="de1"><span class="kw4">void</span> delete_case1<span class="br0">(</span><span class="kw4">struct</span> node <span class="sy0">*</span>n<span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw1">if</span> <span class="br0">(</span>n<span class="sy0">-&gt;</span>parent <span class="sy0">!=</span> null<span class="br0">)</span> 
+delete_case2<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+</pre></div> 
+</div> 
+<dl> 
+<dd><i>note</i>: in cases 2, 5, and 6, we assume <b>n</b> is the left child of its parent <b>p</b>. if it is the right child, <i>left</i> and <i>right</i> should be reversed throughout these three cases. again, the code examples take both cases into account.</dd> 
+</dl> 
+<table> 
+<tbody><tr> 
+<td> 
+<div class="floatright"><a href="http://en.wikipedia.org/wiki/file:red-black_tree_delete_case_2.png" class="image" title="diagram of case 2"><img alt="diagram of case 2" src="./red-black trees_files/red-black_tree_delete_case_2.png" width="298" height="136"></a></div> 
+<p><b>case 2:</b> <b>s</b> is red. in this case we reverse the colors of <b>p</b> and <b>s</b>, and then <a href="http://en.wikipedia.org/wiki/tree_rotation" title="tree rotation">rotate</a> left at <b>p</b>, turning <b>s</b> into <b>n'</b>s grandparent. note that <b>p</b> has to be black as it had a red child. although all paths still have the same number of black nodes, now <b>n</b> has a black sibling and a red parent, so we can proceed to step 4, 5, or 6. (its new sibling is black because it was once the child of the red <b>s</b>.) in later cases, we will relabel <b>n'</b>s new sibling as <b>s</b>.</p> 
+</td> 
+</tr> 
+</tbody></table> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="c source-c"> 
+<pre class="de1"><span class="kw4">void</span> delete_case2<span class="br0">(</span><span class="kw4">struct</span> node <span class="sy0">*</span>n<span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw4">struct</span> node <span class="sy0">*</span>s <span class="sy0">=</span> sibling<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+ 
+<span class="kw1">if</span> <span class="br0">(</span>s<span class="sy0">-&gt;</span>color <span class="sy0">==</span> red<span class="br0">)</span> <span class="br0">{</span> 
+n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>color <span class="sy0">=</span> red<span class="sy0">;</span> 
+s<span class="sy0">-&gt;</span>color <span class="sy0">=</span> black<span class="sy0">;</span> 
+<span class="kw1">if</span> <span class="br0">(</span>n <span class="sy0">==</span> n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>left<span class="br0">)</span> 
+rotate_left<span class="br0">(</span>n<span class="sy0">-&gt;</span>parent<span class="br0">)</span><span class="sy0">;</span> 
+<span class="kw1">else</span> 
+rotate_right<span class="br0">(</span>n<span class="sy0">-&gt;</span>parent<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+delete_case3<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+</pre></div> 
+</div> 
+<table> 
+<tbody><tr> 
+<td> 
+<div class="floatleft"><a href="http://en.wikipedia.org/wiki/file:red-black_tree_delete_case_3.png" class="image" title="diagram of case 3"><img alt="diagram of case 3" src="./red-black trees_files/red-black_tree_delete_case_3.png" width="313" height="132"></a></div> 
+<p><b>case 3:</b> <b>p</b>, <b>s</b>, and <b>s'</b>s children are black. in this case, we simply repaint <b>s</b> red. the result is that all paths passing through <b>s</b>, which are precisely those paths <i>not</i> passing through <b>n</b>, have one less black node. because deleting <b>n'</b>s original parent made all paths passing through <b>n</b> have one less black node, this evens things up. however, all paths through <b>p</b> now have one fewer black node than paths that do not pass through <b>p</b>, so property 5 (all paths from any given node to its leaf nodes contain the same number of black nodes) is still violated. to correct this, we perform the rebalancing procedure on <b>p</b>, starting at case 1.</p> 
+</td> 
+</tr> 
+</tbody></table> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="c source-c"> 
+<pre class="de1"><span class="kw4">void</span> delete_case3<span class="br0">(</span><span class="kw4">struct</span> node <span class="sy0">*</span>n<span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw4">struct</span> node <span class="sy0">*</span>s <span class="sy0">=</span> sibling<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+ 
+<span class="kw1">if</span> <span class="br0">(</span><span class="br0">(</span>n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>color <span class="sy0">==</span> black<span class="br0">)</span> <span class="sy0">&amp;&amp;</span> 
+<span class="br0">(</span>s<span class="sy0">-&gt;</span>color <span class="sy0">==</span> black<span class="br0">)</span> <span class="sy0">&amp;&amp;</span> 
+<span class="br0">(</span>s<span class="sy0">-&gt;</span>left<span class="sy0">-&gt;</span>color <span class="sy0">==</span> black<span class="br0">)</span> <span class="sy0">&amp;&amp;</span> 
+<span class="br0">(</span>s<span class="sy0">-&gt;</span>right<span class="sy0">-&gt;</span>color <span class="sy0">==</span> black<span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span> 
+s<span class="sy0">-&gt;</span>color <span class="sy0">=</span> red<span class="sy0">;</span> 
+delete_case1<span class="br0">(</span>n<span class="sy0">-&gt;</span>parent<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> <span class="kw1">else</span> 
+delete_case4<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+</pre></div> 
+</div> 
+<table> 
+<tbody><tr> 
+<td> 
+<div class="floatright"><a href="http://en.wikipedia.org/wiki/file:red-black_tree_delete_case_4.png" class="image" title="diagram of case 4"><img alt="diagram of case 4" src="./red-black trees_files/red-black_tree_delete_case_4.png" width="313" height="132"></a></div> 
+<p><b>case 4:</b> <b>s</b> and <b>s'</b>s children are black, but <b>p</b> is red. in this case, we simply exchange the colors of <b>s</b> and <b>p</b>. this does not affect the number of black nodes on paths going through <b>s</b>, but it does add one to the number of black nodes on paths going through <b>n</b>, making up for the deleted black node on those paths.</p> 
+</td> 
+</tr> 
+</tbody></table> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="c source-c"> 
+<pre class="de1"><span class="kw4">void</span> delete_case4<span class="br0">(</span><span class="kw4">struct</span> node <span class="sy0">*</span>n<span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw4">struct</span> node <span class="sy0">*</span>s <span class="sy0">=</span> sibling<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+ 
+<span class="kw1">if</span> <span class="br0">(</span><span class="br0">(</span>n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>color <span class="sy0">==</span> red<span class="br0">)</span> <span class="sy0">&amp;&amp;</span> 
+<span class="br0">(</span>s<span class="sy0">-&gt;</span>color <span class="sy0">==</span> black<span class="br0">)</span> <span class="sy0">&amp;&amp;</span> 
+<span class="br0">(</span>s<span class="sy0">-&gt;</span>left<span class="sy0">-&gt;</span>color <span class="sy0">==</span> black<span class="br0">)</span> <span class="sy0">&amp;&amp;</span> 
+<span class="br0">(</span>s<span class="sy0">-&gt;</span>right<span class="sy0">-&gt;</span>color <span class="sy0">==</span> black<span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span> 
+s<span class="sy0">-&gt;</span>color <span class="sy0">=</span> red<span class="sy0">;</span> 
+n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>color <span class="sy0">=</span> black<span class="sy0">;</span> 
+<span class="br0">}</span> <span class="kw1">else</span> 
+delete_case5<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+</pre></div> 
+</div> 
+<table> 
+<tbody><tr> 
+<td> 
+<div class="floatleft"><a href="http://en.wikipedia.org/wiki/file:red-black_tree_delete_case_5.png" class="image" title="diagram of case 5"><img alt="diagram of case 5" src="./red-black trees_files/red-black_tree_delete_case_5.png" width="247" height="133"></a></div> 
+<p><b>case 5:</b> <b>s</b> is black, <b>s'</b>s left child is red, <b>s'</b>s right child is black, and <b>n</b> is the left child of its parent. in this case we rotate right at <b>s</b>, so that <b>s'</b>s left child becomes <b>s'</b>s parent and <b>n'</b>s new sibling. we then exchange the colors of <b>s</b> and its new parent. all paths still have the same number of black nodes, but now <b>n</b> has a black sibling whose right child is red, so we fall into case 6. neither <b>n</b> nor its parent are affected by this transformation. (again, for case 6, we relabel <b>n'</b>s new sibling as <b>s</b>.)</p> 
+</td> 
+</tr> 
+</tbody></table> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="c source-c"> 
+<pre class="de1"><span class="kw4">void</span> delete_case5<span class="br0">(</span><span class="kw4">struct</span> node <span class="sy0">*</span>n<span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw4">struct</span> node <span class="sy0">*</span>s <span class="sy0">=</span> sibling<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+ 
+<span class="kw1">if</span>  <span class="br0">(</span>s<span class="sy0">-&gt;</span>color <span class="sy0">==</span> black<span class="br0">)</span> <span class="br0">{</span> <span class="comulti">/* this if statement is trivial, 
+due to case 2 (even though case 2 changed the sibling to a sibling's child, 
+the sibling's child can't be red, since no red parent can have a red child). */</span> 
+<span class="comulti">/* the following statements just force the red to be on the left of the left of the parent, 
+or right of the right, so case six will rotate correctly. */</span> 
+<span class="kw1">if</span> <span class="br0">(</span><span class="br0">(</span>n <span class="sy0">==</span> n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>left<span class="br0">)</span> <span class="sy0">&amp;&amp;</span> 
+<span class="br0">(</span>s<span class="sy0">-&gt;</span>right<span class="sy0">-&gt;</span>color <span class="sy0">==</span> black<span class="br0">)</span> <span class="sy0">&amp;&amp;</span> 
+<span class="br0">(</span>s<span class="sy0">-&gt;</span>left<span class="sy0">-&gt;</span>color <span class="sy0">==</span> red<span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span> <span class="comulti">/* this last test is trivial too due to cases 2-4. */</span> 
+s<span class="sy0">-&gt;</span>color <span class="sy0">=</span> red<span class="sy0">;</span> 
+s<span class="sy0">-&gt;</span>left<span class="sy0">-&gt;</span>color <span class="sy0">=</span> black<span class="sy0">;</span> 
+rotate_right<span class="br0">(</span>s<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span><span class="br0">(</span>n <span class="sy0">==</span> n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>right<span class="br0">)</span> <span class="sy0">&amp;&amp;</span> 
+<span class="br0">(</span>s<span class="sy0">-&gt;</span>left<span class="sy0">-&gt;</span>color <span class="sy0">==</span> black<span class="br0">)</span> <span class="sy0">&amp;&amp;</span> 
+<span class="br0">(</span>s<span class="sy0">-&gt;</span>right<span class="sy0">-&gt;</span>color <span class="sy0">==</span> red<span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span><span class="comulti">/* this last test is trivial too due to cases 2-4. */</span> 
+s<span class="sy0">-&gt;</span>color <span class="sy0">=</span> red<span class="sy0">;</span> 
+s<span class="sy0">-&gt;</span>right<span class="sy0">-&gt;</span>color <span class="sy0">=</span> black<span class="sy0">;</span> 
+rotate_left<span class="br0">(</span>s<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+<span class="br0">}</span> 
+delete_case6<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+</pre></div> 
+</div> 
+<table> 
+<tbody><tr> 
+<td> 
+<div class="floatright"><a href="http://en.wikipedia.org/wiki/file:red-black_tree_delete_case_6.png" class="image" title="diagram of case 6"><img alt="diagram of case 6" src="./red-black trees_files/red-black_tree_delete_case_6.png" width="299" height="143"></a></div> 
+<p><b>case 6:</b> <b>s</b> is black, <b>s'</b>s right child is red, and <b>n</b> is the left child of its parent <b>p</b>. in this case we rotate left at <b>p</b>, so that <b>s</b> becomes the parent of <b>p</b> and <b>s'</b>s right child. we then exchange the colors of <b>p</b> and <b>s</b>, and make <b>s'</b>s right child black. the subtree still has the same color at its root, so properties 4 (both children of every red node are black) and 5 (all paths from any given node to its leaf nodes contain the same number of black nodes) are not violated. however, <b>n</b> now has one additional black ancestor: either <b>p</b> has become black, or it was black and <b>s</b> was added as a black grandparent. thus, the paths passing through <b>n</b> pass through one additional black node.</p> 
+<p>meanwhile, if a path does not go through <b>n</b>, then there are two possibilities:</p> 
+<ul> 
+<li>it goes through <b>n'</b>s new sibling. then, it must go through <b>s</b> and <b>p</b>, both formerly and currently, as they have only exchanged colors and places. thus the path contains the same number of black nodes.</li> 
+<li>it goes through <b>n'</b>s new uncle, <b>s'</b>s right child. then, it formerly went through <b>s</b>, <b>s'</b>s parent, and <b>s'</b>s right child (which was red), but now only goes through <b>s</b>, which has assumed the color of its former parent, and <b>s'</b>s right child, which has changed from red to black (assuming <b>s'</b>s color: black). the net effect is that this path goes through the same number of black nodes.</li> 
+</ul> 
+<p>either way, the number of black nodes on these paths does not change. thus, we have restored properties 4 (both children of every red node are black) and 5 (all paths from any given node to its leaf nodes contain the same number of black nodes). the white node in the diagram can be either red or black, but must refer to the same color both before and after the transformation.</p> 
+</td> 
+</tr> 
+</tbody></table> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="c source-c"> 
+<pre class="de1"><span class="kw4">void</span> delete_case6<span class="br0">(</span><span class="kw4">struct</span> node <span class="sy0">*</span>n<span class="br0">)</span> 
+<span class="br0">{</span> 
+<span class="kw4">struct</span> node <span class="sy0">*</span>s <span class="sy0">=</span> sibling<span class="br0">(</span>n<span class="br0">)</span><span class="sy0">;</span> 
+ 
+s<span class="sy0">-&gt;</span>color <span class="sy0">=</span> n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>color<span class="sy0">;</span> 
+n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>color <span class="sy0">=</span> black<span class="sy0">;</span> 
+ 
+<span class="kw1">if</span> <span class="br0">(</span>n <span class="sy0">==</span> n<span class="sy0">-&gt;</span>parent<span class="sy0">-&gt;</span>left<span class="br0">)</span> <span class="br0">{</span> 
+s<span class="sy0">-&gt;</span>right<span class="sy0">-&gt;</span>color <span class="sy0">=</span> black<span class="sy0">;</span> 
+rotate_left<span class="br0">(</span>n<span class="sy0">-&gt;</span>parent<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> <span class="kw1">else</span> <span class="br0">{</span> 
+s<span class="sy0">-&gt;</span>left<span class="sy0">-&gt;</span>color <span class="sy0">=</span> black<span class="sy0">;</span> 
+rotate_right<span class="br0">(</span>n<span class="sy0">-&gt;</span>parent<span class="br0">)</span><span class="sy0">;</span> 
+<span class="br0">}</span> 
+<span class="br0">}</span> 
+</pre></div> 
+</div> 
+<p>again, the function calls all use <a href="http://en.wikipedia.org/wiki/tail_recursion" title="tail recursion" class="mw-redirect">tail recursion</a>, so the algorithm is <a href="http://en.wikipedia.org/wiki/in-place_algorithm" title="in-place algorithm">in-place</a>. in the algorithm above, all cases are chained in order, except in delete case 3 where it can recurse to case 1 back to the parent node: this is the only case where an in-place implementation will effectively loop (after only one rotation in case 3).</p> 
+<p>additionally, no tail recursion ever occurs on a child node, so the tail recursion loop can only move from a child back to its successive ancestors. no more than o(log <i>n</i>) loops back to case 1 will occur (where <i>n</i> is the total number of nodes in the tree before deletion). if a rotation occurs in case 2 (which is the only possibility of rotation within the loop of cases 1–3), then the parent of the node <b>n</b> becomes red after the rotation and we will exit the loop. therefore at most one rotation will occur within this loop. since no more than two additional rotations will occur after exiting the loop, at most three rotations occur in total.</p> 
+<h2><span class="mw-headline" id="proof_of_asymptotic_bounds">proof of asymptotic bounds</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit&section=9" title="edit section: proof of asymptotic bounds">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>a red black tree which contains <i>n</i> internal nodes has a height of o(log(n)).</p> 
+<p>definitions:</p> 
+<ul> 
+<li>h(<i>v</i>) = height of subtree rooted at node <i>v</i></li> 
+<li>bh(<i>v</i>) = the number of black nodes (not counting <i>v</i> if it is red) from <i>v</i> to any leaf in the subtree (called the black-height).</li> 
+</ul> 
+<p><b>lemma:</b> a subtree rooted at node <i>v</i> has at least <img class="tex" alt="2^{bh(v)}-1" src="./red-black trees_files/094149047bf3aaa925673ef67f0880fe.png"> internal nodes.</p> 
+<p>proof of lemma (by induction height):</p> 
+<p>basis: h(<i>v</i>) = 0</p> 
+<p>if <i>v</i> has a height of zero then it must be <i>null</i>, therefore bh(<i>v</i>) = 0. so:</p> 
+<dl> 
+<dd><img class="tex" alt=" 
+2^{bh(v)}-1 = 2^{0}-1 = 1-1 = 0 
+" src="./red-black trees_files/d5506bad4c0e0a51b5984ec5036b93f7.png"></dd> 
+</dl> 
+<p>inductive step: <i>v</i> such that h(<i>v</i>) = k, has at least <img class="tex" alt="2^{bh(v)}-1" src="./red-black trees_files/094149047bf3aaa925673ef67f0880fe.png"> internal nodes implies that <img class="tex" alt="v&#39;" src="./red-black trees_files/b3afdc4dc7644ad636e084509b04ddab.png"> such that h(<img class="tex" alt="v&#39;" src="./red-black trees_files/b3afdc4dc7644ad636e084509b04ddab.png">) = k+1 has at least <img class="tex" alt="2^{bh(v&#39;)}-1" src="./red-black trees_files/22e196e7e9cd1662649c45ffa3fdecc1.png"> internal nodes.</p> 
+<p>since <img class="tex" alt="v&#39;" src="./red-black trees_files/b3afdc4dc7644ad636e084509b04ddab.png"> has h(<img class="tex" alt="v&#39;" src="./red-black trees_files/b3afdc4dc7644ad636e084509b04ddab.png">) &gt; 0 it is an internal node. as such it has two children each of which have a black-height of either bh(<img class="tex" alt="v&#39;" src="./red-black trees_files/b3afdc4dc7644ad636e084509b04ddab.png">) or bh(<img class="tex" alt="v&#39;" src="./red-black trees_files/b3afdc4dc7644ad636e084509b04ddab.png">)-1 (depending on whether the child is red or black, respectively). by the inductive hypothesis each child has at least <img class="tex" alt="2^{bh(v&#39;)-1}-1" src="./red-black trees_files/eceb5c4a4cc92b4f6296d47d755ed755.png"> internal nodes, so <img class="tex" alt="v&#39;" src="./red-black trees_files/b3afdc4dc7644ad636e084509b04ddab.png"> has at least:</p> 
+<dl> 
+<dd><img class="tex" alt=" 
+2^{bh(v&#39;)-1}-1 + 2^{bh(v&#39;)-1}-1 + 1 = 2^{bh(v&#39;)}-1 
+" src="./red-black trees_files/507186f210e4ab42aa1b213d0ae895b6.png"></dd> 
+</dl> 
+<p>internal nodes.</p> 
+<p>using this lemma we can now show that the height of the tree is logarithmic. since at least half of the nodes on any path from the root to a leaf are black (property 4 of a red–black tree), the black-height of the root is at least h(root)/2. by the lemma we get:</p> 
+<dl> 
+<dd><img class="tex" alt=" 
+n \geq 2^{{h(\text{root}) \over 2}} - 1 \leftrightarrow \; \log_2{(n+1)} \geq {h(\text{root}) \over 2} \leftrightarrow \; h(\text{root}) \leq 2\log_2{(n+1)}. 
+" src="./red-black trees_files/e5cc954022122cf14c04b677798e49f7.png"></dd> 
+</dl> 
+<p>therefore the height of the root is o(log(n)).</p> 
+<h3><span class="mw-headline" id="insertion_complexity">insertion complexity</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit&section=10" title="edit section: insertion complexity">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>in the tree code there is only one loop where the node of the root of the red–black property that we wish to restore, x, can be moved up the tree by one level at each iteration.</p> 
+<p>since the original height of the tree is o(log n), there are o(log n) iterations. so overall the insert routine has o(log n) complexity.</p> 
+<h2><span class="mw-headline" id="parallel_algorithms">parallel algorithms</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit&section=11" title="edit section: parallel algorithms">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>parallel algorithms for constructing red–black trees from sorted lists of items can run in constant time or o(loglog n) time, depending on the computer model, if the number of processors available is proportional to the number of items. fast search, insertion, and deletion parallel algorithms are also known.<sup id="cite_ref-9" class="reference"><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_note-9"><span>[</span>8<span>]</span></a></sup></p> 
+<h2><span class="mw-headline" id="see_also">see also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit&section=12" title="edit section: see also">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/tree_data_structure" title="tree data structure" class="mw-redirect">tree data structure</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/tree_rotation" title="tree rotation">tree rotation</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/scapegoat_tree" title="scapegoat tree">scapegoat tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/splay_tree" title="splay tree">splay tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/avl_tree" title="avl tree">avl tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/b-tree" title="b-tree">b-tree</a> (<a href="http://en.wikipedia.org/wiki/2-3_tree" title="2-3 tree" class="mw-redirect">2-3 tree</a>, <a href="http://en.wikipedia.org/wiki/2-3-4_tree" title="2-3-4 tree" class="mw-redirect">2-3-4 tree</a>, <a href="http://en.wikipedia.org/wiki/b%2b_tree" title="b+ tree">b+ tree</a>, <a href="http://en.wikipedia.org/wiki/b*-tree" title="b*-tree" class="mw-redirect">b*-tree</a>, <a href="http://en.wikipedia.org/wiki/ub-tree" title="ub-tree">ub-tree</a>)</li> 
+<li><a href="http://en.wikipedia.org/wiki/t-tree" title="t-tree">t-tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/list_of_data_structures" title="list of data structures">list of data structures</a></li> 
+</ul> 
+<h2><span class="mw-headline" id="notes">notes</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit&section=13" title="edit section: notes">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<div class="reflist" style="list-style-type: decimal;"> 
+<ol class="references"> 
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_ref-1"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web">john morris. <a rel="nofollow" class="external text" href="http://www.cs.auckland.ac.nz/~jmor159/plds210/red_black.html">"red–black trees"</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3ared%e2%80%93black+tree&amp;rft.au=john+morris&amp;rft.aulast=john+morris&amp;rft.btitle=red%e2%80%93black+trees&amp;rft.genre=book&amp;rft_id=http%3a%2f%2fwww.cs.auckland.ac.nz%2f~jmor159%2fplds210%2fred_black.html&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+<li id="cite_note-bayer72-2"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_ref-bayer72_2-0"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span class="citation journal">rudolf bayer (1972). <a rel="nofollow" class="external text" href="http://www.springerlink.com/content/qh51m2014673513j/">"symmetric binary b-trees: data structure and maintenance algorithms"</a>. <i>acta informatica</i> <b>1</b> (4): 290–306. <a href="http://en.wikipedia.org/wiki/digital_object_identifier" title="digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="http://dx.doi.org/10.1007%2fbf00289509">10.1007/bf00289509</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3ared%e2%80%93black+tree&amp;rft.atitle=symmetric+binary+b-trees%3a+data+structure+and+maintenance+algorithms&amp;rft.aulast=rudolf+bayer&amp;rft.au=rudolf+bayer&amp;rft.date=1972&amp;rft.genre=article&amp;rft_id=http%3a%2f%2fwww.springerlink.com%2fcontent%2fqh51m2014673513j%2f&amp;rft_id=info%3adoi%2f10.1007%2fbf00289509&amp;rft.issue=4&amp;rft.jtitle=acta+informatica&amp;rft.pages=290%e2%80%93306&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3ajournal&amp;rft.volume=1" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+<li id="cite_note-gs78-3"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_ref-gs78_3-0"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span class="citation conference">leonidas j. guibas and robert sedgewick (1978). <a rel="nofollow" class="external text" href="http://doi.ieeecomputersociety.org/10.1109/sfcs.1978.3">"a dichromatic framework for balanced trees"</a>. <i>proceedings of the 19th annual symposium on foundations of computer science</i>. pp.&nbsp;8–21. <a href="http://en.wikipedia.org/wiki/digital_object_identifier" title="digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="http://dx.doi.org/10.1109%2fsfcs.1978.3">10.1109/sfcs.1978.3</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3ared%e2%80%93black+tree&amp;rft.atitle=proceedings+of+the+19th+annual+symposium+on+foundations+of+computer+science&amp;rft.aulast=leonidas+j.+guibas+and+robert+sedgewick&amp;rft.au=leonidas+j.+guibas+and+robert+sedgewick&amp;rft.btitle=a+dichromatic+framework+for+balanced+trees&amp;rft.date=1978&amp;rft.genre=bookitem&amp;rft_id=http%3a%2f%2fdoi.ieeecomputersociety.org%2f10.1109%2fsfcs.1978.3&amp;rft_id=info%3adoi%2f10.1109%2fsfcs.1978.3&amp;rft.pages=8%e2%80%9321&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+<li id="cite_note-sedgewick12-4"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_ref-sedgewick12_4-0"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span class="citation audio-visual">robert sedgewick (2012). <a rel="nofollow" class="external text" href="https://class.coursera.org/algs4parti-002/lecture/50"><i>red-black bsts</i></a>. coursera. "a lot of people ask why did we use the name red–black. well, we invented this data structure, this way of looking at balanced trees, at xerox parc which was the home of the personal computer and many other innovations that we live with today entering[sic] graphic user interfaces, ethernet and object-oriented programmings[sic] and many other things. but one of the things that was invented there was laser printing and we were very excited to have nearby color laser printer that could print things out in color and out of the colors the red looked the best. so, that’s why we picked the color red to distinguish red links, the types of links, in three nodes. so, that’s an answer to the question for people that have been asking."</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3ared%e2%80%93black+tree&amp;rft.btitle=red-black+bsts&amp;rft.date=2012&amp;rft.genre=book&amp;rft_id=https%3a%2f%2fclass.coursera.org%2falgs4parti-002%2flecture%2f50&amp;rft.pub=coursera&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+<li id="cite_note-5"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_ref-5"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span class="citation book"><a href="http://en.wikipedia.org/wiki/thomas_h._cormen" title="thomas h. cormen">cormen, thomas</a>; <a href="http://en.wikipedia.org/wiki/charles_e._leiserson" title="charles e. leiserson">leiserson, charles</a>; <a href="http://en.wikipedia.org/wiki/ron_rivest" title="ron rivest">rivest, ronald</a>; <a href="http://en.wikipedia.org/wiki/clifford_stein" title="clifford stein">stein, clifford</a> (2009). "13". <i><a href="http://en.wikipedia.org/wiki/introduction_to_algorithms" title="introduction to algorithms">introduction to algorithms</a></i> (3rd ed.). <a href="http://en.wikipedia.org/wiki/mit_press" title="mit press">mit press</a>. pp.&nbsp;308–309. <a href="http://en.wikipedia.org/wiki/international_standard_book_number" title="international standard book number">isbn</a>&nbsp;<a href="http://en.wikipedia.org/wiki/special:booksources/978-0-262-03384-8" title="special:booksources/978-0-262-03384-8">978-0-262-03384-8</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3ared%e2%80%93black+tree&amp;rft.atitle=introduction+to+algorithms&amp;rft.au=cormen%2c+thomas&amp;rft.aufirst=thomas&amp;rft.aulast=cormen&amp;rft.au=leiserson%2c+charles&amp;rft.au=rivest%2c+ronald&amp;rft.au=stein%2c+clifford&amp;rft.btitle=13&amp;rft.date=2009&amp;rft.edition=3rd&amp;rft.genre=bookitem&amp;rft.isbn=978-0-262-03384-8&amp;rft.pages=308%e2%80%93309&amp;rft.pub=mit+press&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+<li id="cite_note-cs.princeton.edu-7"><span class="mw-cite-backlink">^ <a href="http://en.wikipedia.org/wiki/red_black_tree#cite_ref-cs.princeton.edu_7-0"><span class="cite-accessibility-label">jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="http://en.wikipedia.org/wiki/red_black_tree#cite_ref-cs.princeton.edu_7-1"><sup><i><b>b</b></i></sup></a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="http://www.cs.princeton.edu/~rs/talks/llrb/redblack.pdf">http://www.cs.princeton.edu/~rs/talks/llrb/redblack.pdf</a></span></li> 
+<li id="cite_note-8"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_ref-8"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external free" href="http://www.cs.princeton.edu/courses/archive/fall08/cos226/lectures/10balancedtrees-2x2.pdf">http://www.cs.princeton.edu/courses/archive/fall08/cos226/lectures/10balancedtrees-2x2.pdf</a></span></li> 
+<li id="cite_note-9"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/red_black_tree#cite_ref-9"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span class="citation journal">h. park and k. park (2001). <a rel="nofollow" class="external text" href="http://www.sciencedirect.com/science/article/pii/s0304397500002875">"parallel algorithms for red–black trees"</a>. <i>theoretical computer science</i> (elsevier) <b>262</b> (1–2): 415–435. <a href="http://en.wikipedia.org/wiki/digital_object_identifier" title="digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="http://dx.doi.org/10.1016%2fs0304-3975%2800%2900287-5">10.1016/s0304-3975(00)00287-5</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3ared%e2%80%93black+tree&amp;rft.atitle=parallel+algorithms+for+red%e2%80%93black+trees&amp;rft.au=h.+park+and+k.+park&amp;rft.aulast=h.+park+and+k.+park&amp;rft.date=2001&amp;rft.genre=article&amp;rft_id=http%3a%2f%2fwww.sciencedirect.com%2fscience%2farticle%2fpii%2fs0304397500002875&amp;rft_id=info%3adoi%2f10.1016%2fs0304-3975%2800%2900287-5&amp;rft.issue=1%e2%80%932&amp;rft.jtitle=theoretical+computer+science&amp;rft.pages=415%e2%80%93435&amp;rft.pub=elsevier&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3ajournal&amp;rft.volume=262" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+</ol> 
+</div> 
+<h2><span class="mw-headline" id="references">references</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit&section=14" title="edit section: references">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<table class="metadata plainlinks ambox ambox-style ambox-no_footnotes" role="presentation"> 
+<tbody><tr> 
+<td class="mbox-image"> 
+<div style="width:52px;"><img alt="" src="./red-black trees_files/80px-text_document_with_red_question_mark.svg.png" width="40" height="40" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/a/a4/text_document_with_red_question_mark.svg/60px-text_document_with_red_question_mark.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/a/a4/text_document_with_red_question_mark.svg/80px-text_document_with_red_question_mark.svg.png 2x"></div> 
+</td> 
+<td class="mbox-text"><span class="mbox-text-span">this article includes a <a href="http://en.wikipedia.org/wiki/wikipedia:citing_sources" title="wikipedia:citing sources">list of references</a> that remain unclear because it lacks <a href="http://en.wikipedia.org/wiki/wikipedia:citing_sources#inline_citations" title="wikipedia:citing sources">inline citations</a>. <span class="hide-when-compact">please <a href="http://en.wikipedia.org/wiki/wikipedia:wikiproject_fact_and_reference_check" title="wikipedia:wikiproject fact and reference check">improve</a> this article by introducing more precise citations.</span> <small><i>(july 2013)</i></small></span></td> 
+</tr> 
+</tbody></table> 
+<ul> 
+<li><a rel="nofollow" class="external text" href="http://mathworld.wolfram.com/red-blacktree.html">mathworld: red–black tree</a></li> 
+<li><a rel="nofollow" class="external text" href="http://www.eli.sdsu.edu/courses/fall95/cs660/notes/redblacktree/redblack.html#rtftoc2">san diego state university: cs 660: red–black tree notes</a>, by roger whitney</li> 
+<li><a href="http://en.wikipedia.org/wiki/thomas_h._cormen" title="thomas h. cormen">thomas h. cormen</a>, <a href="http://en.wikipedia.org/wiki/charles_e._leiserson" title="charles e. leiserson">charles e. leiserson</a>, <a href="http://en.wikipedia.org/wiki/ronald_l._rivest" title="ronald l. rivest" class="mw-redirect">ronald l. rivest</a>, and <a href="http://en.wikipedia.org/wiki/clifford_stein" title="clifford stein">clifford stein</a>. <i><a href="http://en.wikipedia.org/wiki/introduction_to_algorithms" title="introduction to algorithms">introduction to algorithms</a></i>, second edition. mit press and mcgraw-hill, 2001. <a href="http://en.wikipedia.org/wiki/special:booksources/0262032937" class="internal mw-magiclink-isbn">isbn 0-262-03293-7</a> . chapter 13: red–black trees, pp.&nbsp;273–301.</li> 
+<li><span class="citation web">pfaff, ben (june 2004). <a rel="nofollow" class="external text" href="http://www.stanford.edu/~blp/papers/libavl.pdf">"performance analysis of bsts in system software"</a> (pdf). <a href="http://en.wikipedia.org/wiki/stanford_university" title="stanford university" class="mw-redirect">stanford university</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3ared%e2%80%93black+tree&amp;rft.aufirst=ben&amp;rft.aulast=pfaff&amp;rft.au=pfaff%2c+ben&amp;rft.btitle=performance+analysis+of+bsts+in+system+software&amp;rft.date=june+2004&amp;rft.genre=book&amp;rft_id=http%3a%2f%2fwww.stanford.edu%2f~blp%2fpapers%2flibavl.pdf&amp;rft.pub=stanford+university&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+<li><span class="citation web">okasaki, chris. <a rel="nofollow" class="external text" href="http://www.eecs.usma.edu/webs/people/okasaki/jfp99.ps">"red–black trees in a functional setting"</a> (ps).</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3ared%e2%80%93black+tree&amp;rft.aufirst=chris&amp;rft.aulast=okasaki&amp;rft.au=okasaki%2c+chris&amp;rft.btitle=red%e2%80%93black+trees+in+a+functional+setting&amp;rft.genre=book&amp;rft_id=http%3a%2f%2fwww.eecs.usma.edu%2fwebs%2fpeople%2fokasaki%2fjfp99.ps&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+</ul> 
+<h2><span class="mw-headline" id="external_links">external links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit&section=15" title="edit section: external links">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li><a rel="nofollow" class="external text" href="http://www.ece.uc.edu/~franco/c321/html/redblack/redblack.html">red–black tree demonstration</a></li> 
+<li><a rel="nofollow" class="external text" href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-introduction-to-algorithms-sma-5503-fall-2005/video-lectures/lecture-10-red-black-trees-rotations-insertions-deletions/">ocw mit lecture by prof. erik demaine on red black trees</a> -</li> 
+<li><a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=_vbtnlv8plu">binary search tree insertion visualization</a> on <a href="http://en.wikipedia.org/wiki/youtube" title="youtube">youtube</a> – visualization of random and pre-sorted data insertions, in elementary binary search trees, and left-leaning red–black trees</li> 
+</ul> 
+<table cellspacing="0" class="navbox" style="border-spacing:0;"> 
+<tbody><tr> 
+<td style="padding:2px;"> 
+<table cellspacing="0" class="nowraplinks collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" id="collapsibletable0"> 
+<tbody><tr> 
+<th scope="col" class="navbox-title" colspan="2"><span class="collapsebutton">[<a id="collapsebutton0" href="http://en.wikipedia.org/wiki/red_black_tree#">show</a>]</span> 
+<div class="plainlinks hlist navbar mini"> 
+<ul> 
+<li class="nv-view"><a href="http://en.wikipedia.org/wiki/template:cs_trees" title="template:cs trees"><span title="view this template" style=";;background:none transparent;border:none;;">v</span></a></li> 
+<li class="nv-talk"><a href="http://en.wikipedia.org/wiki/template_talk:cs_trees" title="template talk:cs trees"><span title="discuss this template" style=";;background:none transparent;border:none;;">t</span></a></li> 
+<li class="nv-edit"><a class="external text" href="http://en.wikipedia.org/w/index.php?title=template:cs_trees&action=edit"><span title="edit this template" style=";;background:none transparent;border:none;;">e</span></a></li> 
+</ul> 
+</div> 
+<div style="font-size:110%;"><a href="http://en.wikipedia.org/wiki/tree_(data_structure)" title="tree (data structure)">tree data structures</a></div> 
+</th> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/binary_tree" title="binary tree">binary trees</a></th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/binary_search_tree" title="binary search tree">binary search tree (bst)</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/cartesian_tree" title="cartesian tree">cartesian tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/mvp_tree" title="mvp tree" class="mw-redirect">mvp tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/top_tree" title="top tree">top tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/t-tree" title="t-tree">t-tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/left-child_right-sibling_binary_tree" title="left-child right-sibling binary tree">left-child right-sibling binary tree</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/self-balancing_binary_search_tree" title="self-balancing binary search tree">self-balancing binary search trees</a></th> 
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/aa_tree" title="aa tree">aa tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/avl_tree" title="avl tree">avl tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/left-leaning_red%e2%80%93black_tree" title="left-leaning red–black tree">llrb tree</a></li> 
+<li><strong class="selflink">red–black tree</strong></li> 
+<li><a href="http://en.wikipedia.org/wiki/scapegoat_tree" title="scapegoat tree">scapegoat tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/splay_tree" title="splay tree">splay tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/treap" title="treap">treap</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/b-tree" title="b-tree">b-trees</a></th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/b%2b_tree" title="b+ tree">b+ tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/b*-tree" title="b*-tree" class="mw-redirect">b*-tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/bx-tree" title="bx-tree">b<small><sup>x</sup></small>-tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/ub-tree" title="ub-tree">ub-tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/2%e2%80%933_tree" title="2–3 tree">2–3 tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/2%e2%80%933%e2%80%934_tree" title="2–3–4 tree">2–3–4 tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/(a,b)-tree" title="(a,b)-tree">(a,b)-tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/dancing_tree" title="dancing tree">dancing tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/htree" title="htree">htree</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/trie" title="trie">tries</a></th> 
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/suffix_tree" title="suffix tree">suffix tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/radix_tree" title="radix tree">radix tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/hash_tree_(persistent_data_structure)" title="hash tree (persistent data structure)">hash tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/ternary_search_tree" title="ternary search tree">ternary search tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/x-fast_trie" title="x-fast trie">x-fast trie</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/y-fast_trie" title="y-fast trie">y-fast trie</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/binary_space_partitioning" title="binary space partitioning">binary space partitioning (bsp)</a> trees</th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/quadtree" title="quadtree">quadtree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/octree" title="octree">octree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/k-d_tree" title="k-d tree"><i>k</i>-d tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/implicit_k-d_tree" title="implicit k-d tree">implicit <i>k</i>-d tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/vantage-point_tree" title="vantage-point tree">vp tree</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group">non-binary trees</th> 
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/exponential_tree" title="exponential tree">exponential tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/fusion_tree" title="fusion tree">fusion tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/interval_tree" title="interval tree">interval tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/pq_tree" title="pq tree">pq tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/range_tree" title="range tree">range tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/spqr_tree" title="spqr tree">spqr tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/van_emde_boas_tree" title="van emde boas tree">van emde boas tree</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/spatial_index" title="spatial index" class="mw-redirect">spatial</a> data partitioning trees</th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/r-tree" title="r-tree">r-tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/r%2b_tree" title="r+ tree">r+ tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/r*_tree" title="r* tree">r* tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/x-tree" title="x-tree">x-tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/m-tree" title="m-tree">m-tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/segment_tree" title="segment tree">segment tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/hilbert_r-tree" title="hilbert r-tree">hilbert r-tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/priority_r-tree" title="priority r-tree">priority r-tree</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group">other trees</th> 
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/heap_(data_structure)" title="heap (data structure)">heap</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/hash_calendar" title="hash calendar">hash calendar</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/merkle_tree" title="merkle tree">merkle tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/finger_tree" title="finger tree">finger tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/order_statistic_tree" title="order statistic tree">order statistic tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/metric_tree" title="metric tree">metric tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/cover_tree" title="cover tree">cover tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/bk-tree" title="bk-tree">bk-tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/doubly_chained_tree" title="doubly chained tree">doubly chained tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/idistance" title="idistance">idistance</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/link/cut_tree" title="link/cut tree">link/cut tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/fenwick_tree" title="fenwick tree">fenwick tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/log-structured_merge-tree" title="log-structured merge-tree">log-structured merge-tree</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+</tbody></table> 
+</td> 
+</tr> 
+</tbody></table> 
+<table cellspacing="0" class="navbox" style="border-spacing:0;"> 
+<tbody><tr> 
+<td style="padding:2px;"> 
+<table cellspacing="0" class="nowraplinks hlist collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" id="collapsibletable1"> 
+<tbody><tr> 
+<th scope="col" class="navbox-title" colspan="2"><span class="collapsebutton">[<a id="collapsebutton1" href="http://en.wikipedia.org/wiki/red_black_tree#">show</a>]</span> 
+<div class="plainlinks hlist navbar mini"> 
+<ul> 
+<li class="nv-view"><a href="http://en.wikipedia.org/wiki/template:data_structures" title="template:data structures"><span title="view this template" style=";;background:none transparent;border:none;;">v</span></a></li> 
+<li class="nv-talk"><a href="http://en.wikipedia.org/wiki/template_talk:data_structures" title="template talk:data structures"><span title="discuss this template" style=";;background:none transparent;border:none;;">t</span></a></li> 
+<li class="nv-edit"><a class="external text" href="http://en.wikipedia.org/w/index.php?title=template:data_structures&action=edit"><span title="edit this template" style=";;background:none transparent;border:none;;">e</span></a></li> 
+</ul> 
+</div> 
+<div style="font-size:110%;"><a href="http://en.wikipedia.org/wiki/data_structure" title="data structure">data structures</a></div> 
+</th> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group">types</th> 
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/collection_(abstract_data_type)" title="collection (abstract data type)">collection</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/container_(abstract_data_type)" title="container (abstract data type)">container</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/abstract_data_type" title="abstract data type">abstract</a></th> 
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/associative_array" title="associative array">associative array</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/double-ended_priority_queue" title="double-ended priority queue">double-ended priority queue</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/double-ended_queue" title="double-ended queue">double-ended queue</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/list_(abstract_data_type)" title="list (abstract data type)">list</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/multimap" title="multimap">multimap</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/priority_queue" title="priority queue">priority queue</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/queue_(abstract_data_type)" title="queue (abstract data type)">queue</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)" title="set (abstract data type)">set</a> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#multiset" title="set (abstract data type)">multiset</a></li> 
+</ul> 
+</li> 
+<li><a href="http://en.wikipedia.org/wiki/disjoint-set_data_structure" title="disjoint-set data structure">disjoint sets</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/stack_(abstract_data_type)" title="stack (abstract data type)">stack</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/array_data_structure" title="array data structure">arrays</a></th> 
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/bit_array" title="bit array">bit array</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/circular_buffer" title="circular buffer">circular buffer</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/dynamic_array" title="dynamic array">dynamic array</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/hash_table" title="hash table">hash table</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/hashed_array_tree" title="hashed array tree">hashed array tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/sparse_array" title="sparse array">sparse array</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/linked_data_structure" title="linked data structure">linked</a></th> 
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/association_list" title="association list">association list</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/linked_list" title="linked list">linked list</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/skip_list" title="skip list">skip list</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/unrolled_linked_list" title="unrolled linked list">unrolled linked list</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/xor_linked_list" title="xor linked list">xor linked list</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/tree_(data_structure)" title="tree (data structure)">trees</a></th> 
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/b-tree" title="b-tree">b-tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/binary_search_tree" title="binary search tree">binary search tree</a> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/aa_tree" title="aa tree">aa</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/avl_tree" title="avl tree">avl</a></li> 
+<li><strong class="selflink">red-black</strong></li> 
+<li><a href="http://en.wikipedia.org/wiki/self-balancing_binary_search_tree" title="self-balancing binary search tree">self-balancing</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/splay_tree" title="splay tree">splay</a></li> 
+</ul> 
+</li> 
+<li><a href="http://en.wikipedia.org/wiki/heap_(data_structure)" title="heap (data structure)">heap</a> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/binary_heap" title="binary heap">binary</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/binomial_heap" title="binomial heap">binomial</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/fibonacci_heap" title="fibonacci heap">fibonacci</a></li> 
+</ul> 
+</li> 
+<li><a href="http://en.wikipedia.org/wiki/r-tree" title="r-tree">r-tree</a> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/r*_tree" title="r* tree">r*</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/r%2b_tree" title="r+ tree">r+</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/hilbert_r-tree" title="hilbert r-tree">hilbert</a></li> 
+</ul> 
+</li> 
+<li><a href="http://en.wikipedia.org/wiki/trie" title="trie">trie</a> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/hash_tree_(persistent_data_structure)" title="hash tree (persistent data structure)">hash tree</a></li> 
+</ul> 
+</li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/graph_(abstract_data_type)" title="graph (abstract data type)">graphs</a></th> 
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/binary_decision_diagram" title="binary decision diagram">binary decision diagram</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/directed_acyclic_word_graph" title="directed acyclic word graph">directed acyclic word graph</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<td class="navbox-abovebelow" colspan="2"> 
+<div> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/list_of_data_structures" title="list of data structures">list of data structures</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+</tbody></table> 
+</td> 
+</tr> 
+</tbody></table> 
+<p><span id="interwiki-de-ga"></span></p> 
+ 
+ 
+<!-- 
+newpp limit report 
+parsed by mw1103 
+cpu time usage: 1.092 seconds 
+real time usage: 1.309 seconds 
+preprocessor visited node count: 1405/1000000 
+preprocessor generated node count: 5538/1500000 
+post‐expand include size: 51028/2048000 bytes 
+template argument size: 854/2048000 bytes 
+highest expansion depth: 11/40 
+expensive parser function count: 9/500 
+lua time usage: 0.112s 
+lua memory usage: 2.56 mb 
+--> 
+ 
+<!-- saved in parser cache with key enwiki:pcache:idhash:26397-0!0!0!!en!4!* and timestamp 20140202031052 
+--> 
+<noscript>&lt;img src="//en.wikipedia.org/wiki/special:centralautologin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /&gt;</noscript></div>								<div class="printfooter"> 
+retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&oldid=592909736">http://en.wikipedia.org/w/index.php?title=red–black_tree&amp;oldid=592909736</a>"				</div> 
+<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/help:category" title="help:category">categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/category:1972_in_computer_science" title="category:1972 in computer science">1972 in computer science</a></li><li><a href="http://en.wikipedia.org/wiki/category:binary_trees" title="category:binary trees">binary trees</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/category:articles_needing_additional_references_from_october_2012" title="category:articles needing additional references from october 2012">articles needing additional references from october 2012</a></li><li><a href="http://en.wikipedia.org/wiki/category:all_articles_needing_additional_references" title="category:all articles needing additional references">all articles needing additional references</a></li><li><a href="http://en.wikipedia.org/wiki/category:articles_with_unsourced_quotes" title="category:articles with unsourced quotes">articles with unsourced quotes</a></li><li><a href="http://en.wikipedia.org/wiki/category:vague_or_ambiguous_time_from_january_2013" title="category:vague or ambiguous time from january 2013">vague or ambiguous time from january 2013</a></li><li><a href="http://en.wikipedia.org/wiki/category:articles_lacking_in-text_citations_from_july_2013" title="category:articles lacking in-text citations from july 2013">articles lacking in-text citations from july 2013</a></li><li><a href="http://en.wikipedia.org/wiki/category:all_articles_lacking_in-text_citations" title="category:all articles lacking in-text citations">all articles lacking in-text citations</a></li><li><a href="http://en.wikipedia.org/wiki/category:articles_containing_proofs" title="category:articles containing proofs">articles containing proofs</a></li><li><a href="http://en.wikipedia.org/wiki/category:articles_with_example_c_code" title="category:articles with example c code">articles with example c code</a></li></ul></div></div>												<div class="visualclear"></div> 
+</div> 
+</div> 
+<div id="mw-navigation"> 
+<h2>navigation menu</h2> 
+<div id="mw-head"> 
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label"> 
+<h3 id="p-personal-label">personal tools</h3> 
+<ul> 
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=red%e2%80%93black+tree&type=signup">create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=red%e2%80%93black+tree" title="you&#39;re encouraged to log in; however, it&#39;s not mandatory. [ctrl-option-o]" accesskey="o">log in</a></li>	</ul> 
+</div> 
+<div id="left-navigation"> 
+<div id="p-namespaces" role="navigation" class="vectortabs" aria-labelledby="p-namespaces-label"> 
+<h3 id="p-namespaces-label">namespaces</h3> 
+<ul> 
+<li id="ca-nstab-main" class="selected"><span><a href="http://en.wikipedia.org/wiki/red%e2%80%93black_tree" title="view the content page [ctrl-option-c]" accesskey="c">article</a></span></li> 
+<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/talk:red%e2%80%93black_tree" title="discussion about the content page [ctrl-option-t]" accesskey="t">talk</a></span></li> 
+</ul> 
+</div> 
+<div id="p-variants" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-variants-label"> 
+<h3 id="mw-vector-current-variant"> 
+</h3> 
+<h3 id="p-variants-label" tabindex="0"><span>variants</span><a href="http://en.wikipedia.org/wiki/red_black_tree#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+</div> 
+<div id="right-navigation"> 
+<div id="p-views" role="navigation" class="vectortabs" aria-labelledby="p-views-label"> 
+<h3 id="p-views-label">views</h3> 
+<ul> 
+<li id="ca-view" class="selected"><span><a href="http://en.wikipedia.org/wiki/red%e2%80%93black_tree">read</a></span></li> 
+<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=edit" title="you can edit this page. 
+please review your changes before saving. [ctrl-option-e]" accesskey="e">edit</a></span></li> 
+<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=history" title="past versions of this page [ctrl-option-h]" accesskey="h">view history</a></span></li> 
+</ul> 
+</div> 
+<div id="p-cactions" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-cactions-label"> 
+<h3 id="p-cactions-label" tabindex="0"><span>actions</span><a href="http://en.wikipedia.org/wiki/red_black_tree#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+<div id="p-search" role="search"> 
+<h3><label for="searchinput">search</label></h3> 
+<form action="http://en.wikipedia.org/w/index.php" id="searchform"> 
+<div id="simplesearch"> 
+<input name="search" placeholder="search" title="search wikipedia [ctrl-option-f]" accesskey="f" id="searchinput" tabindex="1" autocomplete="off">						<button type="submit" name="button" title="search wikipedia for this text" id="searchbutton"><img src="./red-black trees_files/search-ltr.png" alt="search" width="12" height="13"></button>								<input type="hidden" name="title" value="special:search"> 
+</div> 
+</form> 
+</div> 
+</div> 
+</div> 
+<div id="mw-panel" class="collapsible-nav"> 
+<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/wiki.png);" href="http://en.wikipedia.org/wiki/main_page" title="visit the main page"></a></div> 
+<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label"> 
+<h3 id="p-navigation-label">navigation</h3> 
+<div class="body"> 
+<ul> 
+<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/main_page" title="visit the main page [ctrl-option-z]" accesskey="z">main page</a></li> 
+<li id="n-contents"><a href="http://en.wikipedia.org/wiki/portal:contents" title="guides to browsing wikipedia">contents</a></li> 
+<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/portal:featured_content" title="featured content – the best of wikipedia">featured content</a></li> 
+<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/portal:current_events" title="find background information on current events">current events</a></li> 
+<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/special:random" title="load a random article [ctrl-option-x]" accesskey="x">random article</a></li> 
+<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/special:fundraiserredirector?utm_source=donate&utm_medium=sidebar&utm_campaign=c13_en.wikipedia.org&uselang=en" title="support us">donate to wikipedia</a></li> 
+<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="visit the wikimedia shop">wikimedia shop</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label"> 
+<h3 id="p-interaction-label" tabindex="2"><a href="http://en.wikipedia.org/wiki/red_black_tree#" aria-haspopup="true" aria-controls="p-interaction-list" role="button" aria-pressed="true" aria-expanded="true">interaction</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-interaction-list"> 
+<li id="n-help"><a href="http://en.wikipedia.org/wiki/help:contents" title="guidance on how to use and edit wikipedia">help</a></li> 
+<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="find out about wikipedia">about wikipedia</a></li> 
+<li id="n-portal"><a href="http://en.wikipedia.org/wiki/wikipedia:community_portal" title="about the project, what you can do, where to find things">community portal</a></li> 
+<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/special:recentchanges" title="a list of recent changes in the wiki [ctrl-option-r]" accesskey="r">recent changes</a></li> 
+<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact page</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label"> 
+<h3 id="p-tb-label" tabindex="3"><a href="http://en.wikipedia.org/wiki/red_black_tree#" aria-haspopup="true" aria-controls="p-tb-list" role="button" aria-pressed="false" aria-expanded="false">tools</a></h3> 
+<div class="body"> 
+<ul id="p-tb-list"> 
+<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/special:whatlinkshere/red%e2%80%93black_tree" title="list of all english wikipedia pages containing links to this page [ctrl-option-j]" accesskey="j">what links here</a></li> 
+<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/special:recentchangeslinked/red%e2%80%93black_tree" title="recent changes in pages linked from this page [ctrl-option-k]" accesskey="k">related changes</a></li> 
+<li id="t-upload"><a href="http://en.wikipedia.org/wiki/wikipedia:file_upload_wizard" title="upload files [ctrl-option-u]" accesskey="u">upload file</a></li> 
+<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/special:specialpages" title="a list of all special pages [ctrl-option-q]" accesskey="q">special pages</a></li> 
+<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&oldid=592909736" title="permanent link to this revision of the page">permanent link</a></li> 
+<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&action=info">page information</a></li> 
+<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/q506496" title="link to connected data repository item [ctrl-option-g]" accesskey="g">data item</a></li> 
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=special:cite&page=red%e2%80%93black_tree&id=592909736" title="information on how to cite this page">cite this page</a></li>		</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label"> 
+<h3 id="p-coll-print_export-label" tabindex="4"><a href="http://en.wikipedia.org/wiki/red_black_tree#" aria-haspopup="true" aria-controls="p-coll-print_export-list" role="button" aria-pressed="false" aria-expanded="false">print/export</a></h3> 
+<div class="body"> 
+<ul id="p-coll-print_export-list"> 
+<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=book_creator&referer=red%e2%80%93black+tree">create a book</a></li> 
+<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=render_article&arttitle=red%e2%80%93black+tree&oldid=592909736&writer=rl">download as pdf</a></li> 
+<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=red%e2%80%93black_tree&printable=yes" title="printable version of this page [ctrl-option-p]" accesskey="p">printable version</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"> 
+<h3 id="p-lang-label" tabindex="5"><a href="http://en.wikipedia.org/wiki/red_black_tree#" aria-haspopup="true" aria-controls="p-lang-list" role="button" aria-pressed="true" aria-expanded="true">languages</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-lang-list"> 
+<li class="interlanguage-link interwiki-cs"><a href="http://cs.wikipedia.org/wiki/%c4%8cerveno-%c4%8dern%c3%bd_strom" title="červeno-černý strom – czech" lang="cs" hreflang="cs">čeština</a></li> 
+<li class="interlanguage-link interwiki-da"><a href="http://da.wikipedia.org/wiki/r%c3%b8d-sort_tr%c3%a6" title="rød-sort træ – danish" lang="da" hreflang="da">dansk</a></li> 
+<li class="interlanguage-link interwiki-de ga" title="this is a good article in this language."><a href="http://de.wikipedia.org/wiki/rot-schwarz-baum" title="rot-schwarz-baum – german" lang="de" hreflang="de">deutsch</a></li> 
+<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/%c3%81rbol_rojo-negro" title="árbol rojo-negro – spanish" lang="es" hreflang="es">español</a></li> 
+<li class="interlanguage-link interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%d8%af%d8%b1%d8%ae%d8%aa_%d8%b3%d8%b1%d8%ae-%d8%b3%db%8c%d8%a7%d9%87" title="درخت سرخ-سیاه – persian" lang="fa" hreflang="fa">فارسی</a></li> 
+<li class="interlanguage-link interwiki-fr"><a href="http://fr.wikipedia.org/wiki/arbre_bicolore" title="arbre bicolore – french" lang="fr" hreflang="fr">français</a></li> 
+<li class="interlanguage-link interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%eb%a0%88%eb%93%9c-%eb%b8%94%eb%9e%99_%ed%8a%b8%eb%a6%ac" title="레드-블랙 트리 – korean" lang="ko" hreflang="ko">한국어</a></li> 
+<li class="interlanguage-link interwiki-hr"><a href="http://hr.wikipedia.org/wiki/crveno-crno_stablo" title="crveno-crno stablo – croatian" lang="hr" hreflang="hr">hrvatski</a></li> 
+<li class="interlanguage-link interwiki-id"><a href="http://id.wikipedia.org/wiki/pohon_merah-hitam" title="pohon merah-hitam – indonesian" lang="id" hreflang="id">bahasa indonesia</a></li> 
+<li class="interlanguage-link interwiki-it"><a href="http://it.wikipedia.org/wiki/rb-albero" title="rb-albero – italian" lang="it" hreflang="it">italiano</a></li> 
+<li class="interlanguage-link interwiki-he"><a href="http://he.wikipedia.org/wiki/%d7%a2%d7%a5_%d7%90%d7%93%d7%95%d7%9d_%d7%a9%d7%97%d7%95%d7%a8" title="עץ אדום שחור – hebrew" lang="he" hreflang="he">עברית</a></li> 
+<li class="interlanguage-link interwiki-lt"><a href="http://lt.wikipedia.org/wiki/raudonai_juodas_medis" title="raudonai juodas medis – lithuanian" lang="lt" hreflang="lt">lietuvių</a></li> 
+<li class="interlanguage-link interwiki-hu"><a href="http://hu.wikipedia.org/wiki/piros-fekete_fa" title="piros-fekete fa – hungarian" lang="hu" hreflang="hu">magyar</a></li> 
+<li class="interlanguage-link interwiki-nl"><a href="http://nl.wikipedia.org/wiki/rood-zwartboom" title="rood-zwartboom – dutch" lang="nl" hreflang="nl">nederlands</a></li> 
+<li class="interlanguage-link interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%e8%b5%a4%e9%bb%92%e6%9c%a8" title="赤黒木 – japanese" lang="ja" hreflang="ja">日本語</a></li> 
+<li class="interlanguage-link interwiki-pl"><a href="http://pl.wikipedia.org/wiki/drzewo_czerwono-czarne" title="drzewo czerwono-czarne – polish" lang="pl" hreflang="pl">polski</a></li> 
+<li class="interlanguage-link interwiki-pt"><a href="http://pt.wikipedia.org/wiki/%c3%81rvore_rubro-negra" title="árvore rubro-negra – portuguese" lang="pt" hreflang="pt">português</a></li> 
+<li class="interlanguage-link interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%d0%9a%d1%80%d0%b0%d1%81%d0%bd%d0%be-%d1%87%d1%91%d1%80%d0%bd%d0%be%d0%b5_%d0%b4%d0%b5%d1%80%d0%b5%d0%b2%d0%be" title="красно-чёрное дерево – russian" lang="ru" hreflang="ru">русский</a></li> 
+<li class="interlanguage-link interwiki-sr"><a href="http://sr.wikipedia.org/wiki/%d0%a6%d1%80%d0%b2%d0%b5%d0%bd%d0%be-%d1%86%d1%80%d0%bd%d0%be_%d1%81%d1%82%d0%b0%d0%b1%d0%bb%d0%be" title="црвено-црно стабло – serbian" lang="sr" hreflang="sr">српски / srpski</a></li> 
+<li class="interlanguage-link interwiki-fi"><a href="http://fi.wikipedia.org/wiki/punamusta_puu" title="punamusta puu – finnish" lang="fi" hreflang="fi">suomi</a></li> 
+<li class="interlanguage-link interwiki-sv"><a href="http://sv.wikipedia.org/wiki/r%c3%b6d-svart_tr%c3%a4d" title="röd-svart träd – swedish" lang="sv" hreflang="sv">svenska</a></li> 
+<li class="interlanguage-link interwiki-th"><a href="http://th.wikipedia.org/wiki/%e0%b8%95%e0%b9%89%e0%b8%99%e0%b9%84%e0%b8%a1%e0%b9%89%e0%b9%81%e0%b8%94%e0%b8%87%e0%b8%94%e0%b8%b3" title="ต้นไม้แดงดำ – thai" lang="th" hreflang="th">ไทย</a></li> 
+<li class="interlanguage-link interwiki-tr"><a href="http://tr.wikipedia.org/wiki/k%c4%b1rm%c4%b1z%c4%b1-siyah_a%c4%9fa%c3%a7" title="kırmızı-siyah ağaç – turkish" lang="tr" hreflang="tr">türkçe</a></li> 
+<li class="interlanguage-link interwiki-uk"><a href="http://uk.wikipedia.org/wiki/%d0%a7%d0%b5%d1%80%d0%b2%d0%be%d0%bd%d0%be-%d1%87%d0%be%d1%80%d0%bd%d0%b5_%d0%b4%d0%b5%d1%80%d0%b5%d0%b2%d0%be" title="червоно-чорне дерево – ukrainian" lang="uk" hreflang="uk">українська</a></li> 
+<li class="interlanguage-link interwiki-vi"><a href="http://vi.wikipedia.org/wiki/c%c3%a2y_%c4%91%e1%bb%8f_%c4%91en" title="cây đỏ đen – vietnamese" lang="vi" hreflang="vi">tiếng việt</a></li> 
+<li class="interlanguage-link interwiki-zh"><a href="http://zh.wikipedia.org/wiki/%e7%ba%a2%e9%bb%91%e6%a0%91" title="红黑树 – chinese" lang="zh" hreflang="zh">中文</a></li> 
+<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/q506496#sitelinks-wikipedia" title="edit interlanguage links">edit links</a></li> 
+</ul> 
+</div> 
+</div> 
+</div> 
+</div> 
+<div id="footer" role="contentinfo"> 
+<ul id="footer-info"> 
+<li id="footer-info-lastmod"> this page was last modified on 29 january 2014 at 04:35.<br></li> 
+<li id="footer-info-copyright">text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/wikipedia:text_of_creative_commons_attribution-sharealike_3.0_unported_license">creative commons attribution-sharealike license</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>; 
+additional terms may apply.  by using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/terms_of_use">terms of use</a> and <a href="http://wikimediafoundation.org/wiki/privacy_policy">privacy policy.</a> <br> 
+wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">wikimedia foundation, inc.</a>, a non-profit organization.</li> 
+</ul> 
+<ul id="footer-places"> 
+<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/privacy_policy" title="wikimedia:privacy policy">privacy policy</a></li> 
+<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="wikipedia:about">about wikipedia</a></li> 
+<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/wikipedia:general_disclaimer" title="wikipedia:general disclaimer">disclaimers</a></li> 
+<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact wikipedia</a></li> 
+<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/special:mylanguage/how_to_contribute">developers</a></li> 
+<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/red%e2%80%93black_tree" class="noprint stopmobileredirecttoggle">mobile view</a></li> 
+</ul> 
+<ul id="footer-icons" class="noprint"> 
+<li id="footer-copyrightico"> 
+<a href="http://wikimediafoundation.org/"><img src="./red-black trees_files/wikimedia-button.png" width="88" height="31" alt="wikimedia foundation"></a> 
+</li> 
+<li id="footer-poweredbyico"> 
+<a href="http://www.mediawiki.org/"><img src="./red-black trees_files/poweredby_mediawiki_88x31.png" alt="powered by mediawiki" width="88" height="31"></a> 
+</li> 
+</ul> 
+<div style="clear:both"></div> 
+</div> 
+<script>/*<![cdata[*/window.jquery && jquery.ready();/*]]>*/</script><script>if(window.mw){ 
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"}); 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postedit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchsuggest","ext.gadget.teahouse","ext.gadget.referencetooltips","ext.gadget.drn-wizard","ext.gadget.charinsert","mw.mwembedsupport.style","ext.articlefeedbackv5.startup","ext.wikimediashoplink.core","ext.navigationtiming","skins.vector.collapsiblenav"],null,true); 
+}</script> 
+<script src="./red-black trees_files/load(2).php"></script> 
+<!-- served by mw1086 in 0.158 secs. --> 
+ 
+ 
+<div class="suggestions" style="display: none; font-size: 12.800000190734863px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html> 

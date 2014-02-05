@@ -1,0 +1,842 @@
+<!doctype html> 
+<!-- saved from url=(0053)http://en.wikipedia.org/wiki/set_(abstract_data_type) --> 
+<html lang="en" dir="ltr" class="client-js ve-not-available"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+<meta charset="utf-8"><title>set (abstract data type) - wikipedia, the free encyclopedia</title> 
+<meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="generator" content="mediawiki 1.23wmf11"> 
+<link rel="alternate" type="application/x-wiki" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit"> 
+<link rel="edit" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit"> 
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png"> 
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico"> 
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="wikipedia (en)"> 
+<link rel="edituri" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd"> 
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/"> 
+<link rel="alternate" type="application/atom+xml" title="wikipedia atom feed" href="http://en.wikipedia.org/w/index.php?title=special:recentchanges&feed=atom"> 
+<link rel="canonical" href="./dynamic sets_files/dynamic sets.html"> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.drn-wizard%2creferencetooltips%2ccharinsert%2cteahouse%7cext.geshi.local%7cext.rtlcite%2cwikihiero%7cext.visualeditor.viewpagetarget.noscript%7cmediawiki.legacy.commonprint%2cshared%7cskins.common.interface%7cskins.vector.styles&only=styles&skin=vector&*"> 
+<style> 
+@-webkit-keyframes centralauthppersonalanimation{0%{opacity:0;-webkit-transform:translatey(-20px)}100%{opacity:1;-webkit-transform:translatey(0)}}@-moz-keyframes centralauthppersonalanimation{0%{opacity:0;-moz-transform:translatey(-20px)}100%{opacity:1;-moz-transform:translatey(0)}}@-o-keyframes centralauthppersonalanimation{0%{opacity:0;-o-transform:translatey(-20px)}100%{opacity:1;-o-transform:translatey(0)}}@keyframes centralauthppersonalanimation{0%{opacity:0;transform:translatey(-20px)}100%{opacity:1;transform:translatey(0)}}.centralauthppersonalanimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralauthppersonalanimation;-moz-animation-name:centralauthppersonalanimation;-o-animation-name:centralauthppersonalanimation;animation-name:centralauthppersonalanimation} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */ 
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */ 
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmveuzaad///95exmqqqry2njeiq0caaaaaxrstlmaqobyzgaaacdjrefucndjygbgygiaasufennjcuiqmadztm5oqexffzakrsg4ygbjcwodynsgdwaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil.png?2014-01-16t16:20:00z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmvewbaady2nj///8gra0zzrtw2aecaaaaaxrstlmaqobyzgaaacdjrefucndjygbgygyaawmdefpygegaoglzzclcqewjq5aki2w4ygbg5qotqpzbuaaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil-hover.png?2014-01-16t16:20:00z)!ie;color:#0645ad !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a963c9df079c8688d25d769892467b5c */ 
+@media print{#centralnotice{display:none}} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */</style><style> 
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */ 
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaabaaaaaqcamaaaaolq9taaabblbmveuaaad///////9pftf///80ardtgjn///9feij///////////9rfzf///////////9pfjzrgdh1o1xoftb///////+bwyqltnj///////9pfta82k////9wht6yxil///9qgddtgzr////////j7udl7elq8efi693k7oh///////9uhjubr2rp9uruhjr///9yljvkgir///9witlyjt3////9/v57vflbkt5pjc9dld/5/fhuq09stuts9uhxuelctcpfnt1hudfloezlouzmpenmvdzpvdxpvtxqvjxrvt5rvt9rwtxsqktswd5uwkbvuudxw0nztfbztu9ztvbzwkp0tlj1xkd2t1r3uvr4w1f4xk54x014ye15uvz5v1r5xvb6v1r7yfj8wvh9xvl9yfr9yvd9yln+xvh+yfd/x1l/yfeaylmex1+ny2uy0hqe04wj1ymv3ze33qld47tj5l3o6cpu7mrq9eb2+/q4j37oaaaaqhrstlmaaqiebaufbqwpfb4fjcuokiosqehjs01rulzzxmdydxachyusljswmjmoq6uur8lexcvm19fg5ejt8fx2+pr7sljgewaaakpjrefugbkfwqncawaaamdltl3ltrg4rwxbtvx77gagz6grfwc0bhwnvgkgdpzx8b0dgli+s7wn0voaqpfoi9+bnadzi7flrz2psewghzuh+78lsk8zlklezf3ooyug3vpxq2usei9wngeyog195ybywdf3e/2pahl1e9gr8bgt+bfofcc2fnvh4x7rcqiaqnnu+ht6sxkajcetl/2zaihv+porbwbjxfka//dfhscby/utaaaaaelftksuqmcc);background-image:url(//bits.wikimedia.org/static-1.23wmf11/resources/mediawiki.action/images/green-checkmark.png?2014-01-16t16:15:00z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:c897cc6a31411b48f47191422cf15c4a */ 
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */ 
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4c59a6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */ 
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */ 
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#f7f7f7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #f7f7f7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.rtflipped{padding-top:13px}.referencetooltip.rtflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.rtflipped li+li::after{border-top:0;border-bottom:8px #f7f7f7 solid;position:absolute;margin-top:7px}.rtsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.rtsettings:hover{opacity:1;filter:alpha(opacity=100)}.rttarget{border:#080086 2px solid} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */ 
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */ 
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playercontainer{overflow:hidden;position:relative;height:100%;background:#000}#videoholder{position:relative;overflow:hidden}.fullscreen #playercontainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwembedplayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayhtml a:visited{color:white}.loadingspinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/loading_ani.gif?2014-01-16t16:18:20z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-01-16t16:18:20z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button.png?2014-01-16t16:18:20z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button_hover.png?2014-01-16t16:18:20z)}.carouselcontainer{position :absolute;width :100%;z-index :2}.carouselvideotitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselvideotitletext{display :block;padding :10px 10px 10px 20px}.carouseltitleduration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5a5a5a;color :#d9d9d9;font-size :smaller;z-index :2}.carouselimgtitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselimgduration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselprevbutton,.carouselnextbutton{display :block;position :absolute;bottom:23px}.carouselprevbutton{left :5px}.carouselnextbutton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#e6e6e6;padding :5px;border-bottom :1px solid #d1d1d1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:40fb0cce50b2525059dbe7ac545e3c42 */</style><style> 
+.suggestions a.mw-searchsuggest-link,.suggestions a.mw-searchsuggest-link:hover,.suggestions a.mw-searchsuggest-link:active,.suggestions a.mw-searchsuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchsuggest-link,.suggestions-result-current a.mw-searchsuggest-link:hover,.suggestions-result-current a.mw-searchsuggest-link:active,.suggestions-result-current a.mw-searchsuggest-link:focus{color:white} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="resourceloaderdynamicstyles" content=""> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=site&only=styles&skin=vector&*"> 
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style> 
+ 
+<script src="./dynamic sets_files/load.php"></script><script src="./dynamic sets_files/load(1).php"></script><style title="spinjs"></style> 
+<script>if(window.mw){ 
+mw.config.set({"wgcanonicalnamespace":"","wgcanonicalspecialpagename":false,"wgnamespacenumber":0,"wgpagename":"set_(abstract_data_type)","wgtitle":"set (abstract data type)","wgcurrevisionid":588247479,"wgrevisionid":588247479,"wgarticleid":201127,"wgisarticle":true,"wgisredirect":false,"wgaction":"view","wgusername":null,"wgusergroups":["*"],"wgcategories":["articles needing additional references from october 2011","all articles needing additional references","data types","composite data types","abstract data types"],"wgbreakframes":false,"wgpagecontentlanguage":"en","wgpagecontentmodel":"wikitext","wgseparatortransformtable":["",""],"wgdigittransformtable":["",""],"wgdefaultdateformat":"dmy","wgmonthnames":["","january","february","march","april","may","june","july","august","september","october","november","december"],"wgmonthnamesshort":["","jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"],"wgrelevantpagename":"set_(abstract_data_type)","wgisprobablyeditable":true,"wgrestrictionedit":[],"wgrestrictionmove":[],"wgwikieditorenabledmodules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateeditor":false,"templates":false,"preview":false,"previewdialog":false,"publish":false,"toc":false},"wgarticlefeedbackv5permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgbetafeaturesfeatures":[],"wgvisualeditor":{"ispagewatched":false,"magnifyclipiconurl":"//bits.wikimedia.org/static-1.23wmf11/skins/common/images/magnify-clip.png","pagelanguagecode":"en","pagelanguagedir":"ltr"},"wikilove-recipient":"","wikilove-anon":0,"wgguidedtourhelpguiderurl":"help:guided tours/guider","wgulsacceptlanguagelist":["en-us","en"],"wgulscurrentautonym":"english","wgflaggedrevsparams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgstablerevisionid":null,"wgcategorytreepagecategoryoptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","geo":{"city":"","country":""},"wgnoticeproject":"wikipedia","aftv5article":{"id":201127,"title":"set (abstract data type)","namespace":0,"categories":["abstract data types","all articles needing additional references","articles needing additional references from october 2011","composite data types","data types"],"permissionlevel":false},"wgwikibaseitemid":"q1514741"}); 
+}</script><script>if(window.mw){ 
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0, 
+"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true, 
+"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","uls-enable":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchns0":true,"searchns1":false,"searchns2":false,"searchns3":false,"searchns4":false,"searchns5":false,"searchns6":false,"searchns7":false,"searchns8":false,"searchns9":false,"searchns10":false,"searchns11":false,"searchns12":false,"searchns13":false,"searchns14":false,"searchns15":false, 
+"searchns100":false,"searchns101":false,"searchns108":false,"searchns109":false,"searchns118":false,"searchns119":false,"searchns446":false,"searchns447":false,"searchns710":false,"searchns711":false,"searchns828":false,"searchns829":false,"gadget-teahouse":1,"gadget-referencetooltips":1,"gadget-drn-wizard":1,"gadget-charinsert":1,"gadget-mysandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"edittoken":"+\\","patroltoken":false,"watchtoken":false});},{},{}); 
+/* cache key: enwiki:resourceloader:filter:minify-js:7:264b5b04c69e37444d5b2d63c2a65dc9 */ 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualeditor.viewpagetarget.init","wikibase.client.init","ext.centralnotice.bannercontroller","skins.vector.js"]); 
+}</script> 
+<style type="text/css">/*<![cdata[*/ 
+.source-sql {line-height: normal;} 
+.source-sql li, .source-sql pre { 
+line-height: normal; border: 0px none white; 
+} 
+/** 
+* geshi dynamically generated stylesheet 
+* -------------------------------------- 
+* dynamically generated stylesheet for sql 
+* css class: source-sql, css id: 
+* geshi (c) 2004 - 2007 nigel mcnie, 2007 - 2008 benny baumann 
+* (http://qbnz.com/highlighter/ and http://geshi.org/) 
+* -------------------------------------- 
+*/ 
+.sql.source-sql .de1, .sql.source-sql .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;} 
+.sql.source-sql  {font-family:monospace;} 
+.sql.source-sql .imp {font-weight: bold; color: red;} 
+.sql.source-sql li, .sql.source-sql .li1 {font-weight: normal; vertical-align:top;} 
+.sql.source-sql .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;} 
+.sql.source-sql .li2 {font-weight: bold; vertical-align:top;} 
+.sql.source-sql .kw1 {color: #993333; font-weight: bold;} 
+.sql.source-sql .co1 {color: #808080; font-style: italic;} 
+.sql.source-sql .comulti {color: #808080; font-style: italic;} 
+.sql.source-sql .es0 {color: #000099; font-weight: bold;} 
+.sql.source-sql .br0 {color: #66cc66;} 
+.sql.source-sql .sy0 {color: #66cc66;} 
+.sql.source-sql .st0 {color: #ff0000;} 
+.sql.source-sql .nu0 {color: #cc66cc;} 
+.sql.source-sql .ln-xtra, .sql.source-sql li.ln-xtra, .sql.source-sql div.ln-xtra {background-color: #ffc;} 
+.sql.source-sql span.xtra { display:block; } 
+ 
+/*]]>*/ 
+</style><script src="./dynamic sets_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt ie 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf11/skins/vector/csshover.min.htc")}</style><![endif]--></head> 
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-set_abstract_data_type skin-vector action-view vector-animatelayout"> 
+<div id="mw-page-base" class="noprint"></div> 
+<div id="mw-head-base" class="noprint"></div> 
+<div id="content" class="mw-body" role="main"> 
+<a id="top"></a> 
+<div id="mw-js-message" style="display:none;"></div> 
+<div id="sitenotice"><div id="centralnotice"></div><!-- centralnotice --></div> 
+<h1 id="firstheading" class="firstheading" lang="en"><span dir="auto">set (abstract data type)</span></h1> 
+<div id="bodycontent"> 
+<div id="sitesub">from wikipedia, the free encyclopedia</div> 
+<div id="contentsub"></div> 
+<div id="jump-to-nav" class="mw-jump"> 
+jump to:					<a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#mw-navigation">navigation</a>, 					<a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#p-search">search</a> 
+</div> 
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table class="metadata plainlinks ambox ambox-content ambox-refimprove" role="presentation"> 
+<tbody><tr> 
+<td class="mbox-image"> 
+<div style="width:52px;"><a href="http://en.wikipedia.org/wiki/file:question_book-new.svg" class="image"><img alt="" src="./dynamic sets_files/100px-question_book-new.svg.png" width="50" height="39" srcset="//upload.wikimedia.org/wikipedia/en/thumb/9/99/question_book-new.svg/75px-question_book-new.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/9/99/question_book-new.svg/100px-question_book-new.svg.png 2x"></a></div> 
+</td> 
+<td class="mbox-text"><span class="mbox-text-span">this article <b>needs additional citations for <a href="http://en.wikipedia.org/wiki/wikipedia:verifiability" title="wikipedia:verifiability">verification</a></b>. <span class="hide-when-compact">please help <a class="external text" href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit">improve this article</a> by <a href="http://en.wikipedia.org/wiki/help:introduction_to_referencing/1" title="help:introduction to referencing/1">adding citations to reliable sources</a>. unsourced material may be challenged and removed.</span> <small><i>(october 2011)</i></small></span></td> 
+</tr> 
+</tbody></table> 
+<p>in <a href="http://en.wikipedia.org/wiki/computer_science" title="computer science">computer science</a>, a <b>set</b> is an <a href="http://en.wikipedia.org/wiki/abstract_data_structure" title="abstract data structure" class="mw-redirect">abstract data structure</a> that can store certain values, without any particular <a href="http://en.wikipedia.org/wiki/sequence" title="sequence">order</a>, and no repeated values. it is a computer implementation of the <a href="http://en.wikipedia.org/wiki/mathematics" title="mathematics">mathematical</a> concept of a <a href="http://en.wikipedia.org/wiki/finite_set" title="finite set">finite set</a>. unlike most other collection types, rather than retrieving a specific element from a set, one typically tests a value for membership in a set.</p> 
+<p>some set data structures are designed for <b>static</b> or <b>frozen sets</b> that do not change after they are constructed. static sets allow only query operations on their elements — such as checking whether a given value is in the set, or enumerating the values in some arbitrary order. other variants, called <b>dynamic</b> or <b>mutable sets</b>, allow also the insertion and deletion of elements from the set.</p> 
+<p>an abstract data structure is a collection, or aggregate, of data. the data may be booleans, numbers, characters, or other data structures. if one considers the structure yielded by packaging<sup id="cite_ref-1" class="reference"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#cite_note-1"><span>[</span>1<span>]</span></a></sup> or indexing,<sup id="cite_ref-2" class="reference"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#cite_note-2"><span>[</span>2<span>]</span></a></sup> there are four basic data structures:<sup id="cite_ref-hehner1981_3-0" class="reference"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#cite_note-hehner1981-3"><span>[</span>3<span>]</span></a></sup><sup id="cite_ref-hehner2004_4-0" class="reference"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#cite_note-hehner2004-4"><span>[</span>4<span>]</span></a></sup></p> 
+<ol> 
+<li>unpackaged, unindexed: bunch</li> 
+<li>packaged, unindexed: set</li> 
+<li>unpackaged, indexed: string (sequence)</li> 
+<li>packaged, indexed: list (array)</li> 
+</ol> 
+<p>in this view, the contents of a set are a bunch, and isolated data items are elementary bunches (elements). whereas sets <i>contain</i> elements, bunches <i>consist of</i> elements.</p> 
+<p>further structuring may be achieved by considering the multiplicity of elements (sets become multisets, bunches become hyperbunches)<sup id="cite_ref-hehner2012_5-0" class="reference"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#cite_note-hehner2012-5"><span>[</span>5<span>]</span></a></sup> or their homogeneity (a record is a set of fields, not necessarily all of the same type).</p> 
+<p></p> 
+<div id="toc" class="toc"> 
+<div id="toctitle"> 
+<h2>contents</h2> 
+<span class="toctoggle">&nbsp;[<a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div> 
+<ul> 
+<li class="toclevel-1 tocsection-1"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#implementations"><span class="tocnumber">1</span> <span class="toctext">implementations</span></a></li> 
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#type_theory"><span class="tocnumber">2</span> <span class="toctext">type theory</span></a></li> 
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#operations"><span class="tocnumber">3</span> <span class="toctext">operations</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-4"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#core_set-theoretical_operations"><span class="tocnumber">3.1</span> <span class="toctext">core set-theoretical operations</span></a></li> 
+<li class="toclevel-2 tocsection-5"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#static_sets"><span class="tocnumber">3.2</span> <span class="toctext">static sets</span></a></li> 
+<li class="toclevel-2 tocsection-6"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#dynamic_sets"><span class="tocnumber">3.3</span> <span class="toctext">dynamic sets</span></a></li> 
+<li class="toclevel-2 tocsection-7"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#additional_operations"><span class="tocnumber">3.4</span> <span class="toctext">additional operations</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-8"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#implementations_2"><span class="tocnumber">4</span> <span class="toctext">implementations</span></a></li> 
+<li class="toclevel-1 tocsection-9"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#language_support"><span class="tocnumber">5</span> <span class="toctext">language support</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-10"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#in_c.2b.2b"><span class="tocnumber">5.1</span> <span class="toctext">in c++</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-11"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#multiset"><span class="tocnumber">6</span> <span class="toctext">multiset</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-12"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#multisets_in_sql"><span class="tocnumber">6.1</span> <span class="toctext">multisets in sql</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-13"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#see_also"><span class="tocnumber">7</span> <span class="toctext">see also</span></a></li> 
+<li class="toclevel-1 tocsection-14"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#references"><span class="tocnumber">8</span> <span class="toctext">references</span></a></li> 
+</ul> 
+</div> 
+<p></p> 
+<h2><span class="mw-headline" id="implementations">implementations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit&section=1" title="edit section: implementations">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>a set can be implemented in many ways. for example, one can use a <a href="http://en.wikipedia.org/wiki/list_(computer_science)" title="list (computer science)" class="mw-redirect">list</a>, ignoring the order of the elements and taking care to avoid repeated values. sets are often implemented using various flavors of <a href="http://en.wikipedia.org/wiki/tree_(data_structure)" title="tree (data structure)">trees</a>, <a href="http://en.wikipedia.org/wiki/trie" title="trie">tries</a>, or <a href="http://en.wikipedia.org/wiki/hash_tables" title="hash tables" class="mw-redirect">hash tables</a>.</p> 
+<p>a set can be seen, and implemented, as a (partial) <a href="http://en.wikipedia.org/wiki/associative_array" title="associative array">associative array</a>, in which the value of each key-value pair has the <a href="http://en.wikipedia.org/wiki/unit_type" title="unit type">unit type</a>.</p> 
+<h2><span class="mw-headline" id="type_theory">type theory</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit&section=2" title="edit section: type theory">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>in <a href="http://en.wikipedia.org/wiki/type_theory" title="type theory">type theory</a>, sets are generally identified with their <a href="http://en.wikipedia.org/wiki/indicator_function" title="indicator function">indicator function</a> (characteristic function): accordingly, a set of values of type <img class="tex" alt="a" src="./dynamic sets_files/7fc56270e7a70fa81a5935b72eacbe29.png"> may be denoted by <img class="tex" alt="2^{a}" src="./dynamic sets_files/4f60f733e883ce28b46a73ee0b2c336f.png"> or <img class="tex" alt="\mathcal{p}(a)" src="./dynamic sets_files/6aa5e2cb028a37f318151e3207c7dba9.png">. (subtypes and subsets may be modeled by <a href="http://en.wikipedia.org/wiki/refinement_type" title="refinement type" class="mw-redirect">refinement types</a>, and <a href="http://en.wikipedia.org/wiki/quotient_set" title="quotient set" class="mw-redirect">quotient sets</a> may be replaced by <a href="http://en.wikipedia.org/wiki/setoid" title="setoid">setoids</a>.) the characteristic function <img class="tex" alt="f" src="./dynamic sets_files/800618943025315f869e4e1f09471012.png"> of a set <img class="tex" alt="s" src="./dynamic sets_files/5dbc98dcc983a70728bd082d1a47546e.png"> is defined as:</p> 
+<dl> 
+<dd><img class="tex" alt="f(x) = \begin{cases} 
+1, &amp; \mbox{if } x \in s \\ 
+0,  &amp; \mbox{if } x \not \in s 
+\end{cases} 
+" src="./dynamic sets_files/407898465a682b7e29e44f6616d9ba39.png"></dd> 
+</dl> 
+<p>in theory, many other abstract data structures can be viewed as set structures with additional operations and/or additional <a href="http://en.wikipedia.org/wiki/axiom" title="axiom">axioms</a> imposed on the standard operations. for example, an abstract <a href="http://en.wikipedia.org/wiki/heap_data_structure" title="heap data structure" class="mw-redirect">heap</a> can be viewed as a set structure with a <code>min(<i>s</i>)</code> operation that returns the element of smallest value.</p> 
+<h2><span class="mw-headline" id="operations">operations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit&section=3" title="edit section: operations">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<h3><span class="mw-headline" id="core_set-theoretical_operations">core set-theoretical operations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit&section=4" title="edit section: core set-theoretical operations">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>one may define the operations of the <a href="http://en.wikipedia.org/wiki/algebra_of_sets" title="algebra of sets">algebra of sets</a>:</p> 
+<ul> 
+<li><code>union(<i>s</i>,<i>t</i>)</code>: returns the <a href="http://en.wikipedia.org/wiki/union_(set_theory)" title="union (set theory)">union</a> of sets <i>s</i> and <i>t</i>.</li> 
+<li><code>intersection(<i>s</i>,<i>t</i>)</code>: returns the <a href="http://en.wikipedia.org/wiki/intersection_(set_theory)" title="intersection (set theory)">intersection</a> of sets <i>s</i> and <i>t</i>.</li> 
+<li><code>difference(<i>s</i>,<i>t</i>)</code>: returns the <a href="http://en.wikipedia.org/wiki/difference_(set_theory)" title="difference (set theory)" class="mw-redirect">difference</a> of sets <i>s</i> and <i>t</i>.</li> 
+<li><code>subset(<i>s</i>,<i>t</i>)</code>: a predicate that tests whether the set <i>s</i> is a <a href="http://en.wikipedia.org/wiki/subset" title="subset">subset</a> of set <i>t</i>.</li> 
+</ul> 
+<h3><span class="mw-headline" id="static_sets">static sets</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit&section=5" title="edit section: static sets">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>typical operations that may be provided by a static set structure <i>s</i> are:</p> 
+<ul> 
+<li><code>is_element_of(<i>x</i>,<i>s</i>)</code>: checks whether the value <i>x</i> is in the set <i>s</i>.</li> 
+<li><code>is_empty(<i>s</i>)</code>: checks whether the set <i>s</i> is empty.</li> 
+<li><code>size(<i>s</i>)</code> or <code><a href="http://en.wikipedia.org/wiki/cardinality" title="cardinality">cardinality</a>(<i>s</i>)</code>: returns the number of elements in <i>s</i>.</li> 
+<li><code><a href="http://en.wikipedia.org/wiki/iterator" title="iterator">iterate</a>(<i>s</i>)</code>: returns a function that returns one more value of <i>s</i> at each call, in some arbitrary order.</li> 
+<li><code>enumerate(<i>s</i>)</code>: returns a list containing the elements of <i>s</i> in some arbitrary order.</li> 
+<li><code>build(<i>x</i><sub>1</sub>,<i>x</i><sub>2</sub>,…,<i>x</i><sub><i>n</i></sub>,)</code>: creates a set structure with values <i>x</i><sub>1</sub>,<i>x</i><sub>2</sub>,…,<i>x</i><sub><i>n</i></sub>.</li> 
+<li><code>create_from(<i>collection</i>)</code>: creates a new set structure containing all the elements of the given <a href="http://en.wikipedia.org/wiki/collection_(computing)" title="collection (computing)" class="mw-redirect">collection</a> or all the elements returned by the given <a href="http://en.wikipedia.org/wiki/iterator" title="iterator">iterator</a>.</li> 
+</ul> 
+<h3><span class="mw-headline" id="dynamic_sets">dynamic sets</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit&section=6" title="edit section: dynamic sets">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>dynamic set structures typically add:</p> 
+<ul> 
+<li><code>create()</code>: creates a new, initially empty set structure. 
+<ul> 
+<li><code>create_with_capacity(<i>n</i>)</code>: creates a new set structure, initially empty but capable of holding up to <i>n</i> elements.</li> 
+</ul> 
+</li> 
+<li><code>add(<i>s</i>,<i>x</i>)</code>: adds the element <i>x</i> to <i>s</i>, if it is not present already.</li> 
+<li><code>remove(<i>s</i>, <i>x</i>)</code>: removes the element <i>x</i> from <i>s</i>, if it is present.</li> 
+<li><code>capacity(<i>s</i>)</code>: returns the maximum number of values that <i>s</i> can hold.</li> 
+</ul> 
+<p>some set structures may allow only some of these operations. the cost of each operation will depend on the implementation, and possibly also on the particular values stored in the set, and the order in which they are inserted.</p> 
+<h3><span class="mw-headline" id="additional_operations">additional operations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit&section=7" title="edit section: additional operations">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>there are many other operations that can (in principle) be defined in terms of the above, such as:</p> 
+<ul> 
+<li><code>pop(<i>s</i>)</code>: returns an arbitrary element of <i>s</i>, deleting it from <i>s</i>.</li> 
+<li><code><a href="http://en.wikipedia.org/wiki/map_(higher-order_function)" title="map (higher-order function)">map</a>(<i>f</i>,<i>s</i>)</code>: returns the set of distinct values resulting from applying function <i>f</i> to each element of <i>s</i>.</li> 
+<li><code><a href="http://en.wikipedia.org/wiki/filter_(higher-order_function)" title="filter (higher-order function)">filter</a>(<i>p</i>,<i>s</i>)</code>: returns the subset containing all elements of <i>s</i> that satisfy a given <a href="http://en.wikipedia.org/wiki/predicate_(mathematical_logic)" title="predicate (mathematical logic)">predicate</a> <i>p</i>.</li> 
+<li><code><a href="http://en.wikipedia.org/wiki/fold_(higher-order_function)" title="fold (higher-order function)">fold</a>(<i>a<sub>0</sub></i>,<i>f</i>,<i>s</i>)</code>: returns the value <i>a</i><sub>|<i>s</i>|</sub> after applying <code><i>a<sub>i+1</sub></i>&nbsp;:= <i>f</i>(<i>a<sub>i</sub></i>, <i>e</i>)</code> for each element <i>e</i> of <i>s</i>.</li> 
+<li><code>clear(<i>s</i>)</code>: delete all elements of <i>s</i>.</li> 
+<li><code>equal(<i>s<sub>1</sub></i>, <i>s<sub>2</sub></i>)</code>: checks whether the two given sets are equal (i.e. contain all and only the same elements).</li> 
+<li><code>hash(<i>s</i>)</code>: returns a <a href="http://en.wikipedia.org/wiki/hash_value" title="hash value" class="mw-redirect">hash value</a> for the static set <i>s</i> such that if <code>equal(<i>s<sub>1</sub></i>, <i>s<sub>2</sub></i>)</code> then <code>hash(<i>s<sub>1</sub></i>) = hash(<i>s<sub>2</sub></i>)</code></li> 
+</ul> 
+<p>other operations can be defined for sets with elements of a special type:</p> 
+<ul> 
+<li><code>sum(<i>s</i>)</code>: returns the sum of all elements of <i>s</i> for some definition of "sum". for example, over integers or reals, it may be defined as <code>fold(0, add, <i>s</i>)</code>.</li> 
+<li><code>nearest(<i>s</i>,<i>x</i>)</code>: returns the element of <i>s</i> that is closest in value to <i>x</i> (by some <a href="http://en.wikipedia.org/wiki/metric_(mathematics)" title="metric (mathematics)">metric</a>).</li> 
+<li><code>min(<i>s</i>)</code>, <code>max(<i>s</i>)</code>: returns the minimum/maximum element of <i>s</i>.</li> 
+</ul> 
+<h2><span class="mw-headline" id="implementations_2">implementations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit&section=8" title="edit section: implementations">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>sets can be implemented using various <a href="http://en.wikipedia.org/wiki/data_structure" title="data structure">data structures</a>, which provide different time and space trade-offs for various operations. some implementations are designed to improve the efficiency of very specialized operations, such as <code>nearest</code> or <code>union</code>. implementations described as "general use" typically strive to optimize the <code>element_of</code>, <code>add</code>, and <code>delete</code> operations.</p> 
+<p>as sets can be interpreted as a kind of map (by the indicator function), sets are commonly implemented in the same way as maps (associative arrays), namely, a <a href="http://en.wikipedia.org/wiki/self-balancing_binary_search_tree" title="self-balancing binary search tree">self-balancing binary search tree</a> for sorted sets (which has o(log n) for most operations), or a <a href="http://en.wikipedia.org/wiki/hash_table" title="hash table">hash table</a> for unsorted sets (which has o(1) average-case, but o(n) worst-case, for most operations). a sorted linear hash table<sup id="cite_ref-6" class="reference"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#cite_note-6"><span>[</span>6<span>]</span></a></sup> may be used to provide deterministically ordered sets.</p> 
+<p>other popular methods include <a href="http://en.wikipedia.org/wiki/array_data_structure" title="array data structure">arrays</a>. in particular a subset of the integers 1..<i>n</i> can be implemented efficiently as an <i>n</i>-bit <a href="http://en.wikipedia.org/wiki/bit_array" title="bit array">bit array</a>, which also support very efficient union and intersection operations. a <a href="http://en.wikipedia.org/wiki/bloom_map" title="bloom map" class="mw-redirect">bloom map</a> implements a set probabilistically, using a very compact representation but risking a small chance of false positives on queries.</p> 
+<p>the boolean set operations can be implemented in terms of more elementary operations (<code>pop</code>, <code>clear</code>, and <code>add</code>), but specialized algorithms may yield lower asymptotic time bounds. if sets are implemented as sorted lists, for example, the naive algorithm for <code>union(<i>s</i>,<i>t</i>)</code> will take code proportional to the length <i>m</i> of <i>s</i> times the length <i>n</i> of <i>t</i>; whereas a variant of the <a href="http://en.wikipedia.org/wiki/merge_algorithm" title="merge algorithm">list merging algorithm</a> will do the job in time proportional to <i>m</i>+<i>n</i>. moreover, there are specialized set data structures (such as the <a href="http://en.wikipedia.org/wiki/union-find_algorithm" title="union-find algorithm" class="mw-redirect">union-find data structure</a>) that are optimized for one or more of these operations, at the expense of others.</p> 
+<h2><span class="mw-headline" id="language_support">language support</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit&section=9" title="edit section: language support">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>one of the earliest languages to support sets was <a href="http://en.wikipedia.org/wiki/pascal_programming_language" title="pascal programming language" class="mw-redirect">pascal</a>; many languages now include it, whether in the core language or in a <a href="http://en.wikipedia.org/wiki/standard_library" title="standard library">standard library</a>.</p> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/java_(programming_language)" title="java (programming language)">java</a> offers the <code><a rel="nofollow" class="external text" href="http://download.oracle.com/javase/7/docs/api/java/util/set.html">set</a></code> <a href="http://en.wikipedia.org/wiki/interface_(computer_science)" title="interface (computer science)" class="mw-redirect">interface</a> to support sets (with the <code><a rel="nofollow" class="external text" href="http://download.oracle.com/javase/7/docs/api/java/util/hashset.html">hashset</a></code> class implementing it using a hash table), and the <code><a rel="nofollow" class="external text" href="http://download.oracle.com/javase/7/docs/api/java/util/sortedset.html">sortedset</a></code> sub-interface to support sorted sets (with the <code><a rel="nofollow" class="external text" href="http://download.oracle.com/javase/7/docs/api/java/util/treeset.html">treeset</a></code> class implementing it using a binary search tree).</li> 
+<li><a href="http://en.wikipedia.org/wiki/apple_inc." title="apple inc.">apple</a>'s <a href="http://en.wikipedia.org/wiki/foundation_kit" title="foundation kit">foundation framework</a> (part of <a href="http://en.wikipedia.org/wiki/cocoa_(api)" title="cocoa (api)">cocoa</a>) provides the <a href="http://en.wikipedia.org/wiki/objective-c" title="objective-c">objective-c</a> classes <code><a rel="nofollow" class="external text" href="http://developer.apple.com/documentation/cocoa/reference/foundation/classes/nsset_class/">nsset</a></code>, <code><a rel="nofollow" class="external text" href="http://developer.apple.com/documentation/cocoa/reference/foundation/classes/nsmutableset_class/">nsmutableset</a></code>, <code><a rel="nofollow" class="external text" href="http://developer.apple.com/documentation/cocoa/reference/foundation/classes/nscountedset_class/">nscountedset</a></code>, <code><a rel="nofollow" class="external text" href="http://developer.apple.com/library/mac/#documentation/foundation/reference/nsorderedset_class/reference/reference.html">nsorderedset</a></code>, and <code><a rel="nofollow" class="external text" href="https://developer.apple.com/library/mac/#documentation/foundation/reference/nsmutableorderedset_class/reference/reference.html">nsmutableorderedset</a></code>. the <a href="http://en.wikipedia.org/wiki/corefoundation" title="corefoundation" class="mw-redirect">corefoundation</a> apis provide the <a rel="nofollow" class="external text" href="http://developer.apple.com/documentation/corefoundation/reference/cfsetref/">cfset</a> and <a rel="nofollow" class="external text" href="http://developer.apple.com/documentation/corefoundation/reference/cfmutablesetref/">cfmutableset</a> types for use in <a href="http://en.wikipedia.org/wiki/c_(programming_language)" title="c (programming language)">c</a>.</li> 
+<li><a href="http://en.wikipedia.org/wiki/python_(programming_language)" title="python (programming language)">python</a> has built-in <a rel="nofollow" class="external text" href="http://docs.python.org/library/stdtypes.html#set-types-set-frozenset"><code>set</code> and <code>frozenset</code> types</a> since 2.4, and since python 3.0 and 2.7, supports non-empty set literals using a curly-bracket syntax, e.g.: <code>{x, y, z}</code>.</li> 
+<li>the <a href="http://en.wikipedia.org/wiki/.net_framework" title=".net framework">.net framework</a> provides the generic <code><a rel="nofollow" class="external text" href="http://msdn.microsoft.com/en-us/library/bb359438.aspx">hashset</a></code> and <code><a rel="nofollow" class="external text" href="http://msdn.microsoft.com/en-us/library/dd412070.aspx">sortedset</a></code> classes that implement the generic <code><a rel="nofollow" class="external text" href="http://msdn.microsoft.com/en-us/library/dd412081.aspx">iset</a></code> interface.</li> 
+<li><a href="http://en.wikipedia.org/wiki/smalltalk" title="smalltalk">smalltalk</a>'s class library includes <code>set</code> and <code>identityset</code>, using equality and identity for inclusion test respectively. many dialects provide variations for compressed storage (<code>numberset</code>, <code>characterset</code>), for ordering (<code>orderedset</code>, <code>sortedset</code>, etc.) or for <a href="http://en.wikipedia.org/wiki/weak_reference" title="weak reference">weak references</a> (<code>weakidentityset</code>).</li> 
+<li><a href="http://en.wikipedia.org/wiki/ruby_(programming_language)" title="ruby (programming language)">ruby</a>'s standard library includes a <code><a rel="nofollow" class="external text" href="http://ruby-doc.org/stdlib/libdoc/set/rdoc/index.html">set</a></code> module which contains <code>set</code> and <code>sortedset</code> classes that implement sets using hash tables, the latter allowing iteration in sorted order.</li> 
+<li><a href="http://en.wikipedia.org/wiki/ocaml" title="ocaml">ocaml</a>'s standard library contains a <code>set</code> module, which implements a functional set data structure using binary search trees.</li> 
+<li>the <a href="http://en.wikipedia.org/wiki/glasgow_haskell_compiler" title="glasgow haskell compiler">ghc</a> implementation of <a href="http://en.wikipedia.org/wiki/haskell_(programming_language)" title="haskell (programming language)">haskell</a> provides a <a rel="nofollow" class="external text" href="http://hackage.haskell.org/packages/archive/containers/0.2.0.1/doc/html/data-set.html"><code>data.set</code></a> module, which implements a functional set data structure using binary search trees.</li> 
+<li>the <a href="http://en.wikipedia.org/wiki/tcl" title="tcl">tcl</a> <a href="http://en.wikipedia.org/wiki/tcllib" title="tcllib">tcllib</a> package provides a set module which implements a set data structure based upon tcl lists.</li> 
+</ul> 
+<p>as noted in the previous section, in languages which do not directly support sets but do support <a href="http://en.wikipedia.org/wiki/associative_array" title="associative array">associative arrays</a>, sets can be emulated using associative arrays, by using the elements as keys, and using a dummy value as the values, which are ignored.</p> 
+<h3><span class="mw-headline" id="in_c.2b.2b">in c++</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit&section=10" title="edit section: in c++">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<div class="rellink relarticle mainarticle">main article: <a href="http://en.wikipedia.org/wiki/set_(c%2b%2b)" title="set (c++)" class="mw-redirect">set (c++)</a></div> 
+<p>in <a href="http://en.wikipedia.org/wiki/c%2b%2b" title="c++">c++</a>, the <a href="http://en.wikipedia.org/wiki/standard_template_library" title="standard template library">standard template library</a> (stl) provides the <code>set</code> template class, which implements a sorted set using a binary search tree; <a href="http://en.wikipedia.org/wiki/silicon_graphics_international" title="silicon graphics international">sgi</a>'s stl also provides the <code>hash_set</code> template class, which implements a set using a hash table.</p> 
+<p>in sets, the elements themselves are the keys, in contrast to sequenced containers, where elements are accessed using their (relative or absolute) position. set elements must have a strict weak ordering.</p> 
+<h2><span class="mw-headline" id="multiset">multiset</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit&section=11" title="edit section: multiset">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>a generalization of the notion of a set is that of a <b><a href="http://en.wikipedia.org/wiki/multiset" title="multiset">multiset</a></b> or <b>bag</b>, which is similar to a set but allows repeated ("equal") values (duplicates). this is used in two distinct senses: either equal values are considered <i>identical,</i> and are simply counted, or equal values are considered <i>equivalent,</i> and are stored as distinct items. for example, given a list of people (by name) and ages (in years), one could construct a multiset of ages, which simply counts the number of people of a given age. alternatively, one can construct a multiset of people, where two people are considered equivalent if their ages are the same (but may be different people and have different names), in which case each pair (name, age) must be stored, and selecting on a given age gives all the people of a given age.</p> 
+<p>formally, it is possible for objects in computer science to be considered "equal" under some <a href="http://en.wikipedia.org/wiki/equivalence_relation" title="equivalence relation">equivalence relation</a> but still distinct under another relation. some types of multiset implementations will store distinct equal objects as separate items in the data structure; while others will collapse it down to one version (the first one encountered) and keep a positive integer count of the multiplicity of the element.</p> 
+<p>as with sets, multisets can naturally be implemented using hash table or trees, which yield different performance characteristics.</p> 
+<p>the set of all bags over type t is given by the expression bag t. if by multiset one considers equal items identical and simply counts them, then a multiset can be interpreted as a function from the input domain to the non-negative integers (<a href="http://en.wikipedia.org/wiki/natural_number" title="natural number">natural numbers</a>), generalizing the identification of a set with its indicator function. in some cases a multiset in this counting sense may be generalized to allow negative values, as in python.</p> 
+<ul> 
+<li>c++'s <a href="http://en.wikipedia.org/wiki/standard_template_library" title="standard template library">standard template library</a> implements both sorted and unsorted multisets. it provides the <code><a href="http://en.wikipedia.org/wiki/multiset_(c%2b%2b)" title="multiset (c++)" class="mw-redirect">multiset</a></code> class for the sorted multiset, as a kind of <a href="http://en.wikipedia.org/wiki/associative_containers_(c%2b%2b)" title="associative containers (c++)" class="mw-redirect">associative container</a>, which implements this multiset using a <a href="http://en.wikipedia.org/wiki/self-balancing_binary_search_tree" title="self-balancing binary search tree">self-balancing binary search tree</a>. it provides the <code>unordered_multiset</code> class for the unsorted multiset, as a kind of <a href="http://en.wikipedia.org/wiki/unordered_associative_containers_(c%2b%2b)" title="unordered associative containers (c++)">unordered associative containers</a>, which implements this multiset using a <a href="http://en.wikipedia.org/wiki/hash_table" title="hash table">hash table</a>. the unsorted multiset is standard as of <a href="http://en.wikipedia.org/wiki/c%2b%2b11" title="c++11">c++11</a>; previously sgi's stl provides the <code>hash_multiset</code> class, which was copied and eventually standardized.</li> 
+<li>for <a href="http://en.wikipedia.org/wiki/java_(programming_language)" title="java (programming language)">java</a>, third-party libraries provide multiset functionality: 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/apache_commons" title="apache commons">apache commons</a> collections provides the <code><a rel="nofollow" class="external text" href="http://commons.apache.org/collections/api-release/org/apache/commons/collections/bag.html">bag</a></code> and <code>sortedbag</code> interfaces, with implementing classes like <code>hashbag</code> and <code>treebag</code>.</li> 
+<li><a href="http://en.wikipedia.org/wiki/google_guava" title="google guava">google guava</a> provides the <code><a rel="nofollow" class="external text" href="http://google-collections.googlecode.com/svn/trunk/javadoc/com/google/common/collect/multiset.html">multiset</a></code> interface, with implementing classes like <code>hashmultiset</code> and <code>treemultiset</code>.</li> 
+</ul> 
+</li> 
+<li>apple provides the <code><a rel="nofollow" class="external text" href="http://developer.apple.com/documentation/cocoa/reference/foundation/classes/nscountedset_class/">nscountedset</a></code> class as part of <a href="http://en.wikipedia.org/wiki/cocoa_(api)" title="cocoa (api)">cocoa</a>, and the <code><a rel="nofollow" class="external text" href="http://developer.apple.com/documentation/corefoundation/reference/cfbagref/">cfbag</a></code> and <code><a rel="nofollow" class="external text" href="http://developer.apple.com/documentation/corefoundation/reference/cfmutablebagref/">cfmutablebag</a></code> types as part of <a href="http://en.wikipedia.org/wiki/corefoundation" title="corefoundation" class="mw-redirect">corefoundation</a>.</li> 
+<li><a href="http://en.wikipedia.org/wiki/python_(programming_language)" title="python (programming language)">python's</a> standard library includes <code><a rel="nofollow" class="external text" href="http://docs.python.org/library/collections.html#collections.counter">collections.counter</a></code>, which is similar to a multiset.</li> 
+<li><a href="http://en.wikipedia.org/wiki/smalltalk" title="smalltalk">smalltalk</a> includes the <code>bag</code> class, which can be instantiated to use either identity or equality as predicate for inclusion test.</li> 
+</ul> 
+<p>where a multiset data structure is not available, a workaround is to use a regular set, but override the equality predicate of its items to always return "not equal" on distinct objects (however, such will still not be able to store multiple occurrences of the same object) or use an <a href="http://en.wikipedia.org/wiki/associative_array" title="associative array">associative array</a> mapping the values to their integer multiplicities (this will not be able to distinguish between equal elements at all).</p> 
+<p>typical operations on bags:</p> 
+<ul> 
+<li><code>contains(<i>b</i>, <i>x</i>)</code>: checks whether the element <i>x</i> is present (at least once) in the bag <i>b</i></li> 
+<li><code>is_sub_bag(<i>b<sub>1</sub></i>, <i>b<sub>2</sub></i>)</code>: checks whether each element in the bag <i>b<sub>1</sub></i> occurs in <i>b<sub>1</sub></i> no more often than it occurs in the bag <i>b<sub>2</sub></i>; sometimes denoted as <i>b<sub>1</sub></i> ⊑ <i>b<sub>2</sub></i>.</li> 
+<li><code>count(<i>b</i>, <i>x</i>)</code>: returns the number of times that the element <i>x</i> occurs in the bag <i>b</i>; sometimes denoted as <i>b</i> # <i>x</i>.</li> 
+<li><code>scaled_by(<i>b</i>, <i>n</i>)</code>: given a <a href="http://en.wikipedia.org/wiki/natural_number" title="natural number">natural number</a> <i>n</i>, returns a bag which contains the same elements as the bag <i>b</i>, except that every element that occurs <i>m</i> times in <i>b</i> occurs <i>n</i> * <i>m</i> times in the resulting bag; sometimes denoted as n ⊗ b.</li> 
+<li><code>union(<i>b<sub>1</sub></i>, <i>b<sub>2</sub></i>)</code>: returns a bag that containing just those values that occur in either the bag <i>b<sub>1</sub></i> or the bag <i>b<sub>2</sub></i>, except that the number of times a value <i>x</i> occurs in the resulting bag is equal to (<i>b<sub>1</sub></i> # x) + (<i>b<sub>2</sub></i> # x); sometimes denoted as <i>b<sub>1</sub></i> ⊎ <i>b<sub>2</sub></i>.</li> 
+</ul> 
+<h3><span class="mw-headline" id="multisets_in_sql">multisets in sql</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit&section=12" title="edit section: multisets in sql">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>in <a href="http://en.wikipedia.org/wiki/relational_database_management_system" title="relational database management system">relational databases</a>, a table can be a (mathematical) set or a multiset, depending on the presence on unicity constraints on some columns (which turns it into a candidate key).</p> 
+<p><a href="http://en.wikipedia.org/wiki/sql" title="sql">sql</a> allows the selection of rows from a relational table: this operation will in general yield a multiset, unless the keyword <code>distinct</code> is used to force the rows to be all different, or the selection includes the primary (or a candidate) key.</p> 
+<p>in <a href="http://en.wikipedia.org/wiki/sql#standardization" title="sql" class="mw-redirect">ansi sql</a> the <code>multiset</code> keyword can be used to transform a subquery in a collection expression:</p> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="sql source-sql"> 
+<pre class="de1"><span class="kw1">select</span> expression1<span class="sy0">,</span> expression2<span class="sy0">...</span> <span class="kw1">from</span> <span class="kw1">table_name</span><span class="sy0">...</span> 
+</pre></div> 
+</div> 
+<p>is a general select that can be used as <i><a href="http://en.wikipedia.org/w/index.php?title=subquery_expression&action=edit&redlink=1" class="new" title="subquery expression (page does not exist)">subquery expression</a></i> of another more general query, while</p> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="sql source-sql"> 
+<pre class="de1">multiset<span class="br0">(</span><span class="kw1">select</span> expression1<span class="sy0">,</span> expression2<span class="sy0">...</span> <span class="kw1">from</span> <span class="kw1">table_name</span><span class="sy0">...</span><span class="br0">)</span> 
+</pre></div> 
+</div> 
+<p>transforms the subquery into a <i><a href="http://en.wikipedia.org/w/index.php?title=collection_expression&action=edit&redlink=1" class="new" title="collection expression (page does not exist)">collection expression</a></i> that can be used in another query, or in assignment to a column of appropriate collection type.</p> 
+<h2><span class="mw-headline" id="see_also">see also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit&section=13" title="edit section: see also">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/bloom_filter" title="bloom filter">bloom filter</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/disjoint_set_(data_structure)" title="disjoint set (data structure)" class="mw-redirect">disjoint set</a></li> 
+</ul> 
+<h2><span class="mw-headline" id="references">references</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit&section=14" title="edit section: references">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<div class="reflist" style="list-style-type: decimal;"> 
+<ol class="references"> 
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#cite_ref-1"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">"packaging" consists in supplying a container for an aggregation of objects in order to turn them into a single object. consider a function call: without packaging, a function can be called to act upon a bunch only by passing each bunch element as a separate argument, which complicates the function's signature considerably (and is just not possible in some programming languages). by packaging the bunch's elements into a set, the function may now be called upon a single, elementary argument: the set object (the bunch's package).</span></li> 
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#cite_ref-2"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">indexing is possible when the elements being considered are <a href="http://en.wikipedia.org/wiki/order_theory" title="order theory">totally ordered</a>. being without order, the elements of a multiset (for example) do not have lesser/greater or preceding/succeeding relationships: they can only be compared in absolute terms (same/different).</span></li> 
+<li id="cite_note-hehner1981-3"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#cite_ref-hehner1981_3-0"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span id="citerefhehner1981" class="citation">hehner, eric c. r. (1981), "bunch theory: a simple set theory for computer science", <i>information processing letters</i> <b>12</b> (1): 26, <a href="http://en.wikipedia.org/wiki/digital_object_identifier" title="digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="http://dx.doi.org/10.1016%2f0020-0190%2881%2990071-5">10.1016/0020-0190(81)90071-5</a></span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3aset+%28abstract+data+type%29&amp;rft.atitle=bunch+theory%3a+a+simple+set+theory+for+computer+science&amp;rft.aufirst=eric+c.+r.&amp;rft.au=hehner%2c+eric+c.+r.&amp;rft.aulast=hehner&amp;rft.date=1981&amp;rft.genre=article&amp;rft_id=info%3adoi%2f10.1016%2f0020-0190%2881%2990071-5&amp;rft.issue=1&amp;rft.jtitle=information+processing+letters&amp;rft.pages=26&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3ajournal&amp;rft.volume=12" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+<li id="cite_note-hehner2004-4"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#cite_ref-hehner2004_4-0"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span id="citerefhehner2004" class="citation">hehner, eric c. r. (2004), <a rel="nofollow" class="external text" href="http://www.cs.utoronto.ca/~hehner/aptop/"><i>a practical theory of programming, second edition</i></a></span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3aset+%28abstract+data+type%29&amp;rft.aufirst=eric+c.+r.&amp;rft.au=hehner%2c+eric+c.+r.&amp;rft.aulast=hehner&amp;rft.btitle=a+practical+theory+of+programming%2c+second+edition&amp;rft.date=2004&amp;rft.genre=book&amp;rft_id=http%3a%2f%2fwww.cs.utoronto.ca%2f~hehner%2faptop%2f&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+<li id="cite_note-hehner2012-5"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#cite_ref-hehner2012_5-0"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span id="citerefhehner2012" class="citation">hehner, eric c. r. (2012), <a rel="nofollow" class="external text" href="http://www.cs.toronto.edu/~hehner/aptop/"><i>a practical theory of programming, 2012-3-30 edition</i></a></span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3aset+%28abstract+data+type%29&amp;rft.aufirst=eric+c.+r.&amp;rft.au=hehner%2c+eric+c.+r.&amp;rft.aulast=hehner&amp;rft.btitle=a+practical+theory+of+programming%2c+2012-3-30+edition&amp;rft.date=2012&amp;rft.genre=book&amp;rft_id=http%3a%2f%2fwww.cs.toronto.edu%2f~hehner%2faptop%2f&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+<li id="cite_note-6"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#cite_ref-6"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span id="citerefwang1997" class="citation">wang, thomas (1997), <a rel="nofollow" class="external text" href="http://www.concentric.net/~ttwang/tech/sorthash.htm"><i>sorted linear hash table</i></a></span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3aset+%28abstract+data+type%29&amp;rft.aufirst=thomas&amp;rft.aulast=wang&amp;rft.au=wang%2c+thomas&amp;rft.btitle=sorted+linear+hash+table&amp;rft.date=1997&amp;rft.genre=book&amp;rft_id=http%3a%2f%2fwww.concentric.net%2f~ttwang%2ftech%2fsorthash.htm&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+</ol> 
+</div> 
+<table cellspacing="0" class="navbox" style="border-spacing:0;"> 
+<tbody><tr> 
+<td style="padding:2px;"> 
+<table cellspacing="0" class="nowraplinks hlist collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" id="collapsibletable0"> 
+<tbody><tr> 
+<th scope="col" class="navbox-title" colspan="2"><span class="collapsebutton">[<a id="collapsebutton0" href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#">show</a>]</span> 
+<div class="plainlinks hlist navbar mini"> 
+<ul> 
+<li class="nv-view"><a href="http://en.wikipedia.org/wiki/template:data_types" title="template:data types"><span title="view this template" style=";;background:none transparent;border:none;;">v</span></a></li> 
+<li class="nv-talk"><a href="http://en.wikipedia.org/wiki/template_talk:data_types" title="template talk:data types"><span title="discuss this template" style=";;background:none transparent;border:none;;">t</span></a></li> 
+<li class="nv-edit"><a class="external text" href="http://en.wikipedia.org/w/index.php?title=template:data_types&action=edit"><span title="edit this template" style=";;background:none transparent;border:none;;">e</span></a></li> 
+</ul> 
+</div> 
+<div style="font-size:110%;"><a href="http://en.wikipedia.org/wiki/data_type" title="data type">data types</a></div> 
+</th> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group">uninterpreted</th> 
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/bit" title="bit">bit</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/byte" title="byte">byte</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/ternary_numeral_system" title="ternary numeral system">trit</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/ternary_numeral_system#tryte" title="ternary numeral system">tryte</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/word_(computer_architecture)" title="word (computer architecture)">word</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group">numeric</th> 
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/arbitrary-precision_arithmetic" title="arbitrary-precision arithmetic">bignum</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/complex_data_type" title="complex data type">complex</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/decimal_data_type" title="decimal data type">decimal</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/fixed-point_arithmetic" title="fixed-point arithmetic">fixed-point</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/floating_point" title="floating point">floating-point</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/integer_(computer_science)" title="integer (computer science)">integer</a> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/signedness" title="signedness">signedness</a></li> 
+</ul> 
+</li> 
+<li><a href="http://en.wikipedia.org/wiki/interval_arithmetic" title="interval arithmetic">interval</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/rational_data_type" title="rational data type">rational</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/plain_text" title="plain text">text</a></th> 
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/character_(computing)" title="character (computing)">character</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/string_(computer_science)" title="string (computer science)">string</a> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/null-terminated_string" title="null-terminated string">null-terminated</a></li> 
+</ul> 
+</li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/pointer_(computer_programming)" title="pointer (computer programming)">pointer</a></th> 
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/memory_address" title="memory address">address</a> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/physical_address" title="physical address">physical</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/virtual_address_space" title="virtual address space">virtual</a></li> 
+</ul> 
+</li> 
+<li><a href="http://en.wikipedia.org/wiki/reference_(computer_science)" title="reference (computer science)">reference</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/composite_data_type" title="composite data type">composite</a></th> 
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/algebraic_data_type" title="algebraic data type">algebraic data type</a> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/generalized_algebraic_data_type" title="generalized algebraic data type">generalized</a></li> 
+</ul> 
+</li> 
+<li><a href="http://en.wikipedia.org/wiki/array_data_type" title="array data type">array</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/associative_array" title="associative array">associative array</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/class_(computer_programming)" title="class (computer programming)">class</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/dependent_type" title="dependent type">dependent</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/intuitionistic_type_theory#equality_type" title="intuitionistic type theory">equality</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/inductive_type" title="inductive type">inductive</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/list_(abstract_data_type)" title="list (abstract data type)">list</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/object_(computer_science)" title="object (computer science)">object</a> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/metaobject" title="metaobject">metaobject</a></li> 
+</ul> 
+</li> 
+<li><a href="http://en.wikipedia.org/wiki/option_type" title="option type">option type</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/product_type" title="product type">product</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/record_(computer_science)" title="record (computer science)">record</a></li> 
+<li><strong class="selflink">set</strong></li> 
+<li><a href="http://en.wikipedia.org/wiki/union_type" title="union type">union</a> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/tagged_union" title="tagged union">tagged</a></li> 
+</ul> 
+</li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group">other</th> 
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/boolean_data_type" title="boolean data type">boolean</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/bottom_type" title="bottom type">bottom type</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/container_(abstract_data_type)" title="container (abstract data type)">collection</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/enumerated_type" title="enumerated type">enumerated type</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/exception_handling" title="exception handling">exception</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/function_type" title="function type">function type</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/opaque_data_type" title="opaque data type">opaque data type</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/recursive_data_type" title="recursive data type">recursive data type</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/semaphore_(programming)" title="semaphore (programming)">semaphore</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/stream_(computing)" title="stream (computing)">stream</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/top_type" title="top type">top type</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/type_class" title="type class">type class</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/unit_type" title="unit type">unit type</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/void_type" title="void type">void</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group">related topics</th> 
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/abstract_data_type" title="abstract data type">abstract data type</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/data_structure" title="data structure">data structure</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/generic_programming" title="generic programming">generic</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/kind_(type_theory)" title="kind (type theory)">kind</a> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/metaclass" title="metaclass">metaclass</a></li> 
+</ul> 
+</li> 
+<li><a href="http://en.wikipedia.org/wiki/parametric_polymorphism" title="parametric polymorphism">parametric polymorphism</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/primitive_data_type" title="primitive data type">primitive data type</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/protocol_(object-oriented_programming)" title="protocol (object-oriented programming)">protocol</a> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/interface_(computing)#software_interfaces_in_object-oriented_languages" title="interface (computing)">interface</a></li> 
+</ul> 
+</li> 
+<li><a href="http://en.wikipedia.org/wiki/subtyping" title="subtyping">subtyping</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/type_constructor" title="type constructor">type constructor</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/type_conversion" title="type conversion">type conversion</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/type_system" title="type system">type system</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+</tbody></table> 
+</td> 
+</tr> 
+</tbody></table> 
+<table cellspacing="0" class="navbox" style="border-spacing:0;"> 
+<tbody><tr> 
+<td style="padding:2px;"> 
+<table cellspacing="0" class="nowraplinks hlist collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" id="collapsibletable1"> 
+<tbody><tr> 
+<th scope="col" class="navbox-title" colspan="2"><span class="collapsebutton">[<a id="collapsebutton1" href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#">show</a>]</span> 
+<div class="plainlinks hlist navbar mini"> 
+<ul> 
+<li class="nv-view"><a href="http://en.wikipedia.org/wiki/template:data_structures" title="template:data structures"><span title="view this template" style=";;background:none transparent;border:none;;">v</span></a></li> 
+<li class="nv-talk"><a href="http://en.wikipedia.org/wiki/template_talk:data_structures" title="template talk:data structures"><span title="discuss this template" style=";;background:none transparent;border:none;;">t</span></a></li> 
+<li class="nv-edit"><a class="external text" href="http://en.wikipedia.org/w/index.php?title=template:data_structures&action=edit"><span title="edit this template" style=";;background:none transparent;border:none;;">e</span></a></li> 
+</ul> 
+</div> 
+<div style="font-size:110%;"><a href="http://en.wikipedia.org/wiki/data_structure" title="data structure">data structures</a></div> 
+</th> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group">types</th> 
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/collection_(abstract_data_type)" title="collection (abstract data type)">collection</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/container_(abstract_data_type)" title="container (abstract data type)">container</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/abstract_data_type" title="abstract data type">abstract</a></th> 
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/associative_array" title="associative array">associative array</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/double-ended_priority_queue" title="double-ended priority queue">double-ended priority queue</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/double-ended_queue" title="double-ended queue">double-ended queue</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/list_(abstract_data_type)" title="list (abstract data type)">list</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/multimap" title="multimap">multimap</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/priority_queue" title="priority queue">priority queue</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/queue_(abstract_data_type)" title="queue (abstract data type)">queue</a></li> 
+<li><strong class="selflink">set</strong> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#multiset" title="set (abstract data type)">multiset</a></li> 
+</ul> 
+</li> 
+<li><a href="http://en.wikipedia.org/wiki/disjoint-set_data_structure" title="disjoint-set data structure">disjoint sets</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/stack_(abstract_data_type)" title="stack (abstract data type)">stack</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/array_data_structure" title="array data structure">arrays</a></th> 
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/bit_array" title="bit array">bit array</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/circular_buffer" title="circular buffer">circular buffer</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/dynamic_array" title="dynamic array">dynamic array</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/hash_table" title="hash table">hash table</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/hashed_array_tree" title="hashed array tree">hashed array tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/sparse_array" title="sparse array">sparse array</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/linked_data_structure" title="linked data structure">linked</a></th> 
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/association_list" title="association list">association list</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/linked_list" title="linked list">linked list</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/skip_list" title="skip list">skip list</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/unrolled_linked_list" title="unrolled linked list">unrolled linked list</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/xor_linked_list" title="xor linked list">xor linked list</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/tree_(data_structure)" title="tree (data structure)">trees</a></th> 
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/b-tree" title="b-tree">b-tree</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/binary_search_tree" title="binary search tree">binary search tree</a> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/aa_tree" title="aa tree">aa</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/avl_tree" title="avl tree">avl</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/red%e2%80%93black_tree" title="red–black tree">red-black</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/self-balancing_binary_search_tree" title="self-balancing binary search tree">self-balancing</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/splay_tree" title="splay tree">splay</a></li> 
+</ul> 
+</li> 
+<li><a href="http://en.wikipedia.org/wiki/heap_(data_structure)" title="heap (data structure)">heap</a> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/binary_heap" title="binary heap">binary</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/binomial_heap" title="binomial heap">binomial</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/fibonacci_heap" title="fibonacci heap">fibonacci</a></li> 
+</ul> 
+</li> 
+<li><a href="http://en.wikipedia.org/wiki/r-tree" title="r-tree">r-tree</a> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/r*_tree" title="r* tree">r*</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/r%2b_tree" title="r+ tree">r+</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/hilbert_r-tree" title="hilbert r-tree">hilbert</a></li> 
+</ul> 
+</li> 
+<li><a href="http://en.wikipedia.org/wiki/trie" title="trie">trie</a> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/hash_tree_(persistent_data_structure)" title="hash tree (persistent data structure)">hash tree</a></li> 
+</ul> 
+</li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/graph_(abstract_data_type)" title="graph (abstract data type)">graphs</a></th> 
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/binary_decision_diagram" title="binary decision diagram">binary decision diagram</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/directed_acyclic_word_graph" title="directed acyclic word graph">directed acyclic word graph</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height: 2px; display: none;"> 
+<td></td> 
+</tr> 
+<tr style="display: none;"> 
+<td class="navbox-abovebelow" colspan="2"> 
+<div> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/list_of_data_structures" title="list of data structures">list of data structures</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+</tbody></table> 
+</td> 
+</tr> 
+</tbody></table> 
+ 
+ 
+<!-- 
+newpp limit report 
+parsed by mw1041 
+cpu time usage: 0.604 seconds 
+real time usage: 0.765 seconds 
+preprocessor visited node count: 862/1000000 
+preprocessor generated node count: 4167/1500000 
+post‐expand include size: 39384/2048000 bytes 
+template argument size: 270/2048000 bytes 
+highest expansion depth: 7/40 
+expensive parser function count: 6/500 
+lua time usage: 0.062s 
+lua memory usage: 1.67 mb 
+--> 
+ 
+<!-- saved in parser cache with key enwiki:pcache:idhash:201127-0!0!0!!en!4!* and timestamp 20140120023554 
+--> 
+<noscript>&lt;img src="//en.wikipedia.org/wiki/special:centralautologin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /&gt;</noscript></div>								<div class="printfooter"> 
+retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&oldid=588247479">http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&amp;oldid=588247479</a>"				</div> 
+<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/help:category" title="help:category">categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/category:data_types" title="category:data types">data types</a></li><li><a href="http://en.wikipedia.org/wiki/category:composite_data_types" title="category:composite data types">composite data types</a></li><li><a href="http://en.wikipedia.org/wiki/category:abstract_data_types" title="category:abstract data types">abstract data types</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/category:articles_needing_additional_references_from_october_2011" title="category:articles needing additional references from october 2011">articles needing additional references from october 2011</a></li><li><a href="http://en.wikipedia.org/wiki/category:all_articles_needing_additional_references" title="category:all articles needing additional references">all articles needing additional references</a></li></ul></div></div>												<div class="visualclear"></div> 
+</div> 
+</div> 
+<div id="mw-navigation"> 
+<h2>navigation menu</h2> 
+<div id="mw-head"> 
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label"> 
+<h3 id="p-personal-label">personal tools</h3> 
+<ul> 
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=set+%28abstract+data+type%29&type=signup">create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=set+%28abstract+data+type%29" title="you&#39;re encouraged to log in; however, it&#39;s not mandatory. [ctrl-option-o]" accesskey="o">log in</a></li>	</ul> 
+</div> 
+<div id="left-navigation"> 
+<div id="p-namespaces" role="navigation" class="vectortabs" aria-labelledby="p-namespaces-label"> 
+<h3 id="p-namespaces-label">namespaces</h3> 
+<ul> 
+<li id="ca-nstab-main" class="selected"><span><a href="./dynamic sets_files/dynamic sets.html" title="view the content page [ctrl-option-c]" accesskey="c">article</a></span></li> 
+<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/talk:set_(abstract_data_type)" title="discussion about the content page [ctrl-option-t]" accesskey="t">talk</a></span></li> 
+</ul> 
+</div> 
+<div id="p-variants" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-variants-label"> 
+<h3 id="mw-vector-current-variant"> 
+</h3> 
+<h3 id="p-variants-label" tabindex="0"><span>variants</span><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+</div> 
+<div id="right-navigation"> 
+<div id="p-views" role="navigation" class="vectortabs" aria-labelledby="p-views-label"> 
+<h3 id="p-views-label">views</h3> 
+<ul> 
+<li id="ca-view" class="selected"><span><a href="./dynamic sets_files/dynamic sets.html">read</a></span></li> 
+<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=edit" title="you can edit this page. 
+please review your changes before saving. [ctrl-option-e]" accesskey="e">edit</a></span></li> 
+<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=history" title="past versions of this page [ctrl-option-h]" accesskey="h">view history</a></span></li> 
+</ul> 
+</div> 
+<div id="p-cactions" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-cactions-label"> 
+<h3 id="p-cactions-label" tabindex="0"><span>actions</span><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+<div id="p-search" role="search"> 
+<h3><label for="searchinput">search</label></h3> 
+<form action="http://en.wikipedia.org/w/index.php" id="searchform"> 
+<div id="simplesearch"> 
+<input name="search" placeholder="search" title="search wikipedia [ctrl-option-f]" accesskey="f" id="searchinput" tabindex="1" autocomplete="off">						<button type="submit" name="button" title="search wikipedia for this text" id="searchbutton"><img src="./dynamic sets_files/search-ltr.png" alt="search" width="12" height="13"></button>								<input type="hidden" name="title" value="special:search"> 
+</div> 
+</form> 
+</div> 
+</div> 
+</div> 
+<div id="mw-panel" class="collapsible-nav"> 
+<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/wiki.png);" href="http://en.wikipedia.org/wiki/main_page" title="visit the main page"></a></div> 
+<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label"> 
+<h3 id="p-navigation-label">navigation</h3> 
+<div class="body"> 
+<ul> 
+<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/main_page" title="visit the main page [ctrl-option-z]" accesskey="z">main page</a></li> 
+<li id="n-contents"><a href="http://en.wikipedia.org/wiki/portal:contents" title="guides to browsing wikipedia">contents</a></li> 
+<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/portal:featured_content" title="featured content – the best of wikipedia">featured content</a></li> 
+<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/portal:current_events" title="find background information on current events">current events</a></li> 
+<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/special:random" title="load a random article [ctrl-option-x]" accesskey="x">random article</a></li> 
+<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/special:fundraiserredirector?utm_source=donate&utm_medium=sidebar&utm_campaign=c13_en.wikipedia.org&uselang=en" title="support us">donate to wikipedia</a></li> 
+<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="visit the wikimedia shop">wikimedia shop</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label"> 
+<h3 id="p-interaction-label" tabindex="2"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#" aria-haspopup="true" aria-controls="p-interaction-list" role="button" aria-pressed="true" aria-expanded="true">interaction</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-interaction-list"> 
+<li id="n-help"><a href="http://en.wikipedia.org/wiki/help:contents" title="guidance on how to use and edit wikipedia">help</a></li> 
+<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="find out about wikipedia">about wikipedia</a></li> 
+<li id="n-portal"><a href="http://en.wikipedia.org/wiki/wikipedia:community_portal" title="about the project, what you can do, where to find things">community portal</a></li> 
+<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/special:recentchanges" title="a list of recent changes in the wiki [ctrl-option-r]" accesskey="r">recent changes</a></li> 
+<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact page</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label"> 
+<h3 id="p-tb-label" tabindex="3"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#" aria-haspopup="true" aria-controls="p-tb-list" role="button" aria-pressed="false" aria-expanded="false">tools</a></h3> 
+<div class="body"> 
+<ul id="p-tb-list"> 
+<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/special:whatlinkshere/set_(abstract_data_type)" title="list of all english wikipedia pages containing links to this page [ctrl-option-j]" accesskey="j">what links here</a></li> 
+<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/special:recentchangeslinked/set_(abstract_data_type)" title="recent changes in pages linked from this page [ctrl-option-k]" accesskey="k">related changes</a></li> 
+<li id="t-upload"><a href="http://en.wikipedia.org/wiki/wikipedia:file_upload_wizard" title="upload files [ctrl-option-u]" accesskey="u">upload file</a></li> 
+<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/special:specialpages" title="a list of all special pages [ctrl-option-q]" accesskey="q">special pages</a></li> 
+<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&oldid=588247479" title="permanent link to this revision of the page">permanent link</a></li> 
+<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&action=info">page information</a></li> 
+<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/q1514741" title="link to connected data repository item [ctrl-option-g]" accesskey="g">data item</a></li> 
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=special:cite&page=set_%28abstract_data_type%29&id=588247479" title="information on how to cite this page">cite this page</a></li>		</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label"> 
+<h3 id="p-coll-print_export-label" tabindex="4"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#" aria-haspopup="true" aria-controls="p-coll-print_export-list" role="button" aria-pressed="false" aria-expanded="false">print/export</a></h3> 
+<div class="body"> 
+<ul id="p-coll-print_export-list"> 
+<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=book_creator&referer=set+%28abstract+data+type%29">create a book</a></li> 
+<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=render_article&arttitle=set+%28abstract+data+type%29&oldid=588247479&writer=rl">download as pdf</a></li> 
+<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=set_(abstract_data_type)&printable=yes" title="printable version of this page [ctrl-option-p]" accesskey="p">printable version</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"> 
+<h3 id="p-lang-label" tabindex="5"><a href="http://en.wikipedia.org/wiki/set_(abstract_data_type)#" aria-haspopup="true" aria-controls="p-lang-list" role="button" aria-pressed="true" aria-expanded="true">languages</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-lang-list"> 
+<li class="interlanguage-link interwiki-ca"><a href="http://ca.wikipedia.org/wiki/conjunt_(estructura_de_dades)" title="conjunt (estructura de dades) – catalan" lang="ca" hreflang="ca">català</a></li> 
+<li class="interlanguage-link interwiki-de"><a href="http://de.wikipedia.org/wiki/menge_(datenstruktur)" title="menge (datenstruktur) – german" lang="de" hreflang="de">deutsch</a></li> 
+<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/conjunto_(programaci%c3%b3n)" title="conjunto (programación) – spanish" lang="es" hreflang="es">español</a></li> 
+<li class="interlanguage-link interwiki-it"><a href="http://it.wikipedia.org/wiki/set_(informatica)" title="set (informatica) – italian" lang="it" hreflang="it">italiano</a></li> 
+<li class="interlanguage-link interwiki-he"><a href="http://he.wikipedia.org/wiki/%d7%a7%d7%91%d7%95%d7%a6%d7%94_(%d7%9e%d7%91%d7%a0%d7%94_%d7%a0%d7%aa%d7%95%d7%a0%d7%99%d7%9d)" title="קבוצה (מבנה נתונים) – hebrew" lang="he" hreflang="he">עברית</a></li> 
+<li class="interlanguage-link interwiki-nl"><a href="http://nl.wikipedia.org/wiki/verzameling_(informatica)" title="verzameling (informatica) – dutch" lang="nl" hreflang="nl">nederlands</a></li> 
+<li class="interlanguage-link interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%e9%9b%86%e5%90%88_(%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9f%e3%83%b3%e3%82%b0)" title="集合 (プログラミング) – japanese" lang="ja" hreflang="ja">日本語</a></li> 
+<li class="interlanguage-link interwiki-pl"><a href="http://pl.wikipedia.org/wiki/zbiorowy_typ_danych" title="zbiorowy typ danych – polish" lang="pl" hreflang="pl">polski</a></li> 
+<li class="interlanguage-link interwiki-pt"><a href="http://pt.wikipedia.org/wiki/conjunto_(tipo_de_dado_abstrato)" title="conjunto (tipo de dado abstrato) – portuguese" lang="pt" hreflang="pt">português</a></li> 
+<li class="interlanguage-link interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%d0%9c%d0%bd%d0%be%d0%b6%d0%b5%d1%81%d1%82%d0%b2%d0%be_(%d1%82%d0%b8%d0%bf_%d0%b4%d0%b0%d0%bd%d0%bd%d1%8b%d1%85)" title="множество (тип данных) – russian" lang="ru" hreflang="ru">русский</a></li> 
+<li class="interlanguage-link interwiki-th"><a href="http://th.wikipedia.org/wiki/%e0%b9%80%e0%b8%8b%e0%b8%95_(%e0%b9%82%e0%b8%84%e0%b8%a3%e0%b8%87%e0%b8%aa%e0%b8%a3%e0%b9%89%e0%b8%b2%e0%b8%87%e0%b8%82%e0%b9%89%e0%b8%ad%e0%b8%a1%e0%b8%b9%e0%b8%a5)" title="เซต (โครงสร้างข้อมูล) – thai" lang="th" hreflang="th">ไทย</a></li> 
+<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/q1514741#sitelinks-wikipedia" title="edit interlanguage links">edit links</a></li> 
+</ul> 
+</div> 
+</div> 
+</div> 
+</div> 
+<div id="footer" role="contentinfo"> 
+<ul id="footer-info"> 
+<li id="footer-info-lastmod"> this page was last modified on 29 december 2013 at 19:20.<br></li> 
+<li id="footer-info-copyright">text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/wikipedia:text_of_creative_commons_attribution-sharealike_3.0_unported_license">creative commons attribution-sharealike license</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>; 
+additional terms may apply.  by using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/terms_of_use">terms of use</a> and <a href="http://wikimediafoundation.org/wiki/privacy_policy">privacy policy.</a> <br> 
+wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">wikimedia foundation, inc.</a>, a non-profit organization.</li> 
+</ul> 
+<ul id="footer-places"> 
+<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/privacy_policy" title="wikimedia:privacy policy">privacy policy</a></li> 
+<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="wikipedia:about">about wikipedia</a></li> 
+<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/wikipedia:general_disclaimer" title="wikipedia:general disclaimer">disclaimers</a></li> 
+<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact wikipedia</a></li> 
+<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/special:mylanguage/how_to_contribute">developers</a></li> 
+<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/set_(abstract_data_type)" class="noprint stopmobileredirecttoggle">mobile view</a></li> 
+</ul> 
+<ul id="footer-icons" class="noprint"> 
+<li id="footer-copyrightico"> 
+<a href="http://wikimediafoundation.org/"><img src="./dynamic sets_files/wikimedia-button.png" width="88" height="31" alt="wikimedia foundation"></a> 
+</li> 
+<li id="footer-poweredbyico"> 
+<a href="http://www.mediawiki.org/"><img src="./dynamic sets_files/poweredby_mediawiki_88x31.png" alt="powered by mediawiki" width="88" height="31"></a> 
+</li> 
+</ul> 
+<div style="clear:both"></div> 
+</div> 
+<script>/*<![cdata[*/window.jquery && jquery.ready();/*]]>*/</script><script>if(window.mw){ 
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"}); 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postedit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchsuggest","ext.gadget.teahouse","ext.gadget.referencetooltips","ext.gadget.drn-wizard","ext.gadget.charinsert","mw.mwembedsupport.style","ext.articlefeedbackv5.startup","ext.wikimediashoplink.core","ext.navigationtiming","skins.vector.collapsiblenav"],null,true); 
+}</script> 
+<script src="./dynamic sets_files/load(2).php"></script> 
+<!-- served by mw1214 in 0.167 secs. --> 
+ 
+ 
+<div class="suggestions" style="display: none; font-size: 12.800000190734863px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html> 

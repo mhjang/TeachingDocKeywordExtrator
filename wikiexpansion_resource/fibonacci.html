@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)http://en.wikipedia.org/wiki/Fibonacci -->
+<html lang="en" dir="ltr" class="client-js ve-not-available"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8"><title>Fibonacci - Wikipedia, the free encyclopedia</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE"><meta name="generator" content="MediaWiki 1.23wmf11">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Fibonacci&action=edit">
+<link rel="edit" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Fibonacci&action=edit">
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png">
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="Wikipedia (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom feed" href="http://en.wikipedia.org/w/index.php?title=Special:RecentChanges&feed=atom">
+<link rel="canonical" href="./fibonacci_files/fibonacci.html">
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.DRN-wizard%2CReferenceTooltips%2Ccharinsert%2Cteahouse%7Cext.rtlcite%2Cwikihiero%7Cext.visualEditor.viewPageTarget.noscript%7Cmediawiki.legacy.commonPrint%2Cshared%7Cskins.common.interface%7Cskins.vector.styles&only=styles&skin=vector&*">
+<style>
+@-webkit-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-webkit-transform:translateY(-20px)}100%{opacity:1;-webkit-transform:translateY(0)}}@-moz-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-moz-transform:translateY(-20px)}100%{opacity:1;-moz-transform:translateY(0)}}@-o-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-o-transform:translateY(-20px)}100%{opacity:1;-o-transform:translateY(0)}}@keyframes centralAuthPPersonalAnimation{0%{opacity:0;transform:translateY(-20px)}100%{opacity:1;transform:translateY(0)}}.centralAuthPPersonalAnimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralAuthPPersonalAnimation;-moz-animation-name:centralAuthPPersonalAnimation;-o-animation-name:centralAuthPPersonalAnimation;animation-name:centralAuthPPersonalAnimation}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAD1BMVEUZAAD///95eXmqqqrY2NjEIQ0cAAAAAXRSTlMAQObYZgAAACdJREFUCNdjYGBgYGIAASUFENNJCUiqmADZTM5OqExFFZAKRSG4YgBjcwODynSgDwAAAABJRU5ErkJggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/Wikibase/client/resources/images/WBC-Asset-Pencil.png?2014-01-16T16:20:00Z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAD1BMVEWBAADY2Nj///8GRa0zZrtW2AECAAAAAXRSTlMAQObYZgAAACdJREFUCNdjYGBgYGYAAWMDEFPYGEgaOgLZzCLCqEwjQ5AKI2W4YgBg5QOTQPzBuAAAAABJRU5ErkJggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/Wikibase/client/resources/images/WBC-Asset-Pencil-Hover.png?2014-01-16T16:20:00Z)!ie;color:#0645AD !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a963c9df079c8688d25d769892467b5c */
+@media print{#centralNotice{display:none}}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */</style><style>
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABblBMVEUAAAD///////9PfTf///80aRdTgjn///9Feij///////////9Rfzf///////////9PfjZRgDh1o1xOfTb///////+bwYqLtnj///////9PfTa82K////9WhT6YxIL///9QgDdTgzr////////j7uDl7eLq8efi693k7OH///////9UhjuBr2rp9uRUhjr///9YljVKgir///9WiTlYjT3////9/v57vFlbkT5PjC9dlD/5/fhuq09stUTs9uhxuElctCpfnT1huDFloEZloUZmpENmvDZpvDxpvTxqvjxrvT5rvT9rwTxsqktswD5uwkBvuUdxw0NztFBztU9ztVBzwkp0tlJ1xkd2t1R3uVR4w1F4xk54x014yE15uVZ5v1R5xVB6v1R7yFJ8wVh9xVl9yFR9yVd9ylN+xVh+yFd/x1l/yFeAylmEx1+Ny2uY0Hqe04Wj1Ymv3Ze33qLD47TJ5L3O6cPU7Mrq9eb2+/Q4j37OAAAAQHRSTlMAAQIEBAUFBQwPFB4fJCUoKiosQEhJS01RUlZZXmdydXaChYuSlJSWmJmoq6uur8LExcvM19fg5ejt8fX2+Pr7SljgewAAAKpJREFUGBkFwQNCAwAAAMDLtl3LtrG4rWXbtvX77gAgZ6grFwC0bhwNVgKgdPZx8b0dgLi+s7Wn0VoAqpfOI9+BNADZI7fLrz2pSEwGHZuH+78lSK8ZLkLezF3ooyUG3VPXq2USei9WngeyoG195yBYWDF3E/2pAhl1e9Gr8bGT+bfOFCC2fnvh4X7rcqIAQNNu+HT6sxkAjceTL/2ZAIhv+PorBwBJxfkA//dFHSCBy/UTAAAAAElFTkSuQmCC);background-image:url(//bits.wikimedia.org/static-1.23wmf11/resources/mediawiki.action/images/green-checkmark.png?2014-01-16T16:15:00Z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:c897cc6a31411b48f47191422cf15c4a */
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4C59A6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#F7F7F7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #F7F7F7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.RTflipped{padding-top:13px}.referencetooltip.RTflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.RTflipped li+li::after{border-top:0;border-bottom:8px #F7F7F7 solid;position:absolute;margin-top:7px}.RTsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/Cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.RTsettings:hover{opacity:1;filter:alpha(opacity=100)}.RTTarget{border:#080086 2px solid}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playerContainer{overflow:hidden;position:relative;height:100%;background:#000}#videoHolder{position:relative;overflow:hidden}.fullscreen #playerContainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwEmbedPlayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayHTML a:visited{color:white}.loadingSpinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/loading_ani.gif?2014-01-16T16:18:20Z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-01-16T16:18:20Z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button.png?2014-01-16T16:18:20Z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button_hover.png?2014-01-16T16:18:20Z)}.carouselContainer{position :absolute;width :100%;z-index :2}.carouselVideoTitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselVideoTitleText{display :block;padding :10px 10px 10px 20px}.carouselTitleDuration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5A5A5A;color :#D9D9D9;font-size :smaller;z-index :2}.carouselImgTitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselImgDuration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselPrevButton,.carouselNextButton{display :block;position :absolute;bottom:23px}.carouselPrevButton{left :5px}.carouselNextButton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#E6E6E6;padding :5px;border-bottom :1px solid #D1D1D1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:40fb0cce50b2525059dbe7ac545e3c42 */</style><style>
+.suggestions a.mw-searchSuggest-link,.suggestions a.mw-searchSuggest-link:hover,.suggestions a.mw-searchSuggest-link:active,.suggestions a.mw-searchSuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchSuggest-link,.suggestions-result-current a.mw-searchSuggest-link:hover,.suggestions-result-current a.mw-searchSuggest-link:active,.suggestions-result-current a.mw-searchSuggest-link:focus{color:white}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=site&only=styles&skin=vector&*">
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style>
+
+<script src="./fibonacci_files/load.php"></script><script src="./fibonacci_files/load(1).php"></script><style title="spinjs"></style>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Fibonacci","wgTitle":"Fibonacci","wgCurRevisionId":593165624,"wgRevisionId":593165624,"wgArticleId":17949,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Articles with hCards","1250 deaths","1170 births","13th-century Latin writers","13th-century Italian mathematicians","Fibonacci numbers","Italian Roman Catholics","Medieval European mathematics","Number theorists","People from Pisa"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Fibonacci","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":false,"previewDialog":false,"publish":false,"toc":false},"wgArticleFeedbackv5Permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgBetaFeaturesFeatures":[],"wgVisualEditor":{"isPageWatched":false,"magnifyClipIconURL":"//bits.wikimedia.org/static-1.23wmf11/skins/common/images/magnify-clip.png","pageLanguageCode":"en","pageLanguageDir":"ltr"},"wikilove-recipient":"","wikilove-anon":0,"wgGuidedTourHelpGuiderUrl":"Help:Guided tours/guider","wgULSAcceptLanguageList":["en-us"],"wgULSCurrentAutonym":"English","wgFlaggedRevsParams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgStableRevisionId":null,"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","Geo":{"city":"","country":""},"wgNoticeProject":"wikipedia","aftv5Article":{"id":17949,"title":"Fibonacci","namespace":0,"categories":["1170 births","1250 deaths","13th-century Italian mathematicians","13th-century Latin writers","Articles with hCards","Fibonacci numbers","Italian Roman Catholics","Medieval European mathematics","Number theorists","People from Pisa"],"permissionLevel":false},"wgWikibaseItemId":"Q8763"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,
+"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true,
+"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","uls-enable":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,
+"searchNs100":false,"searchNs101":false,"searchNs108":false,"searchNs109":false,"searchNs118":false,"searchNs119":false,"searchNs446":false,"searchNs447":false,"searchNs710":false,"searchNs711":false,"searchNs828":false,"searchNs829":false,"gadget-teahouse":1,"gadget-ReferenceTooltips":1,"gadget-DRN-wizard":1,"gadget-charinsert":1,"gadget-mySandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: enwiki:resourceloader:filter:minify-js:7:264b5b04c69e37444d5b2d63c2a65dc9 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualEditor.viewPageTarget.init","wikibase.client.init","ext.centralNotice.bannerController","skins.vector.js"]);
+}</script>
+<script src="./fibonacci_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf11/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Fibonacci skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<div id="siteNotice"><div id="centralNotice"></div><!-- CentralNotice --></div>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Fibonacci</span></h1>
+			<div id="bodyContent">
+								<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="http://en.wikipedia.org/wiki/Fibonacci#mw-navigation">navigation</a>, 					<a href="http://en.wikipedia.org/wiki/Fibonacci#p-search">search</a>
+				</div>
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="dablink">For the number sequence, see <a href="http://en.wikipedia.org/wiki/Fibonacci_number" title="Fibonacci number">Fibonacci number</a>.  For the Prison Break character, see <a href="http://en.wikipedia.org/wiki/Otto_Fibonacci" title="Otto Fibonacci" class="mw-redirect">Otto Fibonacci</a>.</div>
+<table class="infobox biography vcard" cellspacing="3" style="border-spacing:3px;width:22em;">
+<tbody><tr>
+<th colspan="2" style="text-align:center;font-size:125%;font-weight:bold;"><span class="fn">Fibonacci</span></th>
+</tr>
+<tr>
+<td colspan="2" style="text-align:center;"><a href="http://en.wikipedia.org/wiki/File:Fibonacci.jpg" class="image"><img alt="Fibonacci.jpg" src="./fibonacci_files/Fibonacci.jpg" width="220" height="297" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Fibonacci.jpg/330px-Fibonacci.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/a/a2/Fibonacci.jpg 2x"></a><br>
+<div>Portrait by unknown artist</div>
+</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Born</th>
+<td>c. 1170</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Died</th>
+<td>c. 1250 (aged around 80)</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Nationality</th>
+<td class="category">Italian</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Known&nbsp;for</th>
+<td><a href="http://en.wikipedia.org/wiki/Fibonacci_number" title="Fibonacci number">Fibonacci number</a><br>
+Introduction of <a href="http://en.wikipedia.org/wiki/Hindu%E2%80%93Arabic_numeral_system" title="Hindu–Arabic numeral system">digital notation</a> to Europe</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Religion</th>
+<td class="category"><a href="http://en.wikipedia.org/wiki/Catholic" title="Catholic" class="mw-redirect">Catholic</a></td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Parents</th>
+<td>Guglielmo Bonacci</td>
+</tr>
+</tbody></table>
+<p><b>Leonardo Pisano Bigollo</b> (c. 1170 – c. 1250)<sup id="cite_ref-1" class="reference"><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_note-1"><span>[</span>1<span>]</span></a></sup>&nbsp;– known as <b>Fibonacci</b>, and also <b>Leonardo of Pisa</b>, <b>Leonardo Pisano</b>, <b>Leonardo Bonacci</b>, <b>Leonardo Fibonacci</b>&nbsp;– was an <a href="http://en.wikipedia.org/wiki/Italy" title="Italy">Italian</a> <a href="http://en.wikipedia.org/wiki/Mathematician" title="Mathematician">mathematician</a>, considered by some "the most talented western mathematician of the <a href="http://en.wikipedia.org/wiki/Middle_Ages" title="Middle Ages">Middle Ages</a>."<sup id="cite_ref-2" class="reference"><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_note-2"><span>[</span>2<span>]</span></a></sup></p>
+<p>Fibonacci is best known to the modern world for<sup id="cite_ref-3" class="reference"><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_note-3"><span>[</span>3<span>]</span></a></sup> the spreading of the <a href="http://en.wikipedia.org/wiki/Hindu%E2%80%93Arabic_numeral_system" title="Hindu–Arabic numeral system">Hindu–Arabic numeral system</a> in <a href="http://en.wikipedia.org/wiki/Europe" title="Europe">Europe</a>, primarily through his composition in 1202 of <i><a href="http://en.wikipedia.org/wiki/Liber_Abaci" title="Liber Abaci">Liber Abaci</a></i> (<i>Book of Calculation</i>), and for a number <a href="http://en.wikipedia.org/wiki/Sequence" title="Sequence">sequence</a> named the <a href="http://en.wikipedia.org/wiki/Fibonacci_numbers" title="Fibonacci numbers" class="mw-redirect">Fibonacci numbers</a> after him, which he did not discover but used as an example in the <i>Liber Abaci</i>.<sup id="cite_ref-4" class="reference"><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_note-4"><span>[</span>4<span>]</span></a></sup></p>
+<p></p>
+<div id="toc" class="toc">
+<div id="toctitle">
+<h2>Contents</h2>
+<span class="toctoggle">&nbsp;[<a href="http://en.wikipedia.org/wiki/Fibonacci#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="http://en.wikipedia.org/wiki/Fibonacci#Life"><span class="tocnumber">1</span> <span class="toctext">Life</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikipedia.org/wiki/Fibonacci#Liber_Abaci"><span class="tocnumber">2</span> <span class="toctext"><i>Liber Abaci</i></span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikipedia.org/wiki/Fibonacci#Fibonacci_sequence"><span class="tocnumber">3</span> <span class="toctext">Fibonacci sequence</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="http://en.wikipedia.org/wiki/Fibonacci#Works"><span class="tocnumber">4</span> <span class="toctext">Works</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="http://en.wikipedia.org/wiki/Fibonacci#Legacy"><span class="tocnumber">5</span> <span class="toctext">Legacy</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="http://en.wikipedia.org/wiki/Fibonacci#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="http://en.wikipedia.org/wiki/Fibonacci#Notes"><span class="tocnumber">7</span> <span class="toctext">Notes</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="http://en.wikipedia.org/wiki/Fibonacci#References"><span class="tocnumber">8</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="http://en.wikipedia.org/wiki/Fibonacci#External_links"><span class="tocnumber">9</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+<p></p>
+<h2><span class="mw-headline" id="Life">Life</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Fibonacci&action=edit&section=1" title="Edit section: Life">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Fibonacci was born around 1170 to Guglielmo Bonacci, a wealthy Italian merchant. Guglielmo directed a trading post (by some accounts he was the consul for Pisa) in <a href="http://en.wikipedia.org/wiki/Bejaia" title="Bejaia" class="mw-redirect">Bugia</a>, a port east of <a href="http://en.wikipedia.org/wiki/Algiers" title="Algiers">Algiers</a> in the <a href="http://en.wikipedia.org/wiki/Almohad_dynasty" title="Almohad dynasty" class="mw-redirect">Almohad dynasty</a>'s sultanate in <a href="http://en.wikipedia.org/wiki/North_Africa" title="North Africa">North Africa</a> (now <a href="http://en.wikipedia.org/wiki/B%C3%A9ja%C3%AFa" title="Béjaïa">Béjaïa</a>, <a href="http://en.wikipedia.org/wiki/Algeria" title="Algeria">Algeria</a>). As a young boy, Fibonacci traveled with him to help; it was there he learned about the Hindu–Arabic numeral system.<sup id="cite_ref-5" class="reference"><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_note-5"><span>[</span>5<span>]</span></a></sup></p>
+<p>Alternatively, according to Tobias Dantzig, his father was "a lowly shipping clerk nicknamed Bonaccio, which, in the idiom of the period, meant 'simpleton'... hence Fibonacci, the 'son of a simpleton.' ".<sup id="cite_ref-6" class="reference"><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_note-6"><span>[</span>6<span>]</span></a></sup></p>
+<p>Recognizing that arithmetic with Hindu–Arabic numerals is simpler and more efficient than with <a href="http://en.wikipedia.org/wiki/Roman_numerals" title="Roman numerals">Roman numerals</a>, Fibonacci travelled throughout the Mediterranean world to study under the leading <a href="http://en.wikipedia.org/wiki/Arab" title="Arab" class="mw-redirect">Arab</a> mathematicians of the time. Leonardo returned from his travels around 1200. In 1202, at the age of 32, he recorded what he had learned in <i><a href="http://en.wikipedia.org/wiki/Liber_Abaci" title="Liber Abaci">Liber Abaci</a></i> (<i>Book of Abacus</i> or <i>Book of Calculation</i>), and thereby popularized Hindu–Arabic numerals in Europe.</p>
+<p>Fibonacci became an amicable guest of the Emperor <a href="http://en.wikipedia.org/wiki/Frederick_II,_Holy_Roman_Emperor" title="Frederick II, Holy Roman Emperor">Frederick II</a>, who enjoyed mathematics and science. In 1240 the <a href="http://en.wikipedia.org/wiki/Republic_of_Pisa" title="Republic of Pisa">Republic of Pisa</a> honored Fibonacci, referred to as Leonardo Bigollo,<sup id="cite_ref-7" class="reference"><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_note-7"><span>[</span>7<span>]</span></a></sup> by granting him a salary.</p>
+<p>Fibonacci died in Pisa, but the date of his death is unknown, with estimates ranging from 1240<sup id="cite_ref-8" class="reference"><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_note-8"><span>[</span>8<span>]</span></a></sup> to 1250.<sup id="cite_ref-9" class="reference"><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_note-9"><span>[</span>9<span>]</span></a></sup></p>
+<h2><span class="mw-headline" id="Liber_Abaci"><i>Liber Abaci</i></span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Fibonacci&action=edit&section=2" title="Edit section: Liber Abaci">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="thumb tright">
+<div class="thumbinner" style="width:222px;"><a href="http://en.wikipedia.org/wiki/File:Liber_abbaci_magliab_f124r.jpg" class="image"><img alt="" src="./fibonacci_files/440px-Liber_abbaci_magliab_f124r.jpg" width="220" height="336" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/0/04/Liber_abbaci_magliab_f124r.jpg/330px-Liber_abbaci_magliab_f124r.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/0/04/Liber_abbaci_magliab_f124r.jpg/440px-Liber_abbaci_magliab_f124r.jpg 2x"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/File:Liber_abbaci_magliab_f124r.jpg" class="internal" title="Enlarge"><img src="./fibonacci_files/magnify-clip.png" width="15" height="11" alt=""></a></div>
+A page of Fibonacci's <i><a href="http://en.wikipedia.org/wiki/Liber_Abaci" title="Liber Abaci">Liber Abaci</a></i> from the <a href="http://en.wikipedia.org/wiki/National_Central_Library_(Florence)" title="National Central Library (Florence)">Biblioteca Nazionale di Firenze</a> showing (in box on right) the Fibonacci sequence with the position in the sequence labeled in Roman numerals and the value in Hindu-Arabic numerals.</div>
+</div>
+</div>
+<div class="rellink relarticle mainarticle">Main article: <a href="http://en.wikipedia.org/wiki/Liber_Abaci" title="Liber Abaci">Liber Abaci</a></div>
+<p>In the <i>Liber Abaci</i> (1202), Fibonacci introduced the so-called <i>modus Indorum</i> (method of the Indians), today known as Arabic numerals (Sigler 2003; Grimm 1973). The book advocated numeration with the digits 0–9 and <a href="http://en.wikipedia.org/wiki/Place_value" title="Place value" class="mw-redirect">place value</a>. The book showed the practical importance of the new <a href="http://en.wikipedia.org/wiki/Numeral_system" title="Numeral system">numeral system</a> by applying it to commercial <a href="http://en.wikipedia.org/wiki/Bookkeeping" title="Bookkeeping">bookkeeping</a>, conversion of weights and measures, the calculation of interest, money-changing, and other applications. The book was well received throughout educated Europe and had a profound impact on European thought.</p>
+<h2><span class="mw-headline" id="Fibonacci_sequence">Fibonacci sequence</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Fibonacci&action=edit&section=3" title="Edit section: Fibonacci sequence">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="rellink relarticle mainarticle">Main article: <a href="http://en.wikipedia.org/wiki/Fibonacci_number" title="Fibonacci number">Fibonacci number</a></div>
+<p><i>Liber Abaci</i> also posed, and solved, a problem involving the growth of a population of rabbits based on idealized assumptions. The solution, generation by generation, was a sequence of numbers later known as <a href="http://en.wikipedia.org/wiki/Fibonacci_number" title="Fibonacci number">Fibonacci numbers</a>. The number sequence was known to Indian mathematicians as early as the 6th century,<sup id="cite_ref-10" class="reference"><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_note-10"><span>[</span>10<span>]</span></a></sup><sup id="cite_ref-11" class="reference"><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_note-11"><span>[</span>11<span>]</span></a></sup><sup id="cite_ref-12" class="reference"><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_note-12"><span>[</span>12<span>]</span></a></sup> but it was Fibonacci's <i>Liber Abaci</i> that introduced it to the West.</p>
+<p>In the Fibonacci sequence of numbers, each number is the sum of the previous two numbers. Fibonacci began the sequence not with 0, 1, 1, 2, as modern mathematicians do but with 1, 2, etc. He carried the calculation up to the twelfth place (fourteenth in modern counting), that is 233, though another manuscript carries it to the next place: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377.<sup id="cite_ref-13" class="reference"><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_note-13"><span>[</span>13<span>]</span></a></sup><sup id="cite_ref-14" class="reference"><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_note-14"><span>[</span>14<span>]</span></a></sup> Fibonacci did not speak about the <a href="http://en.wikipedia.org/wiki/Golden_ratio" title="Golden ratio">golden ratio</a> as the limit of the ratio of consecutive numbers in this sequence.</p>
+<h2><span class="mw-headline" id="Works">Works</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Fibonacci&action=edit&section=4" title="Edit section: Works">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Liber_Abaci" title="Liber Abaci">Liber Abaci</a> (1202), a book on calculations (English translation by Laurence Sigler, Springer, 2002)</li>
+<li>Practica Geometriae (1220), a compendium of techniques in <a href="http://en.wikipedia.org/wiki/Surveying" title="Surveying">surveying</a>, the <a href="http://en.wikipedia.org/wiki/Measurement" title="Measurement">measurement</a> and partition of <a href="http://en.wikipedia.org/wiki/Area" title="Area">areas</a> and <a href="http://en.wikipedia.org/wiki/Volume" title="Volume">volumes</a>, and other topics in practical <a href="http://en.wikipedia.org/wiki/Geometry" title="Geometry">geometry</a> (English translation by Barnabas Hughes, Springer, 2008).</li>
+<li><a href="http://en.wikipedia.org/wiki/Flos" title="Flos">Flos</a> (1225), solutions to problems posed by Johannes of Palermo</li>
+<li>Liber quadratorum ("<a href="http://en.wikipedia.org/wiki/The_Book_of_Squares" title="The Book of Squares">The Book of Squares</a>"), on <a href="http://en.wikipedia.org/wiki/Diophantine_equation" title="Diophantine equation">Diophantine equations</a>, dedicated to <a href="http://en.wikipedia.org/wiki/Frederick_II,_Holy_Roman_Emperor" title="Frederick II, Holy Roman Emperor">Emperor Frederick II</a>. See in particular the <a href="http://en.wikipedia.org/wiki/Brahmagupta%E2%80%93Fibonacci_identity" title="Brahmagupta–Fibonacci identity">Brahmagupta–Fibonacci identity</a>.</li>
+<li>Di minor guisa (on commercial arithmetic; lost)</li>
+<li>Commentary on Book X of <a href="http://en.wikipedia.org/wiki/Euclid" title="Euclid">Euclid</a>'s Elements (lost)</li>
+</ul>
+<div class="thumb tright">
+<div class="thumbinner" style="width:182px;"><a href="http://en.wikipedia.org/wiki/File:Leonardo_da_Pisa.jpg" class="image"><img alt="" src="./fibonacci_files/360px-Leonardo_da_Pisa.jpg" width="180" height="271" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Leonardo_da_Pisa.jpg/270px-Leonardo_da_Pisa.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Leonardo_da_Pisa.jpg/360px-Leonardo_da_Pisa.jpg 2x"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/File:Leonardo_da_Pisa.jpg" class="internal" title="Enlarge"><img src="./fibonacci_files/magnify-clip.png" width="15" height="11" alt=""></a></div>
+19th century statue of Fibonacci in Camposanto, Pisa.</div>
+</div>
+</div>
+<h2><span class="mw-headline" id="Legacy">Legacy</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Fibonacci&action=edit&section=5" title="Edit section: Legacy">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>In the 19th century, a statue of Fibonacci was constructed and erected in Pisa. Today it is located in the western gallery of the <a href="http://en.wikipedia.org/wiki/Camposanto_Monumentale" title="Camposanto Monumentale">Camposanto</a>, historical cemetery on the <a href="http://en.wikipedia.org/wiki/Piazza_dei_Miracoli" title="Piazza dei Miracoli">Piazza dei Miracoli</a>.<sup id="cite_ref-15" class="reference"><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_note-15"><span>[</span>15<span>]</span></a></sup></p>
+<p>There are many mathematical <a href="http://en.wikipedia.org/wiki/List_of_things_named_after_Fibonacci" title="List of things named after Fibonacci">concepts named after Fibonacci</a>, for instance because of a connection to the Fibonacci numbers. Examples include the <a href="http://en.wikipedia.org/wiki/Brahmagupta%E2%80%93Fibonacci_identity" title="Brahmagupta–Fibonacci identity">Brahmagupta–Fibonacci identity</a>, the <a href="http://en.wikipedia.org/wiki/Fibonacci_search_technique" title="Fibonacci search technique">Fibonacci search technique</a>, and the <a href="http://en.wikipedia.org/wiki/Pisano_period" title="Pisano period">Pisano period</a>. Beyond mathematics, namesakes of Fibonacci include the asteroid <a href="http://en.wikipedia.org/wiki/6765_Fibonacci" title="6765 Fibonacci">6765 Fibonacci</a> and the art rock band <a href="http://en.wikipedia.org/wiki/The_Fibonaccis" title="The Fibonaccis">The Fibonaccis</a>.</p>
+<h2><span class="mw-headline" id="See_also">See also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Fibonacci&action=edit&section=6" title="Edit section: See also">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Fibonacci_numbers_in_popular_culture" title="Fibonacci numbers in popular culture">Fibonacci numbers in popular culture</a></li>
+</ul>
+<h2><span class="mw-headline" id="Notes">Notes</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Fibonacci&action=edit&section=7" title="Edit section: Notes">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="reflist references-column-width" style="-moz-column-width: 30em; -webkit-column-width: 30em; column-width: 30em; list-style-type: decimal;">
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_ref-1"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web"><a rel="nofollow" class="external text" href="http://library.thinkquest.org/27890/biographies1.html">"The Fibonacci Series – Biographies – Leonardo Fibonacci (ca.1175 – ca.1240)"</a>. Library.thinkquest.org<span class="reference-accessdate">. Retrieved 2010-08-02</span>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AFibonacci&amp;rft.btitle=The+Fibonacci+Series+%E2%80%93+Biographies+%E2%80%93+Leonardo+Fibonacci+%28ca.1175+%E2%80%93+ca.1240%29&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Flibrary.thinkquest.org%2F27890%2Fbiographies1.html&amp;rft.pub=Library.thinkquest.org&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_ref-2"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><a href="http://en.wikipedia.org/wiki/Howard_Eves" title="Howard Eves">Howard Eves</a>. <i>An Introduction to the History of Mathematics</i>. Brooks Cole, 1990: <a href="http://en.wikipedia.org/wiki/Special:BookSources/0030295580" class="internal mw-magiclink-isbn">ISBN 0-03-029558-0</a> (6th ed.), p 261.</span></li>
+<li id="cite_note-3"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_ref-3"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://www.britannica.com/eb/article-4153/Leonardo-Pisano">Leonardo Pisano – page 3: "Contributions to number theory"</a>. <a href="http://en.wikipedia.org/wiki/Encyclop%C3%A6dia_Britannica" title="Encyclopædia Britannica">Encyclopædia Britannica</a> Online, 2006. Retrieved 18 September 2006.</span></li>
+<li id="cite_note-4"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_ref-4"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text">Parmanand Singh. "Acharya Hemachandra and the (so called) Fibonacci Numbers". <i>Math</i>. Ed. Siwan , 20(1):28–30, 1986. ISSN 0047-6269]</span></li>
+<li id="cite_note-5"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_ref-5"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web">Dr R Knott: fibandphi (AT) ronknott DOT com. <a rel="nofollow" class="external text" href="http://www.maths.surrey.ac.uk/hosted-sites/R.Knott/Fibonacci/fibBio.html">"Who was Fibonacci?"</a>. Maths.surrey.ac.uk<span class="reference-accessdate">. Retrieved 2010-08-02</span>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AFibonacci&amp;rft.au=Dr+R+Knott%3A+fibandphi+%28AT%29+ronknott+DOT+com&amp;rft.aulast=Dr+R+Knott%3A+fibandphi+%28AT%29+ronknott+DOT+com&amp;rft.btitle=Who+was+Fibonacci%3F&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fwww.maths.surrey.ac.uk%2Fhosted-sites%2FR.Knott%2FFibonacci%2FfibBio.html&amp;rft.pub=Maths.surrey.ac.uk&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-6"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_ref-6"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span id="CITEREFDantzig1983" class="citation">Dantzig, Tobias (1983), <i>Mathematics in Ancient Greece</i>, Dover Publications,Inc., p.&nbsp;113, <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/0-486-45347-2" title="Special:BookSources/0-486-45347-2">0-486-45347-2</a></span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AFibonacci&amp;rft.au=Dantzig%2C+Tobias&amp;rft.aufirst=Tobias&amp;rft.aulast=Dantzig&amp;rft.btitle=Mathematics+in+Ancient+Greece&amp;rft.date=1983&amp;rft.genre=book&amp;rft.isbn=0-486-45347-2&amp;rft.pages=113&amp;rft.pub=Dover+Publications%2CInc.&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span>.</span></li>
+<li id="cite_note-7"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_ref-7"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text">See the incipit of <i><a href="http://en.wikipedia.org/wiki/Flos" title="Flos">Flos</a></i>: "Incipit flos Leonardi <b>bigolli</b> pisani..." (quoted in the <a href="http://en.wikipedia.org/wiki/MS_Word" title="MS Word" class="mw-redirect">MS Word</a> document <a rel="nofollow" class="external text" href="http://www.g4g4.com/MyCD5/SOURCES/SOURCE1.DOC"><i>Sources in Recreational Mathematics: An Annotated Bibliography</i></a> by David Singmaster, 18 March 2004 – emphasis added), in English: "Here starts 'the flower' by Leonardo the wanderer of Pisa..."<br>
+The basic meanings of "bigollo" appear to be "good-for-nothing" and "traveller" (so it could be translated by "vagrant", "vagabond" or "tramp"). A. F. Horadam contends a connotation of "bigollo" is "absent-minded" (see first footnote of <a rel="nofollow" class="external text" href="http://faculty.evansville.edu/ck6/bstud/fibo.html">"Eight hundred years young"</a>), which is also one of the connotations of the English word "wandering". The translation "the wanderer" in the quote above tries to combine the various connotations of the word "bigollo" in a single English word.</span></li>
+<li id="cite_note-8"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_ref-8"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span id="CITEREFKoshy2011" class="citation">Koshy, Thomas (2011), <a rel="nofollow" class="external text" href="http://books.google.com/books?id=1iDKKceqD2sC&pg=PA3"><i>Fibonacci and Lucas Numbers with Applications</i></a>, John Wiley &amp; Sons, p.&nbsp;3, <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/9781118031315" title="Special:BookSources/9781118031315">9781118031315</a></span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AFibonacci&amp;rft.aufirst=Thomas&amp;rft.au=Koshy%2C+Thomas&amp;rft.aulast=Koshy&amp;rft.btitle=Fibonacci+and+Lucas+Numbers+with+Applications&amp;rft.date=2011&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fbooks.google.com%2Fbooks%3Fid%3D1iDKKceqD2sC%26pg%3DPA3&amp;rft.isbn=9781118031315&amp;rft.pages=3&amp;rft.pub=John+Wiley+%26+Sons&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span>.</span></li>
+<li id="cite_note-9"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_ref-9"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span id="CITEREFTanton2005" class="citation">Tanton, James Stuart (2005), <a rel="nofollow" class="external text" href="http://books.google.com/books?id=MfKKMSuthacC&pg=PA192"><i>Encyclopédia of Mathematics</i></a>, Infobase Publishing, p.&nbsp;192, <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/9780816051243" title="Special:BookSources/9780816051243">9780816051243</a></span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AFibonacci&amp;rft.aufirst=James+Stuart&amp;rft.aulast=Tanton&amp;rft.au=Tanton%2C+James+Stuart&amp;rft.btitle=Encyclop%C3%A9dia+of+Mathematics&amp;rft.date=2005&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fbooks.google.com%2Fbooks%3Fid%3DMfKKMSuthacC%26pg%3DPA192&amp;rft.isbn=9780816051243&amp;rft.pages=192&amp;rft.pub=Infobase+Publishing&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span>.</span></li>
+<li id="cite_note-10"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_ref-10"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span class="citation book">Susantha Goonatilake (1998). <a rel="nofollow" class="external text" href="http://books.google.com/?id=SI5ip95BbgEC&pg=PA126&dq=Virahanka+Fibonacci"><i>Toward a Global Science</i></a>. Indiana University Press. p.&nbsp;126. <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/978-0-253-33388-9" title="Special:BookSources/978-0-253-33388-9">978-0-253-33388-9</a>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AFibonacci&amp;rft.aulast=Susantha+Goonatilake&amp;rft.au=Susantha+Goonatilake&amp;rft.btitle=Toward+a+Global+Science&amp;rft.date=1998&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fbooks.google.com%2F%3Fid%3DSI5ip95BbgEC%26pg%3DPA126%26dq%3DVirahanka%2BFibonacci&amp;rft.isbn=978-0-253-33388-9&amp;rft.pages=126&amp;rft.pub=Indiana+University+Press&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-11"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_ref-11"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span class="citation book">Donald Knuth (2006). <a rel="nofollow" class="external text" href="http://books.google.com/?id=56LNfE2QGtYC&pg=PA50&dq=rhythms"><i>The Art of Computer Programming: Generating All Trees – History of Combinatorial Generation; Volume 4</i></a>. Addison-Wesley. p.&nbsp;50. <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/978-0-321-33570-8" title="Special:BookSources/978-0-321-33570-8">978-0-321-33570-8</a>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AFibonacci&amp;rft.au=Donald+Knuth&amp;rft.aulast=Donald+Knuth&amp;rft.btitle=The+Art+of+Computer+Programming%3A+Generating+All+Trees+%E2%80%93+History+of+Combinatorial+Generation%3B+Volume+4&amp;rft.date=2006&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fbooks.google.com%2F%3Fid%3D56LNfE2QGtYC%26pg%3DPA50%26dq%3Drhythms&amp;rft.isbn=978-0-321-33570-8&amp;rft.pages=50&amp;rft.pub=Addison-Wesley&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-12"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_ref-12"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text">Rachel W. Hall. <a rel="nofollow" class="external text" href="http://www.sju.edu/~rhall/mathforpoets.pdf">Math for poets and drummers</a>. <i>Math Horizons</i> <b>15</b> (2008) 10–11.</span></li>
+<li id="cite_note-13"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_ref-13"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://oeis.org/A000045">Fibonacci Numbers</a> from <a rel="nofollow" class="external text" href="http://oeis.org/">The On-Line Encyclopedia of Integer Sequences</a>.</span></li>
+<li id="cite_note-14"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_ref-14"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://books.google.com/books?id=gvRFAAAAcAAJ&printsec=frontcover&dq=liber+abbaci&hl=en&sa=X&ei=MrGzUfC8LYS-0AG2pYCwDg&ved=0CDAQ6AEwAA#v=snippet&q=3%205%208%2013%2021%2034&f=false"><i>Il Liber Abbaci</i>, 1857 edition, p. 231. Online at</a></span></li>
+<li id="cite_note-15"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Fibonacci#cite_ref-15"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web"><a rel="nofollow" class="external text" href="http://www.epsilones.com/documentos/d-fibonacci.html#fibonacci-ingles">"Fibonacci's Statue in Pisa"</a>. Epsilones.com<span class="reference-accessdate">. Retrieved 2010-08-02</span>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AFibonacci&amp;rft.btitle=Fibonacci%27s+Statue+in+Pisa&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fwww.epsilones.com%2Fdocumentos%2Fd-fibonacci.html%23fibonacci-ingles&amp;rft.pub=Epsilones.com&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+</ol>
+</div>
+<h2><span class="mw-headline" id="References">References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Fibonacci&action=edit&section=8" title="Edit section: References">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li>Goetzmann, William N. and Rouwenhorst, K.Geert, <i>The Origins of Value: The Financial Innovations That Created Modern Capital Markets</i> (2005, Oxford University Press Inc, USA), <a href="http://en.wikipedia.org/wiki/Special:BookSources/0195175719" class="internal mw-magiclink-isbn">ISBN 0-19-517571-9</a>.</li>
+<li>Grimm, R. E., "<a rel="nofollow" class="external text" href="http://www.fq.math.ca/Scanned/11-1/grimm.pdf">The Autobiography of Leonardo Pisano</a>", <a href="http://en.wikipedia.org/wiki/Fibonacci_Quarterly" title="Fibonacci Quarterly">Fibonacci Quarterly</a>, Vol. 11, No. 1, February 1973, pp.&nbsp;99–104.</li>
+<li>A. F. Horadam, "Eight hundred years young," <i>The Australian Mathematics Teacher</i> 31 (1975) 123–134.</li>
+</ul>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Fibonacci&action=edit&section=9" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://library.thinkquest.org/27890/biographies1.html">Fibonacci Biography</a></li>
+<li><a rel="nofollow" class="external text" href="http://www.mcs.surrey.ac.uk/Personal/R.Knott/Fibonacci/fibBio.html">Who was Fibonacci?</a> by Ron Knott.</li>
+<li>Goetzmann, William N., <i><a rel="nofollow" class="external text" href="http://papers.ssrn.com/sol3/papers.cfm?abstract_id=461740">Fibonacci and the Financial Revolution</a></i> (October 23, 2003), <a href="http://en.wikipedia.org/wiki/Yale_School_of_Management" title="Yale School of Management">Yale School of Management</a> International Center for Finance Working Paper No. 03-28</li>
+<li><a rel="nofollow" class="external text" href="http://mathdl.maa.org/convergence/1/?pa=content&sa=viewDocument&nodeId=630&bodyId=1002">Fibonacci</a> at <a rel="nofollow" class="external text" href="http://mathdl.maa.org/convergence/1/">Convergence</a></li>
+<li><span class="citation"><a href="http://en.wikipedia.org/wiki/John_J._O%27Connor_(mathematician)" title="John J. O&#39;Connor (mathematician)" class="mw-redirect">O'Connor, John J.</a>; <a href="http://en.wikipedia.org/wiki/Edmund_F._Robertson" title="Edmund F. Robertson">Robertson, Edmund F.</a>, <a rel="nofollow" class="external text" href="http://www-history.mcs.st-andrews.ac.uk/Biographies/Fibonacci.html">"Leonardo Pisano Fibonacci"</a>, <i><a href="http://en.wikipedia.org/wiki/MacTutor_History_of_Mathematics_archive" title="MacTutor History of Mathematics archive">MacTutor History of Mathematics archive</a></i>, <a href="http://en.wikipedia.org/wiki/University_of_St_Andrews" title="University of St Andrews">University of St Andrews</a></span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AFibonacci&amp;rft.atitle=MacTutor+History+of+Mathematics+archive&amp;rft.aufirst=John+J.&amp;rft.aulast=O%27Connor&amp;rft.au=O%27Connor%2C+John+J.&amp;rft.au=Robertson%2C+Edmund+F.&amp;rft.btitle=Leonardo+Pisano+Fibonacci&amp;rft.genre=bookitem&amp;rft_id=http%3A%2F%2Fwww-history.mcs.st-andrews.ac.uk%2FBiographies%2FFibonacci.html&amp;rft.pub=University+of+St+Andrews&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span>.</li>
+</ul>
+<table id="persondata" class="persondata" style="border:1px solid #aaa; display:none; speak:none;">
+<tbody><tr>
+<th colspan="2"><a href="http://en.wikipedia.org/wiki/Wikipedia:Persondata" title="Wikipedia:Persondata">Persondata</a></th>
+</tr>
+<tr>
+<td class="persondata-label" style="color:#aaa;">Name</td>
+<td>Leonardo of Pisa</td>
+</tr>
+<tr>
+<td class="persondata-label" style="color:#aaa;">Alternative names</td>
+<td>Fibonacci;Pisano, Leonardo; Bonacci, Leonardo; Fibonacci, Leonardo</td>
+</tr>
+<tr>
+<td class="persondata-label" style="color:#aaa;">Short description</td>
+<td>Italian mathematician and writer</td>
+</tr>
+<tr>
+<td class="persondata-label" style="color:#aaa;">Date of birth</td>
+<td>c. 1170</td>
+</tr>
+<tr>
+<td class="persondata-label" style="color:#aaa;">Place of birth</td>
+<td><a href="http://en.wikipedia.org/wiki/Pisa" title="Pisa">Pisa</a>, <a href="http://en.wikipedia.org/wiki/Italy" title="Italy">Italy</a></td>
+</tr>
+<tr>
+<td class="persondata-label" style="color:#aaa;">Date of death</td>
+<td>c. 1250</td>
+</tr>
+<tr>
+<td class="persondata-label" style="color:#aaa;">Place of death</td>
+<td><a href="http://en.wikipedia.org/wiki/Pisa" title="Pisa">Pisa</a>, <a href="http://en.wikipedia.org/wiki/Italy" title="Italy">Italy</a></td>
+</tr>
+</tbody></table>
+<p><span id="interwiki-scn-fa"></span></p>
+
+
+<!-- 
+NewPP limit report
+Parsed by mw1186
+CPU time usage: 0.524 seconds
+Real time usage: 0.588 seconds
+Preprocessor visited node count: 1454/1000000
+Preprocessor generated node count: 9065/1500000
+Post‐expand include size: 24108/2048000 bytes
+Template argument size: 1213/2048000 bytes
+Highest expansion depth: 9/40
+Expensive parser function count: 0/500
+Lua time usage: 0.053s
+Lua memory usage: 2.29 MB
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:17949-0!*!0!!en!4!* and timestamp 20140130195652
+ -->
+<noscript>&lt;img src="//en.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /&gt;</noscript></div>								<div class="printfooter">
+				Retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=Fibonacci&oldid=593165624">http://en.wikipedia.org/w/index.php?title=Fibonacci&amp;oldid=593165624</a>"				</div>
+												<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/Help:Category" title="Help:Category">Categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/Category:1250_deaths" title="Category:1250 deaths">1250 deaths</a></li><li><a href="http://en.wikipedia.org/wiki/Category:1170_births" title="Category:1170 births">1170 births</a></li><li><a href="http://en.wikipedia.org/wiki/Category:13th-century_Latin_writers" title="Category:13th-century Latin writers">13th-century Latin writers</a></li><li><a href="http://en.wikipedia.org/wiki/Category:13th-century_Italian_mathematicians" title="Category:13th-century Italian mathematicians">13th-century Italian mathematicians</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Fibonacci_numbers" title="Category:Fibonacci numbers">Fibonacci numbers</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Italian_Roman_Catholics" title="Category:Italian Roman Catholics">Italian Roman Catholics</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Medieval_European_mathematics" title="Category:Medieval European mathematics">Medieval European mathematics</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Number_theorists" title="Category:Number theorists">Number theorists</a></li><li><a href="http://en.wikipedia.org/wiki/Category:People_from_Pisa" title="Category:People from Pisa">People from Pisa</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/Category:Articles_with_hCards" title="Category:Articles with hCards">Articles with hCards</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&returnto=Fibonacci&type=signup">Create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&returnto=Fibonacci" title="You&#39;re encouraged to log in; however, it&#39;s not mandatory. [ctrl-option-o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><span><a href="./fibonacci_files/fibonacci.html" title="View the content page [ctrl-option-c]" accesskey="c">Article</a></span></li>
+					<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/Talk:Fibonacci" title="Discussion about the content page [ctrl-option-t]" accesskey="t">Talk</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label" tabindex="0"><span>Variants</span><a href="http://en.wikipedia.org/wiki/Fibonacci#" tabindex="-1"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="./fibonacci_files/fibonacci.html">Read</a></span></li>
+					<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=Fibonacci&action=edit" title="You can edit this page. 
+Please review your changes before saving. [ctrl-option-e]" accesskey="e">Edit</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=Fibonacci&action=history" title="Past versions of this page [ctrl-option-h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label" tabindex="0"><span>Actions</span><a href="http://en.wikipedia.org/wiki/Fibonacci#" tabindex="-1"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="http://en.wikipedia.org/w/index.php" id="searchform">
+				<div id="simpleSearch">
+						<input name="search" placeholder="Search" title="Search Wikipedia [ctrl-option-f]" accesskey="f" id="searchInput" tabindex="1" autocomplete="off">						<button type="submit" name="button" title="Search Wikipedia for this text" id="searchButton"><img src="./fibonacci_files/search-ltr.png" alt="Search" width="12" height="13"></button>								<input type="hidden" name="title" value="Special:Search">
+		</div>
+	</form>
+</div>
+				</div>
+			</div>
+			<div id="mw-panel" class="collapsible-nav">
+					<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png);" href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page"></a></div>
+				<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label">
+	<h3 id="p-navigation-label">Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page [ctrl-option-z]" accesskey="z">Main page</a></li>
+			<li id="n-contents"><a href="http://en.wikipedia.org/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li>
+			<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li>
+			<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li>
+			<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/Special:Random" title="Load a random article [ctrl-option-x]" accesskey="x">Random article</a></li>
+			<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&utm_medium=sidebar&utm_campaign=C13_en.wikipedia.org&uselang=en" title="Support us">Donate to Wikipedia</a></li>
+			<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="Visit the Wikimedia Shop">Wikimedia Shop</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label">
+	<h3 id="p-interaction-label" tabindex="2"><a href="http://en.wikipedia.org/wiki/Fibonacci#" aria-haspopup="true" aria-controls="p-interaction-list" role="button" aria-pressed="true" aria-expanded="true">Interaction</a></h3>
+	<div class="body" style="display: block;">
+		<ul id="p-interaction-list">
+			<li id="n-help"><a href="http://en.wikipedia.org/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li>
+			<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li>
+			<li id="n-portal"><a href="http://en.wikipedia.org/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+			<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [ctrl-option-r]" accesskey="r">Recent changes</a></li>
+			<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+	<h3 id="p-tb-label" tabindex="3"><a href="http://en.wikipedia.org/wiki/Fibonacci#" aria-haspopup="true" aria-controls="p-tb-list" role="button" aria-pressed="false" aria-expanded="false">Tools</a></h3>
+	<div class="body">
+		<ul id="p-tb-list">
+			<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/Special:WhatLinksHere/Fibonacci" title="List of all English Wikipedia pages containing links to this page [ctrl-option-j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/Special:RecentChangesLinked/Fibonacci" title="Recent changes in pages linked from this page [ctrl-option-k]" accesskey="k">Related changes</a></li>
+			<li id="t-upload"><a href="http://en.wikipedia.org/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [ctrl-option-u]" accesskey="u">Upload file</a></li>
+			<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/Special:SpecialPages" title="A list of all special pages [ctrl-option-q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=Fibonacci&oldid=593165624" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=Fibonacci&action=info">Page information</a></li>
+			<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/Q8763" title="Link to connected data repository item [ctrl-option-g]" accesskey="g">Data item</a></li>
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=Special:Cite&page=Fibonacci&id=593165624" title="Information on how to cite this page">Cite this page</a></li>		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label">
+	<h3 id="p-coll-print_export-label" tabindex="4"><a href="http://en.wikipedia.org/wiki/Fibonacci#" aria-haspopup="true" aria-controls="p-coll-print_export-list" role="button" aria-pressed="false" aria-expanded="false">Print/export</a></h3>
+	<div class="body">
+		<ul id="p-coll-print_export-list">
+			<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&bookcmd=book_creator&referer=Fibonacci">Create a book</a></li>
+			<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&bookcmd=render_article&arttitle=Fibonacci&oldid=593165624&writer=rl">Download as PDF</a></li>
+			<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=Fibonacci&printable=yes" title="Printable version of this page [ctrl-option-p]" accesskey="p">Printable version</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label">
+	<h3 id="p-lang-label" tabindex="5"><a href="http://en.wikipedia.org/wiki/Fibonacci#" aria-haspopup="true" aria-controls="p-lang-list" role="button" aria-pressed="true" aria-expanded="true">Languages</a></h3>
+	<div class="body" style="display: block;">
+		<ul id="p-lang-list">
+			<li class="interlanguage-link interwiki-af"><a href="http://af.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Afrikaans" lang="af" hreflang="af">Afrikaans</a></li>
+			<li class="interlanguage-link interwiki-als"><a href="http://als.wikipedia.org/wiki/Leonardo_Fibonacci" title="Leonardo Fibonacci – Alemannisch" lang="als" hreflang="als">Alemannisch</a></li>
+			<li class="interlanguage-link interwiki-ar"><a href="http://ar.wikipedia.org/wiki/%D9%84%D9%8A%D9%88%D9%86%D8%A7%D8%B1%D8%AF%D9%88_%D9%81%D9%8A%D8%A8%D9%88%D9%86%D8%A7%D8%AA%D8%B4%D9%8A" title="ليوناردو فيبوناتشي – Arabic" lang="ar" hreflang="ar">العربية</a></li>
+			<li class="interlanguage-link interwiki-an"><a href="http://an.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Aragonese" lang="an" hreflang="an">Aragonés</a></li>
+			<li class="interlanguage-link interwiki-az"><a href="http://az.wikipedia.org/wiki/Fibona%C3%A7%C3%A7i" title="Fibonaççi – Azerbaijani" lang="az" hreflang="az">Azərbaycanca</a></li>
+			<li class="interlanguage-link interwiki-ba"><a href="http://ba.wikipedia.org/wiki/%D0%A4%D0%B8%D0%B1%D0%BE%D0%BD%D0%B0%D1%87%D1%87%D0%B8" title="Фибоначчи – Bashkir" lang="ba" hreflang="ba">Башҡортса</a></li>
+			<li class="interlanguage-link interwiki-be"><a href="http://be.wikipedia.org/wiki/%D0%A4%D1%96%D0%B1%D0%B0%D0%BD%D0%B0%D1%87%D1%8B" title="Фібаначы – Belarusian" lang="be" hreflang="be">Беларуская</a></li>
+			<li class="interlanguage-link interwiki-be-x-old"><a href="http://be-x-old.wikipedia.org/wiki/%D0%A4%D1%96%D0%B1%D0%B0%D0%BD%D0%B0%D1%87%D1%87%D1%8B" title="Фібаначчы – беларуская (тарашкевіца)‎" lang="be-x-old" hreflang="be-x-old">Беларуская (тарашкевіца)‎</a></li>
+			<li class="interlanguage-link interwiki-bg"><a href="http://bg.wikipedia.org/wiki/%D0%9B%D0%B5%D0%BE%D0%BD%D0%B0%D1%80%D0%B4%D0%BE_%D0%A4%D0%B8%D0%B1%D0%BE%D0%BD%D0%B0%D1%87%D0%B8" title="Леонардо Фибоначи – Bulgarian" lang="bg" hreflang="bg">Български</a></li>
+			<li class="interlanguage-link interwiki-bs"><a href="http://bs.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Bosnian" lang="bs" hreflang="bs">Bosanski</a></li>
+			<li class="interlanguage-link interwiki-br"><a href="http://br.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Breton" lang="br" hreflang="br">Brezhoneg</a></li>
+			<li class="interlanguage-link interwiki-ca"><a href="http://ca.wikipedia.org/wiki/Leonardo_de_Pisa" title="Leonardo de Pisa – Catalan" lang="ca" hreflang="ca">Català</a></li>
+			<li class="interlanguage-link interwiki-cs"><a href="http://cs.wikipedia.org/wiki/Leonardo_Fibonacci" title="Leonardo Fibonacci – Czech" lang="cs" hreflang="cs">Čeština</a></li>
+			<li class="interlanguage-link interwiki-cy"><a href="http://cy.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Welsh" lang="cy" hreflang="cy">Cymraeg</a></li>
+			<li class="interlanguage-link interwiki-da"><a href="http://da.wikipedia.org/wiki/Leonardo_da_Pisa" title="Leonardo da Pisa – Danish" lang="da" hreflang="da">Dansk</a></li>
+			<li class="interlanguage-link interwiki-de"><a href="http://de.wikipedia.org/wiki/Leonardo_Fibonacci" title="Leonardo Fibonacci – German" lang="de" hreflang="de">Deutsch</a></li>
+			<li class="interlanguage-link interwiki-et"><a href="http://et.wikipedia.org/wiki/Leonardo_Fibonacci" title="Leonardo Fibonacci – Estonian" lang="et" hreflang="et">Eesti</a></li>
+			<li class="interlanguage-link interwiki-el"><a href="http://el.wikipedia.org/wiki/%CE%9B%CE%B5%CE%BF%CE%BD%CE%AC%CF%81%CE%BD%CF%84%CE%BF_%CF%84%CE%B7%CF%82_%CE%A0%CE%AF%CE%B6%CE%B1%CF%82" title="Λεονάρντο της Πίζας – Greek" lang="el" hreflang="el">Ελληνικά</a></li>
+			<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/Leonardo_de_Pisa" title="Leonardo de Pisa – Spanish" lang="es" hreflang="es">Español</a></li>
+			<li class="interlanguage-link interwiki-eo"><a href="http://eo.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Esperanto" lang="eo" hreflang="eo">Esperanto</a></li>
+			<li class="interlanguage-link interwiki-eu"><a href="http://eu.wikipedia.org/wiki/Leonardo_Pisano" title="Leonardo Pisano – Basque" lang="eu" hreflang="eu">Euskara</a></li>
+			<li class="interlanguage-link interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%D9%84%D8%A6%D9%88%D9%86%D8%A7%D8%B1%D8%AF%D9%88_%D9%81%DB%8C%D8%A8%D9%88%D9%86%D8%A7%D8%AA%DA%86%DB%8C" title="لئوناردو فیبوناتچی – Persian" lang="fa" hreflang="fa">فارسی</a></li>
+			<li class="interlanguage-link interwiki-hif"><a href="http://hif.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Fiji Hindi" lang="hif" hreflang="hif">Fiji Hindi</a></li>
+			<li class="interlanguage-link interwiki-fr"><a href="http://fr.wikipedia.org/wiki/Leonardo_Fibonacci" title="Leonardo Fibonacci – French" lang="fr" hreflang="fr">Français</a></li>
+			<li class="interlanguage-link interwiki-ga"><a href="http://ga.wikipedia.org/wiki/Leonardo_Fibonacci" title="Leonardo Fibonacci – Irish" lang="ga" hreflang="ga">Gaeilge</a></li>
+			<li class="interlanguage-link interwiki-gl"><a href="http://gl.wikipedia.org/wiki/Leonardo_Fibonacci" title="Leonardo Fibonacci – Galician" lang="gl" hreflang="gl">Galego</a></li>
+			<li class="interlanguage-link interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%EB%A0%88%EC%98%A4%EB%82%98%EB%A5%B4%EB%8F%84_%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98" title="레오나르도 피보나치 – Korean" lang="ko" hreflang="ko">한국어</a></li>
+			<li class="interlanguage-link interwiki-hy"><a href="http://hy.wikipedia.org/wiki/%D5%96%D5%AB%D5%A2%D5%B8%D5%B6%D5%A1%D5%B9%D5%AB" title="Ֆիբոնաչի – Armenian" lang="hy" hreflang="hy">Հայերեն</a></li>
+			<li class="interlanguage-link interwiki-hi"><a href="http://hi.wikipedia.org/wiki/%E0%A4%AB%E0%A4%BC%E0%A4%BF%E0%A4%AC%E0%A5%8B%E0%A4%A8%E0%A5%8D%E0%A4%A8%E0%A4%BE%E0%A4%9A%E0%A5%80" title="फ़िबोन्नाची – Hindi" lang="hi" hreflang="hi">हिन्दी</a></li>
+			<li class="interlanguage-link interwiki-hr"><a href="http://hr.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Croatian" lang="hr" hreflang="hr">Hrvatski</a></li>
+			<li class="interlanguage-link interwiki-ilo"><a href="http://ilo.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Iloko" lang="ilo" hreflang="ilo">Ilokano</a></li>
+			<li class="interlanguage-link interwiki-id"><a href="http://id.wikipedia.org/wiki/Leonardo_da_Pisa" title="Leonardo da Pisa – Indonesian" lang="id" hreflang="id">Bahasa Indonesia</a></li>
+			<li class="interlanguage-link interwiki-is"><a href="http://is.wikipedia.org/wiki/Leonardo_Pisano" title="Leonardo Pisano – Icelandic" lang="is" hreflang="is">Íslenska</a></li>
+			<li class="interlanguage-link interwiki-it"><a href="http://it.wikipedia.org/wiki/Leonardo_Fibonacci" title="Leonardo Fibonacci – Italian" lang="it" hreflang="it">Italiano</a></li>
+			<li class="interlanguage-link interwiki-he"><a href="http://he.wikipedia.org/wiki/%D7%A4%D7%99%D7%91%D7%95%D7%A0%D7%90%D7%A6%27%D7%99" title="פיבונאצ&#39;י – Hebrew" lang="he" hreflang="he">עברית</a></li>
+			<li class="interlanguage-link interwiki-ka"><a href="http://ka.wikipedia.org/wiki/%E1%83%A4%E1%83%98%E1%83%91%E1%83%9D%E1%83%9C%E1%83%90%E1%83%A9%E1%83%98" title="ფიბონაჩი – Georgian" lang="ka" hreflang="ka">ქართული</a></li>
+			<li class="interlanguage-link interwiki-kk"><a href="http://kk.wikipedia.org/wiki/%D0%A4%D0%B8%D0%B1%D0%BE%D0%BD%D0%B0%D1%87%D1%87%D0%B8" title="Фибоначчи – Kazakh" lang="kk" hreflang="kk">Қазақша</a></li>
+			<li class="interlanguage-link interwiki-sw"><a href="http://sw.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Swahili" lang="sw" hreflang="sw">Kiswahili</a></li>
+			<li class="interlanguage-link interwiki-ht"><a href="http://ht.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Haitian" lang="ht" hreflang="ht">Kreyòl ayisyen</a></li>
+			<li class="interlanguage-link interwiki-la"><a href="http://la.wikipedia.org/wiki/Leonardus_Pisanus" title="Leonardus Pisanus – Latin" lang="la" hreflang="la">Latina</a></li>
+			<li class="interlanguage-link interwiki-lv"><a href="http://lv.wikipedia.org/wiki/Fibona%C4%8Di" title="Fibonači – Latvian" lang="lv" hreflang="lv">Latviešu</a></li>
+			<li class="interlanguage-link interwiki-lt"><a href="http://lt.wikipedia.org/wiki/Leonardas_Fibona%C4%8Dis" title="Leonardas Fibonačis – Lithuanian" lang="lt" hreflang="lt">Lietuvių</a></li>
+			<li class="interlanguage-link interwiki-hu"><a href="http://hu.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Hungarian" lang="hu" hreflang="hu">Magyar</a></li>
+			<li class="interlanguage-link interwiki-mk"><a href="http://mk.wikipedia.org/wiki/%D0%9B%D0%B5%D0%BE%D0%BD%D0%B0%D1%80%D0%B4%D0%BE_%D0%A4%D0%B8%D0%B1%D0%BE%D0%BD%D0%B0%D1%87%D0%B8" title="Леонардо Фибоначи – Macedonian" lang="mk" hreflang="mk">Македонски</a></li>
+			<li class="interlanguage-link interwiki-ml"><a href="http://ml.wikipedia.org/wiki/%E0%B4%AB%E0%B4%BF%E0%B4%AC%E0%B4%A8%E0%B4%BE%E0%B4%9A%E0%B5%8D%E0%B4%9A%E0%B4%BF" title="ഫിബനാച്ചി – Malayalam" lang="ml" hreflang="ml">മലയാളം</a></li>
+			<li class="interlanguage-link interwiki-mr"><a href="http://mr.wikipedia.org/wiki/%E0%A4%B2%E0%A5%87%E0%A4%93%E0%A4%A8%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%A6%E0%A5%8B_%E0%A4%AB%E0%A4%BF%E0%A4%AC%E0%A5%8B%E0%A4%A8%E0%A4%BE%E0%A4%9A%E0%A5%80" title="लेओनार्दो फिबोनाची – Marathi" lang="mr" hreflang="mr">मराठी</a></li>
+			<li class="interlanguage-link interwiki-arz"><a href="http://arz.wikipedia.org/wiki/%D9%81%D9%8A%D8%A8%D9%88%D9%86%D8%A7%D8%AA%D8%B4%D9%89" title="فيبوناتشى – Egyptian Spoken Arabic" lang="arz" hreflang="arz">مصرى</a></li>
+			<li class="interlanguage-link interwiki-ms"><a href="http://ms.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Malay" lang="ms" hreflang="ms">Bahasa Melayu</a></li>
+			<li class="interlanguage-link interwiki-mwl"><a href="http://mwl.wikipedia.org/wiki/Leonardo_Fibonacci" title="Leonardo Fibonacci – Mirandese" lang="mwl" hreflang="mwl">Mirandés</a></li>
+			<li class="interlanguage-link interwiki-mn"><a href="http://mn.wikipedia.org/wiki/%D0%A4%D0%B8%D0%B1%D0%BE%D0%BD%D0%B0%D1%87%D1%87%D0%B8" title="Фибоначчи – Mongolian" lang="mn" hreflang="mn">Монгол</a></li>
+			<li class="interlanguage-link interwiki-nl"><a href="http://nl.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Dutch" lang="nl" hreflang="nl">Nederlands</a></li>
+			<li class="interlanguage-link interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%E3%83%AC%E3%82%AA%E3%83%8A%E3%83%AB%E3%83%89%E3%83%BB%E3%83%95%E3%82%A3%E3%83%9C%E3%83%8A%E3%83%83%E3%83%81" title="レオナルド・フィボナッチ – Japanese" lang="ja" hreflang="ja">日本語</a></li>
+			<li class="interlanguage-link interwiki-ce"><a href="http://ce.wikipedia.org/wiki/%D0%A4%D0%B8%D0%B1%D0%BE%D0%BD%D0%B0%D1%87%D1%87%D0%B8" title="Фибоначчи – Chechen" lang="ce" hreflang="ce">Нохчийн</a></li>
+			<li class="interlanguage-link interwiki-no"><a href="http://no.wikipedia.org/wiki/Leonardo_Fibonacci" title="Leonardo Fibonacci – Norwegian (bokmål)" lang="no" hreflang="no">Norsk bokmål</a></li>
+			<li class="interlanguage-link interwiki-nn"><a href="http://nn.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Norwegian Nynorsk" lang="nn" hreflang="nn">Norsk nynorsk</a></li>
+			<li class="interlanguage-link interwiki-oc"><a href="http://oc.wikipedia.org/wiki/Leonardo_de_Pisa" title="Leonardo de Pisa – Occitan" lang="oc" hreflang="oc">Occitan</a></li>
+			<li class="interlanguage-link interwiki-uz"><a href="http://uz.wikipedia.org/wiki/Leonardo_Pizano" title="Leonardo Pizano – Uzbek" lang="uz" hreflang="uz">Oʻzbekcha</a></li>
+			<li class="interlanguage-link interwiki-pnb"><a href="http://pnb.wikipedia.org/wiki/%D9%81%DB%8C%D8%A8%D9%88%D9%86%DA%A9%DB%8C" title="فیبونکی – Western Punjabi" lang="pnb" hreflang="pnb">پنجابی</a></li>
+			<li class="interlanguage-link interwiki-pms"><a href="http://pms.wikipedia.org/wiki/Leonardo_Fibonacci" title="Leonardo Fibonacci – Piedmontese" lang="pms" hreflang="pms">Piemontèis</a></li>
+			<li class="interlanguage-link interwiki-nds"><a href="http://nds.wikipedia.org/wiki/Leonardo_vun_Pisa" title="Leonardo vun Pisa – Low German" lang="nds" hreflang="nds">Plattdüütsch</a></li>
+			<li class="interlanguage-link interwiki-pl"><a href="http://pl.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Polish" lang="pl" hreflang="pl">Polski</a></li>
+			<li class="interlanguage-link interwiki-pt"><a href="http://pt.wikipedia.org/wiki/Leonardo_Fibonacci" title="Leonardo Fibonacci – Portuguese" lang="pt" hreflang="pt">Português</a></li>
+			<li class="interlanguage-link interwiki-ro"><a href="http://ro.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Romanian" lang="ro" hreflang="ro">Română</a></li>
+			<li class="interlanguage-link interwiki-rue"><a href="http://rue.wikipedia.org/wiki/%D0%A4%D1%96%D0%B1%D0%BE%D0%BD%D0%B0%D1%87%D1%87%D1%96" title="Фібоначчі – Rusyn" lang="rue" hreflang="rue">Русиньскый</a></li>
+			<li class="interlanguage-link interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%D0%A4%D0%B8%D0%B1%D0%BE%D0%BD%D0%B0%D1%87%D1%87%D0%B8" title="Фибоначчи – Russian" lang="ru" hreflang="ru">Русский</a></li>
+			<li class="interlanguage-link interwiki-sah"><a href="http://sah.wikipedia.org/wiki/%D0%A4%D0%B8%D0%B1%D0%BE%D0%BD%D0%B0%D1%87%D1%87%D0%B8" title="Фибоначчи – Sakha" lang="sah" hreflang="sah">Саха тыла</a></li>
+			<li class="interlanguage-link interwiki-scn FA" title="This is a featured article in this language."><a href="http://scn.wikipedia.org/wiki/Liunardu_Fibonacci" title="Liunardu Fibonacci – Sicilian" lang="scn" hreflang="scn">Sicilianu</a></li>
+			<li class="interlanguage-link interwiki-si"><a href="http://si.wikipedia.org/wiki/%E0%B7%86%E0%B7%92%E0%B6%B6%E0%B7%9C%E0%B6%B1%E0%B7%8F%E0%B6%A0%E0%B7%8A%E0%B6%A0%E0%B7%92" title="ෆිබොනාච්චි – Sinhala" lang="si" hreflang="si">සිංහල</a></li>
+			<li class="interlanguage-link interwiki-simple"><a href="http://simple.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Simple English" lang="simple" hreflang="simple">Simple English</a></li>
+			<li class="interlanguage-link interwiki-sk"><a href="http://sk.wikipedia.org/wiki/Leonardo_Pisano_Fibonacci" title="Leonardo Pisano Fibonacci – Slovak" lang="sk" hreflang="sk">Slovenčina</a></li>
+			<li class="interlanguage-link interwiki-sl"><a href="http://sl.wikipedia.org/wiki/Leonardo_Fibonacci" title="Leonardo Fibonacci – Slovenian" lang="sl" hreflang="sl">Slovenščina</a></li>
+			<li class="interlanguage-link interwiki-ckb"><a href="http://ckb.wikipedia.org/wiki/%D9%81%DB%8C%D8%A8%DB%86%D9%86%D8%A7%DA%86%DB%8C" title="فیبۆناچی – Sorani Kurdish" lang="ckb" hreflang="ckb">کوردی</a></li>
+			<li class="interlanguage-link interwiki-sr"><a href="http://sr.wikipedia.org/wiki/%D0%9B%D0%B5%D0%BE%D0%BD%D0%B0%D1%80%D0%B4%D0%BE_%D0%A4%D0%B8%D0%B1%D0%BE%D0%BD%D0%B0%D1%87%D0%B8" title="Леонардо Фибоначи – Serbian" lang="sr" hreflang="sr">Српски / srpski</a></li>
+			<li class="interlanguage-link interwiki-sh"><a href="http://sh.wikipedia.org/wiki/Leonardo_Fibonacci" title="Leonardo Fibonacci – Serbo-Croatian" lang="sh" hreflang="sh">Srpskohrvatski / српскохрватски</a></li>
+			<li class="interlanguage-link interwiki-fi"><a href="http://fi.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Finnish" lang="fi" hreflang="fi">Suomi</a></li>
+			<li class="interlanguage-link interwiki-sv"><a href="http://sv.wikipedia.org/wiki/Leonardo_Fibonacci" title="Leonardo Fibonacci – Swedish" lang="sv" hreflang="sv">Svenska</a></li>
+			<li class="interlanguage-link interwiki-ta"><a href="http://ta.wikipedia.org/wiki/%E0%AE%83%E0%AE%AA%E0%AE%BF%E0%AE%AA%E0%AF%8A%E0%AE%A9%E0%AE%BE%E0%AE%9A%E0%AF%8D%E0%AE%9A%E0%AE%BF" title="ஃபிபொனாச்சி – Tamil" lang="ta" hreflang="ta">தமிழ்</a></li>
+			<li class="interlanguage-link interwiki-kab"><a href="http://kab.wikipedia.org/wiki/Leonardo_Fibonacci" title="Leonardo Fibonacci – Kabyle" lang="kab" hreflang="kab">Taqbaylit</a></li>
+			<li class="interlanguage-link interwiki-tt"><a href="http://tt.wikipedia.org/wiki/%D0%A4%D0%B8%D0%B1%D0%BE%D0%BD%D0%B0%D1%87%D1%87%D0%B8" title="Фибоначчи – Tatar" lang="tt" hreflang="tt">Татарча/tatarça</a></li>
+			<li class="interlanguage-link interwiki-th"><a href="http://th.wikipedia.org/wiki/%E0%B9%80%E0%B8%A5%E0%B9%82%E0%B8%AD%E0%B8%99%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B9%82%E0%B8%94_%E0%B8%9F%E0%B8%B5%E0%B9%82%E0%B8%9A%E0%B8%99%E0%B8%B1%E0%B8%8A%E0%B8%8A%E0%B8%B5" title="เลโอนาร์โด ฟีโบนัชชี – Thai" lang="th" hreflang="th">ไทย</a></li>
+			<li class="interlanguage-link interwiki-tr"><a href="http://tr.wikipedia.org/wiki/Leonardo_Fibonacci" title="Leonardo Fibonacci – Turkish" lang="tr" hreflang="tr">Türkçe</a></li>
+			<li class="interlanguage-link interwiki-uk"><a href="http://uk.wikipedia.org/wiki/%D0%A4%D1%96%D0%B1%D0%BE%D0%BD%D0%B0%D1%87%D1%87%D1%96" title="Фібоначчі – Ukrainian" lang="uk" hreflang="uk">Українська</a></li>
+			<li class="interlanguage-link interwiki-ur"><a href="http://ur.wikipedia.org/wiki/%D9%81%DB%8C%D8%A8%D9%88%D9%86%D8%A7%D8%B4%DB%8C" title="فیبوناشی – Urdu" lang="ur" hreflang="ur">اردو</a></li>
+			<li class="interlanguage-link interwiki-vi"><a href="http://vi.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Vietnamese" lang="vi" hreflang="vi">Tiếng Việt</a></li>
+			<li class="interlanguage-link interwiki-vo"><a href="http://vo.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Volapük" lang="vo" hreflang="vo">Volapük</a></li>
+			<li class="interlanguage-link interwiki-fiu-vro"><a href="http://fiu-vro.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Võro" lang="fiu-vro" hreflang="fiu-vro">Võro</a></li>
+			<li class="interlanguage-link interwiki-war"><a href="http://war.wikipedia.org/wiki/Fibonacci" title="Fibonacci – Waray" lang="war" hreflang="war">Winaray</a></li>
+			<li class="interlanguage-link interwiki-bat-smg"><a href="http://bat-smg.wikipedia.org/wiki/F%C4%97buona%C4%8D%C4%97s" title="Fėbuonačės – Samogitian" lang="bat-smg" hreflang="bat-smg">Žemaitėška</a></li>
+			<li class="interlanguage-link interwiki-zh"><a href="http://zh.wikipedia.org/wiki/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91" title="斐波那契 – Chinese" lang="zh" hreflang="zh">中文</a></li>
+			<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/Q8763#sitelinks-wikipedia" title="Edit interlanguage links">Edit links</a></li>
+		</ul>
+	</div>
+</div>
+			</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 30 January 2014 at 19:56.<br></li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+additional terms may apply.  By using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="http://wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy.</a> <br>
+Wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/Privacy_policy" title="wikimedia:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+											<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+											<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/Fibonacci" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://wikimediafoundation.org/"><img src="./fibonacci_files/wikimedia-button.png" width="88" height="31" alt="Wikimedia Foundation"></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="./fibonacci_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.gadget.DRN-wizard","ext.gadget.charinsert","mw.MwEmbedSupport.style","ext.articleFeedbackv5.startup","ext.wikimediaShopLink.core","ext.navigationTiming","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="./fibonacci_files/load(2).php"></script>
+<!-- Served by mw1081 in 0.376 secs. -->
+	
+
+<div class="suggestions" style="display: none; font-size: 12.800000190734863px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html>

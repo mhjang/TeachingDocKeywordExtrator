@@ -83,7 +83,7 @@ public class Document {
             else {
                 termFrequency.put(w, 1);
                 if(type == Document.UNIGRAM)
-                   unigrams.add(w);
+                    unigrams.add(w);
                 else if(type == Document.BIGRAM) {
                     if(bigrams == null) bigrams = new LinkedList<String>();
                     bigrams.add(w);

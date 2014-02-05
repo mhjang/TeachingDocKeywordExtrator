@@ -1,0 +1,855 @@
+<!doctype html> 
+<!-- saved from url=(0040)http://en.wikipedia.org/wiki/recurrences --> 
+<html lang="en" dir="ltr" class="client-js ve-not-available"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+<meta charset="utf-8"><title>recurrence relation - wikipedia, the free encyclopedia</title> 
+<meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="generator" content="mediawiki 1.23wmf11"> 
+<link rel="alternate" type="application/x-wiki" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit"> 
+<link rel="edit" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit"> 
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png"> 
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico"> 
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="wikipedia (en)"> 
+<link rel="edituri" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd"> 
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/"> 
+<link rel="alternate" type="application/atom+xml" title="wikipedia atom feed" href="http://en.wikipedia.org/w/index.php?title=special:recentchanges&feed=atom"> 
+<link rel="canonical" href="http://en.wikipedia.org/wiki/recurrence_relation"> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.drn-wizard%2creferencetooltips%2ccharinsert%2cteahouse%7cext.rtlcite%2cwikihiero%7cext.visualeditor.viewpagetarget.noscript%7cmediawiki.legacy.commonprint%2cshared%7cskins.common.interface%7cskins.vector.styles&only=styles&skin=vector&*"> 
+<style> 
+@-webkit-keyframes centralauthppersonalanimation{0%{opacity:0;-webkit-transform:translatey(-20px)}100%{opacity:1;-webkit-transform:translatey(0)}}@-moz-keyframes centralauthppersonalanimation{0%{opacity:0;-moz-transform:translatey(-20px)}100%{opacity:1;-moz-transform:translatey(0)}}@-o-keyframes centralauthppersonalanimation{0%{opacity:0;-o-transform:translatey(-20px)}100%{opacity:1;-o-transform:translatey(0)}}@keyframes centralauthppersonalanimation{0%{opacity:0;transform:translatey(-20px)}100%{opacity:1;transform:translatey(0)}}.centralauthppersonalanimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralauthppersonalanimation;-moz-animation-name:centralauthppersonalanimation;-o-animation-name:centralauthppersonalanimation;animation-name:centralauthppersonalanimation} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */ 
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */ 
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmveuzaad///95exmqqqry2njeiq0caaaaaxrstlmaqobyzgaaacdjrefucndjygbgygiaasufennjcuiqmadztm5oqexffzakrsg4ygbjcwodynsgdwaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil.png?2014-01-16t16:20:00z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmvewbaady2nj///8gra0zzrtw2aecaaaaaxrstlmaqobyzgaaacdjrefucndjygbgygyaawmdefpygegaoglzzclcqewjq5aki2w4ygbg5qotqpzbuaaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil-hover.png?2014-01-16t16:20:00z)!ie;color:#0645ad !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a963c9df079c8688d25d769892467b5c */ 
+@media print{#centralnotice{display:none}} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */</style><style> 
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */ 
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaabaaaaaqcamaaaaolq9taaabblbmveuaaad///////9pftf///80ardtgjn///9feij///////////9rfzf///////////9pfjzrgdh1o1xoftb///////+bwyqltnj///////9pfta82k////9wht6yxil///9qgddtgzr////////j7udl7elq8efi693k7oh///////9uhjubr2rp9uruhjr///9yljvkgir///9witlyjt3////9/v57vflbkt5pjc9dld/5/fhuq09stuts9uhxuelctcpfnt1hudfloezlouzmpenmvdzpvdxpvtxqvjxrvt5rvt9rwtxsqktswd5uwkbvuudxw0nztfbztu9ztvbzwkp0tlj1xkd2t1r3uvr4w1f4xk54x014ye15uvz5v1r5xvb6v1r7yfj8wvh9xvl9yfr9yvd9yln+xvh+yfd/x1l/yfeaylmex1+ny2uy0hqe04wj1ymv3ze33qld47tj5l3o6cpu7mrq9eb2+/q4j37oaaaaqhrstlmaaqiebaufbqwpfb4fjcuokiosqehjs01rulzzxmdydxachyusljswmjmoq6uur8lexcvm19fg5ejt8fx2+pr7sljgewaaakpjrefugbkfwqncawaaamdltl3ltrg4rwxbtvx77gagz6grfwc0bhwnvgkgdpzx8b0dgli+s7wn0voaqpfoi9+bnadzi7flrz2psewghzuh+78lsk8zlklezf3ooyug3vpxq2usei9wngeyog195ybywdf3e/2pahl1e9gr8bgt+bfofcc2fnvh4x7rcqiaqnnu+ht6sxkajcetl/2zaihv+porbwbjxfka//dfhscby/utaaaaaelftksuqmcc);background-image:url(//bits.wikimedia.org/static-1.23wmf11/resources/mediawiki.action/images/green-checkmark.png?2014-01-16t16:15:00z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:c897cc6a31411b48f47191422cf15c4a */ 
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */ 
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4c59a6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */ 
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */ 
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#f7f7f7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #f7f7f7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.rtflipped{padding-top:13px}.referencetooltip.rtflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.rtflipped li+li::after{border-top:0;border-bottom:8px #f7f7f7 solid;position:absolute;margin-top:7px}.rtsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.rtsettings:hover{opacity:1;filter:alpha(opacity=100)}.rttarget{border:#080086 2px solid} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */ 
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */ 
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playercontainer{overflow:hidden;position:relative;height:100%;background:#000}#videoholder{position:relative;overflow:hidden}.fullscreen #playercontainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwembedplayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayhtml a:visited{color:white}.loadingspinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/loading_ani.gif?2014-01-16t16:18:20z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-01-16t16:18:20z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button.png?2014-01-16t16:18:20z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button_hover.png?2014-01-16t16:18:20z)}.carouselcontainer{position :absolute;width :100%;z-index :2}.carouselvideotitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselvideotitletext{display :block;padding :10px 10px 10px 20px}.carouseltitleduration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5a5a5a;color :#d9d9d9;font-size :smaller;z-index :2}.carouselimgtitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselimgduration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselprevbutton,.carouselnextbutton{display :block;position :absolute;bottom:23px}.carouselprevbutton{left :5px}.carouselnextbutton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#e6e6e6;padding :5px;border-bottom :1px solid #d1d1d1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:40fb0cce50b2525059dbe7ac545e3c42 */</style><style> 
+.suggestions a.mw-searchsuggest-link,.suggestions a.mw-searchsuggest-link:hover,.suggestions a.mw-searchsuggest-link:active,.suggestions a.mw-searchsuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchsuggest-link,.suggestions-result-current a.mw-searchsuggest-link:hover,.suggestions-result-current a.mw-searchsuggest-link:active,.suggestions-result-current a.mw-searchsuggest-link:focus{color:white} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="resourceloaderdynamicstyles" content=""> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=site&only=styles&skin=vector&*"> 
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style> 
+ 
+<script src="./recurrences_files/load.php"></script><script src="./recurrences_files/load(1).php"></script><style title="spinjs"></style> 
+<script>if(window.mw){ 
+mw.config.set({"wgcanonicalnamespace":"","wgcanonicalspecialpagename":false,"wgnamespacenumber":0,"wgpagename":"recurrence_relation","wgtitle":"recurrence relation","wgcurrevisionid":590994408,"wgrevisionid":590994408,"wgarticleid":146806,"wgisarticle":true,"wgisredirect":false,"wgaction":"view","wgusername":null,"wgusergroups":["*"],"wgcategories":["all articles with unsourced statements","articles with unsourced statements from june 2010","algebra","recurrence relations","theory of computation"],"wgbreakframes":false,"wgpagecontentlanguage":"en","wgpagecontentmodel":"wikitext","wgseparatortransformtable":["",""],"wgdigittransformtable":["",""],"wgdefaultdateformat":"dmy","wgmonthnames":["","january","february","march","april","may","june","july","august","september","october","november","december"],"wgmonthnamesshort":["","jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"],"wgrelevantpagename":"recurrence_relation","wgisprobablyeditable":true,"wgrestrictionedit":[],"wgrestrictionmove":[],"wgredirectedfrom":"recurrences","wgwikieditorenabledmodules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateeditor":false,"templates":false,"preview":false,"previewdialog":false,"publish":false,"toc":false},"wgarticlefeedbackv5permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgbetafeaturesfeatures":[],"wgvisualeditor":{"ispagewatched":false,"magnifyclipiconurl":"//bits.wikimedia.org/static-1.23wmf11/skins/common/images/magnify-clip.png","pagelanguagecode":"en","pagelanguagedir":"ltr"},"wikilove-recipient":"","wikilove-anon":0,"wgguidedtourhelpguiderurl":"help:guided tours/guider","wgulsacceptlanguagelist":["en-us","en","ko"],"wgulscurrentautonym":"english","wgflaggedrevsparams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgstablerevisionid":null,"wgcategorytreepagecategoryoptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","geo":{"city":"","country":""},"wgnoticeproject":"wikipedia","aftv5article":{"id":146806,"title":"recurrence relation","namespace":0,"categories":["algebra","all articles with unsourced statements","articles with unsourced statements from june 2010","recurrence relations","theory of computation"],"permissionlevel":false},"wgwikibaseitemid":"q740970"}); 
+}</script><script>if(window.mw){ 
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0, 
+"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true, 
+"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","uls-enable":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchns0":true,"searchns1":false,"searchns2":false,"searchns3":false,"searchns4":false,"searchns5":false,"searchns6":false,"searchns7":false,"searchns8":false,"searchns9":false,"searchns10":false,"searchns11":false,"searchns12":false,"searchns13":false,"searchns14":false,"searchns15":false, 
+"searchns100":false,"searchns101":false,"searchns108":false,"searchns109":false,"searchns118":false,"searchns119":false,"searchns446":false,"searchns447":false,"searchns710":false,"searchns711":false,"searchns828":false,"searchns829":false,"gadget-teahouse":1,"gadget-referencetooltips":1,"gadget-drn-wizard":1,"gadget-charinsert":1,"gadget-mysandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"edittoken":"+\\","patroltoken":false,"watchtoken":false});},{},{}); 
+/* cache key: enwiki:resourceloader:filter:minify-js:7:264b5b04c69e37444d5b2d63c2a65dc9 */ 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualeditor.viewpagetarget.init","wikibase.client.init","ext.centralnotice.bannercontroller","skins.vector.js"]); 
+}</script> 
+<script src="./recurrences_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt ie 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf11/skins/vector/csshover.min.htc")}</style><![endif]--></head> 
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-recurrence_relation skin-vector action-view vector-animatelayout"> 
+<div id="mw-page-base" class="noprint"></div> 
+<div id="mw-head-base" class="noprint"></div> 
+<div id="content" class="mw-body" role="main"> 
+<a id="top"></a> 
+<div id="mw-js-message" style="display:none;"></div> 
+<div id="sitenotice"><div id="centralnotice"></div><!-- centralnotice --></div> 
+<h1 id="firstheading" class="firstheading" lang="en"><span dir="auto">recurrence relation</span></h1> 
+<div id="bodycontent"> 
+<div id="sitesub">from wikipedia, the free encyclopedia</div> 
+<div id="contentsub">&nbsp;&nbsp;(redirected from <a href="http://en.wikipedia.org/w/index.php?title=recurrences&redirect=no" title="recurrences">recurrences</a>)</div> 
+<div id="jump-to-nav" class="mw-jump"> 
+jump to:					<a href="http://en.wikipedia.org/wiki/recurrences#mw-navigation">navigation</a>, 					<a href="http://en.wikipedia.org/wiki/recurrences#p-search">search</a> 
+</div> 
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="dablink">"difference equation" redirects here. it is not to be confused with <a href="http://en.wikipedia.org/wiki/differential_equation" title="differential equation">differential equation</a>.</div> 
+<p>in <a href="http://en.wikipedia.org/wiki/mathematics" title="mathematics">mathematics</a>, a <b>recurrence relation</b> is an <a href="http://en.wikipedia.org/wiki/equation" title="equation">equation</a> that <a href="http://en.wikipedia.org/wiki/recursion" title="recursion">recursively</a> defines a <a href="http://en.wikipedia.org/wiki/sequence" title="sequence">sequence</a>, once one or more initial terms are given: each further term of the sequence is defined as a <a href="http://en.wikipedia.org/wiki/function_(mathematics)" title="function (mathematics)">function</a> of the preceding terms.</p> 
+<p>the term <b><a href="http://en.wikipedia.org/wiki/recurrences#relationship_to_difference_equations_narrowly_defined">difference equation</a></b> sometimes (and for the purposes of this article) refers to a specific type of recurrence relation. however, "difference equation" is frequently used to refer to <i>any</i> recurrence relation.</p> 
+<p>an example of a recurrence relation is the <a href="http://en.wikipedia.org/wiki/logistic_map" title="logistic map">logistic map</a>:</p> 
+<dl> 
+<dd><img class="tex" alt="x_{n+1} = r x_n (1 - x_n)," src="./recurrences_files/2094a27e24f80508070fe15b9c532818.png"></dd> 
+</dl> 
+<p>with a given constant <i>r</i>; given the initial term <i>x</i><sub>0</sub> each subsequent term is determined by this relation.</p> 
+<p>some simply defined recurrence relations can have very complex (<a href="http://en.wikipedia.org/wiki/chaos_theory" title="chaos theory">chaotic</a>) behaviours, and they are a part of the field of mathematics known as <a href="http://en.wikipedia.org/wiki/nonlinearity" title="nonlinearity" class="mw-redirect">nonlinear analysis</a>.</p> 
+<p>solving a recurrence relation means obtaining a <a href="http://en.wikipedia.org/wiki/closed-form_solution" title="closed-form solution" class="mw-redirect">closed-form solution</a>: a non-recursive function of <i>n</i>.</p> 
+<p></p> 
+<div id="toc" class="toc"> 
+<div id="toctitle"> 
+<h2>contents</h2> 
+<span class="toctoggle">&nbsp;[<a href="http://en.wikipedia.org/wiki/recurrences#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div> 
+<ul> 
+<li class="toclevel-1 tocsection-1"><a href="http://en.wikipedia.org/wiki/recurrences#fibonacci_numbers"><span class="tocnumber">1</span> <span class="toctext">fibonacci numbers</span></a></li> 
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikipedia.org/wiki/recurrences#structure"><span class="tocnumber">2</span> <span class="toctext">structure</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-3"><a href="http://en.wikipedia.org/wiki/recurrences#linear_homogeneous_recurrence_relations_with_constant_coefficients"><span class="tocnumber">2.1</span> <span class="toctext">linear homogeneous recurrence relations with constant coefficients</span></a></li> 
+<li class="toclevel-2 tocsection-4"><a href="http://en.wikipedia.org/wiki/recurrences#rational_generating_function"><span class="tocnumber">2.2</span> <span class="toctext">rational generating function</span></a></li> 
+<li class="toclevel-2 tocsection-5"><a href="http://en.wikipedia.org/wiki/recurrences#relationship_to_difference_equations_narrowly_defined"><span class="tocnumber">2.3</span> <span class="toctext">relationship to difference equations narrowly defined</span></a> 
+<ul> 
+<li class="toclevel-3 tocsection-6"><a href="http://en.wikipedia.org/wiki/recurrences#from_sequences_to_grids"><span class="tocnumber">2.3.1</span> <span class="toctext">from sequences to grids</span></a></li> 
+</ul> 
+</li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-7"><a href="http://en.wikipedia.org/wiki/recurrences#solving"><span class="tocnumber">3</span> <span class="toctext">solving</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-8"><a href="http://en.wikipedia.org/wiki/recurrences#general_methods"><span class="tocnumber">3.1</span> <span class="toctext">general methods</span></a></li> 
+<li class="toclevel-2 tocsection-9"><a href="http://en.wikipedia.org/wiki/recurrences#solving_via_linear_algebra"><span class="tocnumber">3.2</span> <span class="toctext">solving via linear algebra</span></a></li> 
+<li class="toclevel-2 tocsection-10"><a href="http://en.wikipedia.org/wiki/recurrences#solving_with_z-transforms"><span class="tocnumber">3.3</span> <span class="toctext">solving with z-transforms</span></a></li> 
+<li class="toclevel-2 tocsection-11"><a href="http://en.wikipedia.org/wiki/recurrences#theorem"><span class="tocnumber">3.4</span> <span class="toctext">theorem</span></a></li> 
+<li class="toclevel-2 tocsection-12"><a href="http://en.wikipedia.org/wiki/recurrences#solving_non-homogeneous_recurrence_relations"><span class="tocnumber">3.5</span> <span class="toctext">solving non-homogeneous recurrence relations</span></a></li> 
+<li class="toclevel-2 tocsection-13"><a href="http://en.wikipedia.org/wiki/recurrences#general_linear_homogeneous_recurrence_relations"><span class="tocnumber">3.6</span> <span class="toctext">general linear homogeneous recurrence relations</span></a></li> 
+<li class="toclevel-2 tocsection-14"><a href="http://en.wikipedia.org/wiki/recurrences#solving_a_first_order_rational_difference_equation"><span class="tocnumber">3.7</span> <span class="toctext">solving a first order rational difference equation</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-15"><a href="http://en.wikipedia.org/wiki/recurrences#stability"><span class="tocnumber">4</span> <span class="toctext">stability</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-16"><a href="http://en.wikipedia.org/wiki/recurrences#stability_of_linear_higher-order_recurrences"><span class="tocnumber">4.1</span> <span class="toctext">stability of linear higher-order recurrences</span></a></li> 
+<li class="toclevel-2 tocsection-17"><a href="http://en.wikipedia.org/wiki/recurrences#stability_of_linear_first-order_matrix_recurrences"><span class="tocnumber">4.2</span> <span class="toctext">stability of linear first-order matrix recurrences</span></a></li> 
+<li class="toclevel-2 tocsection-18"><a href="http://en.wikipedia.org/wiki/recurrences#stability_of_nonlinear_first-order_recurrences"><span class="tocnumber">4.3</span> <span class="toctext">stability of nonlinear first-order recurrences</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-19"><a href="http://en.wikipedia.org/wiki/recurrences#relationship_to_differential_equations"><span class="tocnumber">5</span> <span class="toctext">relationship to differential equations</span></a></li> 
+<li class="toclevel-1 tocsection-20"><a href="http://en.wikipedia.org/wiki/recurrences#applications"><span class="tocnumber">6</span> <span class="toctext">applications</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-21"><a href="http://en.wikipedia.org/wiki/recurrences#biology"><span class="tocnumber">6.1</span> <span class="toctext">biology</span></a></li> 
+<li class="toclevel-2 tocsection-22"><a href="http://en.wikipedia.org/wiki/recurrences#digital_signal_processing"><span class="tocnumber">6.2</span> <span class="toctext">digital signal processing</span></a></li> 
+<li class="toclevel-2 tocsection-23"><a href="http://en.wikipedia.org/wiki/recurrences#economics"><span class="tocnumber">6.3</span> <span class="toctext">economics</span></a></li> 
+<li class="toclevel-2 tocsection-24"><a href="http://en.wikipedia.org/wiki/recurrences#computer_science"><span class="tocnumber">6.4</span> <span class="toctext">computer science</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-25"><a href="http://en.wikipedia.org/wiki/recurrences#see_also"><span class="tocnumber">7</span> <span class="toctext">see also</span></a></li> 
+<li class="toclevel-1 tocsection-26"><a href="http://en.wikipedia.org/wiki/recurrences#references"><span class="tocnumber">8</span> <span class="toctext">references</span></a></li> 
+<li class="toclevel-1 tocsection-27"><a href="http://en.wikipedia.org/wiki/recurrences#external_links"><span class="tocnumber">9</span> <span class="toctext">external links</span></a></li> 
+</ul> 
+</div> 
+<p></p> 
+<h2><span class="mw-headline" id="fibonacci_numbers">fibonacci numbers</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=1" title="edit section: fibonacci numbers">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>the <a href="http://en.wikipedia.org/wiki/fibonacci_number" title="fibonacci number">fibonacci numbers</a> are the archetype of a linear, homogeneous recurrence relation with constant coefficients (see below). they are defined using the linear recurrence relation</p> 
+<dl> 
+<dd><img class="tex" alt="f_n = f_{n-1}+f_{n-2}" src="./recurrences_files/1a4da05124f61db47a4805b411ff8c3b.png"></dd> 
+</dl> 
+<p>with seed values:</p> 
+<dl> 
+<dd><img class="tex" alt="f_0 = 0" src="./recurrences_files/1221e9d9d36b7a0f2316b6a7a711920b.png"></dd> 
+<dd><img class="tex" alt="f_1 = 1" src="./recurrences_files/5f7ecb7615ac05255f6e6a5012230216.png"></dd> 
+</dl> 
+<p>explicitly, recurrence yields the equations:</p> 
+<dl> 
+<dd><img class="tex" alt="f_2 = f_1 + f_0" src="./recurrences_files/aaa248202f6334ee3ba5c042c2e5dcb6.png"></dd> 
+<dd><img class="tex" alt="f_3 = f_2 + f_1" src="./recurrences_files/372968c4763589c4c9c6ad6b8df52071.png"></dd> 
+<dd><img class="tex" alt="f_4 = f_3 + f_2" src="./recurrences_files/4682d4a51123f2e43c64d332d5fa95f1.png"></dd> 
+</dl> 
+<p>etc.</p> 
+<p>we obtain the sequence of fibonacci numbers which begins:</p> 
+<dl> 
+<dd>0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...</dd> 
+</dl> 
+<p>it can be solved by methods described below yielding the <a href="http://en.wikipedia.org/wiki/binet_formula" title="binet formula" class="mw-redirect">closed-form expression</a> which involve powers of the two roots of the characteristic polynomial <i>t</i><sup>2</sup>&nbsp;=&nbsp;<i>t</i>&nbsp;+&nbsp;1; the <a href="http://en.wikipedia.org/wiki/generating_function" title="generating function">generating function</a> of the sequence is the <a href="http://en.wikipedia.org/wiki/rational_function" title="rational function">rational function</a></p> 
+<dl> 
+<dd><img class="tex" alt="\frac{t}{1-t-t^2}." src="./recurrences_files/b8dbf7ed55ad71d1a460e3a10f01fb01.png"></dd> 
+</dl> 
+<h2><span class="mw-headline" id="structure">structure</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=2" title="edit section: structure">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<h3><span class="mw-headline" id="linear_homogeneous_recurrence_relations_with_constant_coefficients">linear homogeneous recurrence relations with constant coefficients</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=3" title="edit section: linear homogeneous recurrence relations with constant coefficients">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>an order <i>d</i> <b>linear homogeneous recurrence relation with constant coefficients</b> is an equation of the form</p> 
+<dl> 
+<dd><img class="tex" alt="a_n = c_1a_{n-1} + c_2a_{n-2}+\cdots+c_da_{n-d}," src="./recurrences_files/5980ba77b0c3beaba067100f4fe88457.png"></dd> 
+</dl> 
+<p>where the <i>d</i> coefficients <i>c<sub>i</sub></i> (for all <i>i</i>) are constants.</p> 
+<p>more precisely, this is an infinite list of simultaneous linear equations, one for each <i>n</i>&gt;<i>d</i>−1. a sequence which satisfies a relation of this form is called a <b>linear recurrence sequence</b> or lrs. there are <i>d</i> <a href="http://en.wikipedia.org/wiki/degrees_of_freedom_(statistics)" title="degrees of freedom (statistics)">degrees of freedom</a> for lrs, i.e., the initial values <img class="tex" alt="a_0,\dots,a_{d-1}" src="./recurrences_files/ecb336ef3316a4fb5d2c391279363dcb.png"> can be taken to be any values but then the linear recurrence determines the sequence uniquely.</p> 
+<p>the same coefficients yield the <a href="http://en.wikipedia.org/wiki/characteristic_polynomial" title="characteristic polynomial">characteristic polynomial</a> (also "auxiliary polynomial")</p> 
+<dl> 
+<dd><img class="tex" alt="p(t)= t^d - c_1t^{d-1} - c_2t^{d-2}-\cdots-c_{d}" src="./recurrences_files/278d13822e78029fe999968e24838c94.png"></dd> 
+</dl> 
+<p>whose <i>d</i> roots play a crucial role in finding and understanding the sequences satisfying the recurrence. if the roots <i>r</i><sub>1</sub>, <i>r</i><sub>2</sub>, ... are all distinct, then the solution to the recurrence takes the form</p> 
+<dl> 
+<dd><img class="tex" alt="a_n = k_1 r_1^n + k_2 r_2^n + \cdots + k_d r_d^n," src="./recurrences_files/716462538d5d03a13fb7dab66e2dc5b9.png"></dd> 
+</dl> 
+<p>where the coefficients <i>k<sub>i</sub></i> are determined in order to fit the initial conditions of the recurrence. when the same roots occur multiple times, the terms in this formula corresponding to the second and later occurrences of the same root are multiplied by increasing powers of <i>n</i>. for instance, if the characteristic polynomial can be factored as (<i>x</i>−<i>r</i>)<sup>3</sup>, with the same root <i>r</i> occurring three times, then the solution would take the form</p> 
+<dl> 
+<dd><img class="tex" alt="a_n = k_1 r^n + k_2 n r^n + k_3 n^2 r^n." src="./recurrences_files/d9a1e1c315d1d2a5f7616576e0ab882a.png"><sup id="cite_ref-1" class="reference"><a href="http://en.wikipedia.org/wiki/recurrences#cite_note-1"><span>[</span>1<span>]</span></a></sup></dd> 
+</dl> 
+<h3><span class="mw-headline" id="rational_generating_function">rational generating function</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=4" title="edit section: rational generating function">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>linear recursive sequences are precisely the sequences whose <a href="http://en.wikipedia.org/wiki/generating_function" title="generating function">generating function</a> is a <a href="http://en.wikipedia.org/wiki/rational_function" title="rational function">rational function</a>: the denominator is the polynomial obtained from the auxiliary polynomial by reversing the order of the coefficients, and the numerator is determined by the initial values of the sequence.</p> 
+<p>the simplest cases are periodic sequences, <img class="tex" alt="a_n = a_{n-d}, n\geq d" src="./recurrences_files/4571a6a769fa18c56a38d11867031d82.png">, which have sequence <img class="tex" alt="a_0,a_1,\dots,a_{d-1},a_0,\dots" src="./recurrences_files/3c7305e95a69c0818b04dfba443a7f38.png"> and generating function a sum of geometric series:</p> 
+<dl> 
+<dd><img class="tex" alt="\frac{a_0 + a_1 x^1 + \cdots + a_{d-1}x^{d-1}}{1-x^d} = \left(a_0 + a_1 x^1 + \cdots + a_{d-1}x^{d-1}\right) + \left(a_0 + a_1 x^1 + \cdots + a_{d-1}x^{d-1}\right)x^d + \left(a_0 + a_1 x^1 + \cdots + a_{d-1}x^{d-1}\right)x^{2d} + \cdots." src="./recurrences_files/506b6a6d012d53c5454d2ce9aea6f201.png"></dd> 
+</dl> 
+<p>more generally, given the recurrence relation:</p> 
+<dl> 
+<dd><img class="tex" alt="a_n = c_1a_{n-1} + c_2a_{n-2}+\cdots+c_da_{n-d}" src="./recurrences_files/c57610905927a7036f866561df2ca1f2.png"></dd> 
+</dl> 
+<p>with generating function</p> 
+<dl> 
+<dd><img class="tex" alt="a_0 + a_1x^1 + a_2 x^2 + \cdots," src="./recurrences_files/929c529bfa6edad1ef32ced3d1618ce9.png"></dd> 
+</dl> 
+<p>the series is annihilated at <i>a<sub>d</sub></i> and above by the polynomial:</p> 
+<dl> 
+<dd><img class="tex" alt="1- c_1x^1 - c_2 x^2 - \cdots - c_dx^d." src="./recurrences_files/23ffee379c1b5571c7deb470d2294716.png"></dd> 
+</dl> 
+<p>that is, multiplying the generating function by the polynomial yields</p> 
+<dl> 
+<dd><img class="tex" alt="b_n = a_n - c_1 a_{n-1} - c_2 a_{n-2} - \cdots - c_d a_{n-d}" src="./recurrences_files/2603615693ffdc97e2620c585111476e.png"></dd> 
+</dl> 
+<p>as the coefficient on <img class="tex" alt="x^n" src="./recurrences_files/5ed2ec358abc7d521a3330e8b84cc7df.png">, which vanishes (by the recurrence relation) for <i>n</i> ≥ <i>d</i>. thus</p> 
+<dl> 
+<dd><img class="tex" alt="\left (a_0 + a_1x^1 + a_2 x^2 + \cdots \right ) \left  (1- c_1x^1 - c_2 x^2 - \cdots - c_dx^d \right) = \left (b_0 + b_1x^1 + b_2 x^2 + \cdots + b_{d-1} x^{d-1} \right )" src="./recurrences_files/31a3fb36e6ac75c91da5ca07c1e8a36e.png"></dd> 
+</dl> 
+<p>so dividing yields</p> 
+<dl> 
+<dd><img class="tex" alt="a_0 + a_1x^1 + a_2 x^2 + \cdots  =\frac{b_0 + b_1x^1 + b_2 x^2 + \cdots + b_{d-1} x^{d-1}}{1- c_1x^1 - c_2 x^2 - \cdots - c_dx^d}," src="./recurrences_files/21841711738774886270f8603d0b0156.png"></dd> 
+</dl> 
+<p>expressing the generating function as a rational function.</p> 
+<p>the denominator is <img class="tex" alt="x^d p\left(x^{-1}\right)," src="./recurrences_files/92b0729cfdac03bbc31e5f2f2fa225cb.png"> a transform of the auxiliary polynomial (equivalently, reversing the order of coefficients); one could also use any multiple of this, but this normalization is chosen both because of the simple relation to the auxiliary polynomial, and so that <img class="tex" alt="b_0 = a_0" src="./recurrences_files/0a72bfcc087c57fa2fa16f01b66feeeb.png">.</p> 
+<h3><span class="mw-headline" id="relationship_to_difference_equations_narrowly_defined">relationship to difference equations narrowly defined</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=5" title="edit section: relationship to difference equations narrowly defined">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>given an ordered <a href="http://en.wikipedia.org/wiki/sequence" title="sequence">sequence</a> <img class="tex" alt="\left\{a_n\right\}_{n=1}^\infty" src="./recurrences_files/5e8b0f74b48df901ae049b3d3b95e2ef.png"> of <a href="http://en.wikipedia.org/wiki/real_numbers" title="real numbers" class="mw-redirect">real numbers</a>: the <b>first difference</b> <img class="tex" alt="\delta(a_n)" src="./recurrences_files/63886a33312bb40e4506914a43adb87d.png"> is defined as</p> 
+<dl> 
+<dd><img class="tex" alt="\delta(a_n) = a_{n+1} - a_n\," src="./recurrences_files/d7f012362b47d295ae3bb35e1b64f4d5.png">.</dd> 
+</dl> 
+<p>the <b>second difference</b> <img class="tex" alt="\delta^2(a_n)" src="./recurrences_files/97fb915e60a1d71e143d0fc24eed9a15.png"> is defined as</p> 
+<dl> 
+<dd><img class="tex" alt="\delta^2(a_n) = \delta(a_{n+1}) - \delta(a_n)" src="./recurrences_files/69be32575d554041f40f1b97025b8caf.png">,</dd> 
+</dl> 
+<p>which can be simplified to</p> 
+<dl> 
+<dd><img class="tex" alt="\delta^2(a_n) = a_{n+2} - 2a_{n+1} + a_n" src="./recurrences_files/c206d7806fcb8fbfe48498ba462a1c9f.png">.</dd> 
+</dl> 
+<p>more generally: the <b><i>k</i><sup>th</sup> difference</b> of the sequence <i>a<sub>n</sub></i> is written as <img class="tex" alt="\delta^k(a_n)" src="./recurrences_files/09ed345512a93090825c4a154180b025.png"> is defined recursively as</p> 
+<dl> 
+<dd><img class="tex" alt="\delta^k(a_n) = \delta^{k-1}(a_{n+1}) - \delta^{k-1}(a_n)=\sum_{t=0}^k \binom{k}{t} (-1)^t a_{n+k-t}" src="./recurrences_files/65e31116463cf229df34c9fcf512da75.png">.</dd> 
+</dl> 
+<p>(the sequence and its differences are related by a <a href="http://en.wikipedia.org/wiki/binomial_transform" title="binomial transform">binomial transform</a>.) the more restrictive definition of <b>difference equation</b> is an equation composed of <i>a<sub>n</sub></i> and its <i>k</i><sup>th</sup> differences. (a widely used broader definition treats "difference equation" as synonymous with "recurrence relation". see for example <a href="http://en.wikipedia.org/wiki/rational_difference_equation" title="rational difference equation">rational difference equation</a> and <a href="http://en.wikipedia.org/wiki/matrix_difference_equation" title="matrix difference equation">matrix difference equation</a>.)</p> 
+<p>linear recurrence relations are difference equations, and conversely; since this is a simple and common form of recurrence, some authors use the two terms interchangeably. for example, the difference equation</p> 
+<dl> 
+<dd><img class="tex" alt="3\delta^2(a_n) + 2\delta(a_n) + 7a_n = 0" src="./recurrences_files/ffbcf3ed2fc3737948e349afebc71623.png"></dd> 
+</dl> 
+<p>is equivalent to the recurrence relation</p> 
+<dl> 
+<dd><img class="tex" alt="3a_{n+2} = 4a_{n+1} - 8a_n" src="./recurrences_files/6b488bee33fe895c61c0b1e0d2fd29af.png"></dd> 
+</dl> 
+<p>thus one can solve many recurrence relations by rephrasing them as difference equations, and then solving the difference equation, analogously to how one solves <a href="http://en.wikipedia.org/wiki/ordinary_differential_equations" title="ordinary differential equations" class="mw-redirect">ordinary differential equations</a>. however, the <a href="http://en.wikipedia.org/wiki/ackermann_number" title="ackermann number" class="mw-redirect">ackermann numbers</a> are an example of a recurrence relation that do not map to a difference equation, much less points on the solution to a differential equation.</p> 
+<p>see <a href="http://en.wikipedia.org/wiki/time_scale_calculus" title="time scale calculus" class="mw-redirect">time scale calculus</a> for a unification of the theory of difference equations with that of <a href="http://en.wikipedia.org/wiki/differential_equations" title="differential equations" class="mw-redirect">differential equations</a>.</p> 
+<p><a href="http://en.wikipedia.org/wiki/summation_equation" title="summation equation">summation equations</a> relate to difference equations as <a href="http://en.wikipedia.org/wiki/integral_equation" title="integral equation">integral equations</a> relate to differential equations.</p> 
+<h4><span class="mw-headline" id="from_sequences_to_grids">from sequences to grids</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=6" title="edit section: from sequences to grids">edit</a><span class="mw-editsection-bracket">]</span></span></h4> 
+<p>single-variable or one-dimensional recurrence relations are about sequences (i.e. functions defined on one-dimensional grids). multi-variable or n-dimensional recurrence relations are about n-dimensional grids. functions defined on n-grids can also be studied with <b>partial difference equations</b>.<sup id="cite_ref-2" class="reference"><a href="http://en.wikipedia.org/wiki/recurrences#cite_note-2"><span>[</span>2<span>]</span></a></sup></p> 
+<h2><span class="mw-headline" id="solving">solving</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=7" title="edit section: solving">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<h3><span class="mw-headline" id="general_methods">general methods</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=8" title="edit section: general methods">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>for order 1, the recurrence</p> 
+<dl> 
+<dd><img class="tex" alt="a_{n}=r a_{n-1}" src="./recurrences_files/b52b8a9c5bf42e6af35b35441733b6a1.png"></dd> 
+</dl> 
+<p>has the solution <i>a<sub>n</sub></i>&nbsp;=&nbsp;<i>r<sup>n</sup></i> with <i>a</i><sub>0</sub>&nbsp;=&nbsp;1 and the most general solution is <i>a<sub>n</sub></i>&nbsp;=&nbsp;<i>kr<sup>n</sup></i> with <i>a</i><sub>0</sub>&nbsp;=&nbsp;<i>k</i>. the characteristic polynomial equated to zero (the <a href="http://en.wikipedia.org/wiki/characteristic_polynomial" title="characteristic polynomial">characteristic equation</a>) is simply <i>t</i>&nbsp;−&nbsp;<i>r</i>&nbsp;=&nbsp;0.</p> 
+<p>solutions to such recurrence relations of higher order are found by systematic means, often using the fact that <i>a<sub>n</sub></i>&nbsp;=&nbsp;<i>r<sup>n</sup></i> is a solution for the recurrence exactly when <i>t</i>&nbsp;=&nbsp;<i>r</i> is a root of the characteristic polynomial. this can be approached directly or using <a href="http://en.wikipedia.org/wiki/generating_function" title="generating function">generating functions</a> (<a href="http://en.wikipedia.org/wiki/formal_power_series" title="formal power series">formal power series</a>) or matrices.</p> 
+<p>consider, for example, a recurrence relation of the form</p> 
+<dl> 
+<dd><img class="tex" alt="a_{n}=aa_{n-1}+ba_{n-2}." src="./recurrences_files/c428f5ad19216dc9b65871ea0273c289.png"></dd> 
+</dl> 
+<p>when does it have a solution of the same general form as <i>a<sub>n</sub></i> = <i>r<sup>n</sup></i>? substituting this guess (<a href="http://en.wikipedia.org/wiki/ansatz" title="ansatz">ansatz</a>) in the recurrence relation, we find that</p> 
+<dl> 
+<dd><img class="tex" alt="r^{n}=ar^{n-1}+br^{n-2}" src="./recurrences_files/a0fe85ee2075d21dd9a66867e0eafcd2.png"></dd> 
+</dl> 
+<p>must be true for <b>all</b>&nbsp;<i>n</i>&nbsp;&gt;&nbsp;1.</p> 
+<p>dividing through by <i>r</i><sup><i>n</i>−2</sup>, we get that all these equations reduce to the same thing:</p> 
+<dl> 
+<dd><img class="tex" alt="r^2=ar+b," src="./recurrences_files/da45b436a327fd68dd5c43cd1dceea37.png"></dd> 
+<dd><img class="tex" alt="r^2-ar-b=0," src="./recurrences_files/6c8153cae3e24e3f5eaec7f44ba481d2.png"></dd> 
+</dl> 
+<p>which is the characteristic equation of the recurrence relation. solve for <i>r</i> to obtain the two roots <i>λ</i><sub>1</sub>, <i>λ</i><sub>2</sub>: these roots are known as the <a href="http://en.wikipedia.org/wiki/characteristic_root" title="characteristic root" class="mw-redirect">characteristic roots</a> or <b>eigenvalues</b> of the characteristic equation. different solutions are obtained depending on the nature of the roots: if these roots are distinct, we have the general solution</p> 
+<dl> 
+<dd><img class="tex" alt="a_n = c\lambda_1^n+d\lambda_2^n" src="./recurrences_files/2e99da794cf51ad9498ac6efc5b3d009.png"></dd> 
+</dl> 
+<p>while if they are identical (when <i>a</i><sup>2</sup>&nbsp;+&nbsp;4<i>b</i>&nbsp;=&nbsp;0), we have</p> 
+<dl> 
+<dd><img class="tex" alt="a_n = c\lambda^n+dn\lambda^n" src="./recurrences_files/814191f5a1d66355394717d661af0160.png"></dd> 
+</dl> 
+<p>this is the most general solution; the two constants <i>c</i> and <i>d</i> can be chosen based on two given initial conditions <i>a</i><sub>0</sub> and <i>a</i><sub>1</sub> to produce a specific solution.</p> 
+<p>in the case of complex eigenvalues (which also gives rise to complex values for the solution parameters <i>c</i> and <i>d</i>), the use of complex numbers can be eliminated by rewriting the solution in trigonometric form. in this case we can write the eigenvalues as <img class="tex" alt="\lambda_1, \lambda_2 = \alpha \pm \beta i." src="./recurrences_files/974b35aab1f8913b39a586c74f323abe.png"> then it can be shown that</p> 
+<dl> 
+<dd><img class="tex" alt="a_n = c\lambda_1^n+d\lambda_2^n" src="./recurrences_files/2e99da794cf51ad9498ac6efc5b3d009.png"></dd> 
+</dl> 
+<p>can be rewritten as<sup id="cite_ref-3" class="reference"><a href="http://en.wikipedia.org/wiki/recurrences#cite_note-3"><span>[</span>3<span>]</span></a></sup><sup class="reference" style="white-space:nowrap;">:576–585</sup></p> 
+<dl> 
+<dd><img class="tex" alt="a_n = 2 m^n \left( e \cos(\theta n) + f \sin(\theta n)\right) = 2 g m^n \cos(\theta n - \delta)," src="./recurrences_files/52f6643dde3d5d252a685936a0d955a4.png"></dd> 
+</dl> 
+<p>where</p> 
+<dl> 
+<dd><img class="tex" alt="\begin{array}{lcl} 
+m = \sqrt{\alpha^2+\beta^2} &amp; \cos (\theta) =\tfrac{\alpha}{m} &amp; \sin( \theta) = \tfrac{\beta}{m} \\ 
+c,d = e \mp f i &amp; &amp; \\ 
+g = \sqrt{e^2+f^2} &amp; \cos (\delta ) = \tfrac{e}{g} &amp; \sin (\delta )= \tfrac{f}{g} 
+\end{array}" src="./recurrences_files/0507771d006ee5755933afc1c2c4f934.png"></dd> 
+</dl> 
+<p>here <i>e</i> and <i>f</i> (or equivalently, <i>g</i> and δ) are real constants which depend on the initial conditions. using</p> 
+<dl> 
+<dd><img class="tex" alt="\lambda_1+\lambda_2=2 \alpha = a," src="./recurrences_files/09420bf1403adc1d97a416cf7d3181f9.png"></dd> 
+<dd><img class="tex" alt="\lambda_1 \cdot \lambda_2=\alpha^2+\beta^2=-b," src="./recurrences_files/1555feef5cf0ac1b3a700fd542a9fe2f.png"></dd> 
+</dl> 
+<p>one may simplify the solution given above as</p> 
+<dl> 
+<dd><img class="tex" alt="a_n = (-b)^{\frac{n}{2}} \left( e \cos(\theta n) + f \sin(\theta n)\right)," src="./recurrences_files/e562c7519e235bedc891b17579d06dd7.png"></dd> 
+</dl> 
+<p>where <i>a</i><sub>1</sub> and <i>a</i><sub>2</sub> are the initial conditions and</p> 
+<dl> 
+<dd><img class="tex" alt="\begin{align} 
+e &amp;=\frac{-a a_1 + a_2}{b} \\ 
+f &amp;=-i \frac{a^2 a_1 - a a_2 +2 a_1 b}{b \sqrt{a^2+4b}} \\ 
+\theta &amp;=a\cos \left (\frac{a}{2 \sqrt{-b}} \right ) 
+\end{align}" src="./recurrences_files/ee824b3ad9be136a20044b379d5369f9.png"></dd> 
+</dl> 
+<p>in this way there is no need to solve for λ<sub>1</sub> and λ<sub>2</sub>.</p> 
+<p>in all cases—real distinct eigenvalues, real duplicated eigenvalues, and complex conjugate eigenvalues—the equation is <a href="http://en.wikipedia.org/wiki/stability_theory" title="stability theory">stable</a> (that is, the variable <i>a</i> converges to a fixed value (specifically, zero)); if and only if <i>both</i> eigenvalues are smaller than one in <a href="http://en.wikipedia.org/wiki/absolute_value" title="absolute value">absolute value</a>. in this second-order case, this condition on the eigenvalues can be shown<sup id="cite_ref-4" class="reference"><a href="http://en.wikipedia.org/wiki/recurrences#cite_note-4"><span>[</span>4<span>]</span></a></sup> to be equivalent to |<i>a</i>|&nbsp;&lt;&nbsp;1&nbsp;−&nbsp;<i>b</i>&nbsp;&lt;&nbsp;2, which is equivalent to |<i>b</i>|&nbsp;&lt;&nbsp;1 and |<i>a</i>|&nbsp;&lt;&nbsp;1&nbsp;−&nbsp;<i>b</i>.</p> 
+<p>the equation in the above example was <a href="http://en.wikipedia.org/wiki/homogeneous_differential_equation" title="homogeneous differential equation">homogeneous</a>, in that there was no constant term. if one starts with the non-homogeneous recurrence</p> 
+<dl> 
+<dd><img class="tex" alt="b_{n}=ab_{n-1}+bb_{n-2}+k" src="./recurrences_files/89798ea8d405f9957e4d6f5c0beca048.png"></dd> 
+</dl> 
+<p>with constant term <i>k</i>, this can be converted into homogeneous form as follows: the <a href="http://en.wikipedia.org/wiki/steady_state" title="steady state">steady state</a> is found by setting <i>b<sub>n</sub></i> =&nbsp;<i>b</i><sub><i>n</i>−1</sub> =&nbsp;<i>b</i><sub><i>n</i>−2</sub> =&nbsp;<i>b</i>* to obtain</p> 
+<dl> 
+<dd><img class="tex" alt=" b^{*} = \frac{k}{1-a-b}." src="./recurrences_files/2e2cf944e741ddd4bba0dee22c5861e5.png"></dd> 
+</dl> 
+<p>then the non-homogeneous recurrence can be rewritten in homogeneous form as</p> 
+<dl> 
+<dd><img class="tex" alt="[b_n - b^*]=a[b_{n-1}-b^*]+b[b_{n-2}-b^*]," src="./recurrences_files/094ba9f73ab0ff2f69e0af404c29b7b6.png"></dd> 
+</dl> 
+<p>which can be solved as above.</p> 
+<p>the stability condition stated above in terms of eigenvalues for the second-order case remains valid for the general <i>n</i><sup>th</sup>-order case: the equation is stable if and only if all eigenvalues of the characteristic equation are less than one in absolute value.</p> 
+<h3><span class="mw-headline" id="solving_via_linear_algebra">solving via linear algebra</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=9" title="edit section: solving via linear algebra">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>a linearly recursive sequence y of order n</p> 
+<dl> 
+<dd><img class="tex" alt="y_{n+k} - c_{n-1}y_{n-1+k} - c_{n-2}y_{n-2+k} + \cdots - c_{0}y_{k} = 0" src="./recurrences_files/44f760c4ea336b6a6586212db83206fc.png"></dd> 
+</dl> 
+<p>is identical to</p> 
+<dl> 
+<dd><img class="tex" alt="y_{n} = c_{n-1}y_{n-1} + c_{n-2}y_{n-2} + \cdots +c_{0}y_{0}." src="./recurrences_files/ce8c3b7e65f1dd2790300dfa8a37e90e.png"></dd> 
+</dl> 
+<p>expanded with n-1 identities of kind <img class="tex" alt="y_{n-k} = y_{n-k}," src="./recurrences_files/7a571dd02005bf54abd0dce9f1782fb6.png"> this n-th order equation is translated into a system of n first order linear equations,</p> 
+<dl> 
+<dd><img class="tex" alt="\vec y_{n} = \begin{bmatrix}y_n\\y_{n-1}\\ \vdots \\ y_1 \end{bmatrix} = \begin{bmatrix}-c_{n-1} &amp; -c_{n-2} &amp; \cdots &amp; -c_{0} \\ 1 &amp; 0 &amp; \cdots &amp;0\\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 0 &amp; 0 &amp; \cdots &amp; 0\end{bmatrix}\begin{bmatrix}y_{n-1} \\y_{n-2} \\ \vdots \\ y_0 \end{bmatrix} = c\ \vec y_{n-1} = c^n \vec y_0." src="./recurrences_files/5c2de0a0d4fd97eff29675b8d0d27db3.png"></dd> 
+</dl> 
+<p>observe that the vector <img class="tex" alt="\vec y_n" src="./recurrences_files/cf42e0037977135ad1f0c7d01459bda7.png"> can be computed by <i>n</i> applications of the <a href="http://en.wikipedia.org/wiki/companion_matrix" title="companion matrix">companion matrix</a>, c, to the initial state vector, <img class="tex" alt="y_0" src="./recurrences_files/8e28d43bbeb35deeebf9eca9de21bf33.png">. thereby, n-th entry of the sought sequence y, is the top component of <img class="tex" alt="\vec y_n, y_n = \vec y_n[n]" src="./recurrences_files/d07999b88054bbc10eb979a8d58a88e2.png">.</p> 
+<p><a href="http://en.wikipedia.org/wiki/eigendecomposition_of_a_matrix#example" title="eigendecomposition of a matrix">eigendecomposition</a>, <img class="tex" alt="\vec y_n = \vec c^n\, \vec y_0 = c_1\,\lambda_1^n\,\vec e_1 + c_2\,\lambda_2^n\,\vec e_2 + \cdots + c_n\,\lambda_n^n\,\vec e_n" src="./recurrences_files/234043f549ac5c9cda00206260476c57.png"> into eigenvalues, <img class="tex" alt="\lambda_1, \lambda_2, \ldots, \lambda_n" src="./recurrences_files/181aa6503451a38769491a93eb1fd151.png">, and eigenvectors, <img class="tex" alt="\vec e_1, \vec e_2, \ldots, \vec e_n" src="./recurrences_files/5604e4536d9bbe439cebfc22b46a3344.png">, is used to compute <img class="tex" alt="\vec y_n." src="./recurrences_files/88fc5edee29f614fd5e5f768e9a5779d.png"> thanks to the crucial fact that system <i>c</i> time-shifts every eigenvector, <i>e</i>, by simply scaling its components <i>λ</i> times,</p> 
+<dl> 
+<dd><img class="tex" alt="c\,\vec e_i = \lambda_i \vec e_i = c \begin{bmatrix}e_{i,n} \\e_{i,n-1} \\ \vdots \\ e_{i,1}\end{bmatrix} = \begin{bmatrix}\lambda_i\,e_{i,n} \\ \lambda_i\,e_{i,n-1} \\ \vdots \\ \lambda_i\,e_{i,1}\end{bmatrix}" src="./recurrences_files/cf8c663842b365235a9bd72eee5ce325.png"></dd> 
+</dl> 
+<p>that is, time-shifted version of eigenvector,<i>e</i>, has components <i>λ</i> times larger, the eighenvector components are powers of <i>λ</i>, <img class="tex" alt="\vec e_i = \begin{bmatrix}\lambda_i^{n-1} &amp; \cdots &amp; \lambda_i^2 &amp; \lambda_i &amp; 1\end{bmatrix}^t," src="./recurrences_files/72636dc587b714d79029b03ead6ead8a.png"> and, thus, recurrent linear homogenous equation solution is a combination of exponential functions, <img class="tex" alt="\vec y_n = \sum_1^n {c_i\,\lambda_i^n\,\vec e_i}" src="./recurrences_files/fad5594c975a6a382ee6eff126c68ad5.png">. the components <img class="tex" alt="c_i" src="./recurrences_files/d9899588b2b28a768a63ade0f3523596.png"> can be determined out of initial conditions:</p> 
+<dl> 
+<dd><img class="tex" alt="\vec y_0 = \begin{bmatrix}y_{0}\\ y_{-1} \\ \vdots\\ y_{-n+1}\end{bmatrix} = \sum_{i=1}^n {c_i\,\lambda_i^0\,\vec e_i} = \begin{bmatrix}\vec e_1 &amp; \vec e_2 &amp; \cdots &amp; \vec e_n\end{bmatrix}\,\begin{bmatrix}c_1 \\ c_2 \\ \cdots \\ c_n\end{bmatrix} = e\, \begin{bmatrix}c_1 \\ c_2 \\ \cdots \\ c_n\end{bmatrix}" src="./recurrences_files/115b979a5af3663ba537d2ff4973948d.png"></dd> 
+</dl> 
+<p>solving for coefficients,</p> 
+<dl> 
+<dd><img class="tex" alt="\begin{bmatrix}c_1 \\ c_2 \\ \cdots \\ c_n\end{bmatrix} = e^{-1} \vec y_0 = \begin{bmatrix}\lambda_1^{n-1} &amp; \lambda_2^{n-1} &amp; \cdots &amp;  \lambda_n^{n-1} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ \lambda_1 &amp; \lambda_2 &amp; \cdots &amp;  \lambda_n \\ 1 &amp; 1 &amp; \cdots &amp; 1\end{bmatrix}^{-1}\,\begin{bmatrix}y_{0}\\ y_{-1} \\ \vdots\\ y_{-n+1}\end{bmatrix}." src="./recurrences_files/8e45fb550c39afa35e6b6e52a9eba691.png"></dd> 
+</dl> 
+<p>this also works with arbitrary boundary conditions <img class="tex" alt="\underbrace{y_a, y_b, \ldots}_\text{n}" src="./recurrences_files/17b0cdc8e108b48c28fcd9e0fbbdd889.png">, not necessary the initial ones,</p> 
+<dl> 
+<dd><img class="tex" alt="\begin{bmatrix}y_a \\ y_b \\ \vdots\end{bmatrix}  = \begin{bmatrix}\vec y_a[n] \\ \vec y_b[n] \\ \vdots\end{bmatrix} = \begin{bmatrix}\sum_{i=1}^n {c_i\,\lambda_i^a\,\vec e_i[n]} \\ \sum_{i=1}^n {c_i\,\lambda_i^b\,\vec e_i[n]} \\ \vdots\end{bmatrix}  =\begin{bmatrix}\sum_{i=1}^n {c_i\,\lambda_i^a\,\lambda_i^{n-1}} \\ \sum_{i=1}^n {c_i\,\lambda_i^b\,\lambda_i^{n-1}} \\ \vdots\end{bmatrix} = " src="./recurrences_files/cf8e9634cce1bd2996936fcb09097a0d.png"></dd> 
+</dl> 
+<dl> 
+<dd><img class="tex" alt=" = \begin{bmatrix}\sum {c_i\,\lambda_i^{a+n-1}} \\ \sum {c_i\,\lambda_i^{b+n-1}} \\ \vdots\end{bmatrix} = \begin{bmatrix}\lambda_1^{a+n-1} &amp; \lambda_2^{a+n-1} &amp; \cdots &amp; \lambda_n^{a+n-1} \\ \lambda_1^{b+n-1} &amp; \lambda_2^{b+n-1} &amp; \cdots &amp; \lambda_n^{b+n-1} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \end{bmatrix}\,\begin{bmatrix}c_1 \\ c_2 \\ \vdots \\ c_n\end{bmatrix}." src="./recurrences_files/42bdb30a7a819df072a51317ee3cc751.png"></dd> 
+</dl> 
+<p>this description is really no different from general method above, however it is more succinct. it also works nicely for situations like</p> 
+<dl> 
+<dd><img class="tex" alt="\begin{cases} 
+a_n =a_{n-1}-b_{n-1}\\ 
+b_n =2a_{n-1}+b_{n-1}. 
+\end{cases} 
+" src="./recurrences_files/02fdb8c095832c3c42d5b537953edefe.png"></dd> 
+</dl> 
+<p>where there are several linked recurrences<sup class="template-fact" style="white-space:nowrap;">[<i><a href="http://en.wikipedia.org/wiki/wikipedia:citation_needed" title="wikipedia:citation needed"><span title="this claim needs references to reliable sources. (june 2010)">citation needed</span></a></i>]</sup>.</p> 
+<h3><span class="mw-headline" id="solving_with_z-transforms">solving with z-transforms</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=10" title="edit section: solving with z-transforms">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>certain difference equations - in particular, <a href="http://en.wikipedia.org/wiki/z-transform#linear_constant-coefficient_difference_equation" title="z-transform">linear constant coefficient</a> difference equations - can be solved using <a href="http://en.wikipedia.org/wiki/z-transform" title="z-transform">z-transforms</a>. the <i>z</i>-transforms are a class of <a href="http://en.wikipedia.org/wiki/integral_transform" title="integral transform">integral transforms</a> that lead to more convenient algebraic manipulations and more straightforward solutions. there are cases in which obtaining a direct solution would be all but impossible, yet solving the problem via a thoughtfully chosen integral transform is straightforward.</p> 
+<h3><span class="mw-headline" id="theorem">theorem</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=11" title="edit section: theorem">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>given a linear homogeneous recurrence relation with constant coefficients of order <i>d</i>, let <i>p</i>(<i>t</i>) be the <a href="http://en.wikipedia.org/wiki/characteristic_polynomial" title="characteristic polynomial">characteristic polynomial</a> (also "auxiliary polynomial")</p> 
+<dl> 
+<dd><img class="tex" alt="t^d - c_1t^{d-1} - c_2t^{d-2}-\cdots-c_{d} = 0 \," src="./recurrences_files/f62383f89cca762c22224907e94c6789.png"></dd> 
+</dl> 
+<p>such that each <i>c<sub>i</sub></i> corresponds to each <i>c<sub>i</sub></i> in the original recurrence relation (see the general form above). suppose λ is a root of <i>p</i>(<i>t</i>) having multiplicity <i>r</i>. this is to say that (<i>t</i>−λ)<sup><i>r</i></sup> divides <i>p</i>(<i>t</i>). the following two properties hold:</p> 
+<ol> 
+<li>each of the <i>r</i> sequences <img class="tex" alt="\lambda^n, n\lambda^n, n^2\lambda^n,\dots,n^{r-1}\lambda^n" src="./recurrences_files/3e3dc36a09948e3aa7c503091f55d9b8.png"> satisfies the recurrence relation.</li> 
+<li>any sequence satisfying the recurrence relation can be written uniquely as a linear combination of solutions constructed in part 1 as <i>λ</i> varies over all distinct roots of&nbsp;<i>p</i>(<i>t</i>).</li> 
+</ol> 
+<p>as a result of this theorem a linear homogeneous recurrence relation with constant coefficients can be solved in the following manner:</p> 
+<ol> 
+<li>find the characteristic polynomial <i>p</i>(<i>t</i>).</li> 
+<li>find the roots of <i>p</i>(<i>t</i>) counting multiplicity.</li> 
+<li>write <i>a<sub>n</sub></i> as a linear combination of all the roots (counting multiplicity as shown in the theorem above) with unknown coefficients <i>b<sub>i</sub></i>.</li> 
+</ol> 
+<dl> 
+<dd> 
+<dl> 
+<dd><img class="tex" alt="a_n = \left (b_1\lambda_1^n + b_2n\lambda_1^n + b_3n^2\lambda_1^n+\cdots+b_r n^{r-1}\lambda_1^n \right )+\cdots+ \left (b_{d-q+1}\lambda_{*}^n + \cdots + b_{d}n^{q-1}\lambda_{*}^n \right )" src="./recurrences_files/e8da9c14432d16a5328a4038651fa0bf.png"></dd> 
+</dl> 
+</dd> 
+</dl> 
+<dl> 
+<dd>this is the general solution to the original recurrence relation. (<i>q</i> is the multiplicity of λ<sub>*</sub>)</dd> 
+</dl> 
+<dl> 
+<dd>4. equate each <img class="tex" alt="a_0, a_1, \dots,a_d" src="./recurrences_files/3898ad045a3d66301a5272958c09e455.png"> from part 3 (plugging in <i>n</i> = 0, ..., <i>d</i> into the general solution of the recurrence relation) with the known values <img class="tex" alt="a_0, a_1, \dots,a_d" src="./recurrences_files/3898ad045a3d66301a5272958c09e455.png"> from the original recurrence relation. however, the values <i>a<sub>n</sub></i> from the original recurrence relation used do not usually have to be contiguous: excluding exceptional cases, just <i>d</i> of them are needed (i.e., for an original linear homogeneous recurrence relation of order 3 one could use the values <i>a</i><sub>0</sub>, <i>a</i><sub>1</sub>, <i>a</i><sub>4</sub>). this process will produce a linear system of <i>d</i> equations with <i>d</i> unknowns. solving these equations for the unknown coefficients <img class="tex" alt="b_1, b_2, \dots,b_d " src="./recurrences_files/4f11a04f5b5172291dcf95e76fffd79b.png"> of the general solution and plugging these values back into the general solution will produce the particular solution to the original recurrence relation that fits the original recurrence relation's initial conditions (as well as all subsequent values <img class="tex" alt="a_0,a_1,a_2,\dots" src="./recurrences_files/c5d9eb8aa2f1d406486c9e01e9d61d60.png"> of the original recurrence relation).</dd> 
+</dl> 
+<p>the method for solving linear <a href="http://en.wikipedia.org/wiki/differential_equations" title="differential equations" class="mw-redirect">differential equations</a> is similar to the method above—the "intelligent guess" (<a href="http://en.wikipedia.org/wiki/ansatz" title="ansatz">ansatz</a>) for linear differential equations with constant coefficients is <i>e</i><sup>λ<i>x</i></sup> where λ is a complex number that is determined by substituting the guess into the differential equation.</p> 
+<p>this is not a coincidence. considering the <a href="http://en.wikipedia.org/wiki/taylor_series" title="taylor series">taylor series</a> of the solution to a linear differential equation:</p> 
+<dl> 
+<dd><img class="tex" alt="\sum_{n=0}^\infin \frac{f^{(n)}(a)}{n!} (x-a)^n" src="./recurrences_files/72ab147ecb8eacd3d58c6fdd375633f6.png"></dd> 
+</dl> 
+<p>it can be seen that the coefficients of the series are given by the <i>n</i><sup>th</sup> derivative of <i>f</i>(<i>x</i>) evaluated at the point <i>a</i>. the differential equation provides a linear difference equation relating these coefficients.</p> 
+<p>this equivalence can be used to quickly solve for the recurrence relationship for the coefficients in the power series solution of a linear differential equation.</p> 
+<p>the rule of thumb (for equations in which the polynomial multiplying the first term is non-zero at zero) is that:</p> 
+<dl> 
+<dd><img class="tex" alt="y^{[k]} \to  f[n+k]" src="./recurrences_files/19d7803b0166b65a77fe2970279cc30e.png"></dd> 
+</dl> 
+<p>and more generally</p> 
+<dl> 
+<dd><img class="tex" alt="x^m*y^{[k]} \to n(n-1)(n-m+1)f[n+k-m]" src="./recurrences_files/0acc80c8056f394455dfa25158339a69.png"></dd> 
+</dl> 
+<p><b>example:</b> the recurrence relationship for the taylor series coefficients of the equation:</p> 
+<dl> 
+<dd><img class="tex" alt=" (x^2 + 3x -4)y^{[3]} -(3x+1)y^{[2]} + 2y = 0" src="./recurrences_files/3dfa6e42793e87136f96d2ad6f1e2f18.png"></dd> 
+</dl> 
+<p>is given by</p> 
+<dl> 
+<dd><img class="tex" alt=" n(n-1)f[n+1] + 3nf[n+2] -4f[n+3] -3nf[n+1] -f[n+2]+ 2f[n] = 0" src="./recurrences_files/3ad6ac7bcc0519a444a68dba649b8c3a.png"></dd> 
+</dl> 
+<p>or</p> 
+<dl> 
+<dd><img class="tex" alt="-4f[n+3] +2nf[n+2] + n(n-4)f[n+1] +2f[n] = 0." src="./recurrences_files/e66c8fa45175142a88f80f64183f8eac.png"></dd> 
+</dl> 
+<p>this example shows how problems generally solved using the power series solution method taught in normal differential equation classes can be solved in a much easier way.</p> 
+<p><b>example:</b> the differential equation</p> 
+<dl> 
+<dd><img class="tex" alt="ay&#39;&#39; + by&#39; +cy = 0" src="./recurrences_files/3d3ad3b4098c99d2d080fa5548c30e2f.png"></dd> 
+</dl> 
+<p>has solution</p> 
+<dl> 
+<dd><img class="tex" alt=" y=e^{ax}." src="./recurrences_files/d2b9a6393d74ea91abb6a3e70033b967.png"></dd> 
+</dl> 
+<p>the conversion of the differential equation to a difference equation of the taylor coefficients is</p> 
+<dl> 
+<dd><img class="tex" alt="af[n + 2] + bf[n + 1] + cf[n] = 0." src="./recurrences_files/a3286dd08292be8e91efeedcc3fdb392.png"></dd> 
+</dl> 
+<p>it is easy to see that the <i>n</i>th derivative of <i>e</i><sup><i>ax</i></sup> evaluated at 0 is <i>a</i><sup><i>n</i></sup></p> 
+<h3><span class="mw-headline" id="solving_non-homogeneous_recurrence_relations">solving non-homogeneous recurrence relations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=12" title="edit section: solving non-homogeneous recurrence relations">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>if the recurrence is inhomogeneous, a particular solution can be found by the <a href="http://en.wikipedia.org/wiki/method_of_undetermined_coefficients" title="method of undetermined coefficients">method of undetermined coefficients</a> and the solution is the sum of the solution of the homogeneous and the particular solutions. another method to solve an inhomogeneous recurrence is the method of <i>symbolic differentiation</i>. for example, consider the following recurrence:</p> 
+<dl> 
+<dd><img class="tex" alt="a_{n+1} = a_{n} + 1" src="./recurrences_files/cf02f642dedfeaae99b6d1033322759d.png"></dd> 
+</dl> 
+<p>this is an inhomogeneous recurrence. if we substitute <i>n</i> ↦ <i>n</i>+1, we obtain the recurrence</p> 
+<dl> 
+<dd><img class="tex" alt="a_{n+2} = a_{n+1} + 1" src="./recurrences_files/8090cf442676b344b809281318cecc05.png"></dd> 
+</dl> 
+<p>subtracting the original recurrence from this equation yields</p> 
+<dl> 
+<dd><img class="tex" alt="a_{n+2} - a_{n+1} = a_{n+1} - a_n" src="./recurrences_files/c2f72ae09374bb9d49801ac05f30097c.png"></dd> 
+</dl> 
+<p>or equivalently</p> 
+<dl> 
+<dd><img class="tex" alt="a_{n+2} = 2 a_{n+1} - a_n" src="./recurrences_files/c02177042061f75416f2b4c00bb68aad.png"></dd> 
+</dl> 
+<p>this is a homogeneous recurrence which can be solved by the methods explained above. in general, if a linear recurrence has the form</p> 
+<dl> 
+<dd><img class="tex" alt=" a_{n+k} = \lambda_{k-1} a_{n+k-1} + \lambda_{k-2} a_{n+k-2} + \cdots + \lambda_1 a_{n+1} + \lambda_0 a_{n} + p(n) " src="./recurrences_files/7df9fb4c6793e8da84489b0eb0cb109f.png"></dd> 
+</dl> 
+<p>where <img class="tex" alt="\lambda_0, \lambda_1, \dots, \lambda_{k-1}" src="./recurrences_files/5105862b65fe9f857f3dd2a1c93fa350.png"> are constant coefficients and <i>p</i>(<i>n</i>) is the inhomogeneity, then if <i>p</i>(<i>n</i>) is a polynomial with degree <i>r</i>, then this inhomogeneous recurrence can be reduced to a homogeneous recurrence by applying the method of symbolic differencing <i>r</i> times.</p> 
+<p>if</p> 
+<dl> 
+<dd><img class="tex" alt="p(x) = \sum_{n=0}^\infty p_n x^n" src="./recurrences_files/8c1035188586ea552826819bf31d8b81.png"></dd> 
+</dl> 
+<p>is the generating function of the inhomogeneity, the generating function</p> 
+<dl> 
+<dd><img class="tex" alt="a(x) = \sum_{n=0}^\infty a(n) x^n" src="./recurrences_files/6d94af46d1d7fa7428a6f1e6b2023a48.png"></dd> 
+</dl> 
+<p>of the inhomogeneous recurrence</p> 
+<dl> 
+<dd><img class="tex" alt=" a_n = \sum_{i=1}^s c_i a_{n-i}+p_n,\quad n\ge n_r," src="./recurrences_files/7cef77df054bb3518022fd2b1b384ab3.png"></dd> 
+</dl> 
+<p>with constant coefficients <span class="texhtml">c<sub>i</sub></span> is derived from</p> 
+<dl> 
+<dd><img class="tex" alt=" \left (1-\sum_{i=1}^sc_ix^i \right )a(x)=p(x)+\sum_{n=0}^{n_r-1}[a_n-p_n]x^n-\sum_{i=1}^s c_ix^i\sum_{n=0}^{n_r-i-1}a_nx^n." src="./recurrences_files/6a58cc872bda2ce8810c36241838ceeb.png"></dd> 
+</dl> 
+<p>if <i>p</i>(<i>x</i>) is a rational generating function, <i>a</i>(<i>x</i>) is also one. the case discussed above, where <i>p<sub>n</sub></i> = <i>k</i> is a constant, emerges as one example of this formula, with <i>p</i>(<i>x</i>) = <i>k</i>/(1−<i>x</i>). the solution of homogeneous recurrences is incorporated as <i>p</i> = <i>p</i> = 0.</p> 
+<p>moreover, for the general first-order linear inhomogeneous recurrence relation with variable coefficient(s)</p> 
+<dl> 
+<dd><img class="tex" alt="a_{n+1} = f_n a_n + g_n, \qquad f_n \neq 0," src="./recurrences_files/6af6b2c7ce10d068d6ba5cefa03528a8.png"></dd> 
+</dl> 
+<p>there is also a nice method to solve it:<sup id="cite_ref-5" class="reference"><a href="http://en.wikipedia.org/wiki/recurrences#cite_note-5"><span>[</span>5<span>]</span></a></sup></p> 
+<dl> 
+<dd><img class="tex" alt="a_{n+1} - f_n a_n = g_n" src="./recurrences_files/178d3fb0d2291e92576cc9c01bbbdfac.png"></dd> 
+<dd><img class="tex" alt="\frac{a_{n+1}}{\prod_{k=0}^n f_k} - \frac{f_n a_n}{\prod_{k=0}^n f_k} = \frac{g_n}{\prod_{k=0}^n f_k}" src="./recurrences_files/37bc0c46a2dc54abb6154e563b51c921.png"></dd> 
+<dd><img class="tex" alt="\frac{a_{n+1}}{\prod_{k=0}^n f_k} - \frac{a_n}{\prod_{k=0}^{n-1} f_k} = \frac{g_n}{\prod_{k=0}^n f_k}" src="./recurrences_files/cac5e5d36a20589e022888cd525440e1.png"></dd> 
+</dl> 
+<p>let</p> 
+<dl> 
+<dd><img class="tex" alt="a_n = \frac{a_n}{\prod_{k=0}^{n-1} f_k}," src="./recurrences_files/82b23c1f473304512851278985c90a6b.png"></dd> 
+</dl> 
+<p>then</p> 
+<dl> 
+<dd><img class="tex" alt="a_{n+1} - a_n = \frac{g_n}{\prod_{k=0}^n f_k}" src="./recurrences_files/23b6587d6fc25c038a650ffbfd4683a7.png"></dd> 
+<dd><img class="tex" alt="\sum_{m=0}^{n-1}(a_{m+1} - a_m) = a_n - a_0 = \sum_{m=0}^{n-1}\frac{g_m}{\prod_{k=0}^m f_k}" src="./recurrences_files/4d36df948d215d03c4d0866de4df9e4d.png"></dd> 
+<dd><img class="tex" alt="\frac{a_n}{\prod_{k=0}^{n-1} f_k} = a_0 + \sum_{m=0}^{n-1}\frac{g_m}{\prod_{k=0}^m f_k}" src="./recurrences_files/a52805c19902a75499bddeb7d9d2b93b.png"></dd> 
+<dd><img class="tex" alt="a_n = \left(\prod_{k=0}^{n-1} f_k \right) \left(a_0 + \sum_{m=0}^{n-1}\frac{g_m}{\prod_{k=0}^m f_k}\right)" src="./recurrences_files/0bd127f81cd65e780ca89ea88c620ad5.png"></dd> 
+</dl> 
+<h3><span class="mw-headline" id="general_linear_homogeneous_recurrence_relations">general linear homogeneous recurrence relations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=13" title="edit section: general linear homogeneous recurrence relations">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>many linear homogeneous recurrence relations may be solved by means of the <a href="http://en.wikipedia.org/wiki/generalized_hypergeometric_series" title="generalized hypergeometric series" class="mw-redirect">generalized hypergeometric series</a>. special cases of these lead to recurrence relations for the <a href="http://en.wikipedia.org/wiki/orthogonal_polynomials" title="orthogonal polynomials">orthogonal polynomials</a>, and many <a href="http://en.wikipedia.org/wiki/special_function" title="special function" class="mw-redirect">special functions</a>. for example, the solution to</p> 
+<dl> 
+<dd><img class="tex" alt="j_{n+1}=\frac{2n}{z}j_n-j_{n-1}" src="./recurrences_files/632adbf1386f9a2a7ea5db72158e51b6.png"></dd> 
+</dl> 
+<p>is given by</p> 
+<dl> 
+<dd><img class="tex" alt="j_n=j_n(z), \," src="./recurrences_files/c7f5c89334e21ac86eabfe910ff11625.png"></dd> 
+</dl> 
+<p>the <a href="http://en.wikipedia.org/wiki/bessel_function" title="bessel function">bessel function</a>, while</p> 
+<dl> 
+<dd><img class="tex" alt="(b-n)m_{n-1} +(2n-b-z)m_n - nm_{n+1}=0 \," src="./recurrences_files/8d90b0d9ef2f33285bbcb2a185d92ef9.png"></dd> 
+</dl> 
+<p>is solved by</p> 
+<dl> 
+<dd><img class="tex" alt="m_n=m(n,b;z) \," src="./recurrences_files/c50fedf5cf6f0b633a2e6e5ca21bd7fd.png"></dd> 
+</dl> 
+<p>the <a href="http://en.wikipedia.org/wiki/confluent_hypergeometric_series" title="confluent hypergeometric series" class="mw-redirect">confluent hypergeometric series</a>.</p> 
+<h3><span class="mw-headline" id="solving_a_first_order_rational_difference_equation">solving a first order rational difference equation</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=14" title="edit section: solving a first order rational difference equation">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<div class="rellink relarticle mainarticle">main article: <a href="http://en.wikipedia.org/wiki/rational_difference_equation" title="rational difference equation">rational difference equation</a></div> 
+<p>a first order rational difference equation has the form <img class="tex" alt="w_{t+1} = \tfrac{aw_t+b}{cw_t+d}" src="./recurrences_files/ead296c304ab222084b6f18a859982d7.png">. such an equation can be solved by writing <img class="tex" alt="w_t" src="./recurrences_files/b6c6547d1c28e14946c7e58a34c40852.png"> as a nonlinear transformation of another variable <img class="tex" alt="x_t" src="./recurrences_files/8ac66afa5dc4aefbf764ad6d9acc8d35.png"> which itself evolves linearly. then standard methods can be used to solve the linear difference equation in <img class="tex" alt="x_t" src="./recurrences_files/8ac66afa5dc4aefbf764ad6d9acc8d35.png">.</p> 
+<h2><span class="mw-headline" id="stability">stability</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=15" title="edit section: stability">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<h3><span class="mw-headline" id="stability_of_linear_higher-order_recurrences">stability of linear higher-order recurrences</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=16" title="edit section: stability of linear higher-order recurrences">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>the linear recurrence of order <i>d</i>,</p> 
+<dl> 
+<dd><img class="tex" alt="a_n = c_1a_{n-1} + c_2a_{n-2}+\dots+c_da_{n-d},  \, " src="./recurrences_files/fbfe3aad8f56d7244d173821ae55b4c9.png"></dd> 
+</dl> 
+<p>has the <a href="http://en.wikipedia.org/wiki/characteristic_polynomial" title="characteristic polynomial">characteristic equation</a></p> 
+<dl> 
+<dd><img class="tex" alt="\lambda^d - c_1 \lambda^{d-1} - c_2 \lambda^{d-2} - \dots - c_d \lambda^0 =0. \, " src="./recurrences_files/b5cccc5e45abfde1bf7744706c83e018.png"></dd> 
+</dl> 
+<p>the recurrence is <a href="http://en.wikipedia.org/wiki/stability_theory" title="stability theory">stable</a>, meaning that the iterates converge asymptotically to a fixed value, if and only if the <a href="http://en.wikipedia.org/wiki/eigenvalues" title="eigenvalues" class="mw-redirect">eigenvalues</a> (i.e., the roots of the characteristic equation), whether real or complex, are all less than <a href="http://en.wikipedia.org/wiki/unity_(mathematics)" title="unity (mathematics)" class="mw-redirect">unity</a> in absolute value.</p> 
+<h3><span class="mw-headline" id="stability_of_linear_first-order_matrix_recurrences">stability of linear first-order matrix recurrences</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=17" title="edit section: stability of linear first-order matrix recurrences">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<div class="rellink relarticle mainarticle">main article: <a href="http://en.wikipedia.org/wiki/matrix_difference_equation" title="matrix difference equation">matrix difference equation</a></div> 
+<p>in the first-order matrix difference equation</p> 
+<dl> 
+<dd><img class="tex" alt="[x_t - x^*] = a[x_{t-1}-x^*]\," src="./recurrences_files/00f95c038edd8d116d962d507f79c874.png"></dd> 
+</dl> 
+<p>with state vector <i>x</i> and transition matrix <i>a</i>, <i>x</i> converges asymptotically to the steady state vector <i>x</i>* if and only if all eigenvalues of the transition matrix <i>a</i> (whether real or complex) have an <a href="http://en.wikipedia.org/wiki/absolute_value" title="absolute value">absolute value</a> which is less than&nbsp;1.</p> 
+<h3><span class="mw-headline" id="stability_of_nonlinear_first-order_recurrences">stability of nonlinear first-order recurrences</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=18" title="edit section: stability of nonlinear first-order recurrences">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>consider the nonlinear first-order recurrence</p> 
+<dl> 
+<dd><img class="tex" alt="x_n=f(x_{n-1})." src="./recurrences_files/b5108b2d07fc375460527de0b2bfd790.png"></dd> 
+</dl> 
+<p>this recurrence is <a href="http://en.wikipedia.org/wiki/stability_theory" title="stability theory">locally stable</a>, meaning that it <a href="http://en.wikipedia.org/wiki/limit_of_a_sequence" title="limit of a sequence">converges</a> to a fixed point <i>x</i>* from points sufficiently close to <i>x</i>*, if the slope of <i>f</i> in the neighborhood of <i>x</i>* is smaller than <a href="http://en.wikipedia.org/wiki/unity_(mathematics)" title="unity (mathematics)" class="mw-redirect">unity</a> in absolute value: that is,</p> 
+<dl> 
+<dd><img class="tex" alt="| f&#39; (x^*) | &lt; 1. \, " src="./recurrences_files/166b124e51c4eee5ebede9b6d9647116.png"></dd> 
+</dl> 
+<p>a nonlinear recurrence could have multiple fixed points, in which case some fixed points may be locally stable and others locally unstable; for continuous <i>f</i> two adjacent fixed points cannot both be locally stable.</p> 
+<p>a nonlinear recurrence relation could also have a cycle of period <i>k</i> for <i>k</i> &gt; 1. such a cycle is stable, meaning that it attracts a set of initial conditions of positive measure, if the composite function</p> 
+<dl> 
+<dd><img class="tex" alt="g(x) := f \circ f \circ \cdot \cdot \cdot \circ f(x)" src="./recurrences_files/a37ab1ecdaa471954f9812760e3b17c9.png"></dd> 
+</dl> 
+<p>with <i>f</i> appearing <i>k</i> times is locally stable according to the same criterion:</p> 
+<dl> 
+<dd><img class="tex" alt="| g&#39; (x^*) | &lt; 1," src="./recurrences_files/08a06d6d283afc1c9b97ab6a636c62b4.png"></dd> 
+</dl> 
+<p>where <i>x</i>* is any point on the cycle.</p> 
+<p>in a <a href="http://en.wikipedia.org/wiki/chaos_theory" title="chaos theory">chaotic</a> recurrence relation, the variable <i>x</i> stays in a bounded region but never converges to a fixed point or an attracting cycle; any fixed points or cycles of the equation are unstable. see also <a href="http://en.wikipedia.org/wiki/logistic_map" title="logistic map">logistic map</a>, <a href="http://en.wikipedia.org/wiki/dyadic_transformation" title="dyadic transformation">dyadic transformation</a>, and <a href="http://en.wikipedia.org/wiki/tent_map" title="tent map">tent map</a>.</p> 
+<h2><span class="mw-headline" id="relationship_to_differential_equations">relationship to differential equations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=19" title="edit section: relationship to differential equations">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>when solving an <a href="http://en.wikipedia.org/wiki/ordinary_differential_equation" title="ordinary differential equation">ordinary differential equation</a> <a href="http://en.wikipedia.org/wiki/numerical_ordinary_differential_equations" title="numerical ordinary differential equations" class="mw-redirect">numerically</a>, one typically encounters a recurrence relation. for example, when solving the <a href="http://en.wikipedia.org/wiki/initial_value_problem" title="initial value problem">initial value problem</a></p> 
+<dl> 
+<dd><img class="tex" alt="y&#39;(t) = f(t,y(t)), \ \ y(t_0)=y_0," src="./recurrences_files/c61444b56695bd90c6cf7a689b18ed14.png"></dd> 
+</dl> 
+<p>with <a href="http://en.wikipedia.org/wiki/euler%27s_method" title="euler&#39;s method" class="mw-redirect">euler's method</a> and a step size <i>h</i>, one calculates the values</p> 
+<dl> 
+<dd><img class="tex" alt="y_0=y(t_0), \ \ y_1=y(t_0+h), \ \ y_2=y(t_0+2h), \ \dots" src="./recurrences_files/2170fa6d325ac56307b54fc366c11532.png"></dd> 
+</dl> 
+<p>by the recurrence</p> 
+<dl> 
+<dd><img class="tex" alt="\, y_{n+1} = y_n + hf(t_n,y_n). " src="./recurrences_files/d7a156a31e5f1bbf45e503fd37533966.png"></dd> 
+</dl> 
+<p>systems of linear first order differential equations can be discretized exactly analytically using the methods shown in the <a href="http://en.wikipedia.org/wiki/discretization" title="discretization">discretization</a> article.</p> 
+<h2><span class="mw-headline" id="applications">applications</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=20" title="edit section: applications">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<h3><span class="mw-headline" id="biology">biology</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=21" title="edit section: biology">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>some of the best-known difference equations have their origins in the attempt to model <a href="http://en.wikipedia.org/wiki/population" title="population">population</a> dynamics. for example, the <a href="http://en.wikipedia.org/wiki/fibonacci_number" title="fibonacci number">fibonacci numbers</a> were once used as a model for the growth of a rabbit population.</p> 
+<p>the <a href="http://en.wikipedia.org/wiki/logistic_map" title="logistic map">logistic map</a> is used either directly to model population growth, or as a starting point for more detailed models. in this context, coupled difference equations are often used to model the interaction of two or more populations. for example, the nicholson-bailey model for a host-<a href="http://en.wikipedia.org/wiki/parasite" title="parasite" class="mw-redirect">parasite</a> interaction is given by</p> 
+<dl> 
+<dd><img class="tex" alt="n_{t+1} = \lambda n_t e^{-ap_t} \," src="./recurrences_files/acfc4dff8b3a4b1bd3d5518118ff3570.png"></dd> 
+<dd><img class="tex" alt="p_{t+1} = n_t(1-e^{-ap_t}), \," src="./recurrences_files/c21eda3fcbc874b719e695e3133bd2a7.png"></dd> 
+</dl> 
+<p>with <i>n</i><sub><i>t</i></sub> representing the hosts, and <i>p</i><sub><i>t</i></sub> the parasites, at time&nbsp;<i>t</i>.</p> 
+<p><a href="http://en.wikipedia.org/wiki/integrodifference_equation" title="integrodifference equation">integrodifference equations</a> are a form of recurrence relation important to spatial <a href="http://en.wikipedia.org/wiki/ecology" title="ecology">ecology</a>. these and other difference equations are particularly suited to modeling <a href="http://en.wikipedia.org/wiki/voltinism" title="voltinism">univoltine</a> populations.</p> 
+<h3><span class="mw-headline" id="digital_signal_processing">digital signal processing</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=22" title="edit section: digital signal processing">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>in <a href="http://en.wikipedia.org/wiki/digital_signal_processing" title="digital signal processing">digital signal processing</a>, recurrence relations can model feedback in a system, where outputs at one time become inputs for future time. they thus arise in <a href="http://en.wikipedia.org/wiki/infinite_impulse_response" title="infinite impulse response">infinite impulse response</a> (iir) <a href="http://en.wikipedia.org/wiki/digital_filter" title="digital filter">digital filters</a>.</p> 
+<p>for example, the equation for a "feedforward" iir <a href="http://en.wikipedia.org/wiki/comb_filter" title="comb filter">comb filter</a> of delay <i>t</i> is:</p> 
+<dl> 
+<dd><img class="tex" alt="y_t = (1 - \alpha) x_t + \alpha y_{t - t}" src="./recurrences_files/32293218f2373578027d42c2849ec3cd.png"></dd> 
+</dl> 
+<p>where <img class="tex" alt="x_t" src="./recurrences_files/8ac66afa5dc4aefbf764ad6d9acc8d35.png"> is the input at time <i>t</i>, <img class="tex" alt="y_t" src="./recurrences_files/58bfce52e8f1f9485a789e99d086c969.png"> is the output at time <i>t</i>, and α controls how much of the delayed signal is fed back into the output. from this we can see that</p> 
+<dl> 
+<dd><img class="tex" alt="y_t = (1 - \alpha) x_t + \alpha ((1-\alpha) x_{t-t} + \alpha y_{t - 2t})" src="./recurrences_files/50f9b01c58214c8b9854d5a9849bb12b.png"></dd> 
+<dd><img class="tex" alt="y_t = (1 - \alpha) x_t + (\alpha-\alpha^2) x_{t-t}  + \alpha^2 y_{t - 2t})" src="./recurrences_files/55e33bb1692980111be862410f800944.png"></dd> 
+</dl> 
+<p>etc.</p> 
+<h3><span class="mw-headline" id="economics">economics</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=23" title="edit section: economics">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>recurrence relations, especially linear recurrence relations, are used extensively in both theoretical and empirical economics.<sup id="cite_ref-6" class="reference"><a href="http://en.wikipedia.org/wiki/recurrences#cite_note-6"><span>[</span>6<span>]</span></a></sup> in particular, in macroeconomics one might develop a model of various broad sectors of the economy (the financial sector, the goods sector, the labor market, etc.) in which some agents' actions depend on lagged variables. the model would then be solved for current values of key variables (interest rate, real gdp, etc.) in terms of <a href="http://en.wikipedia.org/wiki/exogeny" title="exogeny">exogenous variables</a> and lagged <a href="http://en.wikipedia.org/wiki/endogeneity_(economics)" title="endogeneity (economics)" class="mw-redirect">endogenous</a> variables. see also <a href="http://en.wikipedia.org/wiki/time_series_analysis" title="time series analysis" class="mw-redirect">time series analysis</a>.</p> 
+<h3><span class="mw-headline" id="computer_science">computer science</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=24" title="edit section: computer science">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>recurrence relations are also of fundamental importance in <a href="http://en.wikipedia.org/wiki/analysis_of_algorithms" title="analysis of algorithms">analysis of algorithms</a>.<sup id="cite_ref-7" class="reference"><a href="http://en.wikipedia.org/wiki/recurrences#cite_note-7"><span>[</span>7<span>]</span></a></sup><sup id="cite_ref-8" class="reference"><a href="http://en.wikipedia.org/wiki/recurrences#cite_note-8"><span>[</span>8<span>]</span></a></sup> if an <a href="http://en.wikipedia.org/wiki/algorithm" title="algorithm">algorithm</a> is designed so that it will break a problem into smaller subproblems, its running time is described by a recurrence relation.</p> 
+<p>a simple example is the time an algorithm takes to search an element in an ordered vector with <img class="tex" alt="n" src="./recurrences_files/7b8b965ad4bca0e41ab51de7b31363a1.png"> elements, in the worst case.</p> 
+<p>a naive algorithm will search from left to right, one element at a time. the worst possible scenario is when the required element is the last, so the number of comparisons is <img class="tex" alt="n" src="./recurrences_files/7b8b965ad4bca0e41ab51de7b31363a1.png">.</p> 
+<p>a better algorithm is called <a href="http://en.wikipedia.org/wiki/binary_search_algorithm" title="binary search algorithm">binary search</a>. it will first check if the element is at the middle of the vector. if not, then it will check if the middle element is greater or lesser than the sought element. at this point, half of the vector can be discarded, and the algorithm can be run again on the other half. the number of comparisons will be given by</p> 
+<dl> 
+<dd><img class="tex" alt="c_1=1" src="./recurrences_files/2e38ab90d7545ae774fb5f2313bf0b44.png"></dd> 
+<dd><img class="tex" alt="c_n=1+c_{n/2}" src="./recurrences_files/e2583f19592fb68e950a7ba6b63d4e15.png"></dd> 
+</dl> 
+<p>which will be close to <img class="tex" alt="\log_2(n)" src="./recurrences_files/a89909a60d5c523a5b966220ebbda670.png">.</p> 
+<h2><span class="mw-headline" id="see_also">see also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=25" title="edit section: see also">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<div class="div-col columns column-count column-count-2" style="-moz-column-count: 2; -webkit-column-count: 2; column-count: 2;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/iterated_function" title="iterated function">iterated function</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/matrix_difference_equation" title="matrix difference equation">matrix difference equation</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/orthogonal_polynomials" title="orthogonal polynomials">orthogonal polynomials</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/recursion" title="recursion">recursion</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/recursion_(computer_science)" title="recursion (computer science)">recursion (computer science)</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/lagged_fibonacci_generator" title="lagged fibonacci generator">lagged fibonacci generator</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/master_theorem" title="master theorem">master theorem</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/circle_points_segments_proof" title="circle points segments proof" class="mw-redirect">circle points segments proof</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/continued_fraction" title="continued fraction">continued fraction</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/time_scale_calculus" title="time scale calculus" class="mw-redirect">time scale calculus</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/integrodifference_equation" title="integrodifference equation">integrodifference equation</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/combinatorial_principles" title="combinatorial principles">combinatorial principles</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/infinite_impulse_response" title="infinite impulse response">infinite impulse response</a></li> 
+</ul> 
+</div> 
+<h2><span class="mw-headline" id="references">references</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=26" title="edit section: references">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<div class="reflist" style="list-style-type: decimal;"> 
+<ol class="references"> 
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/recurrences#cite_ref-1"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span id="citerefgreeneknuth1982" class="citation">greene, daniel h.; <a href="http://en.wikipedia.org/wiki/donald_knuth" title="donald knuth">knuth, donald e.</a> (1982), "2.1.1 constant coefficients – a) homogeneous equations", <i>mathematics for the analysis of algorithms</i> (2nd ed.), birkhäuser, p.&nbsp;17</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arecurrence+relation&amp;rft.atitle=mathematics+for+the+analysis+of+algorithms&amp;rft.aufirst=daniel+h.&amp;rft.au=greene%2c+daniel+h.&amp;rft.au=knuth%2c+donald+e.&amp;rft.aulast=greene&amp;rft.btitle=2.1.1+constant+coefficients+%e2%80%93+a%29+homogeneous+equations&amp;rft.date=1982&amp;rft.edition=2nd&amp;rft.genre=bookitem&amp;rft.pages=17&amp;rft.pub=birkh%c3%a4user&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span>.</span></li> 
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/recurrences#cite_ref-2"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://books.google.com/books?id=1klndgelhgec">partial difference equations</a>, sui sun cheng, crc press, 2003, <a href="http://en.wikipedia.org/wiki/special:booksources/9780415298841" class="internal mw-magiclink-isbn">isbn 978-0-415-29884-1</a></span></li> 
+<li id="cite_note-3"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/recurrences#cite_ref-3"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">chiang, alpha c., <i>fundamental methods of mathematical economics</i>, third edition, mcgraw-hill, 1984.</span></li> 
+<li id="cite_note-4"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/recurrences#cite_ref-4"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">papanicolaou, vassilis, "on the asymptotic stability of a class of linear difference equations," <i>mathematics magazine</i> 69(1), february 1996, 34–43.</span></li> 
+<li id="cite_note-5"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/recurrences#cite_ref-5"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external free" href="http://faculty.pccu.edu.tw/~meng/math15.pdf">http://faculty.pccu.edu.tw/%7emeng/math15.pdf</a></span></li> 
+<li id="cite_note-6"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/recurrences#cite_ref-6"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">sargent, thomas j., <i>dynamic macroeconomic theory</i>, harvard university press, 1987.</span></li> 
+<li id="cite_note-7"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/recurrences#cite_ref-7"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">cormen, t. et al, <i>introduction to algorithms</i>, mit press, 2009</span></li> 
+<li id="cite_note-8"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/recurrences#cite_ref-8"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">r. sedgewick, f. flajolet, <i>an introduction to the analysis of algorithms</i>, addison-wesley, 2013</span></li> 
+</ol> 
+</div> 
+<ul> 
+<li><span class="citation book">batchelder, paul m. (1967). <i>an introduction to linear difference equations</i>. dover publications.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arecurrence+relation&amp;rft.au=batchelder%2c+paul+m.&amp;rft.aufirst=paul+m.&amp;rft.aulast=batchelder&amp;rft.btitle=an+introduction+to+linear+difference+equations&amp;rft.date=1967&amp;rft.genre=book&amp;rft.pub=dover+publications&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+<li><span class="citation book">miller, kenneth s. (1968). <i>linear difference equations</i>. w. a. benjamin.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arecurrence+relation&amp;rft.aufirst=kenneth+s.&amp;rft.aulast=miller&amp;rft.au=miller%2c+kenneth+s.&amp;rft.btitle=linear+difference+equations&amp;rft.date=1968&amp;rft.genre=book&amp;rft.pub=w.+a.+benjamin&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+<li><span class="citation book">brousseau, alfred (1971). <a rel="nofollow" class="external text" href="http://www.fq.math.ca/linear.html"><i>linear recursion and fibonacci sequences</i></a>. fibonacci association.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arecurrence+relation&amp;rft.au=brousseau%2c+alfred&amp;rft.aufirst=alfred&amp;rft.aulast=brousseau&amp;rft.btitle=linear+recursion+and+fibonacci+sequences&amp;rft.date=1971&amp;rft.genre=book&amp;rft_id=http%3a%2f%2fwww.fq.math.ca%2flinear.html&amp;rft.pub=fibonacci+association&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+<li><a href="http://en.wikipedia.org/wiki/thomas_h._cormen" title="thomas h. cormen">thomas h. cormen</a>, <a href="http://en.wikipedia.org/wiki/charles_e._leiserson" title="charles e. leiserson">charles e. leiserson</a>, <a href="http://en.wikipedia.org/wiki/ronald_l._rivest" title="ronald l. rivest" class="mw-redirect">ronald l. rivest</a>, and <a href="http://en.wikipedia.org/wiki/clifford_stein" title="clifford stein">clifford stein</a>. <i><a href="http://en.wikipedia.org/wiki/introduction_to_algorithms" title="introduction to algorithms">introduction to algorithms</a></i>, second edition. mit press and mcgraw-hill, 1990. <a href="http://en.wikipedia.org/wiki/special:booksources/0262032937" class="internal mw-magiclink-isbn">isbn 0-262-03293-7</a>. chapter 4: recurrences, pp.&nbsp;62–90.</li> 
+<li><span class="citation book">graham, ronald l.; knuth, donald e.; patashnik, oren (1994). <i><a href="http://en.wikipedia.org/wiki/concrete_mathematics" title="concrete mathematics">concrete mathematics</a>: a foundation for computer science</i> (2 ed.). addison-welsey. <a href="http://en.wikipedia.org/wiki/international_standard_book_number" title="international standard book number">isbn</a>&nbsp;<a href="http://en.wikipedia.org/wiki/special:booksources/0-201-55802-5" title="special:booksources/0-201-55802-5">0-201-55802-5</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arecurrence+relation&amp;rft.aufirst=ronald+l.&amp;rft.au=graham%2c+ronald+l.&amp;rft.au=knuth%2c+donald+e.&amp;rft.aulast=graham&amp;rft.au=patashnik%2c+oren&amp;rft.btitle=concrete+mathematics%3a+a+foundation+for+computer+science&amp;rft.date=1994&amp;rft.edition=2&amp;rft.genre=book&amp;rft.isbn=0-201-55802-5&amp;rft.pub=addison-welsey&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+<li><span class="citation book">enders, walter (2010). <a rel="nofollow" class="external text" href="http://eu.wiley.com/wileycda/wileytitle/productcd-ehep000338.html"><i>applied econometric times series</i></a> (3 ed.).</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arecurrence+relation&amp;rft.au=enders%2c+walter&amp;rft.aufirst=walter&amp;rft.aulast=enders&amp;rft.btitle=applied+econometric+times+series&amp;rft.date=2010&amp;rft.edition=3&amp;rft.genre=book&amp;rft_id=http%3a%2f%2feu.wiley.com%2fwileycda%2fwileytitle%2fproductcd-ehep000338.html&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+<li><span class="citation book">cull, paul; flahive, mary; robson, robbie (2005). <i>difference equations: from rabbits to chaos</i>. springer. <a href="http://en.wikipedia.org/wiki/international_standard_book_number" title="international standard book number">isbn</a>&nbsp;<a href="http://en.wikipedia.org/wiki/special:booksources/0-387-23234-6" title="special:booksources/0-387-23234-6">0-387-23234-6</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arecurrence+relation&amp;rft.au=cull%2c+paul&amp;rft.aufirst=paul&amp;rft.au=flahive%2c+mary&amp;rft.aulast=cull&amp;rft.au=robson%2c+robbie&amp;rft.btitle=difference+equations%3a+from+rabbits+to+chaos&amp;rft.date=2005&amp;rft.genre=book&amp;rft.isbn=0-387-23234-6&amp;rft.pub=springer&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span> chapter 7.</li> 
+<li><span class="citation book">jacques, ian (2006). <i>mathematics for economics and business</i> (fifth ed.). prentice hall. pp.&nbsp;551–568. <a href="http://en.wikipedia.org/wiki/international_standard_book_number" title="international standard book number">isbn</a>&nbsp;<a href="http://en.wikipedia.org/wiki/special:booksources/0-273-70195-9" title="special:booksources/0-273-70195-9">0-273-70195-9</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arecurrence+relation&amp;rft.aufirst=ian&amp;rft.au=jacques%2c+ian&amp;rft.aulast=jacques&amp;rft.btitle=mathematics+for+economics+and+business&amp;rft.date=2006&amp;rft.edition=fifth&amp;rft.genre=book&amp;rft.isbn=0-273-70195-9&amp;rft.pages=551%e2%80%93568&amp;rft.pub=prentice+hall&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span> chapter 9.1: difference equations.</li> 
+<li><span class="citation web">polyanin, andrei d. <a rel="nofollow" class="external text" href="http://eqworld.ipmnet.ru/en/solutions/fe.htm">"difference and functional equations: exact solutions"</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arecurrence+relation&amp;rft.aufirst=andrei+d.&amp;rft.aulast=polyanin&amp;rft.au=polyanin%2c+andrei+d.&amp;rft.btitle=difference+and+functional+equations%3a+exact+solutions&amp;rft.genre=book&amp;rft_id=http%3a%2f%2feqworld.ipmnet.ru%2fen%2fsolutions%2ffe.htm&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span> at eqworld - the world of mathematical equations.</li> 
+<li><span class="citation web">polyanin, andrei d. <a rel="nofollow" class="external text" href="http://eqworld.ipmnet.ru/en/education/edu-fe.htm">"difference and functional equations: methods"</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arecurrence+relation&amp;rft.aufirst=andrei+d.&amp;rft.aulast=polyanin&amp;rft.au=polyanin%2c+andrei+d.&amp;rft.btitle=difference+and+functional+equations%3a+methods&amp;rft.genre=book&amp;rft_id=http%3a%2f%2feqworld.ipmnet.ru%2fen%2feducation%2fedu-fe.htm&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span> at eqworld - the world of mathematical equations.</li> 
+</ul> 
+<h2><span class="mw-headline" id="external_links">external links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit&section=27" title="edit section: external links">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li><span id="citerefhazewinkel2001" class="citation">hazewinkel, michiel, ed. (2001), <a rel="nofollow" class="external text" href="http://www.encyclopediaofmath.org/index.php?title=p/r080150">"recurrence relation"</a>, <i><a href="http://en.wikipedia.org/wiki/encyclopedia_of_mathematics" title="encyclopedia of mathematics">encyclopedia of mathematics</a></i>, <a href="http://en.wikipedia.org/wiki/springer_science%2bbusiness_media" title="springer science+business media">springer</a>, <a href="http://en.wikipedia.org/wiki/international_standard_book_number" title="international standard book number">isbn</a>&nbsp;<a href="http://en.wikipedia.org/wiki/special:booksources/978-1-55608-010-4" title="special:booksources/978-1-55608-010-4">978-1-55608-010-4</a></span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arecurrence+relation&amp;rft.atitle=encyclopedia+of+mathematics&amp;rft.btitle=recurrence+relation&amp;rft.date=2001&amp;rft.genre=bookitem&amp;rft_id=http%3a%2f%2fwww.encyclopediaofmath.org%2findex.php%3ftitle%3dp%2fr080150&amp;rft.isbn=978-1-55608-010-4&amp;rft.pub=springer&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+<li><span class="citation mathworld" id="reference-mathworld-recurrence_equation"><a href="http://en.wikipedia.org/wiki/eric_w._weisstein" title="eric w. weisstein">weisstein, eric w.</a>, "<a rel="nofollow" class="external text" href="http://mathworld.wolfram.com/recurrenceequation.html">recurrence equation</a>", <i><a href="http://en.wikipedia.org/wiki/mathworld" title="mathworld">mathworld</a></i>.</span></li> 
+<li><span class="citation web">mathews, john h. <a rel="nofollow" class="external text" href="http://math.fullerton.edu/mathews/c2003/ztransformdemod.html">"homogeneous difference equations"</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arecurrence+relation&amp;rft.aufirst=john+h.&amp;rft.aulast=mathews&amp;rft.au=mathews%2c+john+h.&amp;rft.btitle=homogeneous+difference+equations&amp;rft.genre=book&amp;rft_id=http%3a%2f%2fmath.fullerton.edu%2fmathews%2fc2003%2fztransformdemod.html&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+<li><a rel="nofollow" class="external text" href="http://books.google.com/books?id=pobxuovz9eec&pg=pa95&lpg=pa95&dq=%22difference+equation%22+%22recurrence+relation%22&source=web&ots=1kzstorph5&sig=vykkc__c9afmfrhjfhhlg_q5ypk&hl=en&sa=x&oi=book_result&resnum=5&ct=result">introductory discrete mathematics</a></li> 
+<li><span class="citation web"><a rel="nofollow" class="external text" href="http://oeis.org/wiki/index_to_oeis:_section_rec">"oeis index rec"</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arecurrence+relation&amp;rft.btitle=oeis+index+rec&amp;rft.genre=book&amp;rft_id=http%3a%2f%2foeis.org%2fwiki%2findex_to_oeis%3a_section_rec&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span> <a href="http://en.wikipedia.org/wiki/oeis" title="oeis" class="mw-redirect">oeis</a> index to a few thousand examples of linear recurrences, sorted by order (number of terms) and signature (vector of values of the constant coefficients)</li> 
+</ul> 
+ 
+ 
+<!-- 
+newpp limit report 
+parsed by mw1185 
+cpu time usage: 0.648 seconds 
+real time usage: 2.185 seconds 
+preprocessor visited node count: 2304/1000000 
+preprocessor generated node count: 9097/1500000 
+post‐expand include size: 22344/2048000 bytes 
+template argument size: 1179/2048000 bytes 
+highest expansion depth: 11/40 
+expensive parser function count: 2/500 
+lua time usage: 0.054s 
+lua memory usage: 2.04 mb 
+--> 
+ 
+<!-- saved in parser cache with key enwiki:pcache:idhash:146806-0!0!0!!en!*!* and timestamp 20140116173009 
+--> 
+<noscript>&lt;img src="//en.wikipedia.org/wiki/special:centralautologin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /&gt;</noscript></div>								<div class="printfooter"> 
+retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&oldid=590994408">http://en.wikipedia.org/w/index.php?title=recurrence_relation&amp;oldid=590994408</a>"				</div> 
+<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/help:category" title="help:category">categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/category:algebra" title="category:algebra">algebra</a></li><li><a href="http://en.wikipedia.org/wiki/category:recurrence_relations" title="category:recurrence relations">recurrence relations</a></li><li><a href="http://en.wikipedia.org/wiki/category:theory_of_computation" title="category:theory of computation">theory of computation</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/category:all_articles_with_unsourced_statements" title="category:all articles with unsourced statements">all articles with unsourced statements</a></li><li><a href="http://en.wikipedia.org/wiki/category:articles_with_unsourced_statements_from_june_2010" title="category:articles with unsourced statements from june 2010">articles with unsourced statements from june 2010</a></li></ul></div></div>												<div class="visualclear"></div> 
+</div> 
+</div> 
+<div id="mw-navigation"> 
+<h2>navigation menu</h2> 
+<div id="mw-head"> 
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label"> 
+<h3 id="p-personal-label">personal tools</h3> 
+<ul> 
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=recurrence+relation&type=signup">create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=recurrence+relation" title="you&#39;re encouraged to log in; however, it&#39;s not mandatory. [ctrl-option-o]" accesskey="o">log in</a></li>	</ul> 
+</div> 
+<div id="left-navigation"> 
+<div id="p-namespaces" role="navigation" class="vectortabs" aria-labelledby="p-namespaces-label"> 
+<h3 id="p-namespaces-label">namespaces</h3> 
+<ul> 
+<li id="ca-nstab-main" class="selected"><span><a href="http://en.wikipedia.org/wiki/recurrence_relation" title="view the content page [ctrl-option-c]" accesskey="c">article</a></span></li> 
+<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/talk:recurrence_relation" title="discussion about the content page [ctrl-option-t]" accesskey="t">talk</a></span></li> 
+</ul> 
+</div> 
+<div id="p-variants" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-variants-label"> 
+<h3 id="mw-vector-current-variant"> 
+</h3> 
+<h3 id="p-variants-label" tabindex="0"><span>variants</span><a href="http://en.wikipedia.org/wiki/recurrences#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+</div> 
+<div id="right-navigation"> 
+<div id="p-views" role="navigation" class="vectortabs" aria-labelledby="p-views-label"> 
+<h3 id="p-views-label">views</h3> 
+<ul> 
+<li id="ca-view" class="selected"><span><a href="http://en.wikipedia.org/wiki/recurrence_relation">read</a></span></li> 
+<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=edit" title="you can edit this page. 
+please review your changes before saving. [ctrl-option-e]" accesskey="e">edit</a></span></li> 
+<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=history" title="past versions of this page [ctrl-option-h]" accesskey="h">view history</a></span></li> 
+</ul> 
+</div> 
+<div id="p-cactions" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-cactions-label"> 
+<h3 id="p-cactions-label" tabindex="0"><span>actions</span><a href="http://en.wikipedia.org/wiki/recurrences#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+<div id="p-search" role="search"> 
+<h3><label for="searchinput">search</label></h3> 
+<form action="http://en.wikipedia.org/w/index.php" id="searchform"> 
+<div id="simplesearch"> 
+<input name="search" placeholder="search" title="search wikipedia [ctrl-option-f]" accesskey="f" id="searchinput" tabindex="1" autocomplete="off">						<button type="submit" name="button" title="search wikipedia for this text" id="searchbutton"><img src="./recurrences_files/search-ltr.png" alt="search" width="12" height="13"></button>								<input type="hidden" name="title" value="special:search"> 
+</div> 
+</form> 
+</div> 
+</div> 
+</div> 
+<div id="mw-panel" class="collapsible-nav"> 
+<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/wiki.png);" href="http://en.wikipedia.org/wiki/main_page" title="visit the main page"></a></div> 
+<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label"> 
+<h3 id="p-navigation-label">navigation</h3> 
+<div class="body"> 
+<ul> 
+<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/main_page" title="visit the main page [ctrl-option-z]" accesskey="z">main page</a></li> 
+<li id="n-contents"><a href="http://en.wikipedia.org/wiki/portal:contents" title="guides to browsing wikipedia">contents</a></li> 
+<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/portal:featured_content" title="featured content – the best of wikipedia">featured content</a></li> 
+<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/portal:current_events" title="find background information on current events">current events</a></li> 
+<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/special:random" title="load a random article [ctrl-option-x]" accesskey="x">random article</a></li> 
+<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/special:fundraiserredirector?utm_source=donate&utm_medium=sidebar&utm_campaign=c13_en.wikipedia.org&uselang=en" title="support us">donate to wikipedia</a></li> 
+<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="visit the wikimedia shop">wikimedia shop</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label"> 
+<h3 id="p-interaction-label" tabindex="2"><a href="http://en.wikipedia.org/wiki/recurrences#" aria-haspopup="true" aria-controls="p-interaction-list" role="button" aria-pressed="true" aria-expanded="true">interaction</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-interaction-list"> 
+<li id="n-help"><a href="http://en.wikipedia.org/wiki/help:contents" title="guidance on how to use and edit wikipedia">help</a></li> 
+<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="find out about wikipedia">about wikipedia</a></li> 
+<li id="n-portal"><a href="http://en.wikipedia.org/wiki/wikipedia:community_portal" title="about the project, what you can do, where to find things">community portal</a></li> 
+<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/special:recentchanges" title="a list of recent changes in the wiki [ctrl-option-r]" accesskey="r">recent changes</a></li> 
+<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact page</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label"> 
+<h3 id="p-tb-label" tabindex="3"><a href="http://en.wikipedia.org/wiki/recurrences#" aria-haspopup="true" aria-controls="p-tb-list" role="button" aria-pressed="false" aria-expanded="false">tools</a></h3> 
+<div class="body"> 
+<ul id="p-tb-list"> 
+<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/special:whatlinkshere/recurrence_relation" title="list of all english wikipedia pages containing links to this page [ctrl-option-j]" accesskey="j">what links here</a></li> 
+<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/special:recentchangeslinked/recurrence_relation" title="recent changes in pages linked from this page [ctrl-option-k]" accesskey="k">related changes</a></li> 
+<li id="t-upload"><a href="http://en.wikipedia.org/wiki/wikipedia:file_upload_wizard" title="upload files [ctrl-option-u]" accesskey="u">upload file</a></li> 
+<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/special:specialpages" title="a list of all special pages [ctrl-option-q]" accesskey="q">special pages</a></li> 
+<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&oldid=590994408" title="permanent link to this revision of the page">permanent link</a></li> 
+<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&action=info">page information</a></li> 
+<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/q740970" title="link to connected data repository item [ctrl-option-g]" accesskey="g">data item</a></li> 
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=special:cite&page=recurrence_relation&id=590994408" title="information on how to cite this page">cite this page</a></li>		</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label"> 
+<h3 id="p-coll-print_export-label" tabindex="4"><a href="http://en.wikipedia.org/wiki/recurrences#" aria-haspopup="true" aria-controls="p-coll-print_export-list" role="button" aria-pressed="false" aria-expanded="false">print/export</a></h3> 
+<div class="body"> 
+<ul id="p-coll-print_export-list"> 
+<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=book_creator&referer=recurrence+relation">create a book</a></li> 
+<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=render_article&arttitle=recurrence+relation&oldid=590994408&writer=rl">download as pdf</a></li> 
+<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=recurrence_relation&printable=yes" title="printable version of this page [ctrl-option-p]" accesskey="p">printable version</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"> 
+<h3 id="p-lang-label" tabindex="5"><a href="http://en.wikipedia.org/wiki/recurrences#" aria-haspopup="true" aria-controls="p-lang-list" role="button" aria-pressed="true" aria-expanded="true">languages</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-lang-list"> 
+<li class="interlanguage-link interwiki-am"><a href="http://am.wikipedia.org/wiki/%e1%8b%93%e1%8b%ad%e1%8a%95%e1%89%a3%e1%8b%ad%e1%8a%95_%e1%8b%9d%e1%88%9d%e1%8b%b5%e1%8a%93" title="ዓይንባይን ዝምድና – amharic" lang="am" hreflang="am">አማርኛ</a></li> 
+<li class="interlanguage-link interwiki-bg"><a href="http://bg.wikipedia.org/wiki/%d0%94%d0%b8%d1%84%d0%b5%d1%80%d0%b5%d0%bd%d1%87%d0%bd%d0%be_%d1%83%d1%80%d0%b0%d0%b2%d0%bd%d0%b5%d0%bd%d0%b8%d0%b5" title="диференчно уравнение – bulgarian" lang="bg" hreflang="bg">български</a></li> 
+<li class="interlanguage-link interwiki-cs"><a href="http://cs.wikipedia.org/wiki/diferen%c4%8dn%c3%ad_rovnice" title="diferenční rovnice – czech" lang="cs" hreflang="cs">čeština</a></li> 
+<li class="interlanguage-link interwiki-de"><a href="http://de.wikipedia.org/wiki/differenzengleichung" title="differenzengleichung – german" lang="de" hreflang="de">deutsch</a></li> 
+<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/relaci%c3%b3n_de_recurrencia" title="relación de recurrencia – spanish" lang="es" hreflang="es">español</a></li> 
+<li class="interlanguage-link interwiki-eu"><a href="http://eu.wikipedia.org/wiki/funtzio_errekurtsibo" title="funtzio errekurtsibo – basque" lang="eu" hreflang="eu">euskara</a></li> 
+<li class="interlanguage-link interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%d8%b1%d8%a7%d8%a8%d8%b7%d9%87_%d8%a8%d8%a7%d8%b2%da%af%d8%b4%d8%aa%db%8c" title="رابطه بازگشتی – persian" lang="fa" hreflang="fa">فارسی</a></li> 
+<li class="interlanguage-link interwiki-fr"><a href="http://fr.wikipedia.org/wiki/suite_d%c3%a9finie_par_r%c3%a9currence" title="suite définie par récurrence – french" lang="fr" hreflang="fr">français</a></li> 
+<li class="interlanguage-link interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%ec%a0%90%ed%99%94%ec%8b%9d" title="점화식 – korean" lang="ko" hreflang="ko">한국어</a></li> 
+<li class="interlanguage-link interwiki-it"><a href="http://it.wikipedia.org/wiki/relazione_di_ricorrenza" title="relazione di ricorrenza – italian" lang="it" hreflang="it">italiano</a></li> 
+<li class="interlanguage-link interwiki-he"><a href="http://he.wikipedia.org/wiki/%d7%a0%d7%95%d7%a1%d7%97%d7%aa_%d7%a0%d7%a1%d7%99%d7%92%d7%94" title="נוסחת נסיגה – hebrew" lang="he" hreflang="he">עברית</a></li> 
+<li class="interlanguage-link interwiki-kk"><a href="http://kk.wikipedia.org/wiki/%d0%a0%d0%b5%d0%ba%d1%83%d1%80%d1%80%d0%b5%d0%bd%d1%82%d1%82%d1%96%d0%ba_%d1%84%d0%be%d1%80%d0%bc%d1%83%d0%bb%d0%b0" title="рекурренттік формула – kazakh" lang="kk" hreflang="kk">қазақша</a></li> 
+<li class="interlanguage-link interwiki-hu"><a href="http://hu.wikipedia.org/wiki/rekurz%c3%adv_sorozat" title="rekurzív sorozat – hungarian" lang="hu" hreflang="hu">magyar</a></li> 
+<li class="interlanguage-link interwiki-nl"><a href="http://nl.wikipedia.org/wiki/differentievergelijking" title="differentievergelijking – dutch" lang="nl" hreflang="nl">nederlands</a></li> 
+<li class="interlanguage-link interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%e6%bc%b8%e5%8c%96%e5%bc%8f" title="漸化式 – japanese" lang="ja" hreflang="ja">日本語</a></li> 
+<li class="interlanguage-link interwiki-nn"><a href="http://nn.wikipedia.org/wiki/rekurrent_f%c3%b8lgje" title="rekurrent følgje – norwegian nynorsk" lang="nn" hreflang="nn">norsk nynorsk</a></li> 
+<li class="interlanguage-link interwiki-pl"><a href="http://pl.wikipedia.org/wiki/r%c3%b3wnanie_rekurencyjne" title="równanie rekurencyjne – polish" lang="pl" hreflang="pl">polski</a></li> 
+<li class="interlanguage-link interwiki-pt"><a href="http://pt.wikipedia.org/wiki/rela%c3%a7%c3%a3o_de_recorr%c3%aancia" title="relação de recorrência – portuguese" lang="pt" hreflang="pt">português</a></li> 
+<li class="interlanguage-link interwiki-ro"><a href="http://ro.wikipedia.org/wiki/rela%c8%9bie_de_recuren%c8%9b%c4%83" title="relație de recurență – romanian" lang="ro" hreflang="ro">română</a></li> 
+<li class="interlanguage-link interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%d0%a0%d0%b5%d0%ba%d1%83%d1%80%d1%80%d0%b5%d0%bd%d1%82%d0%bd%d0%be%d0%b5_%d1%83%d1%80%d0%b0%d0%b2%d0%bd%d0%b5%d0%bd%d0%b8%d0%b5" title="рекуррентное уравнение – russian" lang="ru" hreflang="ru">русский</a></li> 
+<li class="interlanguage-link interwiki-fi"><a href="http://fi.wikipedia.org/wiki/differenssiyht%c3%a4l%c3%b6" title="differenssiyhtälö – finnish" lang="fi" hreflang="fi">suomi</a></li> 
+<li class="interlanguage-link interwiki-sv"><a href="http://sv.wikipedia.org/wiki/differensekvation" title="differensekvation – swedish" lang="sv" hreflang="sv">svenska</a></li> 
+<li class="interlanguage-link interwiki-uk"><a href="http://uk.wikipedia.org/wiki/%d0%a0%d0%b5%d0%ba%d1%83%d1%80%d0%b5%d0%bd%d1%82%d0%bd%d0%b5_%d1%81%d0%bf%d1%96%d0%b2%d0%b2%d1%96%d0%b4%d0%bd%d0%be%d1%88%d0%b5%d0%bd%d0%bd%d1%8f" title="рекурентне співвідношення – ukrainian" lang="uk" hreflang="uk">українська</a></li> 
+<li class="interlanguage-link interwiki-ur"><a href="http://ur.wikipedia.org/wiki/%d9%81%d8%b1%d9%82_%d9%85%d8%b3%d8%a7%d9%88%d8%a7%d8%aa" title="فرق مساوات – urdu" lang="ur" hreflang="ur">اردو</a></li> 
+<li class="interlanguage-link interwiki-zh"><a href="http://zh.wikipedia.org/wiki/%e9%81%9e%e8%bf%b4%e9%97%9c%e4%bf%82%e5%bc%8f" title="遞迴關係式 – chinese" lang="zh" hreflang="zh">中文</a></li> 
+<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/q740970#sitelinks-wikipedia" title="edit interlanguage links">edit links</a></li> 
+</ul> 
+</div> 
+</div> 
+</div> 
+</div> 
+<div id="footer" role="contentinfo"> 
+<ul id="footer-info"> 
+<li id="footer-info-lastmod"> this page was last modified on 16 january 2014 at 17:30.<br></li> 
+<li id="footer-info-copyright">text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/wikipedia:text_of_creative_commons_attribution-sharealike_3.0_unported_license">creative commons attribution-sharealike license</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>; 
+additional terms may apply.  by using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/terms_of_use">terms of use</a> and <a href="http://wikimediafoundation.org/wiki/privacy_policy">privacy policy.</a> <br> 
+wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">wikimedia foundation, inc.</a>, a non-profit organization.</li> 
+</ul> 
+<ul id="footer-places"> 
+<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/privacy_policy" title="wikimedia:privacy policy">privacy policy</a></li> 
+<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="wikipedia:about">about wikipedia</a></li> 
+<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/wikipedia:general_disclaimer" title="wikipedia:general disclaimer">disclaimers</a></li> 
+<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact wikipedia</a></li> 
+<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/special:mylanguage/how_to_contribute">developers</a></li> 
+<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/recurrence_relation" class="noprint stopmobileredirecttoggle">mobile view</a></li> 
+</ul> 
+<ul id="footer-icons" class="noprint"> 
+<li id="footer-copyrightico"> 
+<a href="http://wikimediafoundation.org/"><img src="./recurrences_files/wikimedia-button.png" width="88" height="31" alt="wikimedia foundation"></a> 
+</li> 
+<li id="footer-poweredbyico"> 
+<a href="http://www.mediawiki.org/"><img src="./recurrences_files/poweredby_mediawiki_88x31.png" alt="powered by mediawiki" width="88" height="31"></a> 
+</li> 
+</ul> 
+<div style="clear:both"></div> 
+</div> 
+<script>/*<![cdata[*/window.jquery && jquery.ready();/*]]>*/</script><script>if(window.mw){ 
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"}); 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postedit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchsuggest","ext.gadget.teahouse","ext.gadget.referencetooltips","ext.gadget.drn-wizard","ext.gadget.charinsert","mw.mwembedsupport.style","ext.articlefeedbackv5.startup","ext.wikimediashoplink.core","ext.navigationtiming","skins.vector.collapsiblenav"],null,true); 
+}</script><div class="suggestions" style="display: none; font-size: 12.800000190734863px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div> 
+<script src="./recurrences_files/load(2).php"></script> 
+<!-- served by mw1167 in 0.189 secs. --> 
+ 
+ 
+</body></html> 

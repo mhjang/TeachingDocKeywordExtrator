@@ -2,7 +2,6 @@ package TFIDF;
 
 import Clustering.Document;
 import db.DBConnector;
-import parser.Tokenizer;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,7 +25,7 @@ public class TFIDFCalculator {
 
     public HashSet<String> stopwords;
     public HashMap<String, Document> documentSet;
-    public Tokenizer tokenizer;
+
     // test
     // contains a parsed text per each document in the given directory
     private HashMap<String, String> documentTextMap = new HashMap<String, String>();
@@ -40,7 +39,6 @@ public class TFIDFCalculator {
             stopwords.add(word.toLowerCase().trim());
             line = br.readLine();
         }
-        tokenizer = new Tokenizer();
     }
 
     /***
@@ -49,22 +47,49 @@ public class TFIDFCalculator {
      */
     public HashMap<String, Document> getDocumentSet(String dir, int ngram, boolean wikifiltering) {
         if(documentSet == null) {
-            HashMap<String, LinkedList<String>> documentMap = documentize(dir, ngram, wikifiltering);
+            HashMap<String, LinkedList<String>> documentMap = Tokenize(dir, ngram, wikifiltering);
             calculateTFIDF(documentMap, TFIDFCalculator.LOGTFIDF);
         }
         return documentSet;
     }
 
     /**
-     * reads files from the given directory and generate a Document object
+     * reads files from the given directory and tokenize the words
      * returns a map <filename, a list of tokenized words>
      * @param dir
      */
-    public HashMap<String, LinkedList<String>> documentize(String dir, int ngram, boolean wikifiltering) {
+    public HashMap<String, LinkedList<String>> Tokenize(String dir, int ngram, boolean wikifiltering) {
         HashMap<String, String> documentTextMap= readFiles(dir);
         HashMap<String, LinkedList<String>> documentTokensMap = new HashMap<String, LinkedList<String>>();
         for(String docName : documentTextMap.keySet()) {
-            Document doc = tokenizer.tokenize(documentTextMap.get(docName), Tokenizer.TRIGRAM);
+            String[] rawwords = documentTextMap.get(docName).split("[^a-zA-Z0-9]+");
+            // removing stopwords
+            ArrayList<String> wordlist = new ArrayList<String>();
+            for(int i=0; i<rawwords.length; i++) {
+                if(!stopwords.contains(rawwords[i]))
+                    wordlist.add(rawwords[i].toLowerCase());
+            }
+
+            HashMap<String, Integer> docTFMap = new HashMap<String, Integer>();
+            LinkedList<String> unigrams = null;
+            LinkedList<String> bigrams = null;
+            LinkedList<String> trigrams = null;
+
+            if(wordlist.size() >= TFIDFCalculator.TRIGRAM) {
+                if(ngram == TFIDFCalculator.UNIGRAM) {
+                    unigrams = new LinkedList<String>(wordlist);
+                }
+                else if(ngram == TFIDFCalculator.BIGRAM) {
+                    unigrams = new LinkedList<String>(wordlist);
+                    bigrams = getBigrams(wordlist);
+                 }
+                else {
+                    unigrams = new LinkedList<String>(wordlist);
+                    bigrams = getBigrams(wordlist);
+                    trigrams = getTrigrams(wordlist);
+                }
+             }
+            Document doc = new Document(unigrams, bigrams, trigrams);
             LinkedList<String> wordPool = doc.getAllGrams();
             if(documentSet == null)
                 documentSet = new HashMap<String, Document>();
@@ -226,7 +251,55 @@ public class TFIDFCalculator {
         return documentTextMap;
     }
 
+    /**
+     * generate bigrams
+     * @param wordlist
+     * @return
+     */
+    private LinkedList<String> getBigrams(ArrayList<String> wordlist) {
+  //    uncomment if you want to generate *UPTO* bigrams in addition to unigrams (this line includes unigrams)
+  //     LinkedList<String> wordPool = new LinkedList<String>(wordlist);
+        LinkedList<String> wordPool = new LinkedList<String>();
+        if(wordlist.size() < 2) {
+            System.out.println("There is only one word in the list");
+            return wordPool;
+        }
 
+        String bigram = wordlist.get(0) + " " + wordlist.get(1);
+        wordPool.add(bigram);
+        int length = wordlist.size();
+        for(int i=2; i<length; i++) {
+            bigram = wordlist.get(i-1) + " " + wordlist.get(i);
+            wordPool.add(bigram);
+        }
+        return wordPool;
+    }
+
+    /**
+     * generate trigrams
+     * @param wordlist
+     * @return
+     */
+    private LinkedList<String> getTrigrams(ArrayList<String> wordlist) {
+   //    uncomment star-marked (*) lines if you want to generate *UPTO* trigrams in addition to unigrams (this line includes unigrams)
+   //*     LinkedList<String> wordPool = new LinkedList<String>(wordlist);
+        LinkedList<String> wordPool = new LinkedList<String>();
+        if(wordlist.size() < 3) {
+            System.out.println("There is less than 3 words in the list; can't build trigrams");
+            return getBigrams(wordlist);
+        }
+        String bigram = wordlist.get(0) + " " + wordlist.get(1);
+    //*    wordPool.add(bigram);
+        String prevBigram, trigram;
+        for(int i=2; i<wordlist.size(); i++) {
+            prevBigram = bigram;
+            bigram = wordlist.get(i-1) + " " + wordlist.get(i);
+            trigram = prevBigram + " " + wordlist.get(i);
+    //*     wordPool.add(bigram);
+            wordPool.add(trigram);
+         }
+        return wordPool;
+    }
 
 
     class TermTFIDF {

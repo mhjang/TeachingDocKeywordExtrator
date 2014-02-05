@@ -1,0 +1,526 @@
+<!doctype html> 
+<!-- saved from url=(0049)http://en.wikipedia.org/wiki/breadth_first_search --> 
+<html lang="en" dir="ltr" class="client-js ve-not-available"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+<meta charset="utf-8"><title>breadth-first search - wikipedia, the free encyclopedia</title> 
+<meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="generator" content="mediawiki 1.23wmf11"> 
+<link rel="alternate" type="application/x-wiki" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&action=edit"> 
+<link rel="edit" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&action=edit"> 
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png"> 
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico"> 
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="wikipedia (en)"> 
+<link rel="edituri" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd"> 
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/"> 
+<link rel="alternate" type="application/atom+xml" title="wikipedia atom feed" href="http://en.wikipedia.org/w/index.php?title=special:recentchanges&feed=atom"> 
+<link rel="canonical" href="http://en.wikipedia.org/wiki/breadth-first_search"> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.drn-wizard%2creferencetooltips%2ccharinsert%2cteahouse%7cext.rtlcite%2cwikihiero%7cext.visualeditor.viewpagetarget.noscript%7cmediawiki.legacy.commonprint%2cshared%7cskins.common.interface%7cskins.vector.styles&only=styles&skin=vector&*"> 
+<style> 
+@-webkit-keyframes centralauthppersonalanimation{0%{opacity:0;-webkit-transform:translatey(-20px)}100%{opacity:1;-webkit-transform:translatey(0)}}@-moz-keyframes centralauthppersonalanimation{0%{opacity:0;-moz-transform:translatey(-20px)}100%{opacity:1;-moz-transform:translatey(0)}}@-o-keyframes centralauthppersonalanimation{0%{opacity:0;-o-transform:translatey(-20px)}100%{opacity:1;-o-transform:translatey(0)}}@keyframes centralauthppersonalanimation{0%{opacity:0;transform:translatey(-20px)}100%{opacity:1;transform:translatey(0)}}.centralauthppersonalanimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralauthppersonalanimation;-moz-animation-name:centralauthppersonalanimation;-o-animation-name:centralauthppersonalanimation;animation-name:centralauthppersonalanimation} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */ 
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */ 
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmveuzaad///95exmqqqry2njeiq0caaaaaxrstlmaqobyzgaaacdjrefucndjygbgygiaasufennjcuiqmadztm5oqexffzakrsg4ygbjcwodynsgdwaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil.png?2014-01-16t16:20:00z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmvewbaady2nj///8gra0zzrtw2aecaaaaaxrstlmaqobyzgaaacdjrefucndjygbgygyaawmdefpygegaoglzzclcqewjq5aki2w4ygbg5qotqpzbuaaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil-hover.png?2014-01-16t16:20:00z)!ie;color:#0645ad !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a963c9df079c8688d25d769892467b5c */ 
+@media print{#centralnotice{display:none}} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */ 
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */ 
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaabaaaaaqcamaaaaolq9taaabblbmveuaaad///////9pftf///80ardtgjn///9feij///////////9rfzf///////////9pfjzrgdh1o1xoftb///////+bwyqltnj///////9pfta82k////9wht6yxil///9qgddtgzr////////j7udl7elq8efi693k7oh///////9uhjubr2rp9uruhjr///9yljvkgir///9witlyjt3////9/v57vflbkt5pjc9dld/5/fhuq09stuts9uhxuelctcpfnt1hudfloezlouzmpenmvdzpvdxpvtxqvjxrvt5rvt9rwtxsqktswd5uwkbvuudxw0nztfbztu9ztvbzwkp0tlj1xkd2t1r3uvr4w1f4xk54x014ye15uvz5v1r5xvb6v1r7yfj8wvh9xvl9yfr9yvd9yln+xvh+yfd/x1l/yfeaylmex1+ny2uy0hqe04wj1ymv3ze33qld47tj5l3o6cpu7mrq9eb2+/q4j37oaaaaqhrstlmaaqiebaufbqwpfb4fjcuokiosqehjs01rulzzxmdydxachyusljswmjmoq6uur8lexcvm19fg5ejt8fx2+pr7sljgewaaakpjrefugbkfwqncawaaamdltl3ltrg4rwxbtvx77gagz6grfwc0bhwnvgkgdpzx8b0dgli+s7wn0voaqpfoi9+bnadzi7flrz2psewghzuh+78lsk8zlklezf3ooyug3vpxq2usei9wngeyog195ybywdf3e/2pahl1e9gr8bgt+bfofcc2fnvh4x7rcqiaqnnu+ht6sxkajcetl/2zaihv+porbwbjxfka//dfhscby/utaaaaaelftksuqmcc);background-image:url(//bits.wikimedia.org/static-1.23wmf11/resources/mediawiki.action/images/green-checkmark.png?2014-01-16t16:15:00z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:c897cc6a31411b48f47191422cf15c4a */ 
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */ 
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4c59a6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */ 
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */ 
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#f7f7f7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #f7f7f7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.rtflipped{padding-top:13px}.referencetooltip.rtflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.rtflipped li+li::after{border-top:0;border-bottom:8px #f7f7f7 solid;position:absolute;margin-top:7px}.rtsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.rtsettings:hover{opacity:1;filter:alpha(opacity=100)}.rttarget{border:#080086 2px solid} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */ 
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */ 
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playercontainer{overflow:hidden;position:relative;height:100%;background:#000}#videoholder{position:relative;overflow:hidden}.fullscreen #playercontainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwembedplayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayhtml a:visited{color:white}.loadingspinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/loading_ani.gif?2014-01-16t16:18:20z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-01-16t16:18:20z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button.png?2014-01-16t16:18:20z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button_hover.png?2014-01-16t16:18:20z)}.carouselcontainer{position :absolute;width :100%;z-index :2}.carouselvideotitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselvideotitletext{display :block;padding :10px 10px 10px 20px}.carouseltitleduration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5a5a5a;color :#d9d9d9;font-size :smaller;z-index :2}.carouselimgtitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselimgduration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselprevbutton,.carouselnextbutton{display :block;position :absolute;bottom:23px}.carouselprevbutton{left :5px}.carouselnextbutton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#e6e6e6;padding :5px;border-bottom :1px solid #d1d1d1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:40fb0cce50b2525059dbe7ac545e3c42 */</style><style> 
+.suggestions a.mw-searchsuggest-link,.suggestions a.mw-searchsuggest-link:hover,.suggestions a.mw-searchsuggest-link:active,.suggestions a.mw-searchsuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchsuggest-link,.suggestions-result-current a.mw-searchsuggest-link:hover,.suggestions-result-current a.mw-searchsuggest-link:active,.suggestions-result-current a.mw-searchsuggest-link:focus{color:white} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="resourceloaderdynamicstyles" content=""> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=site&only=styles&skin=vector&*"> 
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style> 
+ 
+<script src="./breadth first search_files/load.php"></script><script src="./breadth first search_files/load(1).php"></script><style title="spinjs"></style> 
+<script>if(window.mw){ 
+mw.config.set({"wgcanonicalnamespace":"","wgcanonicalspecialpagename":false,"wgnamespacenumber":0,"wgpagename":"breadth-first_search","wgtitle":"breadth-first search","wgcurrevisionid":587377720,"wgrevisionid":587377720,"wgarticleid":97026,"wgisarticle":true,"wgisredirect":false,"wgaction":"view","wgusername":null,"wgusergroups":["*"],"wgcategories":["articles needing additional references from april 2012","all articles needing additional references","commons category with local link same as on wikidata","graph algorithms","search algorithms"],"wgbreakframes":false,"wgpagecontentlanguage":"en","wgpagecontentmodel":"wikitext","wgseparatortransformtable":["",""],"wgdigittransformtable":["",""],"wgdefaultdateformat":"dmy","wgmonthnames":["","january","february","march","april","may","june","july","august","september","october","november","december"],"wgmonthnamesshort":["","jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"],"wgrelevantpagename":"breadth-first_search","wgisprobablyeditable":true,"wgrestrictionedit":[],"wgrestrictionmove":[],"wgredirectedfrom":"breadth_first_search","wgwikieditorenabledmodules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateeditor":false,"templates":false,"preview":false,"previewdialog":false,"publish":false,"toc":false},"wgarticlefeedbackv5permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgbetafeaturesfeatures":[],"wgvisualeditor":{"ispagewatched":false,"magnifyclipiconurl":"//bits.wikimedia.org/static-1.23wmf11/skins/common/images/magnify-clip.png","pagelanguagecode":"en","pagelanguagedir":"ltr"},"wikilove-recipient":"","wikilove-anon":0,"wgguidedtourhelpguiderurl":"help:guided tours/guider","wgulsacceptlanguagelist":["en-us","en"],"wgulscurrentautonym":"english","wgflaggedrevsparams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgstablerevisionid":null,"wgcategorytreepagecategoryoptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","geo":{"city":"","country":""},"wgnoticeproject":"wikipedia","aftv5article":{"id":97026,"title":"breadth-first search","namespace":0,"categories":["all articles needing additional references","articles needing additional references from april 2012","commons category with local link same as on wikidata","graph algorithms","search algorithms"],"permissionlevel":false},"wgwikibaseitemid":"q325904"}); 
+}</script><script>if(window.mw){ 
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0, 
+"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true, 
+"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","uls-enable":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchns0":true,"searchns1":false,"searchns2":false,"searchns3":false,"searchns4":false,"searchns5":false,"searchns6":false,"searchns7":false,"searchns8":false,"searchns9":false,"searchns10":false,"searchns11":false,"searchns12":false,"searchns13":false,"searchns14":false,"searchns15":false, 
+"searchns100":false,"searchns101":false,"searchns108":false,"searchns109":false,"searchns118":false,"searchns119":false,"searchns446":false,"searchns447":false,"searchns710":false,"searchns711":false,"searchns828":false,"searchns829":false,"gadget-teahouse":1,"gadget-referencetooltips":1,"gadget-drn-wizard":1,"gadget-charinsert":1,"gadget-mysandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"edittoken":"+\\","patroltoken":false,"watchtoken":false});},{},{}); 
+/* cache key: enwiki:resourceloader:filter:minify-js:7:264b5b04c69e37444d5b2d63c2a65dc9 */ 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualeditor.viewpagetarget.init","wikibase.client.init","ext.centralnotice.bannercontroller","skins.vector.js"]); 
+}</script> 
+<script src="./breadth first search_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt ie 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf11/skins/vector/csshover.min.htc")}</style><![endif]--></head> 
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-breadth-first_search skin-vector action-view vector-animatelayout"> 
+<div id="mw-page-base" class="noprint"></div> 
+<div id="mw-head-base" class="noprint"></div> 
+<div id="content" class="mw-body" role="main"> 
+<a id="top"></a> 
+<div id="mw-js-message" style="display:none;"></div> 
+<div id="sitenotice"><div id="centralnotice"></div><!-- centralnotice --></div> 
+<h1 id="firstheading" class="firstheading" lang="en"><span dir="auto">breadth-first search</span></h1> 
+<div id="bodycontent"> 
+<div id="sitesub">from wikipedia, the free encyclopedia</div> 
+<div id="contentsub">&nbsp;&nbsp;(redirected from <a href="http://en.wikipedia.org/w/index.php?title=breadth_first_search&redirect=no" title="breadth first search">breadth first search</a>)</div> 
+<div id="jump-to-nav" class="mw-jump"> 
+jump to:					<a href="http://en.wikipedia.org/wiki/breadth_first_search#mw-navigation">navigation</a>, 					<a href="http://en.wikipedia.org/wiki/breadth_first_search#p-search">search</a> 
+</div> 
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table class="metadata plainlinks ambox ambox-content ambox-refimprove" role="presentation"> 
+<tbody><tr> 
+<td class="mbox-image"> 
+<div style="width:52px;"><a href="http://en.wikipedia.org/wiki/file:question_book-new.svg" class="image"><img alt="" src="./breadth first search_files/100px-question_book-new.svg.png" width="50" height="39" srcset="//upload.wikimedia.org/wikipedia/en/thumb/9/99/question_book-new.svg/75px-question_book-new.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/9/99/question_book-new.svg/100px-question_book-new.svg.png 2x"></a></div> 
+</td> 
+<td class="mbox-text"><span class="mbox-text-span">this article <b>needs additional citations for <a href="http://en.wikipedia.org/wiki/wikipedia:verifiability" title="wikipedia:verifiability">verification</a></b>. <span class="hide-when-compact">please help <a class="external text" href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&action=edit">improve this article</a> by <a href="http://en.wikipedia.org/wiki/help:introduction_to_referencing/1" title="help:introduction to referencing/1">adding citations to reliable sources</a>. unsourced material may be challenged and removed.</span> <small><i>(april 2012)</i></small></span></td> 
+</tr> 
+</tbody></table> 
+<table class="infobox" cellspacing="3" style="border-spacing:3px;width:22em;"> 
+<caption>breadth-first search</caption> 
+<tbody><tr> 
+<td colspan="2" style="text-align:center;"> 
+<div class="floatnone"><a href="http://en.wikipedia.org/wiki/file:breadth-first-tree.svg" class="image" title="order in which the nodes get expanded"><img alt="order in which the nodes get expanded" src="./breadth first search_files/600px-breadth-first-tree.svg.png" width="300" height="192" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/3/33/breadth-first-tree.svg/450px-breadth-first-tree.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/3/33/breadth-first-tree.svg/600px-breadth-first-tree.svg.png 2x"></a></div> 
+<br> 
+<div>order in which the nodes are expanded</div> 
+</td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;">class</th> 
+<td><a href="http://en.wikipedia.org/wiki/search_algorithm" title="search algorithm">search algorithm</a></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;">data structure</th> 
+<td><a href="http://en.wikipedia.org/wiki/graph_(data_structure)" title="graph (data structure)" class="mw-redirect">graph</a></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;"><a href="http://en.wikipedia.org/wiki/best,_worst_and_average_case" title="best, worst and average case">worst case performance</a></th> 
+<td><img class="tex" alt="o(|e|) = o(b^d)" src="./breadth first search_files/a8b29fd7405c20bde787096ccf5c8e31.png"></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;"><a href="http://en.wikipedia.org/wiki/best,_worst_and_average_case" title="best, worst and average case">worst case space complexity</a></th> 
+<td><img class="tex" alt="o(|v|) = o(b^d)" src="./breadth first search_files/f05c2d77c5fe4a75f8b9005452e42d5c.png"></td> 
+</tr> 
+</tbody></table> 
+<p>in <a href="http://en.wikipedia.org/wiki/graph_theory" title="graph theory">graph theory</a>, <b>breadth-first search</b> (<b>bfs</b>) is a <a href="http://en.wikipedia.org/wiki/graph_search_algorithm" title="graph search algorithm" class="mw-redirect">strategy for searching in a graph</a> when search is limited to essentially two operations: (a) visit and inspect a node of a graph; (b) gain access to visit the nodes that neighbor the currently visited node. the bfs begins at a root node and inspects all the neighboring nodes. then for each of those neighbor nodes in turn, it inspects their neighbor nodes which were unvisited, and so on. compare bfs with the equivalent, but more memory-efficient <a href="http://en.wikipedia.org/wiki/iterative_deepening_depth-first_search" title="iterative deepening depth-first search">iterative deepening depth-first search</a> and contrast with <a href="http://en.wikipedia.org/wiki/depth-first_search" title="depth-first search">depth-first search</a>.</p> 
+<div class="thumb tright"> 
+<div class="thumbinner" style="width:189px;"><a href="http://en.wikipedia.org/wiki/file:animated_bfs.gif" class="image"><img alt="" src="./breadth first search_files/animated_bfs.gif" width="187" height="175" class="thumbimage"></a> 
+<div class="thumbcaption"> 
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/file:animated_bfs.gif" class="internal" title="enlarge"><img src="./breadth first search_files/magnify-clip.png" width="15" height="11" alt=""></a></div> 
+animated example of a breadth-first search</div> 
+</div> 
+</div> 
+<p></p> 
+<div id="toc" class="toc"> 
+<div id="toctitle"> 
+<h2>contents</h2> 
+<span class="toctoggle">&nbsp;[<a href="http://en.wikipedia.org/wiki/breadth_first_search#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div> 
+<ul> 
+<li class="toclevel-1 tocsection-1"><a href="http://en.wikipedia.org/wiki/breadth_first_search#algorithm"><span class="tocnumber">1</span> <span class="toctext">algorithm</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-2"><a href="http://en.wikipedia.org/wiki/breadth_first_search#pseudocode"><span class="tocnumber">1.1</span> <span class="toctext">pseudocode</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikipedia.org/wiki/breadth_first_search#features"><span class="tocnumber">2</span> <span class="toctext">features</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-4"><a href="http://en.wikipedia.org/wiki/breadth_first_search#space_complexity"><span class="tocnumber">2.1</span> <span class="toctext">space complexity</span></a></li> 
+<li class="toclevel-2 tocsection-5"><a href="http://en.wikipedia.org/wiki/breadth_first_search#time_complexity"><span class="tocnumber">2.2</span> <span class="toctext">time complexity</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-6"><a href="http://en.wikipedia.org/wiki/breadth_first_search#applications"><span class="tocnumber">3</span> <span class="toctext">applications</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-7"><a href="http://en.wikipedia.org/wiki/breadth_first_search#finding_connected_components"><span class="tocnumber">3.1</span> <span class="toctext">finding connected components</span></a></li> 
+<li class="toclevel-2 tocsection-8"><a href="http://en.wikipedia.org/wiki/breadth_first_search#testing_bipartiteness"><span class="tocnumber">3.2</span> <span class="toctext">testing bipartiteness</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-9"><a href="http://en.wikipedia.org/wiki/breadth_first_search#see_also"><span class="tocnumber">4</span> <span class="toctext">see also</span></a></li> 
+<li class="toclevel-1 tocsection-10"><a href="http://en.wikipedia.org/wiki/breadth_first_search#references"><span class="tocnumber">5</span> <span class="toctext">references</span></a></li> 
+<li class="toclevel-1 tocsection-11"><a href="http://en.wikipedia.org/wiki/breadth_first_search#external_links"><span class="tocnumber">6</span> <span class="toctext">external links</span></a></li> 
+</ul> 
+</div> 
+<p></p> 
+<h2><span class="mw-headline" id="algorithm">algorithm</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&action=edit&section=1" title="edit section: algorithm">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<div class="thumb tright"> 
+<div class="thumbinner" style="width:252px;"><a href="http://en.wikipedia.org/wiki/file:mapgermanygraph.svg" class="image"><img alt="" src="./breadth first search_files/500px-mapgermanygraph.svg.png" width="250" height="252" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/a/ad/mapgermanygraph.svg/375px-mapgermanygraph.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/a/ad/mapgermanygraph.svg/500px-mapgermanygraph.svg.png 2x"></a> 
+<div class="thumbcaption"> 
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/file:mapgermanygraph.svg" class="internal" title="enlarge"><img src="./breadth first search_files/magnify-clip.png" width="15" height="11" alt=""></a></div> 
+an example map of <a href="http://en.wikipedia.org/wiki/germany" title="germany">germany</a> with some connections between cities</div> 
+</div> 
+</div> 
+<div class="thumb tright"> 
+<div class="thumbinner" style="width:252px;"><a href="http://en.wikipedia.org/wiki/file:germanybfs.svg" class="image"><img alt="" src="./breadth first search_files/500px-germanybfs.svg.png" width="250" height="179" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/6/63/germanybfs.svg/375px-germanybfs.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/6/63/germanybfs.svg/500px-germanybfs.svg.png 2x"></a> 
+<div class="thumbcaption"> 
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/file:germanybfs.svg" class="internal" title="enlarge"><img src="./breadth first search_files/magnify-clip.png" width="15" height="11" alt=""></a></div> 
+the breadth-first tree obtained when running bfs on the given map and starting in <a href="http://en.wikipedia.org/wiki/frankfurt" title="frankfurt">frankfurt</a></div> 
+</div> 
+</div> 
+<table class="vertical-navbox nowraplinks plainlist" cellspacing="5" cellpadding="0" style="float:right;clear:right;width:22.0em;margin:0 0 1.0em 1.0em;background:#f9f9f9;border:1px solid #aaa;padding:0.2em;border-spacing:0.4em 0;text-align:center;line-height:1.4em;font-size:88%;width:15em;"> 
+<tbody><tr> 
+<th class="navbox-title" style=";padding:0.2em 0.4em 0.2em;;font-size:145%;line-height:1.2em;"><a href="http://en.wikipedia.org/wiki/graph_traversal" title="graph traversal">graph</a> and <a href="http://en.wikipedia.org/wiki/tree_traversal" title="tree traversal">tree<br> 
+search algorithms</a></th> 
+</tr> 
+<tr> 
+<td class="" style="padding:0 0.1em 0.4em;;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/alpha%e2%80%93beta_pruning" title="alpha–beta pruning">α–β</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/a*_search_algorithm" title="a* search algorithm">a*</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/b*" title="b*">b*</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/backtracking" title="backtracking">backtracking</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/beam_search" title="beam search">beam</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/bellman%e2%80%93ford_algorithm" title="bellman–ford algorithm">bellman–ford</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/best-first_search" title="best-first search">best-first</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/bidirectional_search" title="bidirectional search">bidirectional</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/bor%c5%afvka%27s_algorithm" title="borůvka&#39;s algorithm">borůvka</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/branch_and_bound" title="branch and bound">branch &amp; bound</a></li> 
+<li><strong class="selflink">bfs</strong></li> 
+<li><a href="http://en.wikipedia.org/wiki/british_museum_algorithm" title="british museum algorithm">british museum</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/d*" title="d*">d*</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/depth-first_search" title="depth-first search">dfs</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/depth-limited_search" title="depth-limited search">depth-limited</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/dijkstra%27s_algorithm" title="dijkstra&#39;s algorithm">dijkstra</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/edmonds%27_algorithm" title="edmonds&#39; algorithm">edmonds</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/floyd%e2%80%93warshall_algorithm" title="floyd–warshall algorithm">floyd–warshall</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/fringe_search" title="fringe search">fringe search</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/hill_climbing" title="hill climbing">hill climbing</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/ida*" title="ida*">ida*</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/iterative_deepening_depth-first_search" title="iterative deepening depth-first search">iterative deepening</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/kruskal%27s_algorithm" title="kruskal&#39;s algorithm">kruskal</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/johnson%27s_algorithm" title="johnson&#39;s algorithm">johnson</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/lexicographic_breadth-first_search" title="lexicographic breadth-first search">lexicographic bfs</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/prim%27s_algorithm" title="prim&#39;s algorithm">prim</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/sma*" title="sma*">sma*</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/uniform-cost_search" title="uniform-cost search">uniform-cost</a></li> 
+</ul> 
+</td> 
+</tr> 
+<tr> 
+<th class="" style="padding:0.1em;;;">listings</th> 
+</tr> 
+<tr> 
+<td class="" style="padding:0 0.1em 0.4em;;"> 
+<ul> 
+<li><i><a href="http://en.wikipedia.org/wiki/category:graph_algorithms" title="category:graph algorithms">graph algorithms</a></i></li> 
+<li><i><a href="http://en.wikipedia.org/wiki/category:search_algorithms" title="category:search algorithms">search algorithms</a></i></li> 
+<li><i><a href="http://en.wikipedia.org/wiki/list_of_algorithms#graph_algorithms" title="list of algorithms">list of graph algorithms</a></i></li> 
+</ul> 
+</td> 
+</tr> 
+<tr> 
+<th class="" style="padding:0.1em;;;">related topics</th> 
+</tr> 
+<tr> 
+<td class="" style="padding:0 0.1em 0.4em;;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/dynamic_programming" title="dynamic programming">dynamic programming</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/graph_traversal" title="graph traversal">graph traversal</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/tree_traversal" title="tree traversal">tree traversal</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/search_game" title="search game">search games</a></li> 
+</ul> 
+</td> 
+</tr> 
+<tr> 
+<td style="text-align:right;font-size:115%;"> 
+<div class="plainlinks hlist navbar mini" style=""> 
+<ul> 
+<li class="nv-view"><a href="http://en.wikipedia.org/wiki/template:graph_search_algorithm" title="template:graph search algorithm"><span title="view this template" style="">v</span></a></li> 
+<li class="nv-talk"><a href="http://en.wikipedia.org/wiki/template_talk:graph_search_algorithm" title="template talk:graph search algorithm"><span title="discuss this template" style="">t</span></a></li> 
+<li class="nv-edit"><a class="external text" href="http://en.wikipedia.org/w/index.php?title=template:graph_search_algorithm&action=edit"><span title="edit this template" style="">e</span></a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+</tbody></table> 
+<p>the algorithm uses a <a href="http://en.wikipedia.org/wiki/queue_(data_structure)" title="queue (data structure)" class="mw-redirect">queue</a> data structure to store intermediate results as it traverses the graph, as follows:</p> 
+<ol> 
+<li>enqueue the root node</li> 
+<li>dequeue a node and examine it 
+<ul> 
+<li>if the element sought is found in this node, quit the search and return a result.</li> 
+<li>otherwise enqueue any successors (the direct child nodes) that have not yet been discovered.</li> 
+</ul> 
+</li> 
+<li>if the queue is empty, every node on the graph has been examined – quit the search and return "not found".</li> 
+<li>if the queue is not empty, repeat from step 2.</li> 
+</ol> 
+<p><b>note</b>: using a <a href="http://en.wikipedia.org/wiki/stack_(data_structure)" title="stack (data structure)" class="mw-redirect">stack</a> instead of a queue would turn this algorithm into a <a href="http://en.wikipedia.org/wiki/depth-first_search" title="depth-first search">depth-first search</a>.</p> 
+<h3><span class="mw-headline" id="pseudocode">pseudocode</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&action=edit&section=2" title="edit section: pseudocode">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p><b>input</b>: a graph <i>g</i> and a root <i>v</i> of g</p> 
+<pre>1  <b>procedure</b> bfs(<i>g</i>,<i>v</i>) <b>is</b> 
+2      create a queue <i>q</i> 
+3      create a set <i>v</i> 
+4      enqueue <i>v</i> onto <i>q</i> 
+5      add <i>v</i> to <i>v</i> 
+6      <b>while</b> <i>q</i> is not empty <b>loop</b> 
+7          <i>t</i> ← q.dequeue() 
+8          <b>if</b> <i>t</i> is what we are looking for <b>then</b> 
+9              return <i>t</i> 
+10         <b>end if</b> 
+11         <b>for all</b> edges e in g.adjacentedges(t) <b>loop</b> 
+12             <i>u</i> ← g.adjacentvertex(<i>t</i>,<i>e</i>) 
+13             <b>if</b> <i>u</i> is not in <i>v</i> <b>then</b> 
+14                  add <i>u</i> to <i>v</i> 
+15                  enqueue <i>u</i> onto <i>q</i> 
+16             <b>end if</b> 
+17         <b>end loop</b> 
+18     <b>end loop</b> 
+19     return <i>none</i> 
+20 <b>end</b> bfs 
+</pre> 
+<h2><span class="mw-headline" id="features">features</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&action=edit&section=3" title="edit section: features">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<h3><span class="mw-headline" id="space_complexity">space complexity</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&action=edit&section=4" title="edit section: space complexity">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>when the number of vertices in the graph is known ahead of time, and additional data structures are used to determine which vertices have already been added to the queue, the space complexity can be expressed as <img class="tex" alt="o(|v|)" src="./breadth first search_files/c08c0e45a937a414cd20dbdf046ca4b5.png"> where <img class="tex" alt="|v|" src="./breadth first search_files/74fcb594bdd93c0f956682ae1ea013e6.png"> is the <a href="http://en.wikipedia.org/wiki/cardinality" title="cardinality">cardinality</a> of the set of vertices. if the graph is represented by an <a href="http://en.wikipedia.org/wiki/adjacency_list" title="adjacency list">adjacency list</a> it occupies <img class="tex" alt="\theta(|v|+|e|)" src="./breadth first search_files/b29ba10dbabd82fca72194a9921eed54.png"><sup id="cite_ref-1" class="reference"><a href="http://en.wikipedia.org/wiki/breadth_first_search#cite_note-1"><span>[</span>1<span>]</span></a></sup> space in memory, while an <a href="http://en.wikipedia.org/wiki/adjacency_matrix" title="adjacency matrix">adjacency matrix</a> representation occupies <img class="tex" alt="\theta(|v|^2)" src="./breadth first search_files/e62dd1ed7a85fd4dc1b528a0a2250169.png">.<sup id="cite_ref-2" class="reference"><a href="http://en.wikipedia.org/wiki/breadth_first_search#cite_note-2"><span>[</span>2<span>]</span></a></sup></p> 
+<h3><span class="mw-headline" id="time_complexity">time complexity</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&action=edit&section=5" title="edit section: time complexity">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>the time complexity can be expressed as <img class="tex" alt="o(|v|+|e|)" src="./breadth first search_files/4fe9f15fb53c589e023213ae35fcf78f.png"> <sup id="cite_ref-3" class="reference"><a href="http://en.wikipedia.org/wiki/breadth_first_search#cite_note-3"><span>[</span>3<span>]</span></a></sup> since every vertex and every edge will be explored in the worst case. note: <img class="tex" alt="o(|e|)" src="./breadth first search_files/5047506d94a45a73aa51fc971a0ff38d.png"> may vary between <img class="tex" alt="o(|v|)" src="./breadth first search_files/c08c0e45a937a414cd20dbdf046ca4b5.png"> and <img class="tex" alt=" o(|v|^2)" src="./breadth first search_files/17589e5af2a8e3d48c486d30939c1268.png">, depending on how sparse the input graph is (assuming that the graph is connected).</p> 
+<h2><span class="mw-headline" id="applications">applications</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&action=edit&section=6" title="edit section: applications">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>breadth-first search can be used to solve many problems in graph theory, for example:</p> 
+<ul> 
+<li>finding all nodes within one <a href="http://en.wikipedia.org/wiki/connected_component_(graph_theory)" title="connected component (graph theory)">connected component</a></li> 
+<li>copying collection, <a href="http://en.wikipedia.org/wiki/cheney%27s_algorithm" title="cheney&#39;s algorithm">cheney's algorithm</a></li> 
+<li>finding the <a href="http://en.wikipedia.org/wiki/shortest_path" title="shortest path" class="mw-redirect">shortest path</a> between two nodes <i>u</i> and <i>v</i> (with path length measured by number of edges)</li> 
+<li>testing a graph for <a href="http://en.wikipedia.org/wiki/bipartite_graph" title="bipartite graph">bipartiteness</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/cuthill%e2%80%93mckee_algorithm" title="cuthill–mckee algorithm">(reverse) cuthill–mckee</a> mesh numbering</li> 
+<li><a href="http://en.wikipedia.org/wiki/ford%e2%80%93fulkerson_algorithm" title="ford–fulkerson algorithm">ford–fulkerson method</a> for computing the <a href="http://en.wikipedia.org/wiki/maximum_flow_problem" title="maximum flow problem">maximum flow</a> in a <a href="http://en.wikipedia.org/wiki/flow_network" title="flow network">flow network</a></li> 
+<li>serialization/deserialization of a binary tree vs serialization in sorted order, allows the tree to be re-constructed in an efficient manner.</li> 
+<li>construction of the <i>failure function</i> of the <a href="http://en.wikipedia.org/wiki/aho-corasick" title="aho-corasick" class="mw-redirect">aho-corasick</a> pattern matcher.</li> 
+</ul> 
+<h3><span class="mw-headline" id="finding_connected_components">finding connected components</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&action=edit&section=7" title="edit section: finding connected components">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>the set of nodes reached by a bfs (breadth-first search) form the connected component containing the starting node.</p> 
+<h3><span class="mw-headline" id="testing_bipartiteness">testing bipartiteness</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&action=edit&section=8" title="edit section: testing bipartiteness">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>bfs can be used to test <a href="http://en.wikipedia.org/wiki/bipartite_graph" title="bipartite graph">bipartiteness</a>, by starting the search at any vertex and giving alternating labels to the vertices visited during the search. that is, give label 0 to the starting vertex, 1 to all its neighbours, 0 to those neighbours' neighbours, and so on. if at any step a vertex has (visited) neighbours with the same label as itself, then the graph is not bipartite. if the search ends without such a situation occurring, then the graph is bipartite.</p> 
+<h2><span class="mw-headline" id="see_also">see also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&action=edit&section=9" title="edit section: see also">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/depth-first_search" title="depth-first search">depth-first search</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/level_structure" title="level structure">level structure</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/lexicographic_breadth-first_search" title="lexicographic breadth-first search">lexicographic breadth-first search</a></li> 
+</ul> 
+<h2><span class="mw-headline" id="references">references</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&action=edit&section=10" title="edit section: references">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<div class="reflist" style="list-style-type: decimal;"> 
+<ol class="references"> 
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/breadth_first_search#cite_ref-1"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">cormen, thomas h., charles e. leiserson, and ronald l. rivest. p.590</span></li> 
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/breadth_first_search#cite_ref-2"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">cormen, thomas h., charles e. leiserson, and ronald l. rivest. p.591</span></li> 
+<li id="cite_note-3"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/breadth_first_search#cite_ref-3"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">cormen, thomas h., charles e. leiserson, and ronald l. rivest. p.597</span></li> 
+</ol> 
+</div> 
+<div class="refbegin" style=""> 
+<ul> 
+<li><span id="citerefknuth1997" class="citation">knuth, donald e. (1997), <a rel="nofollow" class="external text" href="http://www-cs-faculty.stanford.edu/~knuth/taocp.html"><i>the art of computer programming vol 1. 3rd ed.</i></a>, boston: addison-wesley, <a href="http://en.wikipedia.org/wiki/international_standard_book_number" title="international standard book number">isbn</a>&nbsp;<a href="http://en.wikipedia.org/wiki/special:booksources/0-201-89683-4" title="special:booksources/0-201-89683-4">0-201-89683-4</a></span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3abreadth-first+search&amp;rft.aufirst=donald+e.&amp;rft.au=knuth%2c+donald+e.&amp;rft.aulast=knuth&amp;rft.btitle=the+art+of+computer+programming+vol+1.+3rd+ed.&amp;rft.date=1997&amp;rft.genre=book&amp;rft_id=http%3a%2f%2fwww-cs-faculty.stanford.edu%2f~knuth%2ftaocp.html&amp;rft.isbn=0-201-89683-4&amp;rft.place=boston&amp;rft.pub=addison-wesley&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+</ul> 
+</div> 
+<h2><span class="mw-headline" id="external_links">external links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&action=edit&section=11" title="edit section: external links">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<table class="metadata mbox-small plainlinks" style="border:1px solid #aaa; background-color:#f9f9f9;"> 
+<tbody><tr> 
+<td class="mbox-image"><img alt="" src="./breadth first search_files/59px-commons-logo.svg.png" width="30" height="40" srcset="//upload.wikimedia.org/wikipedia/en/thumb/4/4a/commons-logo.svg/45px-commons-logo.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/4/4a/commons-logo.svg/59px-commons-logo.svg.png 2x"></td> 
+<td class="mbox-text plainlist" style="">wikimedia commons has media related to <i><b><a href="http://commons.wikimedia.org/wiki/category:breadth-first_search" class="extiw" title="commons:category:breadth-first search">breadth-first search</a></b></i>.</td> 
+</tr> 
+</tbody></table> 
+<ul> 
+<li><a rel="nofollow" class="external text" href="http://www.cse.ohio-state.edu/~gurari/course/cis680/cis680ch14.html#qq1-46-92">breadth-first explanation and example</a></li> 
+<li><a rel="nofollow" class="external text" href="http://opendatastructures.org/versions/edition-0.1e/ods-java/12_3_graph_traversal.html#section001531000000000000000">open data structures - section 12.3.1 - bread-first search</a></li> 
+</ul> 
+ 
+ 
+<!-- 
+newpp limit report 
+parsed by mw1066 
+cpu time usage: 0.704 seconds 
+real time usage: 0.965 seconds 
+preprocessor visited node count: 925/1000000 
+preprocessor generated node count: 9139/1500000 
+post‐expand include size: 19809/2048000 bytes 
+template argument size: 3689/2048000 bytes 
+highest expansion depth: 12/40 
+expensive parser function count: 2/500 
+lua time usage: 0.078s 
+lua memory usage: 1.35 mb 
+--> 
+ 
+<!-- saved in parser cache with key enwiki:pcache:idhash:97026-0!0!0!!en!4!* and timestamp 20140122145100 
+--> 
+<noscript>&lt;img src="//en.wikipedia.org/wiki/special:centralautologin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /&gt;</noscript></div>								<div class="printfooter"> 
+retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&oldid=587377720">http://en.wikipedia.org/w/index.php?title=breadth-first_search&amp;oldid=587377720</a>"				</div> 
+<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/help:category" title="help:category">categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/category:graph_algorithms" title="category:graph algorithms">graph algorithms</a></li><li><a href="http://en.wikipedia.org/wiki/category:search_algorithms" title="category:search algorithms">search algorithms</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/category:articles_needing_additional_references_from_april_2012" title="category:articles needing additional references from april 2012">articles needing additional references from april 2012</a></li><li><a href="http://en.wikipedia.org/wiki/category:all_articles_needing_additional_references" title="category:all articles needing additional references">all articles needing additional references</a></li><li><a href="http://en.wikipedia.org/wiki/category:commons_category_with_local_link_same_as_on_wikidata" title="category:commons category with local link same as on wikidata">commons category with local link same as on wikidata</a></li></ul></div></div>												<div class="visualclear"></div> 
+</div> 
+</div> 
+<div id="mw-navigation"> 
+<h2>navigation menu</h2> 
+<div id="mw-head"> 
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label"> 
+<h3 id="p-personal-label">personal tools</h3> 
+<ul> 
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=breadth-first+search&type=signup">create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=breadth-first+search" title="you&#39;re encouraged to log in; however, it&#39;s not mandatory. [ctrl-option-o]" accesskey="o">log in</a></li>	</ul> 
+</div> 
+<div id="left-navigation"> 
+<div id="p-namespaces" role="navigation" class="vectortabs" aria-labelledby="p-namespaces-label"> 
+<h3 id="p-namespaces-label">namespaces</h3> 
+<ul> 
+<li id="ca-nstab-main" class="selected"><span><a href="http://en.wikipedia.org/wiki/breadth-first_search" title="view the content page [ctrl-option-c]" accesskey="c">article</a></span></li> 
+<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/talk:breadth-first_search" title="discussion about the content page [ctrl-option-t]" accesskey="t">talk</a></span></li> 
+</ul> 
+</div> 
+<div id="p-variants" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-variants-label"> 
+<h3 id="mw-vector-current-variant"> 
+</h3> 
+<h3 id="p-variants-label" tabindex="0"><span>variants</span><a href="http://en.wikipedia.org/wiki/breadth_first_search#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+</div> 
+<div id="right-navigation"> 
+<div id="p-views" role="navigation" class="vectortabs" aria-labelledby="p-views-label"> 
+<h3 id="p-views-label">views</h3> 
+<ul> 
+<li id="ca-view" class="selected"><span><a href="http://en.wikipedia.org/wiki/breadth-first_search">read</a></span></li> 
+<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&action=edit" title="you can edit this page. 
+please review your changes before saving. [ctrl-option-e]" accesskey="e">edit</a></span></li> 
+<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&action=history" title="past versions of this page [ctrl-option-h]" accesskey="h">view history</a></span></li> 
+</ul> 
+</div> 
+<div id="p-cactions" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-cactions-label"> 
+<h3 id="p-cactions-label" tabindex="0"><span>actions</span><a href="http://en.wikipedia.org/wiki/breadth_first_search#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+<div id="p-search" role="search"> 
+<h3><label for="searchinput">search</label></h3> 
+<form action="http://en.wikipedia.org/w/index.php" id="searchform"> 
+<div id="simplesearch"> 
+<input name="search" placeholder="search" title="search wikipedia [ctrl-option-f]" accesskey="f" id="searchinput" tabindex="1" autocomplete="off">						<button type="submit" name="button" title="search wikipedia for this text" id="searchbutton"><img src="./breadth first search_files/search-ltr.png" alt="search" width="12" height="13"></button>								<input type="hidden" name="title" value="special:search"> 
+</div> 
+</form> 
+</div> 
+</div> 
+</div> 
+<div id="mw-panel" class="collapsible-nav"> 
+<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/wiki.png);" href="http://en.wikipedia.org/wiki/main_page" title="visit the main page"></a></div> 
+<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label"> 
+<h3 id="p-navigation-label">navigation</h3> 
+<div class="body"> 
+<ul> 
+<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/main_page" title="visit the main page [ctrl-option-z]" accesskey="z">main page</a></li> 
+<li id="n-contents"><a href="http://en.wikipedia.org/wiki/portal:contents" title="guides to browsing wikipedia">contents</a></li> 
+<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/portal:featured_content" title="featured content – the best of wikipedia">featured content</a></li> 
+<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/portal:current_events" title="find background information on current events">current events</a></li> 
+<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/special:random" title="load a random article [ctrl-option-x]" accesskey="x">random article</a></li> 
+<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/special:fundraiserredirector?utm_source=donate&utm_medium=sidebar&utm_campaign=c13_en.wikipedia.org&uselang=en" title="support us">donate to wikipedia</a></li> 
+<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="visit the wikimedia shop">wikimedia shop</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label"> 
+<h3 id="p-interaction-label" tabindex="2"><a href="http://en.wikipedia.org/wiki/breadth_first_search#" aria-haspopup="true" aria-controls="p-interaction-list" role="button" aria-pressed="true" aria-expanded="true">interaction</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-interaction-list"> 
+<li id="n-help"><a href="http://en.wikipedia.org/wiki/help:contents" title="guidance on how to use and edit wikipedia">help</a></li> 
+<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="find out about wikipedia">about wikipedia</a></li> 
+<li id="n-portal"><a href="http://en.wikipedia.org/wiki/wikipedia:community_portal" title="about the project, what you can do, where to find things">community portal</a></li> 
+<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/special:recentchanges" title="a list of recent changes in the wiki [ctrl-option-r]" accesskey="r">recent changes</a></li> 
+<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact page</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label"> 
+<h3 id="p-tb-label" tabindex="3"><a href="http://en.wikipedia.org/wiki/breadth_first_search#" aria-haspopup="true" aria-controls="p-tb-list" role="button" aria-pressed="false" aria-expanded="false">tools</a></h3> 
+<div class="body"> 
+<ul id="p-tb-list"> 
+<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/special:whatlinkshere/breadth-first_search" title="list of all english wikipedia pages containing links to this page [ctrl-option-j]" accesskey="j">what links here</a></li> 
+<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/special:recentchangeslinked/breadth-first_search" title="recent changes in pages linked from this page [ctrl-option-k]" accesskey="k">related changes</a></li> 
+<li id="t-upload"><a href="http://en.wikipedia.org/wiki/wikipedia:file_upload_wizard" title="upload files [ctrl-option-u]" accesskey="u">upload file</a></li> 
+<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/special:specialpages" title="a list of all special pages [ctrl-option-q]" accesskey="q">special pages</a></li> 
+<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&oldid=587377720" title="permanent link to this revision of the page">permanent link</a></li> 
+<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&action=info">page information</a></li> 
+<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/q325904" title="link to connected data repository item [ctrl-option-g]" accesskey="g">data item</a></li> 
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=special:cite&page=breadth-first_search&id=587377720" title="information on how to cite this page">cite this page</a></li>		</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label"> 
+<h3 id="p-coll-print_export-label" tabindex="4"><a href="http://en.wikipedia.org/wiki/breadth_first_search#" aria-haspopup="true" aria-controls="p-coll-print_export-list" role="button" aria-pressed="false" aria-expanded="false">print/export</a></h3> 
+<div class="body"> 
+<ul id="p-coll-print_export-list"> 
+<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=book_creator&referer=breadth-first+search">create a book</a></li> 
+<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=render_article&arttitle=breadth-first+search&oldid=587377720&writer=rl">download as pdf</a></li> 
+<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=breadth-first_search&printable=yes" title="printable version of this page [ctrl-option-p]" accesskey="p">printable version</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"> 
+<h3 id="p-lang-label" tabindex="5"><a href="http://en.wikipedia.org/wiki/breadth_first_search#" aria-haspopup="true" aria-controls="p-lang-list" role="button" aria-pressed="true" aria-expanded="true">languages</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-lang-list"> 
+<li class="interlanguage-link interwiki-az"><a href="http://az.wikipedia.org/wiki/enin%c9%99_axtar%c4%b1%c5%9f_alqoritmi" title="eninə axtarış alqoritmi – azerbaijani" lang="az" hreflang="az">azərbaycanca</a></li> 
+<li class="interlanguage-link interwiki-bg"><a href="http://bg.wikipedia.org/wiki/%d0%9e%d0%b1%d1%85%d0%be%d0%b6%d0%b4%d0%b0%d0%bd%d0%b5_%d0%b2_%d1%88%d0%b8%d1%80%d0%b8%d0%bd%d0%b0" title="обхождане в ширина – bulgarian" lang="bg" hreflang="bg">български</a></li> 
+<li class="interlanguage-link interwiki-ca"><a href="http://ca.wikipedia.org/wiki/cerca_en_amplada" title="cerca en amplada – catalan" lang="ca" hreflang="ca">català</a></li> 
+<li class="interlanguage-link interwiki-cs"><a href="http://cs.wikipedia.org/wiki/prohled%c3%a1v%c3%a1n%c3%ad_do_%c5%a1%c3%ad%c5%99ky" title="prohledávání do šířky – czech" lang="cs" hreflang="cs">čeština</a></li> 
+<li class="interlanguage-link interwiki-de"><a href="http://de.wikipedia.org/wiki/breitensuche" title="breitensuche – german" lang="de" hreflang="de">deutsch</a></li> 
+<li class="interlanguage-link interwiki-et"><a href="http://et.wikipedia.org/wiki/laiuti_otsing" title="laiuti otsing – estonian" lang="et" hreflang="et">eesti</a></li> 
+<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/b%c3%basqueda_en_anchura" title="búsqueda en anchura – spanish" lang="es" hreflang="es">español</a></li> 
+<li class="interlanguage-link interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%d8%a7%d9%84%da%af%d9%88%d8%b1%db%8c%d8%aa%d9%85_%d8%ac%d8%b3%d8%aa%d8%ac%d9%88%db%8c_%d8%a7%d9%88%d9%84_%d8%b3%d8%b7%d8%ad" title="الگوریتم جستجوی اول سطح – persian" lang="fa" hreflang="fa">فارسی</a></li> 
+<li class="interlanguage-link interwiki-fr"><a href="http://fr.wikipedia.org/wiki/algorithme_de_parcours_en_largeur" title="algorithme de parcours en largeur – french" lang="fr" hreflang="fr">français</a></li> 
+<li class="interlanguage-link interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%eb%84%88%eb%b9%84_%ec%9a%b0%ec%84%a0_%ed%83%90%ec%83%89" title="너비 우선 탐색 – korean" lang="ko" hreflang="ko">한국어</a></li> 
+<li class="interlanguage-link interwiki-it"><a href="http://it.wikipedia.org/wiki/ricerca_in_ampiezza" title="ricerca in ampiezza – italian" lang="it" hreflang="it">italiano</a></li> 
+<li class="interlanguage-link interwiki-he"><a href="http://he.wikipedia.org/wiki/%d7%90%d7%9c%d7%92%d7%95%d7%a8%d7%99%d7%aa%d7%9d_%d7%97%d7%99%d7%a4%d7%95%d7%a9_%d7%9c%d7%a8%d7%95%d7%97%d7%91" title="אלגוריתם חיפוש לרוחב – hebrew" lang="he" hreflang="he">עברית</a></li> 
+<li class="interlanguage-link interwiki-lv"><a href="http://lv.wikipedia.org/wiki/mekl%c4%93%c5%a1ana_pla%c5%a1um%c4%81_(grafu_teorija)" title="meklēšana plašumā (grafu teorija) – latvian" lang="lv" hreflang="lv">latviešu</a></li> 
+<li class="interlanguage-link interwiki-lt"><a href="http://lt.wikipedia.org/wiki/paie%c5%a1ka_%c4%af_plot%c4%af" title="paieška į plotį – lithuanian" lang="lt" hreflang="lt">lietuvių</a></li> 
+<li class="interlanguage-link interwiki-mk"><a href="http://mk.wikipedia.org/wiki/bfs" title="bfs – macedonian" lang="mk" hreflang="mk">македонски</a></li> 
+<li class="interlanguage-link interwiki-nl"><a href="http://nl.wikipedia.org/wiki/breadth-first_search" title="breadth-first search – dutch" lang="nl" hreflang="nl">nederlands</a></li> 
+<li class="interlanguage-link interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%e5%b9%85%e5%84%aa%e5%85%88%e6%8e%a2%e7%b4%a2" title="幅優先探索 – japanese" lang="ja" hreflang="ja">日本語</a></li> 
+<li class="interlanguage-link interwiki-no"><a href="http://no.wikipedia.org/wiki/bredde-f%c3%b8rst-s%c3%b8k" title="bredde-først-søk – norwegian (bokmål)" lang="no" hreflang="no">norsk bokmål</a></li> 
+<li class="interlanguage-link interwiki-pl"><a href="http://pl.wikipedia.org/wiki/przeszukiwanie_wszerz" title="przeszukiwanie wszerz – polish" lang="pl" hreflang="pl">polski</a></li> 
+<li class="interlanguage-link interwiki-pt"><a href="http://pt.wikipedia.org/wiki/busca_em_largura" title="busca em largura – portuguese" lang="pt" hreflang="pt">português</a></li> 
+<li class="interlanguage-link interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%d0%9f%d0%be%d0%b8%d1%81%d0%ba_%d0%b2_%d1%88%d0%b8%d1%80%d0%b8%d0%bd%d1%83" title="поиск в ширину – russian" lang="ru" hreflang="ru">русский</a></li> 
+<li class="interlanguage-link interwiki-sr"><a href="http://sr.wikipedia.org/wiki/%d0%9f%d1%80%d0%b5%d1%82%d1%80%d0%b0%d0%b3%d0%b0_%d1%83_%d1%88%d0%b8%d1%80%d0%b8%d0%bd%d1%83" title="претрага у ширину – serbian" lang="sr" hreflang="sr">српски / srpski</a></li> 
+<li class="interlanguage-link interwiki-sv"><a href="http://sv.wikipedia.org/wiki/bredd-f%c3%b6rst-s%c3%b6kning" title="bredd-först-sökning – swedish" lang="sv" hreflang="sv">svenska</a></li> 
+<li class="interlanguage-link interwiki-tl"><a href="http://tl.wikipedia.org/wiki/paghahanap_na_luwang-muna" title="paghahanap na luwang-muna – tagalog" lang="tl" hreflang="tl">tagalog</a></li> 
+<li class="interlanguage-link interwiki-th"><a href="http://th.wikipedia.org/wiki/%e0%b8%81%e0%b8%b2%e0%b8%a3%e0%b8%84%e0%b9%89%e0%b8%99%e0%b8%ab%e0%b8%b2%e0%b9%83%e0%b8%99%e0%b9%81%e0%b8%99%e0%b8%a7%e0%b8%81%e0%b8%a7%e0%b9%89%e0%b8%b2%e0%b8%87" title="การค้นหาในแนวกว้าง – thai" lang="th" hreflang="th">ไทย</a></li> 
+<li class="interlanguage-link interwiki-uk"><a href="http://uk.wikipedia.org/wiki/%d0%9f%d0%be%d1%88%d1%83%d0%ba_%d1%83_%d1%88%d0%b8%d1%80%d0%b8%d0%bd%d1%83" title="пошук у ширину – ukrainian" lang="uk" hreflang="uk">українська</a></li> 
+<li class="interlanguage-link interwiki-vi"><a href="http://vi.wikipedia.org/wiki/t%c3%acm_ki%e1%ba%bfm_theo_chi%e1%bb%81u_r%e1%bb%99ng" title="tìm kiếm theo chiều rộng – vietnamese" lang="vi" hreflang="vi">tiếng việt</a></li> 
+<li class="interlanguage-link interwiki-zh"><a href="http://zh.wikipedia.org/wiki/%e5%b9%bf%e5%ba%a6%e4%bc%98%e5%85%88%e6%90%9c%e7%b4%a2" title="广度优先搜索 – chinese" lang="zh" hreflang="zh">中文</a></li> 
+<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/q325904#sitelinks-wikipedia" title="edit interlanguage links">edit links</a></li> 
+</ul> 
+</div> 
+</div> 
+</div> 
+</div> 
+<div id="footer" role="contentinfo"> 
+<ul id="footer-info"> 
+<li id="footer-info-lastmod"> this page was last modified on 23 december 2013 at 14:44.<br></li> 
+<li id="footer-info-copyright">text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/wikipedia:text_of_creative_commons_attribution-sharealike_3.0_unported_license">creative commons attribution-sharealike license</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>; 
+additional terms may apply.  by using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/terms_of_use">terms of use</a> and <a href="http://wikimediafoundation.org/wiki/privacy_policy">privacy policy.</a> <br> 
+wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">wikimedia foundation, inc.</a>, a non-profit organization.</li> 
+</ul> 
+<ul id="footer-places"> 
+<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/privacy_policy" title="wikimedia:privacy policy">privacy policy</a></li> 
+<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="wikipedia:about">about wikipedia</a></li> 
+<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/wikipedia:general_disclaimer" title="wikipedia:general disclaimer">disclaimers</a></li> 
+<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact wikipedia</a></li> 
+<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/special:mylanguage/how_to_contribute">developers</a></li> 
+<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/breadth-first_search" class="noprint stopmobileredirecttoggle">mobile view</a></li> 
+</ul> 
+<ul id="footer-icons" class="noprint"> 
+<li id="footer-copyrightico"> 
+<a href="http://wikimediafoundation.org/"><img src="./breadth first search_files/wikimedia-button.png" width="88" height="31" alt="wikimedia foundation"></a> 
+</li> 
+<li id="footer-poweredbyico"> 
+<a href="http://www.mediawiki.org/"><img src="./breadth first search_files/poweredby_mediawiki_88x31.png" alt="powered by mediawiki" width="88" height="31"></a> 
+</li> 
+</ul> 
+<div style="clear:both"></div> 
+</div> 
+<script>/*<![cdata[*/window.jquery && jquery.ready();/*]]>*/</script><script>if(window.mw){ 
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"}); 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postedit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchsuggest","ext.gadget.teahouse","ext.gadget.referencetooltips","ext.gadget.drn-wizard","ext.gadget.charinsert","mw.mwembedsupport.style","ext.articlefeedbackv5.startup","ext.wikimediashoplink.core","ext.navigationtiming","skins.vector.collapsiblenav"],null,true); 
+}</script><div class="suggestions" style="display: none; font-size: 12.800000190734863px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div> 
+<script src="./breadth first search_files/load(2).php"></script> 
+<!-- served by mw1165 in 0.209 secs. --> 
+ 
+ 
+</body></html> 

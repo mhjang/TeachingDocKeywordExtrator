@@ -29,8 +29,34 @@ public class Clustering {
             topiclist.add(line);
         }
         clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
-     //   clustering.naiveAssignmentLazyUpdate(documentMap, topiclist);
+  //      clustering.naiveAssignmentLazyUpdate(documentMap, topiclist);
      }
+
+    private void stemming(String path) throws IOException {
+        File fileEntry = new File(path);
+        LineNumberReader reader = new LineNumberReader(new FileReader(fileEntry));
+        BufferedWriter bw = new BufferedWriter(new FileWriter(new File(fileEntry.getName()+"_stemmed")));
+        String line;
+        KrovetzStemmer stemmer = new KrovetzStemmer();
+        try {
+            line = reader.readLine();
+            while (line != null) {
+                line = line.trim();
+                String [] tokens = line.split(" ,");
+                for( int i=0 ; i<tokens.length ; i++ ) {
+                    String stem = stemmer.stem(tokens[i]);
+                    System.out.println(tokens[i] + " " + stem);
+                    bw.write(stem + " ");
+                }
+                bw.write("\n");
+                bw.flush();
+                line = reader.readLine();
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        bw.close();
+    }
 
 
 
@@ -48,6 +74,7 @@ public class Clustering {
         Tokenizer tokenizer = new Tokenizer();
         for(File file: listOfFiles) {
             String parsedText = wikiparser.parse(file.getPath());
+            System.out.println("parsed " + file.getName());
             // For simplicity, I saved all wikipedi articles with the same topic labels
             // It ends with ".txt". I just need a name of the file, which is also the topic label
             String topicName = file.getName().substring(0, file.getName().length()-5);
@@ -55,12 +82,13 @@ public class Clustering {
             Document wikiDoc = tokenizer.tokenize(parsedText, Tokenizer.TRIGRAM);
             String matchingTopic = getMatchingTopicLabel(topicName.toLowerCase(), topicDocumentMap);
             Document topicDoc = topicDocumentMap.get(matchingTopic);
-       //     System.out.println("Topic Name: " + topicName);
+            //     System.out.println("Topic Name: " + topicName);
             topicDoc.mergeDocument(wikiDoc);
             topicDocumentMap.put(matchingTopic, topicDoc);
         }
         return topicDocumentMap;
     }
+
 
     /**
      * The name of the Wikipedia article is like "analysis of algorithm" whereas the topic key is "analysis of algorithm, and bubble sort..."
@@ -81,54 +109,61 @@ public class Clustering {
         return null;
     }
     /**
+
+    /**
      *
      * @param documentMap
      * @param topics
-     * @throws IOException
+     * @throws java.io.IOException
      */
-    public void naiveAssignmentFirstRandomAssign(HashMap<String, Document> documentMap, ArrayList<String> topics) throws IOException {
+    public void naiveAssignmentFirstRandomAssign(HashMap<String, Document> documentMap, ArrayList<String> topics) {
 
-        AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(documentMap, topics);
-        HashMap<String, LinkedList<String>> clusters = entry.getKey();
-        HashMap<String, Document> clusterFeatureMap = entry.getValue();
+        try {
+            AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(documentMap, topics);
+            HashMap<String, LinkedList<String>> clusters = entry.getKey();
+            HashMap<String, Document> clusterFeatureMap = entry.getValue();
 
-   //     clusterFeatureMap = expandTopicQueries(clusterFeatureMap, "./wikiexpansion_resource/stemmed/");
-        /****
-         * clustering
-         */
-        for(String docID : documentMap.keySet()) {
-            Document document = documentMap.get(docID);
-            double sim = 0.0, maxSim = 0.0;
-            String bestTopic = null;
-            for(String clusterTopic : clusterFeatureMap.keySet()) {
-                Document clusterDoc = clusterFeatureMap.get(clusterTopic);
-                sim = CosineSimilarity.CosineSimilarity(document, clusterDoc);
-                if(sim > maxSim) {
-                    maxSim = sim;
-                    bestTopic = clusterTopic;
+//            clusterFeatureMap = expandTopicQueries(clusterFeatureMap, "./wikiexpansion_resource/stemmed/");
+
+            /****
+             * clustering
+             */
+            for(String docID : documentMap.keySet()) {
+                Document document = documentMap.get(docID);
+                double sim = 0.0, maxSim = 0.0;
+                String bestTopic = null;
+                for(String clusterTopic : clusterFeatureMap.keySet()) {
+                    Document clusterDoc = clusterFeatureMap.get(clusterTopic);
+                    sim = CosineSimilarity.CosineSimilarity(document, clusterDoc);
+                    if(sim > maxSim) {
+                        maxSim = sim;
+                        bestTopic = clusterTopic;
+                    }
+                }
+                if(bestTopic == null) {
+                    // similarity to all existing cluster labels was 0
+                    bestTopic = DUMMY;
+                }
+          //      System.out.println(bestTopic);
+                LinkedList<String> clusterList = clusters.get(bestTopic);
+                clusterList.add(docID);
+                clusters.put(docID, clusterList);
+
+                // updating cluster features
+                if(bestTopic != DUMMY) {
+                    Document clusterDoc = clusterFeatureMap.get(bestTopic);
+                    clusterDoc.mergeDocument(document);
                 }
             }
-            if(bestTopic == null) {
-                // similarity to all existing cluster labels was 0
-                bestTopic = DUMMY;
-            }
-            LinkedList<String> clusterList = clusters.get(bestTopic);
-            clusterList.add(docID);
-            clusters.put(docID, clusterList);
 
-            // updating cluster features
-            if(bestTopic != DUMMY) {
-                Document clusterDoc = clusterFeatureMap.get(bestTopic);
-                clusterDoc.mergeDocument(document);
-            }
+            /***
+             * print the clustering result
+             */
+
+            printCluster(clusters, topics);
+        }catch(Exception e) {
+            e.printStackTrace();
         }
-
-        /***
-         * print the clustering result
-         */
-
-        printCluster(clusters, topics);
-
     }
 
 
@@ -138,14 +173,14 @@ public class Clustering {
      * Then come back to the "dummy" clusters, and deal with the unassigned documents until it converges or there is no document to be assigned.
      * @param documentMap
      * @param topics
-     * @throws IOException
+     * @throws java.io.IOException
      */
     public void naiveAssignmentLazyUpdate(HashMap<String, Document> documentMap, ArrayList<String> topics) throws IOException {
         AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(documentMap, topics);
         HashMap<String, LinkedList<String>> clusters = entry.getKey();
         HashMap<String, Document> clusterFeatureMap = entry.getValue();
-//        clusterFeatureMap = expandTopicQueries(clusterFeatureMap, "./wikiexpansion_resource/stemmed/");
 
+        clusterFeatureMap = expandTopicQueries(clusterFeatureMap, "./wikiexpansion_resource/stemmed/");
         /****
          * clustering
          */
@@ -164,14 +199,13 @@ public class Clustering {
                 for(String clusterTopic : clusterFeatureMap.keySet()) {
                     if(clusterTopic == DUMMY) continue;
                     Document clusterDoc = clusterFeatureMap.get(clusterTopic);
-                    sim = CosineSimilarity.CosineSimilarity(document, clusterDoc);
+                    sim = CosineSimilarity.BinaryCosineSimilarity(document, clusterDoc);
                     if(sim > maxSim) {
                         maxSim = sim;
                         bestTopic = clusterTopic;
                     }
                 }
                 if(bestTopic != null) {
-//                    System.out.println(bestTopic);
                     LinkedList<String> clusterList =  clusterUpdate.get(bestTopic);
                     clusterList.add(docID);
                      clusterUpdate.put(bestTopic, clusterList);
@@ -237,7 +271,7 @@ public class Clustering {
      * @param documentMap
      * @param topics
      * @return
-     * @throws IOException
+     * @throws java.io.IOException
      */
     private Map.Entry<HashMap<String, LinkedList<String>>, HashMap<String, Document>> convertTopicToDocument(HashMap<String, Document> documentMap, ArrayList<String> topics) throws IOException {
         // initializing the cluster dictionary

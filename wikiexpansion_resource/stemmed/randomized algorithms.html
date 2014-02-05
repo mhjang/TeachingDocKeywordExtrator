@@ -1,0 +1,567 @@
+<!doctype html> 
+<!-- saved from url=(0050)http://en.wikipedia.org/wiki/randomized_algorithms --> 
+<html lang="en" dir="ltr" class="client-js ve-not-available"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+<meta charset="utf-8"><title>randomized algorithm - wikipedia, the free encyclopedia</title> 
+<meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="generator" content="mediawiki 1.23wmf11"> 
+<link rel="alternate" type="application/x-wiki" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=edit"> 
+<link rel="edit" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=edit"> 
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png"> 
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico"> 
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="wikipedia (en)"> 
+<link rel="edituri" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd"> 
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/"> 
+<link rel="alternate" type="application/atom+xml" title="wikipedia atom feed" href="http://en.wikipedia.org/w/index.php?title=special:recentchanges&feed=atom"> 
+<link rel="canonical" href="http://en.wikipedia.org/wiki/randomized_algorithm"> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.drn-wizard%2creferencetooltips%2ccharinsert%2cteahouse%7cext.geshi.local%7cext.rtlcite%2cwikihiero%7cext.visualeditor.viewpagetarget.noscript%7cmediawiki.legacy.commonprint%2cshared%7cskins.common.interface%7cskins.vector.styles&only=styles&skin=vector&*"> 
+<style> 
+@-webkit-keyframes centralauthppersonalanimation{0%{opacity:0;-webkit-transform:translatey(-20px)}100%{opacity:1;-webkit-transform:translatey(0)}}@-moz-keyframes centralauthppersonalanimation{0%{opacity:0;-moz-transform:translatey(-20px)}100%{opacity:1;-moz-transform:translatey(0)}}@-o-keyframes centralauthppersonalanimation{0%{opacity:0;-o-transform:translatey(-20px)}100%{opacity:1;-o-transform:translatey(0)}}@keyframes centralauthppersonalanimation{0%{opacity:0;transform:translatey(-20px)}100%{opacity:1;transform:translatey(0)}}.centralauthppersonalanimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralauthppersonalanimation;-moz-animation-name:centralauthppersonalanimation;-o-animation-name:centralauthppersonalanimation;animation-name:centralauthppersonalanimation} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */ 
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */ 
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmveuzaad///95exmqqqry2njeiq0caaaaaxrstlmaqobyzgaaacdjrefucndjygbgygiaasufennjcuiqmadztm5oqexffzakrsg4ygbjcwodynsgdwaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil.png?2014-01-16t16:20:00z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmvewbaady2nj///8gra0zzrtw2aecaaaaaxrstlmaqobyzgaaacdjrefucndjygbgygyaawmdefpygegaoglzzclcqewjq5aki2w4ygbg5qotqpzbuaaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil-hover.png?2014-01-16t16:20:00z)!ie;color:#0645ad !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a963c9df079c8688d25d769892467b5c */ 
+@media print{#centralnotice{display:none}} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */</style><style> 
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */ 
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaabaaaaaqcamaaaaolq9taaabblbmveuaaad///////9pftf///80ardtgjn///9feij///////////9rfzf///////////9pfjzrgdh1o1xoftb///////+bwyqltnj///////9pfta82k////9wht6yxil///9qgddtgzr////////j7udl7elq8efi693k7oh///////9uhjubr2rp9uruhjr///9yljvkgir///9witlyjt3////9/v57vflbkt5pjc9dld/5/fhuq09stuts9uhxuelctcpfnt1hudfloezlouzmpenmvdzpvdxpvtxqvjxrvt5rvt9rwtxsqktswd5uwkbvuudxw0nztfbztu9ztvbzwkp0tlj1xkd2t1r3uvr4w1f4xk54x014ye15uvz5v1r5xvb6v1r7yfj8wvh9xvl9yfr9yvd9yln+xvh+yfd/x1l/yfeaylmex1+ny2uy0hqe04wj1ymv3ze33qld47tj5l3o6cpu7mrq9eb2+/q4j37oaaaaqhrstlmaaqiebaufbqwpfb4fjcuokiosqehjs01rulzzxmdydxachyusljswmjmoq6uur8lexcvm19fg5ejt8fx2+pr7sljgewaaakpjrefugbkfwqncawaaamdltl3ltrg4rwxbtvx77gagz6grfwc0bhwnvgkgdpzx8b0dgli+s7wn0voaqpfoi9+bnadzi7flrz2psewghzuh+78lsk8zlklezf3ooyug3vpxq2usei9wngeyog195ybywdf3e/2pahl1e9gr8bgt+bfofcc2fnvh4x7rcqiaqnnu+ht6sxkajcetl/2zaihv+porbwbjxfka//dfhscby/utaaaaaelftksuqmcc);background-image:url(//bits.wikimedia.org/static-1.23wmf11/resources/mediawiki.action/images/green-checkmark.png?2014-01-16t16:15:00z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:c897cc6a31411b48f47191422cf15c4a */ 
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */ 
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4c59a6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */ 
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */ 
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#f7f7f7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #f7f7f7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.rtflipped{padding-top:13px}.referencetooltip.rtflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.rtflipped li+li::after{border-top:0;border-bottom:8px #f7f7f7 solid;position:absolute;margin-top:7px}.rtsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.rtsettings:hover{opacity:1;filter:alpha(opacity=100)}.rttarget{border:#080086 2px solid} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */ 
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */ 
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playercontainer{overflow:hidden;position:relative;height:100%;background:#000}#videoholder{position:relative;overflow:hidden}.fullscreen #playercontainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwembedplayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayhtml a:visited{color:white}.loadingspinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/loading_ani.gif?2014-01-16t16:18:20z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-01-16t16:18:20z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button.png?2014-01-16t16:18:20z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button_hover.png?2014-01-16t16:18:20z)}.carouselcontainer{position :absolute;width :100%;z-index :2}.carouselvideotitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselvideotitletext{display :block;padding :10px 10px 10px 20px}.carouseltitleduration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5a5a5a;color :#d9d9d9;font-size :smaller;z-index :2}.carouselimgtitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselimgduration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselprevbutton,.carouselnextbutton{display :block;position :absolute;bottom:23px}.carouselprevbutton{left :5px}.carouselnextbutton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#e6e6e6;padding :5px;border-bottom :1px solid #d1d1d1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:40fb0cce50b2525059dbe7ac545e3c42 */</style><style> 
+.suggestions a.mw-searchsuggest-link,.suggestions a.mw-searchsuggest-link:hover,.suggestions a.mw-searchsuggest-link:active,.suggestions a.mw-searchsuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchsuggest-link,.suggestions-result-current a.mw-searchsuggest-link:hover,.suggestions-result-current a.mw-searchsuggest-link:active,.suggestions-result-current a.mw-searchsuggest-link:focus{color:white} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="resourceloaderdynamicstyles" content=""> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=site&only=styles&skin=vector&*"> 
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style> 
+ 
+<script src="./randomized algorithms_files/load.php"></script><script src="./randomized algorithms_files/load(1).php"></script><style title="spinjs"></style> 
+<script>if(window.mw){ 
+mw.config.set({"wgcanonicalnamespace":"","wgcanonicalspecialpagename":false,"wgnamespacenumber":0,"wgpagename":"randomized_algorithm","wgtitle":"randomized algorithm","wgcurrevisionid":581758549,"wgrevisionid":581758549,"wgarticleid":495383,"wgisarticle":true,"wgisredirect":false,"wgaction":"view","wgusername":null,"wgusergroups":["*"],"wgcategories":["randomized algorithms","stochastic algorithms","analysis of algorithms","probabilistic complexity theory"],"wgbreakframes":false,"wgpagecontentlanguage":"en","wgpagecontentmodel":"wikitext","wgseparatortransformtable":["",""],"wgdigittransformtable":["",""],"wgdefaultdateformat":"dmy","wgmonthnames":["","january","february","march","april","may","june","july","august","september","october","november","december"],"wgmonthnamesshort":["","jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"],"wgrelevantpagename":"randomized_algorithm","wgisprobablyeditable":true,"wgrestrictionedit":[],"wgrestrictionmove":[],"wgredirectedfrom":"randomized_algorithms","wgwikieditorenabledmodules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateeditor":false,"templates":false,"preview":false,"previewdialog":false,"publish":false,"toc":false},"wgarticlefeedbackv5permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgbetafeaturesfeatures":[],"wgvisualeditor":{"ispagewatched":false,"magnifyclipiconurl":"//bits.wikimedia.org/static-1.23wmf11/skins/common/images/magnify-clip.png","pagelanguagecode":"en","pagelanguagedir":"ltr"},"wikilove-recipient":"","wikilove-anon":0,"wgguidedtourhelpguiderurl":"help:guided tours/guider","wgulsacceptlanguagelist":["en-us","en","ko"],"wgulscurrentautonym":"english","wgflaggedrevsparams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgstablerevisionid":null,"wgcategorytreepagecategoryoptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","geo":{"city":"","country":""},"wgnoticeproject":"wikipedia","aftv5article":{"id":495383,"title":"randomized algorithm","namespace":0,"categories":["analysis of algorithms","probabilistic complexity theory","randomized algorithms","stochastic algorithms"],"permissionlevel":false},"wgwikibaseitemid":"q583461"}); 
+}</script><script>if(window.mw){ 
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0, 
+"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true, 
+"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","uls-enable":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchns0":true,"searchns1":false,"searchns2":false,"searchns3":false,"searchns4":false,"searchns5":false,"searchns6":false,"searchns7":false,"searchns8":false,"searchns9":false,"searchns10":false,"searchns11":false,"searchns12":false,"searchns13":false,"searchns14":false,"searchns15":false, 
+"searchns100":false,"searchns101":false,"searchns108":false,"searchns109":false,"searchns118":false,"searchns119":false,"searchns446":false,"searchns447":false,"searchns710":false,"searchns711":false,"searchns828":false,"searchns829":false,"gadget-teahouse":1,"gadget-referencetooltips":1,"gadget-drn-wizard":1,"gadget-charinsert":1,"gadget-mysandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"edittoken":"+\\","patroltoken":false,"watchtoken":false});},{},{}); 
+/* cache key: enwiki:resourceloader:filter:minify-js:7:264b5b04c69e37444d5b2d63c2a65dc9 */ 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualeditor.viewpagetarget.init","wikibase.client.init","ext.centralnotice.bannercontroller","skins.vector.js"]); 
+}</script> 
+<style type="text/css">/*<![cdata[*/ 
+.source-pascal {line-height: normal;} 
+.source-pascal li, .source-pascal pre { 
+line-height: normal; border: 0px none white; 
+} 
+/** 
+* geshi dynamically generated stylesheet 
+* -------------------------------------- 
+* dynamically generated stylesheet for pascal 
+* css class: source-pascal, css id: 
+* geshi (c) 2004 - 2007 nigel mcnie, 2007 - 2008 benny baumann 
+* (http://qbnz.com/highlighter/ and http://geshi.org/) 
+* -------------------------------------- 
+*/ 
+.pascal.source-pascal .de1, .pascal.source-pascal .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;} 
+.pascal.source-pascal  {font-family:monospace;} 
+.pascal.source-pascal .imp {font-weight: bold; color: red;} 
+.pascal.source-pascal li, .pascal.source-pascal .li1 {font-weight: normal; vertical-align:top;} 
+.pascal.source-pascal .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;} 
+.pascal.source-pascal .li2 {font-weight: bold; vertical-align:top;} 
+.pascal.source-pascal .kw1 {color: #000000; font-weight: bold;} 
+.pascal.source-pascal .kw2 {color: #000000; font-weight: bold;} 
+.pascal.source-pascal .kw3 {color: #000066;} 
+.pascal.source-pascal .kw4 {color: #000066; font-weight: bold;} 
+.pascal.source-pascal .co1 {color: #808080; font-style: italic;} 
+.pascal.source-pascal .co2 {color: #008000; font-style: italic;} 
+.pascal.source-pascal .comulti {color: #808080; font-style: italic;} 
+.pascal.source-pascal .es0 {color: #ff0000; font-weight: bold;} 
+.pascal.source-pascal .br0 {color: #009900;} 
+.pascal.source-pascal .sy0 {color: #000066;} 
+.pascal.source-pascal .sy1 {color: #000066;} 
+.pascal.source-pascal .sy2 {color: #000066;} 
+.pascal.source-pascal .sy3 {color: #000066;} 
+.pascal.source-pascal .st0 {color: #ff0000;} 
+.pascal.source-pascal .nu0 {color: #cc66cc;} 
+.pascal.source-pascal .me1 {color: #006600;} 
+.pascal.source-pascal .re0 {color: #0000cc;} 
+.pascal.source-pascal .re1 {color: #ff0000;} 
+.pascal.source-pascal .ln-xtra, .pascal.source-pascal li.ln-xtra, .pascal.source-pascal div.ln-xtra {background-color: #ffc;} 
+.pascal.source-pascal span.xtra { display:block; } 
+ 
+/*]]>*/ 
+</style><script src="./randomized algorithms_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt ie 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf11/skins/vector/csshover.min.htc")}</style><![endif]--></head> 
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-randomized_algorithm skin-vector action-view vector-animatelayout"> 
+<div id="mw-page-base" class="noprint"></div> 
+<div id="mw-head-base" class="noprint"></div> 
+<div id="content" class="mw-body" role="main"> 
+<a id="top"></a> 
+<div id="mw-js-message" style="display:none;"></div> 
+<div id="sitenotice"><div id="centralnotice"></div><!-- centralnotice --></div> 
+<h1 id="firstheading" class="firstheading" lang="en"><span dir="auto">randomized algorithm</span></h1> 
+<div id="bodycontent"> 
+<div id="sitesub">from wikipedia, the free encyclopedia</div> 
+<div id="contentsub">&nbsp;&nbsp;(redirected from <a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithms&redirect=no" title="randomized algorithms">randomized algorithms</a>)</div> 
+<div id="jump-to-nav" class="mw-jump"> 
+jump to:					<a href="http://en.wikipedia.org/wiki/randomized_algorithms#mw-navigation">navigation</a>, 					<a href="http://en.wikipedia.org/wiki/randomized_algorithms#p-search">search</a> 
+</div> 
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table class="vertical-navbox nowraplinks" cellspacing="5" cellpadding="0" style="float:right;clear:right;width:22.0em;margin:0 0 1.0em 1.0em;background:#f9f9f9;border:1px solid #aaa;padding:0.2em;border-spacing:0.4em 0;text-align:center;line-height:1.4em;font-size:88%;"> 
+<tbody><tr> 
+<td class="" style=";padding-top:0.4em;line-height:1.2em;">part of <a href="http://en.wikipedia.org/wiki/category:probabilistic_data_structures" title="category:probabilistic data structures">a series</a> on</td> 
+</tr> 
+<tr> 
+<th class="navbox-title" style=";padding:0.2em 0.4em 0.2em;padding-top:0;font-size:145%;line-height:1.2em;"><strong class="selflink">probabilistic</strong><br> 
+<a href="http://en.wikipedia.org/wiki/data_structure" title="data structure">data structures</a></th> 
+</tr> 
+<tr> 
+<td class="" style="padding:0 0.1em 0.4em;;"><a href="http://en.wikipedia.org/wiki/bloom_filter" title="bloom filter">bloom filter</a>&nbsp;<span style="font-weight:bold;">·</span>  <a href="http://en.wikipedia.org/wiki/quotient_filter" title="quotient filter">quotient filter</a>&nbsp;<span style="font-weight:bold;">·</span>  <a href="http://en.wikipedia.org/wiki/skip_list" title="skip list">skip list</a></td> 
+</tr> 
+<tr> 
+<th class="navbox-abovebelow" style="padding:0.1em;;;"><a href="http://en.wikipedia.org/wiki/random_tree_(disambiguation)" title="random tree (disambiguation)" class="mw-redirect">random trees</a></th> 
+</tr> 
+<tr> 
+<td class="" style="padding:0 0.1em 0.4em;;"> 
+<p><a href="http://en.wikipedia.org/wiki/random_binary_tree" title="random binary tree">random binary tree</a>&nbsp;<span style="font-weight:bold;">·</span>  <a href="http://en.wikipedia.org/wiki/treap" title="treap">treap</a><br></p> 
+<a href="http://en.wikipedia.org/wiki/rapidly_exploring_random_tree" title="rapidly exploring random tree">rapidly exploring random tree</a></td> 
+</tr> 
+<tr> 
+<th class="navbox-abovebelow" style="padding:0.1em;;;">related</th> 
+</tr> 
+<tr> 
+<td class="" style="padding:0 0.1em 0.4em;;"><strong class="selflink">randomized algorithm</strong></td> 
+</tr> 
+<tr> 
+<td class="" style="padding:0.3em 0.4em 0.3em;font-weight:bold;border-top: #aaa 1px solid"><a href="http://en.wikipedia.org/wiki/portal:computer_science" title="portal:computer science"><small>computer science portal</small></a></td> 
+</tr> 
+<tr> 
+<td style="text-align:right;font-size:115%;"> 
+<div class="plainlinks hlist navbar mini" style=""> 
+<ul> 
+<li class="nv-view"><a href="http://en.wikipedia.org/wiki/template:probabilistic" title="template:probabilistic"><span title="view this template" style="">v</span></a></li> 
+<li class="nv-talk"><a href="http://en.wikipedia.org/wiki/template_talk:probabilistic" title="template talk:probabilistic"><span title="discuss this template" style="">t</span></a></li> 
+<li class="nv-edit"><a class="external text" href="http://en.wikipedia.org/w/index.php?title=template:probabilistic&action=edit"><span title="edit this template" style="">e</span></a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+</tbody></table> 
+<p>a <b>randomized algorithm</b> is an <a href="http://en.wikipedia.org/wiki/algorithm" title="algorithm">algorithm</a> which employs a degree of <a href="http://en.wikipedia.org/wiki/randomness" title="randomness">randomness</a> as part of its logic. the algorithm typically uses <a href="http://en.wikipedia.org/wiki/uniform_distribution_(discrete)" title="uniform distribution (discrete)">uniformly random</a> bits as an auxiliary input to guide its behavior, in the hope of achieving good performance in the "average case" over all possible choices of random bits. formally, the algorithm's performance will be a <a href="http://en.wikipedia.org/wiki/random_variable" title="random variable">random variable</a> determined by the random bits; thus either the running time, or the output (or both) are random variables.</p> 
+<p>one has to distinguish between algorithms that use the random input to reduce the expected running time or memory usage, but always terminate with a correct result (<a href="http://en.wikipedia.org/wiki/las_vegas_algorithm" title="las vegas algorithm">las vegas algorithms</a>) in a bounded amount of time, and <b>probabilistic algorithms</b>, which, depending on the random input, have a chance of producing an incorrect result (<a href="http://en.wikipedia.org/wiki/monte_carlo_algorithm" title="monte carlo algorithm">monte carlo algorithms</a>) or fail to produce a result either by signalling a failure or failing to terminate.</p> 
+<p>in the second case, random performance and random output, the term "algorithm" for a procedure is somewhat questionable. in the case of random output, it is no longer formally <a href="http://en.wikipedia.org/wiki/effective_method" title="effective method">effective</a>.<sup id="cite_ref-1" class="reference"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_note-1"><span>[</span>1<span>]</span></a></sup> however, in some cases, probabilistic algorithms are the only practical means of solving a problem.<sup id="cite_ref-2" class="reference"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_note-2"><span>[</span>2<span>]</span></a></sup></p> 
+<p>in common practice, randomized algorithms are approximated using a <a href="http://en.wikipedia.org/wiki/pseudorandom_number_generator" title="pseudorandom number generator">pseudorandom number generator</a> in place of a true source of random bits; such an implementation may deviate from the expected theoretical behavior.</p> 
+<p></p> 
+<div id="toc" class="toc"> 
+<div id="toctitle"> 
+<h2>contents</h2> 
+<span class="toctoggle">&nbsp;[<a href="http://en.wikipedia.org/wiki/randomized_algorithms#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div> 
+<ul> 
+<li class="toclevel-1 tocsection-1"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#motivation"><span class="tocnumber">1</span> <span class="toctext">motivation</span></a></li> 
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#computational_complexity"><span class="tocnumber">2</span> <span class="toctext">computational complexity</span></a></li> 
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#history"><span class="tocnumber">3</span> <span class="toctext">history</span></a></li> 
+<li class="toclevel-1 tocsection-4"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#applications"><span class="tocnumber">4</span> <span class="toctext">applications</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-5"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#quicksort"><span class="tocnumber">4.1</span> <span class="toctext">quicksort</span></a></li> 
+<li class="toclevel-2 tocsection-6"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#randomized_incremental_constructions_in_geometry"><span class="tocnumber">4.2</span> <span class="toctext">randomized incremental constructions in geometry</span></a></li> 
+<li class="toclevel-2 tocsection-7"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#verifying_matrix_multiplication"><span class="tocnumber">4.3</span> <span class="toctext">verifying matrix multiplication</span></a></li> 
+<li class="toclevel-2 tocsection-8"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#min_cut"><span class="tocnumber">4.4</span> <span class="toctext">min cut</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-9"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#derandomization"><span class="tocnumber">5</span> <span class="toctext">derandomization</span></a></li> 
+<li class="toclevel-1 tocsection-10"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#where_randomness_helps"><span class="tocnumber">6</span> <span class="toctext">where randomness helps</span></a></li> 
+<li class="toclevel-1 tocsection-11"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#see_also"><span class="tocnumber">7</span> <span class="toctext">see also</span></a></li> 
+<li class="toclevel-1 tocsection-12"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#notes"><span class="tocnumber">8</span> <span class="toctext">notes</span></a></li> 
+<li class="toclevel-1 tocsection-13"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#references"><span class="tocnumber">9</span> <span class="toctext">references</span></a></li> 
+</ul> 
+</div> 
+<p></p> 
+<h2><span class="mw-headline" id="motivation">motivation</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=edit&section=1" title="edit section: motivation">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>as a motivating example, consider the problem of finding an ‘<i>a</i>’ in an <a href="http://en.wikipedia.org/wiki/array_data_structure" title="array data structure">array</a> of <i>n</i> elements.</p> 
+<p><b>input</b>: an array of <i>n</i>≥2 elements, in which half are ‘<i>a</i>’s and the other half are ‘<i>b</i>’s.</p> 
+<p><b>output</b>: find an ‘<i>a</i>’ in the array.</p> 
+<p>we give two versions of the algorithm, one <a href="http://en.wikipedia.org/wiki/las_vegas_algorithm" title="las vegas algorithm">las vegas algorithm</a> and one <a href="http://en.wikipedia.org/wiki/monte_carlo_algorithm" title="monte carlo algorithm">monte carlo algorithm</a>.</p> 
+<p>las vegas algorithm:</p> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="pascal source-pascal"> 
+<pre class="de1">findinga_lv<span class="br0">(</span><span class="kw4">array</span> a<span class="sy1">,</span> n<span class="br0">)</span> 
+<span class="kw1">begin</span> 
+<span class="kw1">repeat</span> 
+randomly select one element out <span class="kw1">of</span> n elements<span class="sy1">.</span> 
+<span class="kw1">until</span> <span class="st0">'a'</span> is found 
+<span class="kw1">end</span> 
+</pre></div> 
+</div> 
+<p>this algorithm succeeds with probability 1. the run time of a single call varies and can be arbitrarily large, but the expected run time over many calls is <img class="tex" alt="\theta(n)" src="./randomized algorithms_files/5c151486ce3904339687c2bac3cccd8d.png">. (see <a href="http://en.wikipedia.org/wiki/big_o_notation" title="big o notation">big o notation</a>)</p> 
+<p>monte carlo algorithm:</p> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"> 
+<div class="pascal source-pascal"> 
+<pre class="de1">findinga_mc<span class="br0">(</span><span class="kw4">array</span> a<span class="sy1">,</span> n<span class="sy1">,</span> k<span class="br0">)</span> 
+<span class="kw1">begin</span> 
+i<span class="sy3">=</span><span class="nu0">0</span> 
+<span class="kw1">repeat</span> 
+randomly select one element out <span class="kw1">of</span> n elements<span class="sy1">.</span> 
+<span class="me1">i</span> <span class="sy3">=</span> i <span class="sy3">+</span> <span class="nu0">1</span> 
+<span class="kw1">until</span> i<span class="sy3">=</span>k <span class="kw1">or</span> <span class="st0">'a'</span> is found 
+<span class="kw1">end</span> 
+</pre></div> 
+</div> 
+<p>if an ‘<i>a</i>’ is found, the algorithm succeeds, else the algorithm fails. after <i>k</i> iterations, the probability of finding an ‘<i>a</i>’ is:</p> 
+<div style="text-align:center;"> 
+<p><img class="tex" alt=" 
+\pr[\mathrm{find~a}]=1-(1/2)^k 
+" src="./randomized algorithms_files/24e0ea41d05ee66423093a1645dbfdc7.png"></p> 
+</div> 
+<p>this algorithm does not guarantee success, but the run time is fixed. the selection is executed exactly <i>k</i> times, therefore the run time is <img class="tex" alt="\theta(1)" src="./randomized algorithms_files/c70c6bcc03fbdff9564729b1ca2ed0f1.png">.</p> 
+<p>randomized algorithms are particularly useful when faced with a malicious "adversary" or <a href="http://en.wikipedia.org/wiki/attacker" title="attacker">attacker</a> who deliberately tries to feed a bad input to the algorithm (see <a href="http://en.wikipedia.org/wiki/worst-case_complexity" title="worst-case complexity">worst-case complexity</a> and <a href="http://en.wikipedia.org/wiki/competitive_analysis_(online_algorithm)" title="competitive analysis (online algorithm)">competitive analysis (online algorithm)</a>) such as in the <a href="http://en.wikipedia.org/wiki/prisoner%27s_dilemma" title="prisoner&#39;s dilemma">prisoner's dilemma</a>. it is for this reason that <a href="http://en.wikipedia.org/wiki/randomness" title="randomness">randomness</a> is ubiquitous in <a href="http://en.wikipedia.org/wiki/cryptography" title="cryptography">cryptography</a>. in cryptographic applications, pseudo-random numbers cannot be used, since the adversary can predict them, making the algorithm effectively deterministic. therefore either a source of truly random numbers or a <a href="http://en.wikipedia.org/wiki/cryptographically_secure_pseudo-random_number_generator" title="cryptographically secure pseudo-random number generator" class="mw-redirect">cryptographically secure pseudo-random number generator</a> is required. another area in which randomness is inherent is <a href="http://en.wikipedia.org/wiki/quantum_computer" title="quantum computer">quantum computing</a>.</p> 
+<p>in the example above, the las vegas algorithm always outputs the correct answer, but its running time is a random variable. the monte carlo algorithm (related to the <a href="http://en.wikipedia.org/wiki/monte_carlo_method" title="monte carlo method">monte carlo method</a> for simulation) completes in a fixed amount of time (as a function of the input size), but allow a <i>small probability of error</i>. observe that any las vegas algorithm can be converted into a monte carlo algorithm (via <a href="http://en.wikipedia.org/wiki/markov%27s_inequality" title="markov&#39;s inequality">markov's inequality</a>), by having it output an arbitrary, possibly incorrect answer if it fails to complete within a specified time. conversely, if an efficient verification procedure exists to check whether an answer is correct, then a monte carlo algorithm can be converted into a las vegas algorithm by running the monte carlo algorithm repeatedly till a correct answer is obtained.</p> 
+<h2><span class="mw-headline" id="computational_complexity">computational complexity</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=edit&section=2" title="edit section: computational complexity">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p><a href="http://en.wikipedia.org/wiki/computational_complexity_theory" title="computational complexity theory">computational complexity theory</a> models randomized algorithms as <i><a href="http://en.wikipedia.org/wiki/probabilistic_turing_machine" title="probabilistic turing machine">probabilistic</a> <a href="http://en.wikipedia.org/wiki/turing_machine" title="turing machine">turing machines</a></i>. both <a href="http://en.wikipedia.org/wiki/las_vegas_algorithm" title="las vegas algorithm">las vegas</a> and <a href="http://en.wikipedia.org/wiki/monte_carlo_algorithm" title="monte carlo algorithm">monte carlo algorithms</a> are considered, and several <a href="http://en.wikipedia.org/wiki/complexity_class" title="complexity class">complexity classes</a> are studied. the most basic randomized complexity class is <a href="http://en.wikipedia.org/wiki/rp_(complexity)" title="rp (complexity)">rp</a>, which is the class of <a href="http://en.wikipedia.org/wiki/decision_problem" title="decision problem">decision problems</a> for which there is an efficient (polynomial time) randomized algorithm (or probabilistic turing machine) which recognizes no-instances with absolute certainty and recognizes yes-instances with a probability of at least 1/2. the complement class for rp is co-rp. problem classes having (possibly nonterminating) algorithms with <a href="http://en.wikipedia.org/wiki/polynomial_time" title="polynomial time" class="mw-redirect">polynomial time</a> average case running time whose output is always correct are said to be in <a href="http://en.wikipedia.org/wiki/zpp_(complexity)" title="zpp (complexity)">zpp</a>.</p> 
+<p>the class of problems for which both yes and no-instances are allowed to be identified with some error is called <a href="http://en.wikipedia.org/wiki/bounded-error_probabilistic_polynomial" title="bounded-error probabilistic polynomial" class="mw-redirect">bpp</a>. this class acts as the randomized equivalent of <a href="http://en.wikipedia.org/wiki/p_(complexity)" title="p (complexity)">p</a>, i.e. bpp represents the class of efficient randomized algorithms.</p> 
+<h2><span class="mw-headline" id="history">history</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=edit&section=3" title="edit section: history">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>historically, the first randomized algorithm was a method developed by <a href="http://en.wikipedia.org/wiki/michael_o._rabin" title="michael o. rabin">michael o. rabin</a> for the <a href="http://en.wikipedia.org/wiki/closest_pair_of_points_problem" title="closest pair of points problem">closest pair problem</a> in <a href="http://en.wikipedia.org/wiki/computational_geometry" title="computational geometry">computational geometry</a>.<sup id="cite_ref-3" class="reference"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_note-3"><span>[</span>3<span>]</span></a></sup> the study of randomized algorithms was spurred by the 1977 discovery of a <a href="http://en.wikipedia.org/wiki/solovay-strassen_primality_test" title="solovay-strassen primality test" class="mw-redirect">randomized primality test</a> (i.e., determining the <a href="http://en.wikipedia.org/wiki/primality_test" title="primality test">primality</a> of a number) by <a href="http://en.wikipedia.org/wiki/robert_m._solovay" title="robert m. solovay">robert m. solovay</a> and <a href="http://en.wikipedia.org/wiki/volker_strassen" title="volker strassen">volker strassen</a>. soon afterwards michael o. rabin demonstrated that the 1976 <a href="http://en.wikipedia.org/wiki/miller-rabin_primality_test" title="miller-rabin primality test" class="mw-redirect">miller's primality test</a> can be turned into a randomized algorithm. at that time, no practical <a href="http://en.wikipedia.org/wiki/deterministic_algorithm" title="deterministic algorithm">deterministic algorithm</a> for primality was known.</p> 
+<p>the miller-rabin primality test relies on a binary relation between two positive integers <i>k</i> and <i>n</i> that can be expressed by saying that <i>k</i> "is a witness to the compositeness of" <i>n</i>. it can be shown that</p> 
+<ul> 
+<li>if there is a witness to the compositeness of <i>n</i>, then <i>n</i> is composite (i.e., <i>n</i> is not <a href="http://en.wikipedia.org/wiki/prime_number" title="prime number">prime</a>), and</li> 
+<li>if <i>n</i> is composite then at least three-fourths of the natural numbers less than <i>n</i> are witnesses to its compositeness, and</li> 
+<li>there is a fast algorithm that, given <i>k</i> and <i>n</i>, ascertains whether <i>k</i> is a witness to the compositeness of <i>n</i>.</li> 
+</ul> 
+<p>observe that this implies that the primality problem is in co-<a href="http://en.wikipedia.org/wiki/rp_(complexity)" title="rp (complexity)">rp</a>.</p> 
+<p>if one <a href="http://en.wikipedia.org/wiki/random" title="random" class="mw-redirect">randomly</a> chooses 100 numbers less than a composite number <i>n</i>, then the probability of failing to find such a "witness" is (1/4)<sup>100</sup> so that for most practical purposes, this is a good primality test. if <i>n</i> is big, there may be no other test that is practical. the probability of error can be reduced to an arbitrary degree by performing enough independent tests.</p> 
+<p>therefore, in practice, there is no penalty associated with accepting a small probability of error, since with a little care the probability of error can be made astronomically small. indeed, even though a deterministic polynomial-time primality test has since been found (see <a href="http://en.wikipedia.org/wiki/aks_primality_test" title="aks primality test">aks primality test</a>), it has not replaced the older probabilistic tests in <a href="http://en.wikipedia.org/wiki/cryptography" title="cryptography">cryptographic</a> <a href="http://en.wikipedia.org/wiki/computer_software" title="computer software" class="mw-redirect">software</a> nor is it expected to do so for the foreseeable future.</p> 
+<h2><span class="mw-headline" id="applications">applications</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=edit&section=4" title="edit section: applications">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<h3><span class="mw-headline" id="quicksort">quicksort</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=edit&section=5" title="edit section: quicksort">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p><a href="http://en.wikipedia.org/wiki/quicksort" title="quicksort">quicksort</a> is a familiar, commonly used algorithm in which randomness can be useful. any deterministic version of this algorithm requires <i><a href="http://en.wikipedia.org/wiki/big_o_notation" title="big o notation">o</a></i>(<i>n</i><sup>2</sup>) time to sort <i>n</i> numbers for some well-defined class of degenerate inputs (such as an already sorted array), with the specific class of inputs that generate this behavior defined by the protocol for pivot selection. however, if the algorithm selects pivot elements uniformly at random, it has a provably high probability of finishing in <i>o</i>(<i>n</i>&nbsp;log&nbsp;<i>n</i>) time regardless of the characteristics of the input.</p> 
+<h3><span class="mw-headline" id="randomized_incremental_constructions_in_geometry">randomized incremental constructions in geometry</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=edit&section=6" title="edit section: randomized incremental constructions in geometry">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>in <a href="http://en.wikipedia.org/wiki/computational_geometry" title="computational geometry">computational geometry</a>, a standard technique to build a structure like a <a href="http://en.wikipedia.org/wiki/convex_hull" title="convex hull">convex hull</a> or <a href="http://en.wikipedia.org/wiki/delaunay_triangulation" title="delaunay triangulation">delaunay triangulation</a> is to randomly permute the input points and then insert them one by one into the existing structure. the randomization ensures that the expected number of changes to the structure caused by an insertion is small, and so the expected running time of the algorithm can be upper bounded. this technique is known as <a href="http://en.wikipedia.org/w/index.php?title=randomized_incremental_construction&action=edit&redlink=1" class="new" title="randomized incremental construction (page does not exist)">randomized incremental construction</a>.<sup id="cite_ref-4" class="reference"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_note-4"><span>[</span>4<span>]</span></a></sup></p> 
+<h3><span class="mw-headline" id="verifying_matrix_multiplication">verifying matrix multiplication</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=edit&section=7" title="edit section: verifying matrix multiplication">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<div class="rellink relarticle mainarticle">main article: <a href="http://en.wikipedia.org/wiki/freivalds%27_algorithm" title="freivalds&#39; algorithm">freivalds' algorithm</a></div> 
+<p><b>input</b>: matrix <i>a</i> ∈ <i>r</i><sup><i>m</i> × <i>p</i></sup>, <i>b</i> ∈ <i>r</i><sup><i>p</i> × <i>n</i></sup>, and <i>c</i> ∈ <i>r</i><sup><i>m</i> × <i>n</i></sup>.</p> 
+<p><b>output</b>: true if <i>c</i> = <i>a</i> · <i>b</i>; false if <i>c</i> ≠ <i>a</i> · <i>b</i></p> 
+<p>we give a monte carlo algorithm to solve the problem.<sup id="cite_ref-5" class="reference"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_note-5"><span>[</span>5<span>]</span></a></sup></p> 
+<pre> <b>begin</b> 
+i=1 
+<b>repeat</b> 
+choose r=(r<sub>1</sub>,...,r<sub>n</sub>) ∈ {0,1}<sup>n</sup> at random. 
+compute c · r and a · (b · r) 
+<b>if</b> c · r ≠ a · (b · r) 
+<b>return</b> false 
+<b>endif</b> 
+i = i + 1 
+<b>until</b> i=k 
+<b>return</b> true 
+<b>end</b> 
+</pre> 
+<p>the running time of the algorithm is <img class="tex" alt="o(kn^2)" src="./randomized algorithms_files/6d25002dd1b03df5b05345cc95db69c8.png">.</p> 
+<p><b>theorem</b>: the algorithm is correct with probability at least <img class="tex" alt="1-(\frac{1}{2})^k" src="./randomized algorithms_files/bc0d82f17b80fa7d90a5243036fc48ec.png">.</p> 
+<p>we will prove that if <img class="tex" alt="a \cdot b \neq c" src="./randomized algorithms_files/e66314edbe0564901c087bca69f1fd44.png"> then <img class="tex" alt="pr[a \cdot b \cdot r=c \cdot r]\leq 1/2" src="./randomized algorithms_files/1cd1132491846034b9a37471d21a3ef8.png">.</p> 
+<p>if <img class="tex" alt="a \cdot b\neq c" src="./randomized algorithms_files/e66314edbe0564901c087bca69f1fd44.png">, by definition we have <img class="tex" alt="d=a \cdot b-c \neq 0" src="./randomized algorithms_files/5e3dea7b7f6d0269ed4da10d2f0c9115.png">. without loss of generality, we assume that <img class="tex" alt="d_{11} \neq 0" src="./randomized algorithms_files/a6e93a587ce123f875cb76373c9824b1.png">.</p> 
+<p>on the other hand, <img class="tex" alt="pr[a \cdot b \cdot r=c \cdot r] = pr[(a \cdot b-c) \cdot r=0] = pr[d \cdot r=0]" src="./randomized algorithms_files/e11e9f14151083b2d3bd5c3a1d7a04c9.png">.</p> 
+<p>if <img class="tex" alt="d \cdot r=0" src="./randomized algorithms_files/14df92f3fb1943752a17c2403fe7dc01.png">, then the first entry of <img class="tex" alt="d \cdot r" src="./randomized algorithms_files/3a3a740403326912663d293f7bd3e767.png"> is 0, that is</p> 
+<div style="text-align:center;"><img class="tex" alt="\sum_{j=1}^n d_{1j}r_j=0" src="./randomized algorithms_files/590f965f24c37fee2ff46c5f668255a8.png"></div> 
+<p>since <img class="tex" alt="d_{11} \neq 0" src="./randomized algorithms_files/a6e93a587ce123f875cb76373c9824b1.png">, we can solve for <img class="tex" alt="r_1" src="./randomized algorithms_files/4d554a7e92878e1fcb95a1aa3d1186a4.png">:</p> 
+<div style="text-align:center;"><img class="tex" alt="r_1=\frac{-\sum_{j=2}^n d_{1j}r_j}{d_{11}}" src="./randomized algorithms_files/25a0b5b5826218dcb7a565c5bfe363b6.png"></div> 
+<p>if we fix all <img class="tex" alt="r_j" src="./randomized algorithms_files/10341689a41294de49c1ecadad29802f.png"> except <img class="tex" alt="r_1" src="./randomized algorithms_files/4d554a7e92878e1fcb95a1aa3d1186a4.png">, the equality holds for at most one of the two choices for <img class="tex" alt="r_1\in \{0,1\}" src="./randomized algorithms_files/023c96d15fb6e5506bbdb4fbbd3f2ef1.png">. therefore,<img class="tex" alt="pr[abr=cr]\leq 1/2" src="./randomized algorithms_files/565d0fd1976bc8fea244b526b9eae9b7.png">.</p> 
+<p>we run the loop for <i>k</i> times. if <img class="tex" alt="c=a \cdot b" src="./randomized algorithms_files/21a87ada9e3156d0da765e2c71fe0702.png">, the algorithm is always correct; if <img class="tex" alt="c\neq a \cdot b" src="./randomized algorithms_files/095b66eb9dce81cf899e62e268d5ec45.png">, the probability of getting the correct answer is at least <img class="tex" alt="1-(\frac{1}{2})^k" src="./randomized algorithms_files/bc0d82f17b80fa7d90a5243036fc48ec.png">.</p> 
+<h3><span class="mw-headline" id="min_cut">min cut</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=edit&section=8" title="edit section: min cut">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<div class="rellink relarticle mainarticle">main article: <a href="http://en.wikipedia.org/wiki/karger%e2%80%99s_algorithm" title="karger’s algorithm" class="mw-redirect">karger’s algorithm</a></div> 
+<div class="thumb tright"> 
+<div class="thumbinner" style="width:222px;"><a href="http://en.wikipedia.org/wiki/file:single_run_of_karger%e2%80%99s_mincut_algorithm.svg" class="image"><img alt="" src="./randomized algorithms_files/440px-single_run_of_karger’s_mincut_algorithm.svg.png" width="220" height="29" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/e/e7/single_run_of_karger%e2%80%99s_mincut_algorithm.svg/330px-single_run_of_karger%e2%80%99s_mincut_algorithm.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/e/e7/single_run_of_karger%e2%80%99s_mincut_algorithm.svg/440px-single_run_of_karger%e2%80%99s_mincut_algorithm.svg.png 2x"></a> 
+<div class="thumbcaption"> 
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/file:single_run_of_karger%e2%80%99s_mincut_algorithm.svg" class="internal" title="enlarge"><img src="./randomized algorithms_files/magnify-clip.png" width="15" height="11" alt=""></a></div> 
+figure 2: successful run of karger’s algorithm on a 10-vertex graph. the minimum cut has size 3 and is indicated by the vertex colours.</div> 
+</div> 
+</div> 
+<p><b>input</b>: a <a href="http://en.wikipedia.org/wiki/graph_theory" title="graph theory">graph</a> <i>g</i>(<i>v</i>,<i>e</i>)</p> 
+<p><b>output</b>: a <a href="http://en.wikipedia.org/wiki/cut_(graph_theory)" title="cut (graph theory)">cut</a> partitioning the vertices into <i>l</i> and <i>r</i>, with the minimum number of edges between <i>l</i> and <i>r</i>.</p> 
+<p>recall that the <a href="http://en.wikipedia.org/wiki/edge_contraction" title="edge contraction">contraction</a> of two nodes, <i>u</i> and <i>v</i>, in a (multi-)graph yields a new node <i>u</i> ' with edges that are the union of the edges incident on either <i>u</i> or <i>v</i>, except from any edge(s) connecting <i>u</i> and <i>v</i>. figure 1 gives an example of contraction of vertex <i>a</i> and <i>b</i>. after contraction, the resulting graph may have parallel edges, but contains no self loops.</p> 
+<div class="center"> 
+<div class="thumb tnone"> 
+<div class="thumbinner" style="width:302px;"><a href="http://en.wikipedia.org/wiki/file:contraction_vertices.jpg" class="image"><img alt="" src="./randomized algorithms_files/600px-contraction_vertices.jpg" width="300" height="168" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/0/0b/contraction_vertices.jpg/450px-contraction_vertices.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/0/0b/contraction_vertices.jpg/600px-contraction_vertices.jpg 2x"></a> 
+<div class="thumbcaption"> 
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/file:contraction_vertices.jpg" class="internal" title="enlarge"><img src="./randomized algorithms_files/magnify-clip.png" width="15" height="11" alt=""></a></div> 
+figure 1: contraction of vertex a and b</div> 
+</div> 
+</div> 
+</div> 
+<p>karger's <sup id="cite_ref-6" class="reference"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_note-6"><span>[</span>6<span>]</span></a></sup> basic algorithm:</p> 
+<pre> <b>begin</b> 
+i=1 
+<b>repeat</b> 
+<b>repeat</b> 
+take a random edge (u,v)∈ e in g 
+replace u and v with the contraction u' 
+<b>until</b> only 2 nodes remain 
+obtain the corresponding cut result c<sub>i</sub> 
+i=i+1 
+<b>until</b> i=m 
+output the minimum cut among c<sub>1</sub>,c<sub>2</sub>,...,c<sub>m</sub>. 
+<b>end</b> 
+</pre> 
+<p>in each execution of the outer loop, the algorithm repeats the inner loop until only 2 nodes remain, the corresponding cut is obtained. the run time of one execution is <img class="tex" alt="o(n)" src="./randomized algorithms_files/7ba55e7c64a9405a0b39a1107e90ca94.png">, and <i>n</i> denotes the number of vertices. after <i>m</i> times executions of the outer loop, we output the minimum cut among all the results. the figure 2 gives an example of one execution of the algorithm. after execution, we get a cut of size 3.</p> 
+<p><b>lemma 1</b>: let <i>k</i> be the min cut size, and let <i>c</i> = {<i>e</i><sub>1</sub>,<i>e</i><sub>2</sub>,...,<i>e</i><sub><i>k</i></sub>} be the min cut. if, during iteration <i>i</i>, no edge <i>e</i> ∈ <i>c</i> is selected for contraction, then <i>c</i><sub><i>i</i></sub>&nbsp;=&nbsp;<i>c</i>.</p> 
+<p><b>proof</b>: if <i>g</i> is not connected, then <i>g</i> can be partitioned into <i>l</i> and <i>r</i> without any edge between them. so the min cut in a disconnected graph is 0. now, assume <i>g</i> is connected. let <i>v</i>=<i>l</i>∪ <i>r</i> be the partition of <i>v</i> induced by <i>c</i>&nbsp;: <i>c</i>={ {<i>u</i>,<i>v</i>} ∈ <i>e</i>&nbsp;: <i>u</i> ∈ <i>l</i>,<i>v</i> ∈ <i>r</i> } (well-defined since <i>g</i> is connected). consider an edge {<i>u</i>,<i>v</i>} of <i>c</i>. initially, <i>u</i>,<i>v</i> are distinct vertices. <i>as long as we pick an edge f ≠ e, u and v do not get merged.</i> thus, at the end of the algorithm, we have two compound nodes covering the entire graph, one consisting of the vertices of <i>l</i> and the other consisting of the vertices of <i>r</i>. as in figure 2, the size of min cut is 1, and <i>c</i> = {(<i>a</i>,<i>b</i>)}. if we don't select (<i>a</i>,<i>b</i>) for contraction, we can get the min cut.</p> 
+<p><b>lemma 2</b>: if <i>g</i> is a multigraph with <i>p</i> vertices and whose min cut has size <i>k</i>, then <i>g</i> has at least <i>pk</i>/2 edges.</p> 
+<p><b>proof</b>: because the min cut is <i>k</i>, every vertex <i>v</i> must satisfy degree(<i>v</i>) ≥ <i>k</i>. therefore, the sum of the degree is at least <i>pk</i>. but it is well known that the sum of vertex degrees equals 2|<i>e</i>|. the lemma follows.</p> 
+<p><b>analysis of algorithm</b></p> 
+<p>the probability that the algorithm succeeds is 1&nbsp;−&nbsp;the probability that all attempts fail. by independence, the probability that all attempts fail is</p> 
+<div style="text-align:center;"> 
+<p><img class="tex" alt=" 
+\prod_{i=1}^m \pr(c_i\neq c)=\prod_{i=1}^m(1-\pr(c_i=c)). 
+" src="./randomized algorithms_files/379c78696e06b815066a08d88e950739.png"></p> 
+</div> 
+<p>by lemma 1, the probability that <i>c</i><sub><i>i</i></sub>&nbsp;=&nbsp;<i>c</i> is the probability that no edge of <i>c</i> is selected during iteration <i>i</i>. consider the inner loop and let <i>g</i><sub><i>j</i></sub> denote the graph after <i>j</i> edge contractions, where <i>j</i>&nbsp;∈&nbsp;{0,1,...,<i>n</i>&nbsp;−&nbsp;3}. <i>g</i><sub><i>j</i></sub> has <i>n</i>&nbsp;−&nbsp;<i>j</i> vertices. we use the chain rule of <a href="http://en.wikipedia.org/wiki/conditional_probability" title="conditional probability">conditional possibilities</a>. the probability that the edge chosen at iteration <i>j</i> is not in <i>c</i>, given that no edge of <i>c</i> has been chosen before, is <img class="tex" alt="1-\frac{k}{|e(g_j)|}" src="./randomized algorithms_files/4af32b4bd090ae26bbc03294e6e69b41.png">. note that <i>g</i><sub><i>j</i></sub> still has min cut of size <i>k</i>, so by lemma 2, it still has at least <img class="tex" alt="\frac{(n-j)k}{2}" src="./randomized algorithms_files/faa063ce3a85b15f2be3021b7ab6d6b7.png"> edges.</p> 
+<p>thus, <img class="tex" alt="1-\frac{k}{|e(g_j)|}\geq 1-\frac{2}{n-j}=\frac{n-j-2}{n-j}" src="./randomized algorithms_files/1b39ba472e8688a1154a45a894b5c2db.png">.</p> 
+<p>so by the chain rule, the probability of finding the min cut <i>c</i> is <img class="tex" alt=" 
+pr[c_i=c] \geq \left(\frac{n-2}{n}\right)\left(\frac{n-3}{n-1}\right)\left(\frac{n-4}{n-2}\right)\ldots\left(\frac{3}{5}\right)\left(\frac{2}{4}\right)\left(\frac{1}{3}\right). 
+" src="./randomized algorithms_files/c235d6e6d343fbe28f4029b87a71b7f9.png"></p> 
+<p>cancellation gives <img class="tex" alt="\pr[c_i=c]\geq \frac{2}{n(n-1)}" src="./randomized algorithms_files/ae7cc3990bf3749c292efe6e82a9965a.png">. thus the probability that the algorithm succeeds is at least <img class="tex" alt="1-\left(1-\frac{2}{n(n-1)}\right)^m" src="./randomized algorithms_files/448f8f994eee1980c778b4c5802001ef.png">. for <img class="tex" alt="m=\frac{n(n-1)}{2}\ln n" src="./randomized algorithms_files/59f8d190a86b562c800abee36ed62762.png">, this is equivalent to <img class="tex" alt="1-\frac{1}{n}" src="./randomized algorithms_files/b36ec26f3e59de23eb6d5fa9f32a70e6.png">. the algorithm finds the min cut with probability <img class="tex" alt="1-\frac{1}{n}" src="./randomized algorithms_files/b36ec26f3e59de23eb6d5fa9f32a70e6.png">, in time <img class="tex" alt="o(mn)=o(n^3\log n)" src="./randomized algorithms_files/2ba03c3d29b0c8cc5a3fdd0c0263e7df.png">.</p> 
+<h2><span class="mw-headline" id="derandomization">derandomization</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=edit&section=9" title="edit section: derandomization">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>randomness can be viewed as a resource, like space and time. derandomization is then the process of <i>removing</i> randomness (or using as little of it as possible). from the viewpoint of <a href="http://en.wikipedia.org/wiki/computational_complexity" title="computational complexity" class="mw-redirect">computational complexity</a>, derandomizing an efficient randomized algorithm is the question, is <a href="http://en.wikipedia.org/wiki/p_(complexity)" title="p (complexity)">p</a> = <a href="http://en.wikipedia.org/wiki/bounded-error_probabilistic_polynomial" title="bounded-error probabilistic polynomial" class="mw-redirect">bpp</a>&nbsp;?</p> 
+<p>there are also specific methods that can be employed to derandomize particular randomized algorithms:</p> 
+<ul> 
+<li>the <a href="http://en.wikipedia.org/wiki/method_of_conditional_probabilities" title="method of conditional probabilities">method of conditional probabilities</a>, and its generalization, <a href="http://en.wikipedia.org/wiki/pessimistic_estimator" title="pessimistic estimator" class="mw-redirect">pessimistic estimators</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/discrepancy_theory" title="discrepancy theory">discrepancy theory</a> (which is used to derandomize geometric algorithms)</li> 
+<li>the exploitation of limited independence in the random variables used by the algorithm, such as the <a href="http://en.wikipedia.org/wiki/pairwise_independence" title="pairwise independence">pairwise independence</a> used in <a href="http://en.wikipedia.org/wiki/universal_hashing" title="universal hashing">universal hashing</a></li> 
+<li>the use of <a href="http://en.wikipedia.org/wiki/expander_graph" title="expander graph">expander graphs</a> (or <a href="http://en.wikipedia.org/wiki/disperser" title="disperser">dispersers</a> in general) to <i>amplify</i> a limited amount of initial randomness (this last approach is also referred to as generating <a href="http://en.wikipedia.org/wiki/pseudorandom" title="pseudorandom" class="mw-redirect">pseudorandom</a> bits from a random source, and leads to the related topic of pseudorandomness)</li> 
+</ul> 
+<h2><span class="mw-headline" id="where_randomness_helps">where randomness helps</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=edit&section=10" title="edit section: where randomness helps">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>when the model of computation is restricted to <a href="http://en.wikipedia.org/wiki/turing_machine" title="turing machine">turing machines</a>, it is currently an open question whether the ability to make random choices allows some problems to be solved in polynomial time that cannot be solved in polynomial time without this ability; this is the question of whether p = bpp. however, in other contexts, there are specific examples of problems where randomization yields strict improvements.</p> 
+<ul> 
+<li>based on the initial motivating example: given an exponentially long string of 2<sup><i>k</i></sup> characters, half a's and half b's, a <a href="http://en.wikipedia.org/wiki/random_access_machine" title="random access machine" class="mw-redirect">random access machine</a> requires at least 2<sup><i>k</i>−1</sup> lookups in the worst-case to find the index of an <i>a</i>; if it is permitted to make random choices, it can solve this problem in an expected polynomial number of lookups.</li> 
+<li>in <a href="http://en.wikipedia.org/wiki/communication_complexity" title="communication complexity">communication complexity</a>, the equality of two strings can be verified using <img class="tex" alt="\log n" src="./randomized algorithms_files/0d2e858bd7f89eed5461e5637d6e0a50.png"> bits of communication with a randomized protocol. any deterministic protocol requires <img class="tex" alt="\theta(n)" src="./randomized algorithms_files/5c151486ce3904339687c2bac3cccd8d.png"> bits.</li> 
+<li>the volume of a convex body can be estimated by a randomized algorithm to arbitrary precision in polynomial time.<sup id="cite_ref-7" class="reference"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_note-7"><span>[</span>7<span>]</span></a></sup> <a href="http://en.wikipedia.org/wiki/imre_b%c3%a1r%c3%a1ny" title="imre bárány">bárány</a> and <a href="http://en.wikipedia.org/wiki/zolt%c3%a1n_f%c3%bcredi" title="zoltán füredi">füredi</a> showed that no deterministic algorithm can do the same.<sup id="cite_ref-8" class="reference"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_note-8"><span>[</span>8<span>]</span></a></sup> this is true unconditionally, i.e. without relying on any complexity-theoretic assumptions.</li> 
+<li>a more complexity-theoretic example of a place where randomness appears to help is the class <a href="http://en.wikipedia.org/wiki/ip_(complexity)" title="ip (complexity)">ip</a>. ip consists of all languages that can be accepted (with high probability) by a polynomially long interaction between an all-powerful prover and a verifier that implements a bpp algorithm. ip = <a href="http://en.wikipedia.org/wiki/pspace" title="pspace">pspace</a>.<sup id="cite_ref-9" class="reference"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_note-9"><span>[</span>9<span>]</span></a></sup> however, if it is required that the verifier be deterministic, then ip = <a href="http://en.wikipedia.org/wiki/np_(complexity)" title="np (complexity)">np</a>.</li> 
+<li>in a <a href="http://en.wikipedia.org/wiki/chemical_reaction_network" title="chemical reaction network" class="mw-redirect">chemical reaction network</a> (a finite set of reactions like a+b → 2c + d operating on a finite number of molecules), the ability to ever reach a given target state from an initial state is decidable, while even approximating the probability of ever reaching a given target state (using the standard concentration-based probability for which reaction will occur next) is undecidable. more specifically, a turing machine can be simulated with arbitrarily high probability of running correctly for all time, only if a random chemical reaction network is used. with a simple nondeterministic chemical reaction network (any possible reaction can happen next), the computational power is limited to <a href="http://en.wikipedia.org/wiki/primitive_recursive" title="primitive recursive" class="mw-redirect">primitive recursive functions</a>.</li> 
+<li>the inherent randomness of algorithms such as <a href="http://en.wikipedia.org/wiki/hyper-encryption" title="hyper-encryption">hyper-encryption</a>, <a href="http://en.wikipedia.org/wiki/bayesian_network" title="bayesian network">bayesian networks</a>, <a href="http://en.wikipedia.org/wiki/random_neural_network" title="random neural network">random neural networks</a> and <a href="http://en.wikipedia.org/wiki/probabilistic_cellular_automata" title="probabilistic cellular automata" class="mw-redirect">probabilistic cellular automata</a> was harnessed by <a href="http://en.wikipedia.org/wiki/krishna_palem" title="krishna palem">krishna palem</a> et al. to design highly efficient hardware systems using probabilistic cmos or <a href="http://en.wikipedia.org/wiki/pcmos" title="pcmos">pcmos</a> technology that were shown to achieve gains that are as high as a multiplicative factor of 560 when compared to a competing energy-efficient <a href="http://en.wikipedia.org/wiki/cmos" title="cmos">cmos</a> based realizations.<sup id="cite_ref-10" class="reference"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_note-10"><span>[</span>10<span>]</span></a></sup></li> 
+</ul> 
+<h2><span class="mw-headline" id="see_also">see also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=edit&section=11" title="edit section: see also">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/probabilistic_analysis_of_algorithms" title="probabilistic analysis of algorithms">probabilistic analysis of algorithms</a></li> 
+</ul> 
+<h2><span class="mw-headline" id="notes">notes</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=edit&section=12" title="edit section: notes">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<div class="reflist" style="list-style-type: decimal;"> 
+<ol class="references"> 
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_ref-1"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">"probabilistic algorithms should not be mistaken with methods (which i refuse to call algorithms), which produce a result which has a high probability of being correct. it is essential that an algorithm produces correct results (discounting human or computer errors), even if this happens after a very long time." henri cohen (2000). <i>a course in computational algebraic number theory</i>. springer-verlag, p. 2.</span></li> 
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_ref-2"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">"in <a href="http://en.wikipedia.org/wiki/primality_test" title="primality test">testing primality</a> of very large numbers chosen at random, the chance of stumbling upon a value that fools the <a href="http://en.wikipedia.org/wiki/fermat_primality_test" title="fermat primality test">fermat test</a> is less than the chance that <a href="http://en.wikipedia.org/wiki/cosmic_radiation" title="cosmic radiation" class="mw-redirect">cosmic radiation</a> will cause the computer to make an error in carrying out a 'correct' algorithm. considering an algorithm to be inadequate for the first reason but not for the second illustrates the difference between mathematics and engineering." <a href="http://en.wikipedia.org/wiki/hal_abelson" title="hal abelson">hal abelson</a> and <a href="http://en.wikipedia.org/wiki/gerald_j._sussman" title="gerald j. sussman" class="mw-redirect">gerald j. sussman</a> (1996). <i><a href="http://en.wikipedia.org/wiki/structure_and_interpretation_of_computer_programs" title="structure and interpretation of computer programs">structure and interpretation of computer programs</a></i>. <a href="http://en.wikipedia.org/wiki/mit_press" title="mit press">mit press</a>, <a rel="nofollow" class="external text" href="http://mitpress.mit.edu/sicp/full-text/book/book-z-h-11.html#footnote_temp_80">section 1.2</a>.</span></li> 
+<li id="cite_note-3"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_ref-3"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">smid, michiel. closest point problems in computational geometry. max-planck-institut für informatik|year=1995</span></li> 
+<li id="cite_note-4"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_ref-4"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">seidel r. <a rel="nofollow" class="external text" href="http://www.cs.berkeley.edu/~jrs/meshpapers/seidel.ps.gz">backwards analysis of randomized geometric algorithms</a>.</span></li> 
+<li id="cite_note-5"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_ref-5"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a href="http://en.wikipedia.org/wiki/michael_mitzenmacher" title="michael mitzenmacher">michael mitzenmacher</a>, <a href="http://en.wikipedia.org/wiki/eli_upfal" title="eli upfal">eli upfal</a>. probability and computing:randomized algorithms and probabilistic analysis, april 2005. cambridge university press</span></li> 
+<li id="cite_note-6"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_ref-6"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">a. a. tsay, w. s. lovejoy, david r. karger, random sampling in cut, flow, and network design problems, mathematics of operations research, 24(2):383–413, 1999.</span></li> 
+<li id="cite_note-7"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_ref-7"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span id="citerefdyerfriezekannan1991" class="citation">dyer, m.; frieze, a.; kannan, r. (1991), <a rel="nofollow" class="external text" href="http://portal.acm.org/citation.cfm?id=102783">"a random polynomial-time algorithm for approximating the volume of convex bodies"</a>, <i><a href="http://en.wikipedia.org/wiki/journal_of_the_acm" title="journal of the acm">journal of the acm</a></i> <b>38</b> (1): 1–17, <a href="http://en.wikipedia.org/wiki/digital_object_identifier" title="digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="http://dx.doi.org/10.1145%2f102782.102783">10.1145/102782.102783</a></span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arandomized+algorithm&amp;rft.atitle=a+random+polynomial-time+algorithm+for+approximating+the+volume+of+convex+bodies&amp;rft.au=dyer%2c+m.&amp;rft.aufirst=m.&amp;rft.au=frieze%2c+a.&amp;rft.au=kannan%2c+r.&amp;rft.aulast=dyer&amp;rft.date=1991&amp;rft.genre=article&amp;rft_id=http%3a%2f%2fportal.acm.org%2fcitation.cfm%3fid%3d102783&amp;rft_id=info%3adoi%2f10.1145%2f102782.102783&amp;rft.issue=1&amp;rft.jtitle=journal+of+the+acm&amp;rft.pages=1%e2%80%9317&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3ajournal&amp;rft.volume=38" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+<li id="cite_note-8"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_ref-8"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span id="citereff.c3.bcredib.c3.a1r.c3.a1ny1986" class="citation"><a href="http://en.wikipedia.org/wiki/zolt%c3%a1n_f%c3%bcredi" title="zoltán füredi">füredi, z.</a>; bárány, i. (1986), "computing the volume is difficult", <i><a href="http://en.wikipedia.org/wiki/symposium_on_theory_of_computing" title="symposium on theory of computing">proc. 18th acm symposium on theory of computing</a> (berkeley, california, may 28–30, 1986)</i>, new york, ny: acm, pp.&nbsp;442–447, <a href="http://en.wikipedia.org/wiki/digital_object_identifier" title="digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="http://dx.doi.org/10.1145%2f12130.12176">10.1145/12130.12176</a>, <a href="http://en.wikipedia.org/wiki/international_standard_book_number" title="international standard book number">isbn</a>&nbsp;<a href="http://en.wikipedia.org/wiki/special:booksources/0-89791-193-8" title="special:booksources/0-89791-193-8">0-89791-193-8</a></span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arandomized+algorithm&amp;rft.atitle=proc.+18th+acm+symposium+on+theory+of+computing+%28berkeley%2c+california%2c+may+28%e2%80%9330%2c+1986%29&amp;rft.au=b%c3%a1r%c3%a1ny%2c+i.&amp;rft.au=f%c3%bcredi%2c+z.&amp;rft.aufirst=z.&amp;rft.aulast=f%c3%bcredi&amp;rft.btitle=computing+the+volume+is+difficult&amp;rft.date=1986&amp;rft.genre=bookitem&amp;rft_id=info%3adoi%2f10.1145%2f12130.12176&amp;rft.isbn=0-89791-193-8&amp;rft.pages=442%e2%80%93447&amp;rft.place=new+york%2c+ny&amp;rft.pub=acm&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+<li id="cite_note-9"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_ref-9"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span id="citerefshamir1992" class="citation"><a href="http://en.wikipedia.org/wiki/adi_shamir" title="adi shamir">shamir, a.</a> (1992), "ip = pspace", <i>journal of the acm</i> <b>39</b> (4): 869–877, <a href="http://en.wikipedia.org/wiki/digital_object_identifier" title="digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="http://dx.doi.org/10.1145%2f146585.146609">10.1145/146585.146609</a></span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arandomized+algorithm&amp;rft.atitle=ip+%3d+pspace&amp;rft.aufirst=a.&amp;rft.aulast=shamir&amp;rft.au=shamir%2c+a.&amp;rft.date=1992&amp;rft.genre=article&amp;rft_id=info%3adoi%2f10.1145%2f146585.146609&amp;rft.issue=4&amp;rft.jtitle=journal+of+the+acm&amp;rft.pages=869%e2%80%93877&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3ajournal&amp;rft.volume=39" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+<li id="cite_note-10"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/randomized_algorithms#cite_ref-10"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web">lakshmi n. chakrapani, bilge e. s. akgul, suresh cheemalavagu, pinar korkmaz, krishna v. palem and balasubramanian seshasayee. <a rel="nofollow" class="external text" href="http://www.pubzone.org/dblp/conf/date/chakrapaniackps06">"ultra efficient embedded soc architectures based on probabilistic cmos (pcmos) technology"</a>. design automation and test in europe conference (date), 2006.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arandomized+algorithm&amp;rft.au=lakshmi+n.+chakrapani%2c+bilge+e.+s.+akgul%2c+suresh+cheemalavagu%2c+pinar+korkmaz%2c+krishna+v.+palem+and+balasubramanian+seshasayee&amp;rft.aulast=lakshmi+n.+chakrapani%2c+bilge+e.+s.+akgul%2c+suresh+cheemalavagu%2c+pinar+korkmaz%2c+krishna+v.+palem+and+balasubramanian+seshasayee&amp;rft.btitle=ultra+efficient+embedded+soc+architectures+based+on+probabilistic+cmos+%28pcmos%29+technology&amp;rft.genre=book&amp;rft_id=http%3a%2f%2fwww.pubzone.org%2fdblp%2fconf%2fdate%2fchakrapaniackps06&amp;rft.pub=design+automation+and+test+in+europe+conference+%28date%29%2c+2006&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+</ol> 
+</div> 
+<h2><span class="mw-headline" id="references">references</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=edit&section=13" title="edit section: references">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/thomas_h._cormen" title="thomas h. cormen">thomas h. cormen</a>, <a href="http://en.wikipedia.org/wiki/charles_e._leiserson" title="charles e. leiserson">charles e. leiserson</a>, <a href="http://en.wikipedia.org/wiki/ronald_l._rivest" title="ronald l. rivest" class="mw-redirect">ronald l. rivest</a>, and <a href="http://en.wikipedia.org/wiki/clifford_stein" title="clifford stein">clifford stein</a>. <i><a href="http://en.wikipedia.org/wiki/introduction_to_algorithms" title="introduction to algorithms">introduction to algorithms</a></i>, second edition. mit press and mcgraw–hill, 1990. <a href="http://en.wikipedia.org/wiki/special:booksources/0262032937" class="internal mw-magiclink-isbn">isbn 0-262-03293-7</a>. chapter 5: probabilistic analysis and randomized algorithms, pp.&nbsp;91–122.</li> 
+<li><a href="http://en.wikipedia.org/wiki/jon_kleinberg" title="jon kleinberg">jon kleinberg</a> and <a href="http://en.wikipedia.org/wiki/%c3%89va_tardos" title="éva tardos">éva tardos</a>. <i>algorithm design</i>. chapter 13: "randomized algorithms".</li> 
+<li>don fallis. 2000. <a rel="nofollow" class="external text" href="http://dx.doi.org/10.1093/bjps/51.2.255">"the reliability of randomized algorithms."</a> <i>british journal for the philosophy of science</i> 51:255–71.</li> 
+<li><a href="http://en.wikipedia.org/wiki/michael_mitzenmacher" title="michael mitzenmacher">m. mitzenmacher</a> and <a href="http://en.wikipedia.org/wiki/eli_upfal" title="eli upfal">e. upfal</a>. probability and computing&nbsp;: randomized algorithms and probabilistic analysis. cambridge university press, new york (ny), 2005.</li> 
+<li><a href="http://en.wikipedia.org/wiki/rajeev_motwani" title="rajeev motwani">rajeev motwani</a> and p. raghavan. randomized algorithms. cambridge university press, new york (ny), 1995.</li> 
+<li>rajeev motwani and p. raghavan. <a rel="nofollow" class="external text" href="http://portal.acm.org/citation.cfm?id=234313.234327">randomized algorithms.</a> a survey on randomized algorithms.</li> 
+<li><span id="citerefchristos_papadimitriou1993" class="citation"><a href="http://en.wikipedia.org/wiki/christos_papadimitriou" title="christos papadimitriou">christos papadimitriou</a> (1993), <i>computational complexity</i> (1st ed.), addison wesley, <a href="http://en.wikipedia.org/wiki/international_standard_book_number" title="international standard book number">isbn</a>&nbsp;<a href="http://en.wikipedia.org/wiki/special:booksources/0-201-53082-1" title="special:booksources/0-201-53082-1">0-201-53082-1</a></span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3arandomized+algorithm&amp;rft.au=christos+papadimitriou&amp;rft.aulast=christos+papadimitriou&amp;rft.btitle=computational+complexity&amp;rft.date=1993&amp;rft.edition=1st&amp;rft.genre=book&amp;rft.isbn=0-201-53082-1&amp;rft.pub=addison+wesley&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span> chapter 11: randomized computation, pp.&nbsp;241–278.</li> 
+<li>m. o. rabin. (1980), "probabilistic algorithm for testing primality." <i>journal of number theory</i> 12:128–38.</li> 
+<li>a. a. tsay, w. s. lovejoy, david r. karger, random sampling in cut, flow, and network design problems, mathematics of operations research, 24(2):383–413, 1999.</li> 
+</ul> 
+ 
+ 
+<!-- 
+newpp limit report 
+parsed by mw1078 
+cpu time usage: 0.692 seconds 
+real time usage: 2.718 seconds 
+preprocessor visited node count: 1422/1000000 
+preprocessor generated node count: 9790/1500000 
+post‐expand include size: 21515/2048000 bytes 
+template argument size: 1802/2048000 bytes 
+highest expansion depth: 12/40 
+expensive parser function count: 0/500 
+lua time usage: 0.029s 
+lua memory usage: 1.5 mb 
+--> 
+ 
+<!-- saved in parser cache with key enwiki:pcache:idhash:495383-0!0!0!!en!4!* and timestamp 20140130045323 
+--> 
+<noscript>&lt;img src="//en.wikipedia.org/wiki/special:centralautologin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /&gt;</noscript></div>								<div class="printfooter"> 
+retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&oldid=581758549">http://en.wikipedia.org/w/index.php?title=randomized_algorithm&amp;oldid=581758549</a>"				</div> 
+<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/help:category" title="help:category">categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/category:randomized_algorithms" title="category:randomized algorithms">randomized algorithms</a></li><li><a href="http://en.wikipedia.org/wiki/category:stochastic_algorithms" title="category:stochastic algorithms">stochastic algorithms</a></li><li><a href="http://en.wikipedia.org/wiki/category:analysis_of_algorithms" title="category:analysis of algorithms">analysis of algorithms</a></li><li><a href="http://en.wikipedia.org/wiki/category:probabilistic_complexity_theory" title="category:probabilistic complexity theory">probabilistic complexity theory</a></li></ul></div></div>												<div class="visualclear"></div> 
+</div> 
+</div> 
+<div id="mw-navigation"> 
+<h2>navigation menu</h2> 
+<div id="mw-head"> 
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label"> 
+<h3 id="p-personal-label">personal tools</h3> 
+<ul> 
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=randomized+algorithm&type=signup">create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=randomized+algorithm" title="you&#39;re encouraged to log in; however, it&#39;s not mandatory. [ctrl-option-o]" accesskey="o">log in</a></li>	</ul> 
+</div> 
+<div id="left-navigation"> 
+<div id="p-namespaces" role="navigation" class="vectortabs" aria-labelledby="p-namespaces-label"> 
+<h3 id="p-namespaces-label">namespaces</h3> 
+<ul> 
+<li id="ca-nstab-main" class="selected"><span><a href="http://en.wikipedia.org/wiki/randomized_algorithm" title="view the content page [ctrl-option-c]" accesskey="c">article</a></span></li> 
+<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/talk:randomized_algorithm" title="discussion about the content page [ctrl-option-t]" accesskey="t">talk</a></span></li> 
+</ul> 
+</div> 
+<div id="p-variants" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-variants-label"> 
+<h3 id="mw-vector-current-variant"> 
+</h3> 
+<h3 id="p-variants-label" tabindex="0"><span>variants</span><a href="http://en.wikipedia.org/wiki/randomized_algorithms#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+</div> 
+<div id="right-navigation"> 
+<div id="p-views" role="navigation" class="vectortabs" aria-labelledby="p-views-label"> 
+<h3 id="p-views-label">views</h3> 
+<ul> 
+<li id="ca-view" class="selected"><span><a href="http://en.wikipedia.org/wiki/randomized_algorithm">read</a></span></li> 
+<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=edit" title="you can edit this page. 
+please review your changes before saving. [ctrl-option-e]" accesskey="e">edit</a></span></li> 
+<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=history" title="past versions of this page [ctrl-option-h]" accesskey="h">view history</a></span></li> 
+</ul> 
+</div> 
+<div id="p-cactions" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-cactions-label"> 
+<h3 id="p-cactions-label" tabindex="0"><span>actions</span><a href="http://en.wikipedia.org/wiki/randomized_algorithms#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+<div id="p-search" role="search"> 
+<h3><label for="searchinput">search</label></h3> 
+<form action="http://en.wikipedia.org/w/index.php" id="searchform"> 
+<div id="simplesearch"> 
+<input name="search" placeholder="search" title="search wikipedia [ctrl-option-f]" accesskey="f" id="searchinput" tabindex="1" autocomplete="off">						<button type="submit" name="button" title="search wikipedia for this text" id="searchbutton"><img src="./randomized algorithms_files/search-ltr.png" alt="search" width="12" height="13"></button>								<input type="hidden" name="title" value="special:search"> 
+</div> 
+</form> 
+</div> 
+</div> 
+</div> 
+<div id="mw-panel" class="collapsible-nav"> 
+<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/wiki.png);" href="http://en.wikipedia.org/wiki/main_page" title="visit the main page"></a></div> 
+<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label"> 
+<h3 id="p-navigation-label">navigation</h3> 
+<div class="body"> 
+<ul> 
+<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/main_page" title="visit the main page [ctrl-option-z]" accesskey="z">main page</a></li> 
+<li id="n-contents"><a href="http://en.wikipedia.org/wiki/portal:contents" title="guides to browsing wikipedia">contents</a></li> 
+<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/portal:featured_content" title="featured content – the best of wikipedia">featured content</a></li> 
+<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/portal:current_events" title="find background information on current events">current events</a></li> 
+<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/special:random" title="load a random article [ctrl-option-x]" accesskey="x">random article</a></li> 
+<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/special:fundraiserredirector?utm_source=donate&utm_medium=sidebar&utm_campaign=c13_en.wikipedia.org&uselang=en" title="support us">donate to wikipedia</a></li> 
+<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="visit the wikimedia shop">wikimedia shop</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label"> 
+<h3 id="p-interaction-label" tabindex="2"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#" aria-haspopup="true" aria-controls="p-interaction-list" role="button" aria-pressed="true" aria-expanded="true">interaction</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-interaction-list"> 
+<li id="n-help"><a href="http://en.wikipedia.org/wiki/help:contents" title="guidance on how to use and edit wikipedia">help</a></li> 
+<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="find out about wikipedia">about wikipedia</a></li> 
+<li id="n-portal"><a href="http://en.wikipedia.org/wiki/wikipedia:community_portal" title="about the project, what you can do, where to find things">community portal</a></li> 
+<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/special:recentchanges" title="a list of recent changes in the wiki [ctrl-option-r]" accesskey="r">recent changes</a></li> 
+<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact page</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label"> 
+<h3 id="p-tb-label" tabindex="3"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#" aria-haspopup="true" aria-controls="p-tb-list" role="button" aria-pressed="false" aria-expanded="false">tools</a></h3> 
+<div class="body"> 
+<ul id="p-tb-list"> 
+<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/special:whatlinkshere/randomized_algorithm" title="list of all english wikipedia pages containing links to this page [ctrl-option-j]" accesskey="j">what links here</a></li> 
+<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/special:recentchangeslinked/randomized_algorithm" title="recent changes in pages linked from this page [ctrl-option-k]" accesskey="k">related changes</a></li> 
+<li id="t-upload"><a href="http://en.wikipedia.org/wiki/wikipedia:file_upload_wizard" title="upload files [ctrl-option-u]" accesskey="u">upload file</a></li> 
+<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/special:specialpages" title="a list of all special pages [ctrl-option-q]" accesskey="q">special pages</a></li> 
+<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&oldid=581758549" title="permanent link to this revision of the page">permanent link</a></li> 
+<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&action=info">page information</a></li> 
+<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/q583461" title="link to connected data repository item [ctrl-option-g]" accesskey="g">data item</a></li> 
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=special:cite&page=randomized_algorithm&id=581758549" title="information on how to cite this page">cite this page</a></li>		</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label"> 
+<h3 id="p-coll-print_export-label" tabindex="4"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#" aria-haspopup="true" aria-controls="p-coll-print_export-list" role="button" aria-pressed="false" aria-expanded="false">print/export</a></h3> 
+<div class="body"> 
+<ul id="p-coll-print_export-list"> 
+<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=book_creator&referer=randomized+algorithm">create a book</a></li> 
+<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=render_article&arttitle=randomized+algorithm&oldid=581758549&writer=rl">download as pdf</a></li> 
+<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=randomized_algorithm&printable=yes" title="printable version of this page [ctrl-option-p]" accesskey="p">printable version</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"> 
+<h3 id="p-lang-label" tabindex="5"><a href="http://en.wikipedia.org/wiki/randomized_algorithms#" aria-haspopup="true" aria-controls="p-lang-list" role="button" aria-pressed="true" aria-expanded="true">languages</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-lang-list"> 
+<li class="interlanguage-link interwiki-bn"><a href="http://bn.wikipedia.org/wiki/%e0%a6%b8%e0%a6%ae%e0%a7%8d%e0%a6%ad%e0%a6%be%e0%a6%ac%e0%a6%a8%e0%a6%be%e0%a6%ad%e0%a6%bf%e0%a6%a4%e0%a7%8d%e0%a6%a4%e0%a6%bf%e0%a6%95_%e0%a6%85%e0%a7%8d%e0%a6%af%e0%a6%be%e0%a6%b2%e0%a6%97%e0%a7%8b%e0%a6%b0%e0%a6%bf%e0%a6%a6%e0%a6%ae" title="সম্ভাবনাভিত্তিক অ্যালগোরিদম – bengali" lang="bn" hreflang="bn">বাংলা</a></li> 
+<li class="interlanguage-link interwiki-ca"><a href="http://ca.wikipedia.org/wiki/algorisme_probabil%c3%adstic" title="algorisme probabilístic – catalan" lang="ca" hreflang="ca">català</a></li> 
+<li class="interlanguage-link interwiki-cs"><a href="http://cs.wikipedia.org/wiki/pravd%c4%9bpodobnostn%c3%ad_algoritmus" title="pravděpodobnostní algoritmus – czech" lang="cs" hreflang="cs">čeština</a></li> 
+<li class="interlanguage-link interwiki-de"><a href="http://de.wikipedia.org/wiki/randomisierter_algorithmus" title="randomisierter algorithmus – german" lang="de" hreflang="de">deutsch</a></li> 
+<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/algoritmo_probabilista" title="algoritmo probabilista – spanish" lang="es" hreflang="es">español</a></li> 
+<li class="interlanguage-link interwiki-eo"><a href="http://eo.wikipedia.org/wiki/hazardigita_algoritmo" title="hazardigita algoritmo – esperanto" lang="eo" hreflang="eo">esperanto</a></li> 
+<li class="interlanguage-link interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%d8%a7%d9%84%da%af%d9%88%d8%b1%db%8c%d8%aa%d9%85%e2%80%8c%d9%87%d8%a7%db%8c_%d8%aa%d8%b5%d8%a7%d8%af%d9%81%db%8c" title="الگوریتم‌های تصادفی – persian" lang="fa" hreflang="fa">فارسی</a></li> 
+<li class="interlanguage-link interwiki-fr"><a href="http://fr.wikipedia.org/wiki/algorithme_probabiliste" title="algorithme probabiliste – french" lang="fr" hreflang="fr">français</a></li> 
+<li class="interlanguage-link interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%ed%99%95%eb%a5%a0%ec%a0%81_%ec%95%8c%ea%b3%a0%eb%a6%ac%ec%a6%98" title="확률적 알고리즘 – korean" lang="ko" hreflang="ko">한국어</a></li> 
+<li class="interlanguage-link interwiki-he"><a href="http://he.wikipedia.org/wiki/%d7%90%d7%9c%d7%92%d7%95%d7%a8%d7%99%d7%aa%d7%9d_%d7%90%d7%a7%d7%a8%d7%90%d7%99" title="אלגוריתם אקראי – hebrew" lang="he" hreflang="he">עברית</a></li> 
+<li class="interlanguage-link interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%e4%b9%b1%e6%8a%9e%e3%82%a2%e3%83%ab%e3%82%b4%e3%83%aa%e3%82%ba%e3%83%a0" title="乱択アルゴリズム – japanese" lang="ja" hreflang="ja">日本語</a></li> 
+<li class="interlanguage-link interwiki-pl"><a href="http://pl.wikipedia.org/wiki/algorytm_probabilistyczny" title="algorytm probabilistyczny – polish" lang="pl" hreflang="pl">polski</a></li> 
+<li class="interlanguage-link interwiki-pt"><a href="http://pt.wikipedia.org/wiki/algoritmo_probabil%c3%adstico" title="algoritmo probabilístico – portuguese" lang="pt" hreflang="pt">português</a></li> 
+<li class="interlanguage-link interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%d0%92%d0%b5%d1%80%d0%be%d1%8f%d1%82%d0%bd%d0%be%d1%81%d1%82%d0%bd%d1%8b%d0%b9_%d0%b0%d0%bb%d0%b3%d0%be%d1%80%d0%b8%d1%82%d0%bc" title="вероятностный алгоритм – russian" lang="ru" hreflang="ru">русский</a></li> 
+<li class="interlanguage-link interwiki-th"><a href="http://th.wikipedia.org/wiki/%e0%b8%82%e0%b8%b1%e0%b9%89%e0%b8%99%e0%b8%95%e0%b8%ad%e0%b8%99%e0%b8%a7%e0%b8%b4%e0%b8%98%e0%b8%b5%e0%b9%81%e0%b8%9a%e0%b8%9a%e0%b8%aa%e0%b8%b8%e0%b9%88%e0%b8%a1" title="ขั้นตอนวิธีแบบสุ่ม – thai" lang="th" hreflang="th">ไทย</a></li> 
+<li class="interlanguage-link interwiki-uk"><a href="http://uk.wikipedia.org/wiki/%d0%a3%d0%b2%d0%b8%d0%bf%d0%b0%d0%b4%d0%ba%d0%be%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b9_%d0%b0%d0%bb%d0%b3%d0%be%d1%80%d0%b8%d1%82%d0%bc" title="увипадковлений алгоритм – ukrainian" lang="uk" hreflang="uk">українська</a></li> 
+<li class="interlanguage-link interwiki-zh"><a href="http://zh.wikipedia.org/wiki/%e9%9a%8f%e6%9c%ba%e5%8c%96%e7%ae%97%e6%b3%95" title="随机化算法 – chinese" lang="zh" hreflang="zh">中文</a></li> 
+<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/q583461#sitelinks-wikipedia" title="edit interlanguage links">edit links</a></li> 
+</ul> 
+</div> 
+</div> 
+</div> 
+</div> 
+<div id="footer" role="contentinfo"> 
+<ul id="footer-info"> 
+<li id="footer-info-lastmod"> this page was last modified on 15 november 2013 at 11:52.<br></li> 
+<li id="footer-info-copyright">text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/wikipedia:text_of_creative_commons_attribution-sharealike_3.0_unported_license">creative commons attribution-sharealike license</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>; 
+additional terms may apply.  by using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/terms_of_use">terms of use</a> and <a href="http://wikimediafoundation.org/wiki/privacy_policy">privacy policy.</a> <br> 
+wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">wikimedia foundation, inc.</a>, a non-profit organization.</li> 
+</ul> 
+<ul id="footer-places"> 
+<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/privacy_policy" title="wikimedia:privacy policy">privacy policy</a></li> 
+<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="wikipedia:about">about wikipedia</a></li> 
+<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/wikipedia:general_disclaimer" title="wikipedia:general disclaimer">disclaimers</a></li> 
+<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact wikipedia</a></li> 
+<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/special:mylanguage/how_to_contribute">developers</a></li> 
+<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/randomized_algorithm" class="noprint stopmobileredirecttoggle">mobile view</a></li> 
+</ul> 
+<ul id="footer-icons" class="noprint"> 
+<li id="footer-copyrightico"> 
+<a href="http://wikimediafoundation.org/"><img src="./randomized algorithms_files/wikimedia-button.png" width="88" height="31" alt="wikimedia foundation"></a> 
+</li> 
+<li id="footer-poweredbyico"> 
+<a href="http://www.mediawiki.org/"><img src="./randomized algorithms_files/poweredby_mediawiki_88x31.png" alt="powered by mediawiki" width="88" height="31"></a> 
+</li> 
+</ul> 
+<div style="clear:both"></div> 
+</div> 
+<script>/*<![cdata[*/window.jquery && jquery.ready();/*]]>*/</script><script>if(window.mw){ 
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"}); 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postedit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchsuggest","ext.gadget.teahouse","ext.gadget.referencetooltips","ext.gadget.drn-wizard","ext.gadget.charinsert","mw.mwembedsupport.style","ext.articlefeedbackv5.startup","ext.wikimediashoplink.core","ext.navigationtiming","skins.vector.collapsiblenav"],null,true); 
+}</script> 
+<script src="./randomized algorithms_files/load(2).php"></script> 
+<!-- served by mw1019 in 0.164 secs. --> 
+ 
+ 
+<div class="suggestions" style="display: none; font-size: 12.800000190734863px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html> 

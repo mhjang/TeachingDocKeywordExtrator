@@ -1,0 +1,922 @@
+<!doctype html> 
+<!-- saved from url=(0037)http://en.wikipedia.org/wiki/heapsort --> 
+<html lang="en" dir="ltr" class="client-js ve-not-available"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+<meta charset="utf-8"><title>heapsort - wikipedia, the free encyclopedia</title> 
+<meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="generator" content="mediawiki 1.23wmf11"> 
+<link rel="alternate" type="application/x-wiki" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=heapsort&action=edit"> 
+<link rel="edit" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=heapsort&action=edit"> 
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png"> 
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico"> 
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="wikipedia (en)"> 
+<link rel="edituri" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd"> 
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/"> 
+<link rel="alternate" type="application/atom+xml" title="wikipedia atom feed" href="http://en.wikipedia.org/w/index.php?title=special:recentchanges&feed=atom"> 
+<link rel="canonical" href="./heapsort_files/heapsort.html"> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.drn-wizard%2creferencetooltips%2ccharinsert%2cteahouse%7cext.rtlcite%2cwikihiero%7cext.visualeditor.viewpagetarget.noscript%7cmediawiki.legacy.commonprint%2cshared%7cskins.common.interface%7cskins.vector.styles&only=styles&skin=vector&*"> 
+<style> 
+@-webkit-keyframes centralauthppersonalanimation{0%{opacity:0;-webkit-transform:translatey(-20px)}100%{opacity:1;-webkit-transform:translatey(0)}}@-moz-keyframes centralauthppersonalanimation{0%{opacity:0;-moz-transform:translatey(-20px)}100%{opacity:1;-moz-transform:translatey(0)}}@-o-keyframes centralauthppersonalanimation{0%{opacity:0;-o-transform:translatey(-20px)}100%{opacity:1;-o-transform:translatey(0)}}@keyframes centralauthppersonalanimation{0%{opacity:0;transform:translatey(-20px)}100%{opacity:1;transform:translatey(0)}}.centralauthppersonalanimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralauthppersonalanimation;-moz-animation-name:centralauthppersonalanimation;-o-animation-name:centralauthppersonalanimation;animation-name:centralauthppersonalanimation} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */ 
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */ 
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmveuzaad///95exmqqqry2njeiq0caaaaaxrstlmaqobyzgaaacdjrefucndjygbgygiaasufennjcuiqmadztm5oqexffzakrsg4ygbjcwodynsgdwaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil.png?2014-01-16t16:20:00z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmvewbaady2nj///8gra0zzrtw2aecaaaaaxrstlmaqobyzgaaacdjrefucndjygbgygyaawmdefpygegaoglzzclcqewjq5aki2w4ygbg5qotqpzbuaaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil-hover.png?2014-01-16t16:20:00z)!ie;color:#0645ad !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a963c9df079c8688d25d769892467b5c */ 
+@media print{#centralnotice{display:none}} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */</style><style> 
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */ 
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaabaaaaaqcamaaaaolq9taaabblbmveuaaad///////9pftf///80ardtgjn///9feij///////////9rfzf///////////9pfjzrgdh1o1xoftb///////+bwyqltnj///////9pfta82k////9wht6yxil///9qgddtgzr////////j7udl7elq8efi693k7oh///////9uhjubr2rp9uruhjr///9yljvkgir///9witlyjt3////9/v57vflbkt5pjc9dld/5/fhuq09stuts9uhxuelctcpfnt1hudfloezlouzmpenmvdzpvdxpvtxqvjxrvt5rvt9rwtxsqktswd5uwkbvuudxw0nztfbztu9ztvbzwkp0tlj1xkd2t1r3uvr4w1f4xk54x014ye15uvz5v1r5xvb6v1r7yfj8wvh9xvl9yfr9yvd9yln+xvh+yfd/x1l/yfeaylmex1+ny2uy0hqe04wj1ymv3ze33qld47tj5l3o6cpu7mrq9eb2+/q4j37oaaaaqhrstlmaaqiebaufbqwpfb4fjcuokiosqehjs01rulzzxmdydxachyusljswmjmoq6uur8lexcvm19fg5ejt8fx2+pr7sljgewaaakpjrefugbkfwqncawaaamdltl3ltrg4rwxbtvx77gagz6grfwc0bhwnvgkgdpzx8b0dgli+s7wn0voaqpfoi9+bnadzi7flrz2psewghzuh+78lsk8zlklezf3ooyug3vpxq2usei9wngeyog195ybywdf3e/2pahl1e9gr8bgt+bfofcc2fnvh4x7rcqiaqnnu+ht6sxkajcetl/2zaihv+porbwbjxfka//dfhscby/utaaaaaelftksuqmcc);background-image:url(//bits.wikimedia.org/static-1.23wmf11/resources/mediawiki.action/images/green-checkmark.png?2014-01-16t16:15:00z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:c897cc6a31411b48f47191422cf15c4a */ 
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */ 
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4c59a6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */ 
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */ 
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#f7f7f7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #f7f7f7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.rtflipped{padding-top:13px}.referencetooltip.rtflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.rtflipped li+li::after{border-top:0;border-bottom:8px #f7f7f7 solid;position:absolute;margin-top:7px}.rtsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.rtsettings:hover{opacity:1;filter:alpha(opacity=100)}.rttarget{border:#080086 2px solid} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */ 
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */ 
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playercontainer{overflow:hidden;position:relative;height:100%;background:#000}#videoholder{position:relative;overflow:hidden}.fullscreen #playercontainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwembedplayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayhtml a:visited{color:white}.loadingspinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/loading_ani.gif?2014-01-16t16:18:20z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-01-16t16:18:20z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button.png?2014-01-16t16:18:20z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button_hover.png?2014-01-16t16:18:20z)}.carouselcontainer{position :absolute;width :100%;z-index :2}.carouselvideotitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselvideotitletext{display :block;padding :10px 10px 10px 20px}.carouseltitleduration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5a5a5a;color :#d9d9d9;font-size :smaller;z-index :2}.carouselimgtitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselimgduration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselprevbutton,.carouselnextbutton{display :block;position :absolute;bottom:23px}.carouselprevbutton{left :5px}.carouselnextbutton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#e6e6e6;padding :5px;border-bottom :1px solid #d1d1d1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:40fb0cce50b2525059dbe7ac545e3c42 */</style><style> 
+.suggestions a.mw-searchsuggest-link,.suggestions a.mw-searchsuggest-link:hover,.suggestions a.mw-searchsuggest-link:active,.suggestions a.mw-searchsuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchsuggest-link,.suggestions-result-current a.mw-searchsuggest-link:hover,.suggestions-result-current a.mw-searchsuggest-link:active,.suggestions-result-current a.mw-searchsuggest-link:focus{color:white} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="resourceloaderdynamicstyles" content=""> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=site&only=styles&skin=vector&*"> 
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style> 
+ 
+<script src="./heapsort_files/load.php"></script><script src="./heapsort_files/load(1).php"></script><style title="spinjs"></style> 
+<script>if(window.mw){ 
+mw.config.set({"wgcanonicalnamespace":"","wgcanonicalspecialpagename":false,"wgnamespacenumber":0,"wgpagename":"heapsort","wgtitle":"heapsort","wgcurrevisionid":593507571,"wgrevisionid":593507571,"wgarticleid":13995,"wgisarticle":true,"wgisredirect":false,"wgaction":"view","wgusername":null,"wgusergroups":["*"],"wgcategories":["use dmy dates from july 2012","all articles with unsourced statements","articles with unsourced statements from march 2007","articles with unsourced statements from june 2012","sorting algorithms","comparison sorts","heaps (data structures)","articles with example pseudocode"],"wgbreakframes":false,"wgpagecontentlanguage":"en","wgpagecontentmodel":"wikitext","wgseparatortransformtable":["",""],"wgdigittransformtable":["",""],"wgdefaultdateformat":"dmy","wgmonthnames":["","january","february","march","april","may","june","july","august","september","october","november","december"],"wgmonthnamesshort":["","jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"],"wgrelevantpagename":"heapsort","wgisprobablyeditable":true,"wgrestrictionedit":[],"wgrestrictionmove":[],"wgwikieditorenabledmodules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateeditor":false,"templates":false,"preview":false,"previewdialog":false,"publish":false,"toc":false},"wgarticlefeedbackv5permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgbetafeaturesfeatures":[],"wgvisualeditor":{"ispagewatched":false,"magnifyclipiconurl":"//bits.wikimedia.org/static-1.23wmf11/skins/common/images/magnify-clip.png","pagelanguagecode":"en","pagelanguagedir":"ltr"},"wikilove-recipient":"","wikilove-anon":0,"wgguidedtourhelpguiderurl":"help:guided tours/guider","wgulsacceptlanguagelist":["en-us","en","he"],"wgulscurrentautonym":"english","wgflaggedrevsparams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgstablerevisionid":null,"wgcategorytreepagecategoryoptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","geo":{"city":"","country":""},"wgnoticeproject":"wikipedia","aftv5article":{"id":13995,"title":"heapsort","namespace":0,"categories":["all articles with unsourced statements","articles with example pseudocode","articles with unsourced statements from june 2012","articles with unsourced statements from march 2007","comparison sorts","heaps (data structures)","sorting algorithms","use dmy dates from july 2012"],"permissionlevel":false},"wgwikibaseitemid":"q474095"}); 
+}</script><script>if(window.mw){ 
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0, 
+"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true, 
+"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","uls-enable":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchns0":true,"searchns1":false,"searchns2":false,"searchns3":false,"searchns4":false,"searchns5":false,"searchns6":false,"searchns7":false,"searchns8":false,"searchns9":false,"searchns10":false,"searchns11":false,"searchns12":false,"searchns13":false,"searchns14":false,"searchns15":false, 
+"searchns100":false,"searchns101":false,"searchns108":false,"searchns109":false,"searchns118":false,"searchns119":false,"searchns446":false,"searchns447":false,"searchns710":false,"searchns711":false,"searchns828":false,"searchns829":false,"gadget-teahouse":1,"gadget-referencetooltips":1,"gadget-drn-wizard":1,"gadget-charinsert":1,"gadget-mysandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"edittoken":"+\\","patroltoken":false,"watchtoken":false});},{},{}); 
+/* cache key: enwiki:resourceloader:filter:minify-js:7:264b5b04c69e37444d5b2d63c2a65dc9 */ 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualeditor.viewpagetarget.init","wikibase.client.init","ext.centralnotice.bannercontroller","skins.vector.js"]); 
+}</script> 
+<script src="./heapsort_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt ie 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf11/skins/vector/csshover.min.htc")}</style><![endif]--></head> 
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-heapsort skin-vector action-view vector-animatelayout"> 
+<div id="mw-page-base" class="noprint"></div> 
+<div id="mw-head-base" class="noprint"></div> 
+<div id="content" class="mw-body" role="main"> 
+<a id="top"></a> 
+<div id="mw-js-message" style="display:none;"></div> 
+<div id="sitenotice"><div id="centralnotice"></div><!-- centralnotice --></div> 
+<h1 id="firstheading" class="firstheading" lang="en"><span dir="auto">heapsort</span></h1> 
+<div id="bodycontent"> 
+<div id="sitesub">from wikipedia, the free encyclopedia</div> 
+<div id="contentsub"></div> 
+<div id="jump-to-nav" class="mw-jump"> 
+jump to:					<a href="http://en.wikipedia.org/wiki/heapsort#mw-navigation">navigation</a>, 					<a href="http://en.wikipedia.org/wiki/heapsort#p-search">search</a> 
+</div> 
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table class="infobox" cellspacing="3" style="border-spacing:3px;width:22em;"> 
+<caption>heapsort</caption> 
+<tbody><tr> 
+<td colspan="2" style="text-align:center;"> 
+<div class="floatnone"><a href="http://en.wikipedia.org/wiki/file:sorting_heapsort_anim.gif" class="image" title="a run of the heapsort algorithm sorting an array of randomly permuted values. in the first stage of the algorithm  array elements are reordered to satisfy the heap property. before the actual sorting takes place, the heap tree structure is shown briefly for illustration."><img alt="a run of the heapsort algorithm sorting an array of randomly permuted values. in the first stage of the algorithm  array elements are reordered to satisfy the heap property. before the actual sorting takes place, the heap tree structure is shown briefly for illustration." src="./heapsort_files/sorting_heapsort_anim.gif" width="280" height="214"></a></div> 
+a run of the heapsort algorithm sorting an array of randomly permuted values. in the first stage of the algorithm the array elements are reordered to satisfy the <a href="http://en.wikipedia.org/wiki/heap_(data_structure)" title="heap (data structure)">heap property</a>. before the actual sorting takes place, the heap tree structure is shown briefly for illustration.</td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;">class</th> 
+<td><a href="http://en.wikipedia.org/wiki/sorting_algorithm" title="sorting algorithm">sorting algorithm</a></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;">data structure</th> 
+<td><a href="http://en.wikipedia.org/wiki/array_data_structure" title="array data structure">array</a></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;"><a href="http://en.wikipedia.org/wiki/best,_worst_and_average_case" title="best, worst and average case">worst case performance</a></th> 
+<td><img class="tex" alt="o(n\text{ }\log\text{ }n)" src="./heapsort_files/3abaae9be31c2fa8037a36d79249f376.png"></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;"><a href="http://en.wikipedia.org/wiki/best,_worst_and_average_case" title="best, worst and average case">best case performance</a></th> 
+<td><img class="tex" alt="\omega(n), o(n\text{ }\log\text{ }n)" src="./heapsort_files/3f964ad8261f8af4c0f57d7937876b3b.png"><sup id="cite_ref-1" class="reference"><a href="http://en.wikipedia.org/wiki/heapsort#cite_note-1"><span>[</span>1<span>]</span></a></sup></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;"><a href="http://en.wikipedia.org/wiki/best,_worst_and_average_case" title="best, worst and average case">average case performance</a></th> 
+<td><img class="tex" alt="o(n\text{ }\log\text{ }n)" src="./heapsort_files/3abaae9be31c2fa8037a36d79249f376.png"></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;"><a href="http://en.wikipedia.org/wiki/best,_worst_and_average_case" title="best, worst and average case">worst case space complexity</a></th> 
+<td><img class="tex" alt="o(1)" src="./heapsort_files/5e079a28737d5dd019a3b8f6133ee55e.png"> auxiliary</td> 
+</tr> 
+</tbody></table> 
+<p><b>heapsort</b> is a <a href="http://en.wikipedia.org/wiki/comparison_sort" title="comparison sort">comparison-based</a> <a href="http://en.wikipedia.org/wiki/sorting_algorithm" title="sorting algorithm">sorting algorithm</a> to create a <a href="http://en.wikipedia.org/wiki/sorted_array" title="sorted array">sorted array</a> (or list), and is part of the <a href="http://en.wikipedia.org/wiki/selection_sort" title="selection sort">selection sort</a> family. although somewhat slower in practice on most machines than a well-implemented <a href="http://en.wikipedia.org/wiki/quicksort" title="quicksort">quicksort</a>, it has the advantage of a more favorable worst-case <a href="http://en.wikipedia.org/wiki/big_o_notation" title="big o notation">o</a>(<i>n</i> log <i>n</i>) runtime. heapsort is an <a href="http://en.wikipedia.org/wiki/in-place_algorithm" title="in-place algorithm">in-place algorithm</a>, but it is not a <a href="http://en.wikipedia.org/wiki/stable_sort" title="stable sort" class="mw-redirect">stable sort</a>. it was invented by <a href="http://en.wikipedia.org/w/index.php?title=j._w._j._williams&action=edit&redlink=1" class="new" title="j. w. j. williams (page does not exist)">j. w. j. williams</a> in 1964.<sup id="cite_ref-2" class="reference"><a href="http://en.wikipedia.org/wiki/heapsort#cite_note-2"><span>[</span>2<span>]</span></a></sup></p> 
+<p></p> 
+<div id="toc" class="toc"> 
+<div id="toctitle"> 
+<h2>contents</h2> 
+<span class="toctoggle">&nbsp;[<a href="http://en.wikipedia.org/wiki/heapsort#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div> 
+<ul> 
+<li class="toclevel-1 tocsection-1"><a href="http://en.wikipedia.org/wiki/heapsort#overview"><span class="tocnumber">1</span> <span class="toctext">overview</span></a></li> 
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikipedia.org/wiki/heapsort#variations"><span class="tocnumber">2</span> <span class="toctext">variations</span></a></li> 
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikipedia.org/wiki/heapsort#comparison_with_other_sorts"><span class="tocnumber">3</span> <span class="toctext">comparison with other sorts</span></a></li> 
+<li class="toclevel-1 tocsection-4"><a href="http://en.wikipedia.org/wiki/heapsort#pseudocode"><span class="tocnumber">4</span> <span class="toctext">pseudocode</span></a></li> 
+<li class="toclevel-1 tocsection-5"><a href="http://en.wikipedia.org/wiki/heapsort#example"><span class="tocnumber">5</span> <span class="toctext">example</span></a></li> 
+<li class="toclevel-1 tocsection-6"><a href="http://en.wikipedia.org/wiki/heapsort#notes"><span class="tocnumber">6</span> <span class="toctext">notes</span></a></li> 
+<li class="toclevel-1 tocsection-7"><a href="http://en.wikipedia.org/wiki/heapsort#references"><span class="tocnumber">7</span> <span class="toctext">references</span></a></li> 
+<li class="toclevel-1 tocsection-8"><a href="http://en.wikipedia.org/wiki/heapsort#external_links"><span class="tocnumber">8</span> <span class="toctext">external links</span></a></li> 
+</ul> 
+</div> 
+<p></p> 
+<h2><span class="mw-headline" id="overview">overview</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=heapsort&action=edit&section=1" title="edit section: overview">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>the heapsort algorithm can be divided into two parts.</p> 
+<p>in the first step, a <a href="http://en.wikipedia.org/wiki/heap_(data_structure)" title="heap (data structure)">heap</a> is <a href="http://en.wikipedia.org/wiki/binary_heap#building_a_heap" title="binary heap">built</a> out of the data.</p> 
+<p>in the second step, a sorted array is created by repeatedly removing the largest element from the heap, and inserting it into the array. the heap is reconstructed after each removal. once all objects have been removed from the heap, we have a sorted array. the direction of the sorted elements can be varied by choosing a min-heap or max-heap in step one.</p> 
+<p>heapsort can be performed in place. the array can be split into two parts, the sorted array and the heap. the storage of heaps as arrays is diagrammed <a href="http://en.wikipedia.org/wiki/binary_heap#heap_implementation" title="binary heap">here</a>. the heap's invariant is preserved after each extraction, so the only cost is that of extraction.</p> 
+<h2><span class="mw-headline" id="variations">variations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=heapsort&action=edit&section=2" title="edit section: variations">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li>the most important variation to the simple variant is an improvement by <a href="http://en.wikipedia.org/wiki/robert_floyd" title="robert floyd" class="mw-redirect">r. w. floyd</a> that, in practice, gives about a 25% speed improvement by using only one comparison in each <a href="http://en.wikipedia.org/wiki/binary_heap#insert" title="binary heap">siftup</a> run, which must be followed by a <a href="http://en.wikipedia.org/wiki/binary_heap#delete" title="binary heap">siftdown</a> for the original child. moreover, it is more elegant to formulate. heapsort's natural way of indexing works on indices from 1 up to the number of items. therefore the start address of the data should be shifted such that this logic can be implemented avoiding unnecessary +/- 1 offsets in the coded algorithm. the worst-case number of comparisons during the floyd's heap-construction phase of heapsort is known to be equal to 2n − 2s<sub>2</sub>(n) − e<sub>2</sub>(n), where s<sub>2</sub>(n) is the sum of all digits of the binary representation of n and e<sub>2</sub>(n) is the exponent of 2 in the prime factorization of n.<sup id="cite_ref-3" class="reference"><a href="http://en.wikipedia.org/wiki/heapsort#cite_note-3"><span>[</span>3<span>]</span></a></sup></li> 
+<li><a href="http://en.wikipedia.org/w/index.php?title=ternary_heapsort&action=edit&redlink=1" class="new" title="ternary heapsort (page does not exist)">ternary heapsort</a><sup id="cite_ref-4" class="reference"><a href="http://en.wikipedia.org/wiki/heapsort#cite_note-4"><span>[</span>4<span>]</span></a></sup> uses a ternary heap instead of a binary heap; that is, each element in the heap has three children. it is more complicated to program, but does a constant number of times fewer swap and comparison operations. this is because each step in the shift operation of a ternary heap requires three comparisons and one swap, whereas in a binary heap two comparisons and one swap are required. the ternary heap does two steps in less time than the binary heap requires for three steps, which multiplies the index by a factor of 9 instead of the factor 8 of three binary steps. ternary heapsort is about 12% faster than the simple variant of binary heapsort.<sup class="template-fact" style="white-space:nowrap;">[<i><a href="http://en.wikipedia.org/wiki/wikipedia:citation_needed" title="wikipedia:citation needed"><span title="this claim needs references to reliable sources. (march 2007)">citation needed</span></a></i>]</sup></li> 
+<li>the <b><a href="http://en.wikipedia.org/wiki/smoothsort" title="smoothsort">smoothsort</a></b> algorithm<sup id="cite_ref-5" class="reference"><a href="http://en.wikipedia.org/wiki/heapsort#cite_note-5"><span>[</span>5<span>]</span></a></sup><sup id="cite_ref-6" class="reference"><a href="http://en.wikipedia.org/wiki/heapsort#cite_note-6"><span>[</span>6<span>]</span></a></sup> is a variation of heapsort developed by <a href="http://en.wikipedia.org/wiki/edsger_w._dijkstra" title="edsger w. dijkstra">edsger dijkstra</a> in 1981. like heapsort, smoothsort's upper bound is <a href="http://en.wikipedia.org/wiki/big_o_notation" title="big o notation">o</a>(<i>n</i> log&nbsp;<i>n</i>). the advantage of smoothsort is that it comes closer to o(<i>n</i>) time if the <a href="http://en.wikipedia.org/wiki/adaptive_sort" title="adaptive sort">input is already sorted to some degree</a>, whereas heapsort averages o(<i>n</i> log&nbsp;<i>n</i>) regardless of the initial sorted state. due to its complexity, smoothsort is rarely used.</li> 
+<li>levcopoulos and petersson<sup id="cite_ref-7" class="reference"><a href="http://en.wikipedia.org/wiki/heapsort#cite_note-7"><span>[</span>7<span>]</span></a></sup> describe a variation of heapsort based on a <a href="http://en.wikipedia.org/wiki/cartesian_tree" title="cartesian tree">cartesian tree</a> that does not add an element to the heap until smaller values on both sides of it have already been included in the sorted output. as they show, this modification can allow the algorithm to sort more quickly than o(<i>n</i>&nbsp;log&nbsp;<i>n</i>) for inputs that are already nearly sorted.</li> 
+</ul> 
+<h2><span class="mw-headline" id="comparison_with_other_sorts">comparison with other sorts</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=heapsort&action=edit&section=3" title="edit section: comparison with other sorts">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>heapsort primarily competes with <a href="http://en.wikipedia.org/wiki/quicksort" title="quicksort">quicksort</a>, another very efficient general purpose nearly-in-place comparison-based sort algorithm.</p> 
+<p>quicksort is typically somewhat faster due to some factors, but the worst-case running time for quicksort is <a href="http://en.wikipedia.org/wiki/big_o_notation" title="big o notation">o</a>(<i>n</i><sup>2</sup>), which is unacceptable for large data sets and can be deliberately triggered given enough knowledge of the implementation, creating a security risk. see <a href="http://en.wikipedia.org/wiki/quicksort" title="quicksort">quicksort</a> for a detailed discussion of this problem and possible solutions.</p> 
+<p>thus, because of the o(<i>n</i> log <i>n</i>) upper bound on heapsort's running time and constant upper bound on its auxiliary storage, embedded systems with real-time constraints or systems concerned with security often use heapsort.</p> 
+<p>heapsort also competes with <a href="http://en.wikipedia.org/wiki/merge_sort" title="merge sort">merge sort</a>, which has the same time bounds. merge sort requires ω(n) auxiliary space, but heapsort requires only a constant amount. heapsort typically runs faster in practice on machines with small or slow <a href="http://en.wikipedia.org/wiki/data_cache" title="data cache" class="mw-redirect">data caches</a>. on the other hand, merge sort has several advantages over heapsort:</p> 
+<ul> 
+<li>merge sort on arrays has considerably better data cache performance, often outperforming heapsort on modern desktop computers because merge sort frequently accesses contiguous memory locations (good <a href="http://en.wikipedia.org/wiki/locality_of_reference" title="locality of reference">locality of reference</a>); heapsort references are spread throughout the heap.</li> 
+<li>heapsort is not a <a href="http://en.wikipedia.org/wiki/stable_sort" title="stable sort" class="mw-redirect">stable sort</a>; merge sort is stable.</li> 
+<li>merge sort <a href="http://en.wikipedia.org/wiki/parallel_algorithm" title="parallel algorithm">parallelizes</a> well and can achieve close to <a href="http://en.wikipedia.org/wiki/linear_speedup" title="linear speedup" class="mw-redirect">linear speedup</a> with a trivial implementation; heapsort is not an obvious candidate for a parallel algorithm.</li> 
+<li>merge sort can be adapted to operate on <a href="http://en.wikipedia.org/wiki/linked_list" title="linked list">linked lists</a> with o(1) extra space. heapsort can be adapted to operate on doubly linked lists with only o(1) extra space overhead.<sup class="template-fact" style="white-space:nowrap;">[<i><a href="http://en.wikipedia.org/wiki/wikipedia:citation_needed" title="wikipedia:citation needed"><span title="this claim needs references to reliable sources. (june 2012)">citation needed</span></a></i>]</sup></li> 
+<li>merge sort is used in <a href="http://en.wikipedia.org/wiki/external_sorting" title="external sorting">external sorting</a>; heapsort is not. locality of reference is the issue.</li> 
+</ul> 
+<p><a href="http://en.wikipedia.org/wiki/introsort" title="introsort">introsort</a> is an alternative to heapsort that combines quicksort and heapsort to retain advantages of both: worst case speed of heapsort and average speed of quicksort.</p> 
+<h2><span class="mw-headline" id="pseudocode">pseudocode</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=heapsort&action=edit&section=4" title="edit section: pseudocode">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>the following is the "simple" way to implement the algorithm in <a href="http://en.wikipedia.org/wiki/pseudocode" title="pseudocode">pseudocode</a>. arrays are <b><a href="http://en.wikipedia.org/wiki/comparison_of_programming_languages_(array)" title="comparison of programming languages (array)">zero-based</a></b> and <i>swap</i> is used to exchange two elements of the array. movement 'down' means from the root towards the leaves, or from lower indices to higher. note that during the sort, the largest element is at the root of the heap at a[0], while at the end of the sort, the largest element is in a[end].</p> 
+<pre><b>function</b> heapsort(a, count) <b>is</b> 
+<b>input:</b> an unordered array <i>a</i> of length <i>count</i> 
+ 
+heapify(a, count) 
+ 
+(: the following loop maintains the <a href="http://en.wikipedia.org/wiki/loop_invariant" title="loop invariant">invariants</a> that a[0:end] is a heap and every element 
+: beyond end is greater than everything before it (so a[end:count] is in sorted order). 
+:) 
+end ← count - 1 
+<b>while</b> end &gt; 0 <b>do</b> 
+swap(a[end], a[0]) 
+end ← end - 1 
+siftdown(a, 0, end) 
+ 
+(: put elements of a in heap order, in-place :) 
+<b>function</b> heapify(a, count) <b>is</b> 
+<i>(start is assigned the index in a of the last parent node)</i> 
+start ← (count - 2 ) / 2 
+ 
+<b>while</b> start ≥ 0 <b>do</b> 
+<i>(sift down the node at index start to the proper place such that all nodes below</i> 
+<i> the start index are in heap order)</i> 
+siftdown(a, start, count-1) 
+start ← start - 1 
+<i>(after sifting down the root all nodes/elements are in heap order)</i> 
+ 
+<b>function</b> siftdown(a, start, end) <b>is</b> 
+root ← start 
+ 
+<b>while</b> root * 2 + 1 ≤ end <b>do</b>    (: while the root has at least one child :) 
+child ← root * 2 + 1       (: left child :) 
+swap ← root                (: keeps track of child to swap with :) 
+ 
+<b>if</b> a[swap] &lt; a[child] 
+swap ← child 
+<b>if</b> child+1 ≤ end <b>and</b> a[swap] &lt; a[child+1] 
+swap ← child + 1 
+<b>if</b> swap ≠ root 
+swap(a[root], a[swap]) 
+root ← swap            (: repeat to continue sifting down the child now :) 
+<b>else</b> 
+<b>return</b> 
+</pre> 
+<p>the heapify function can be thought of as building a heap from the bottom up, successively shifting downward to establish the <a href="http://en.wikipedia.org/wiki/heap_(data_structure)" title="heap (data structure)">heap property</a>. an alternative version (shown below) that builds the heap top-down and sifts upward may be conceptually simpler to grasp. this "siftup" version can be visualized as starting with an empty heap and successively inserting elements, whereas the "siftdown" version given above treats the entire input array as a full, "broken" heap and "repairs" it starting from the last non-trivial sub-heap (that is, the last parent node).</p> 
+<div class="thumb tright"> 
+<div class="thumbinner" style="width:222px;"><a href="http://en.wikipedia.org/wiki/file:binary_heap_bottomup_vs_topdown.svg" class="image"><img alt="" src="./heapsort_files/440px-binary_heap_bottomup_vs_topdown.svg.png" width="220" height="79" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/a/ac/binary_heap_bottomup_vs_topdown.svg/330px-binary_heap_bottomup_vs_topdown.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/a/ac/binary_heap_bottomup_vs_topdown.svg/440px-binary_heap_bottomup_vs_topdown.svg.png 2x"></a> 
+<div class="thumbcaption"> 
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/file:binary_heap_bottomup_vs_topdown.svg" class="internal" title="enlarge"><img src="./heapsort_files/magnify-clip.png" width="15" height="11" alt=""></a></div> 
+difference in time complexity between the "siftdown" version and the "siftup" version.</div> 
+</div> 
+</div> 
+<p>also, the "siftdown" version of heapify <a href="http://en.wikipedia.org/wiki/binary_heap#building_a_heap" title="binary heap">has <span class="texhtml"><i>o</i>(<i>n</i>)</span> time complexity</a>, while the "siftup" version given below has <span class="texhtml"><i>o</i>(<i>n</i> log <i>n</i>)</span> time complexity due to its equivalence with inserting each element, one at a time, into an empty heap.<sup id="cite_ref-8" class="reference"><a href="http://en.wikipedia.org/wiki/heapsort#cite_note-8"><span>[</span>8<span>]</span></a></sup> this may seem counter-intuitive since, at a glance, it is apparent that the former only makes half as many calls to its logarithmic-time sifting function as the latter; i.e., they seem to differ only by a constant factor, which never has an impact on asymptotic analysis.</p> 
+<p>to grasp the intuition behind this difference in complexity, note that the number of swaps that may occur during any one siftup call <i>increases</i> with the depth of the node on which the call is made. the crux is that there are many (exponentially many) more "deep" nodes than there are "shallow" nodes in a heap, so that siftup may have its full logarithmic running-time on the approximately linear number of calls made on the nodes at or near the "bottom" of the heap. on the other hand, the number of swaps that may occur during any one siftdown call <i>decreases</i> as the depth of the node on which the call is made increases. thus, when the "siftdown" heapify begins and is calling siftdown on the bottom and most numerous node-layers, each sifting call will incur, at most, a number of swaps equal to the "height" (from the bottom of the heap) of the node on which the sifting call is made. in other words, about half the calls to siftdown will have at most only one swap, then about a quarter of the calls will have at most two swaps, etc.</p> 
+<p>the heapsort algorithm itself has <span class="texhtml"><i>o</i>(<i>n</i> log <i>n</i>)</span> time complexity using either version of heapify.</p> 
+<pre> <b>function</b> heapify(a,count) is 
+<i>(end is assigned the index of the first (left) child of the root)</i> 
+end := 1 
+ 
+<b>while</b> end &lt; count 
+<i>(sift up the node at index end to the proper place such that all nodes above</i> 
+<i> the end index are in heap order)</i> 
+siftup(a, 0, end) 
+end := end + 1 
+<i>(after sifting up the last node all nodes are in heap order)</i> 
+ 
+<b>function</b> siftup(a, start, end) <b>is</b> 
+<b>input: </b> <i>start represents the limit of how far up the heap to sift.</i> 
+<i>end is the node to sift up.</i> 
+child := end 
+<b>while</b> child &gt; start 
+parent := floor((child - 1) / 2) 
+<b>if</b> a[parent] &lt; a[child] <b>then</b> <i>(out of max-heap order)</i> 
+swap(a[parent], a[child]) 
+child := parent <i>(repeat to continue sifting up the parent now)</i> 
+<b>else</b> 
+<b>return</b> 
+</pre> 
+<h2><span class="mw-headline" id="example">example</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=heapsort&action=edit&section=5" title="edit section: example">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>let { 6, 5, 3, 1, 8, 7, 2, 4 } be the list that we want to sort from the smallest to the largest. (note, for 'building the heap' step: larger nodes don't stay below smaller node parents. they are swapped with parents, and then recursively checked if another swap is needed, to keep larger numbers above smaller numbers on the heap binary tree.)</p> 
+<div class="thumb tright"> 
+<div class="thumbinner" style="width:352px;"><a href="http://en.wikipedia.org/wiki/file:heapsort-example.gif" class="image"><img alt="" src="./heapsort_files/heapsort-example.gif" width="350" height="280" class="thumbimage"></a> 
+<div class="thumbcaption"> 
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/file:heapsort-example.gif" class="internal" title="enlarge"><img src="./heapsort_files/magnify-clip.png" width="15" height="11" alt=""></a></div> 
+an example on heapsort.</div> 
+</div> 
+</div> 
+<p><b>1. build the heap</b></p> 
+<table class="wikitable"> 
+<tbody><tr> 
+<th>heap</th> 
+<th>newly added element</th> 
+<th>swap elements</th> 
+</tr> 
+<tr> 
+<td>nil</td> 
+<td>6</td> 
+<td></td> 
+</tr> 
+<tr> 
+<td>6</td> 
+<td>5</td> 
+<td></td> 
+</tr> 
+<tr> 
+<td>6, 5</td> 
+<td>3</td> 
+<td></td> 
+</tr> 
+<tr> 
+<td>6, 5, 3</td> 
+<td>1</td> 
+<td></td> 
+</tr> 
+<tr> 
+<td>6, 5, 3, 1</td> 
+<td>8</td> 
+<td></td> 
+</tr> 
+<tr> 
+<td>6, <b>5</b>, 3, 1, <b>8</b></td> 
+<td></td> 
+<td>5, 8</td> 
+</tr> 
+<tr> 
+<td><b>6</b>, <b>8</b>, 3, 1, 5</td> 
+<td></td> 
+<td>6, 8</td> 
+</tr> 
+<tr> 
+<td>8, 6, 3, 1, 5</td> 
+<td>7</td> 
+<td></td> 
+</tr> 
+<tr> 
+<td>8, 6, <b>3</b>, 1, 5, <b>7</b></td> 
+<td></td> 
+<td>3, 7</td> 
+</tr> 
+<tr> 
+<td>8, 6, 7, 1, 5, 3</td> 
+<td>2</td> 
+<td></td> 
+</tr> 
+<tr> 
+<td>8, 6, 7, 1, 5, 3, 2</td> 
+<td>4</td> 
+<td></td> 
+</tr> 
+<tr> 
+<td>8, 6, 7, <b>1</b>, 5, 3, 2, <b>4</b></td> 
+<td></td> 
+<td>1, 4</td> 
+</tr> 
+<tr> 
+<td>8, 6, 7, 4, 5, 3, 2, 1</td> 
+<td></td> 
+<td></td> 
+</tr> 
+</tbody></table> 
+<p><b>2. sorting.</b></p> 
+<table class="wikitable"> 
+<tbody><tr> 
+<th>heap</th> 
+<th>swap elements</th> 
+<th>delete element</th> 
+<th>sorted array</th> 
+<th>details</th> 
+</tr> 
+<tr> 
+<td><b>8</b>, 6, 7, 4, 5, 3, 2, <b>1</b></td> 
+<td>8, 1</td> 
+<td></td> 
+<td></td> 
+<td>swap 8 and 1 in order to delete 8 from heap</td> 
+</tr> 
+<tr> 
+<td>1, 6, 7, 4, 5, 3, 2, <b>8</b></td> 
+<td></td> 
+<td>8</td> 
+<td></td> 
+<td>delete 8 from heap and add to sorted array</td> 
+</tr> 
+<tr> 
+<td><b>1</b>, 6, <b>7</b>, 4, 5, 3, 2</td> 
+<td>1, 7</td> 
+<td></td> 
+<td>8</td> 
+<td>swap 1 and 7 as they are not in order in the heap</td> 
+</tr> 
+<tr> 
+<td>7, 6, <b>1</b>, 4, 5, <b>3</b>, 2</td> 
+<td>1, 3</td> 
+<td></td> 
+<td>8</td> 
+<td>swap 1 and 3 as they are not in order in the heap</td> 
+</tr> 
+<tr> 
+<td><b>7</b>, 6, 3, 4, 5, 1, <b>2</b></td> 
+<td>7, 2</td> 
+<td></td> 
+<td>8</td> 
+<td>swap 7 and 2 in order to delete 7 from heap</td> 
+</tr> 
+<tr> 
+<td>2, 6, 3, 4, 5, 1, <b>7</b></td> 
+<td></td> 
+<td>7</td> 
+<td>8</td> 
+<td>delete 7 from heap and add to sorted array</td> 
+</tr> 
+<tr> 
+<td><b>2</b>, <b>6</b>, 3, 4, 5, 1</td> 
+<td>2, 6</td> 
+<td></td> 
+<td>7, 8</td> 
+<td>swap 2 and 6 as they are not in order in the heap</td> 
+</tr> 
+<tr> 
+<td>6, <b>2</b>, 3, 4, <b>5</b>, 1</td> 
+<td>2, 5</td> 
+<td></td> 
+<td>7, 8</td> 
+<td>swap 2 and 5 as they are not in order in the heap</td> 
+</tr> 
+<tr> 
+<td><b>6</b>, 5, 3, 4, 2, <b>1</b></td> 
+<td>6, 1</td> 
+<td></td> 
+<td>7, 8</td> 
+<td>swap 6 and 1 in order to delete 6 from heap</td> 
+</tr> 
+<tr> 
+<td>1, 5, 3, 4, 2, <b>6</b></td> 
+<td></td> 
+<td>6</td> 
+<td>7, 8</td> 
+<td>delete 6 from heap and add to sorted array</td> 
+</tr> 
+<tr> 
+<td><b>1</b>, <b>5</b>, 3, 4, 2</td> 
+<td>1, 5</td> 
+<td></td> 
+<td>6, 7, 8</td> 
+<td>swap 1 and 5 as they are not in order in the heap</td> 
+</tr> 
+<tr> 
+<td>5, <b>1</b>, 3, <b>4</b>, 2</td> 
+<td>1, 4</td> 
+<td></td> 
+<td>6, 7, 8</td> 
+<td>swap 1 and 4 as they are not in order in the heap</td> 
+</tr> 
+<tr> 
+<td><b>5</b>, 4, 3, 1, <b>2</b></td> 
+<td>5, 2</td> 
+<td></td> 
+<td>6, 7, 8</td> 
+<td>swap 5 and 2 in order to delete 5 from heap</td> 
+</tr> 
+<tr> 
+<td>2, 4, 3, 1, <b>5</b></td> 
+<td></td> 
+<td>5</td> 
+<td>6, 7, 8</td> 
+<td>delete 5 from heap and add to sorted array</td> 
+</tr> 
+<tr> 
+<td><b>2</b>, <b>4</b>, 3, 1</td> 
+<td>2, 4</td> 
+<td></td> 
+<td>5, 6, 7, 8</td> 
+<td>swap 2 and 4 as they are not in order in the heap</td> 
+</tr> 
+<tr> 
+<td><b>4</b>, 2, 3, <b>1</b></td> 
+<td>4, 1</td> 
+<td></td> 
+<td>5, 6, 7, 8</td> 
+<td>swap 4 and 1 in order to delete 4 from heap</td> 
+</tr> 
+<tr> 
+<td>1, 2, 3, <b>4</b></td> 
+<td></td> 
+<td>4</td> 
+<td>5, 6, 7, 8</td> 
+<td>delete 4 from heap and add to sorted array</td> 
+</tr> 
+<tr> 
+<td><b>1</b>, 2, <b>3</b></td> 
+<td>1, 3</td> 
+<td></td> 
+<td>4, 5, 6, 7, 8</td> 
+<td>swap 1 and 3 as they are not in order in the heap</td> 
+</tr> 
+<tr> 
+<td><b>3</b>, 2, <b>1</b></td> 
+<td>3, 1</td> 
+<td></td> 
+<td>4, 5, 6, 7, 8</td> 
+<td>swap 3 and 1 in order to delete 3 from heap</td> 
+</tr> 
+<tr> 
+<td>1, 2, <b>3</b></td> 
+<td></td> 
+<td>3</td> 
+<td>4, 5, 6, 7, 8</td> 
+<td>delete 3 from heap and add to sorted array</td> 
+</tr> 
+<tr> 
+<td><b>1</b>, <b>2</b></td> 
+<td>1, 2</td> 
+<td></td> 
+<td>3, 4, 5, 6, 7, 8</td> 
+<td>swap 1 and 2 as they are not in order in the heap</td> 
+</tr> 
+<tr> 
+<td><b>2</b>, <b>1</b></td> 
+<td>2, 1</td> 
+<td></td> 
+<td>3, 4, 5, 6, 7, 8</td> 
+<td>swap 2 and 1 in order to delete 2 from heap</td> 
+</tr> 
+<tr> 
+<td>1, <b>2</b></td> 
+<td></td> 
+<td>2</td> 
+<td>3, 4, 5, 6, 7, 8</td> 
+<td>delete 2 from heap and add to sorted array</td> 
+</tr> 
+<tr> 
+<td><b>1</b></td> 
+<td></td> 
+<td>1</td> 
+<td>2, 3, 4, 5, 6, 7, 8</td> 
+<td>delete 1 from heap and add to sorted array</td> 
+</tr> 
+<tr> 
+<td></td> 
+<td></td> 
+<td></td> 
+<td>1, 2, 3, 4, 5, 6, 7, 8</td> 
+<td>completed</td> 
+</tr> 
+</tbody></table> 
+<h2><span class="mw-headline" id="notes">notes</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=heapsort&action=edit&section=6" title="edit section: notes">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<div class="reflist columns references-column-width" style="-moz-column-width: 30em; -webkit-column-width: 30em; column-width: 30em; list-style-type: decimal;"> 
+<ol class="references"> 
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/heapsort#cite_ref-1"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external free" href="http://dx.doi.org/10.1006/jagm.1993.1031">http://dx.doi.org/10.1006/jagm.1993.1031</a></span></li> 
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/heapsort#cite_ref-2"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a href="http://en.wikipedia.org/wiki/heapsort#citerefwilliams1964">williams 1964</a></span></li> 
+<li id="cite_note-3"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/heapsort#cite_ref-3"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span id="citerefsuchenek2012" class="citation">suchenek, marek a. (2012), <a rel="nofollow" class="external text" href="http://www.deepdyve.com/lp/ios-press/elementary-yet-precise-worst-case-analysis-of-floyd-s-heap-50nw30hmxu">"elementary yet precise worst-case analysis of floyd's heap-construction program"</a>, <i>fundamenta informaticae</i> (ios press) <b>120</b> (1): 75–92, <a href="http://en.wikipedia.org/wiki/digital_object_identifier" title="digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="http://dx.doi.org/10.3233%2ffi-2012-751">10.3233/fi-2012-751</a></span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3aheapsort&amp;rft.atitle=elementary+yet+precise+worst-case+analysis+of+floyd%27s+heap-construction+program&amp;rft.aufirst=marek+a.&amp;rft.aulast=suchenek&amp;rft.au=suchenek%2c+marek+a.&amp;rft.date=2012&amp;rft.genre=article&amp;rft_id=http%3a%2f%2fwww.deepdyve.com%2flp%2fios-press%2felementary-yet-precise-worst-case-analysis-of-floyd-s-heap-50nw30hmxu&amp;rft_id=info%3adoi%2f10.3233%2ffi-2012-751&amp;rft.issue=1&amp;rft.jtitle=fundamenta+informaticae&amp;rft.pages=75%e2%80%9392&amp;rft.pub=ios+press&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3ajournal&amp;rft.volume=120" class="z3988"><span style="display:none;">&nbsp;</span></span>.</span></li> 
+<li id="cite_note-4"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/heapsort#cite_ref-4"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">"data structures using pascal", 1991, page 405, gives a ternary heapsort as a student exercise. "write a sorting routine similar to the heapsort except that it uses a ternary heap."</span></li> 
+<li id="cite_note-5"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/heapsort#cite_ref-5"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external free" href="http://www.cs.utexas.edu/users/ewd/ewd07xx/ewd796a.pdf">http://www.cs.utexas.edu/users/ewd/ewd07xx/ewd796a.pdf</a></span></li> 
+<li id="cite_note-6"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/heapsort#cite_ref-6"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external free" href="http://www.cs.utexas.edu/~ewd/transcriptions/ewd07xx/ewd796a.html">http://www.cs.utexas.edu/~ewd/transcriptions/ewd07xx/ewd796a.html</a></span></li> 
+<li id="cite_note-7"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/heapsort#cite_ref-7"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span id="citereflevcopoulospetersson1989" class="citation">levcopoulos, christos; petersson, ola (1989), "heapsort - adapted for presorted files", <i>wads '89: proceedings of the workshop on algorithms and data structures</i>, lecture notes in computer science <b>382</b>, london, uk: springer-verlag, pp.&nbsp;499–509, <a href="http://en.wikipedia.org/wiki/digital_object_identifier" title="digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="http://dx.doi.org/10.1007%2f3-540-51542-9_41">10.1007/3-540-51542-9_41</a></span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3aheapsort&amp;rft.atitle=wads+%2789%3a+proceedings+of+the+workshop+on+algorithms+and+data+structures&amp;rft.aufirst=christos&amp;rft.aulast=levcopoulos&amp;rft.au=levcopoulos%2c+christos&amp;rft.au=petersson%2c+ola&amp;rft.btitle=heapsort+-+adapted+for+presorted+files&amp;rft.date=1989&amp;rft.genre=bookitem&amp;rft_id=info%3adoi%2f10.1007%2f3-540-51542-9_41&amp;rft.pages=499%e2%80%93509&amp;rft.place=london%2c+uk&amp;rft.pub=springer-verlag&amp;rft.series=lecture+notes+in+computer+science&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook&amp;rft.volume=382" class="z3988"><span style="display:none;">&nbsp;</span></span>.</span></li> 
+<li id="cite_note-8"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/heapsort#cite_ref-8"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web"><a rel="nofollow" class="external text" href="http://faculty.simpson.edu/lydia.sinapova/www/cmsc250/ln250_weiss/l10-pqueues.htm">"priority queues"</a><span class="reference-accessdate">. retrieved 24 may 2011</span>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3aheapsort&amp;rft.btitle=priority+queues&amp;rft.genre=book&amp;rft_id=http%3a%2f%2ffaculty.simpson.edu%2flydia.sinapova%2fwww%2fcmsc250%2fln250_weiss%2fl10-pqueues.htm&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+</ol> 
+</div> 
+<h2><span class="mw-headline" id="references">references</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=heapsort&action=edit&section=7" title="edit section: references">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li><span id="citerefwilliams1964" class="citation"><a href="http://en.wikipedia.org/w/index.php?title=j._w._j._williams&action=edit&redlink=1" class="new" title="j. w. j. williams (page does not exist)">williams, j. w. j.</a> (1964), "algorithm 232 - heapsort", <i><a href="http://en.wikipedia.org/wiki/communications_of_the_acm" title="communications of the acm">communications of the acm</a></i> <b>7</b> (6): 347–348</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3aheapsort&amp;rft.atitle=algorithm+232+-+heapsort&amp;rft.aufirst=j.+w.+j.&amp;rft.aulast=williams&amp;rft.au=williams%2c+j.+w.+j.&amp;rft.date=1964&amp;rft.genre=article&amp;rft.issue=6&amp;rft.jtitle=communications+of+the+acm&amp;rft.pages=347%e2%80%93348&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3ajournal&amp;rft.volume=7" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+<li><span id="citereffloyd1964" class="citation"><a href="http://en.wikipedia.org/wiki/robert_w._floyd" title="robert w. floyd">floyd, robert w.</a> (1964), "algorithm 245 - treesort 3", <i><a href="http://en.wikipedia.org/wiki/communications_of_the_acm" title="communications of the acm">communications of the acm</a></i> <b>7</b> (12): 701</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3aheapsort&amp;rft.atitle=algorithm+245+-+treesort+3&amp;rft.aufirst=robert+w.&amp;rft.au=floyd%2c+robert+w.&amp;rft.aulast=floyd&amp;rft.date=1964&amp;rft.genre=article&amp;rft.issue=12&amp;rft.jtitle=communications+of+the+acm&amp;rft.pages=701&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3ajournal&amp;rft.volume=7" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+<li><span id="citerefcarlsson1987" class="citation"><a href="http://en.wikipedia.org/w/index.php?title=svante_carlsson&action=edit&redlink=1" class="new" title="svante carlsson (page does not exist)">carlsson, svante</a> (1987), "average-case results on heapsort", <i>bit</i> <b>27</b> (1): 2–17</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3aheapsort&amp;rft.atitle=average-case+results+on+heapsort&amp;rft.au=carlsson%2c+svante&amp;rft.aufirst=svante&amp;rft.aulast=carlsson&amp;rft.date=1987&amp;rft.genre=article&amp;rft.issue=1&amp;rft.jtitle=bit&amp;rft.pages=2%e2%80%9317&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3ajournal&amp;rft.volume=27" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+<li><span id="citerefknuth1997" class="citation"><a href="http://en.wikipedia.org/wiki/donald_knuth" title="donald knuth">knuth, donald</a> (1997), "§5.2.3, sorting by selection", <i>sorting and searching</i>, <a href="http://en.wikipedia.org/wiki/the_art_of_computer_programming" title="the art of computer programming">the art of computer programming</a> <b>3</b> (third ed.), addison-wesley, pp.&nbsp;144–155, <a href="http://en.wikipedia.org/wiki/international_standard_book_number" title="international standard book number">isbn</a>&nbsp;<a href="http://en.wikipedia.org/wiki/special:booksources/0-201-89685-0" title="special:booksources/0-201-89685-0">0-201-89685-0</a></span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3aheapsort&amp;rft.atitle=sorting+and+searching&amp;rft.aufirst=donald&amp;rft.au=knuth%2c+donald&amp;rft.aulast=knuth&amp;rft.btitle=%26sect%3b5.2.3%2c+sorting+by+selection&amp;rft.date=1997&amp;rft.edition=third&amp;rft.genre=bookitem&amp;rft.isbn=0-201-89685-0&amp;rft.pages=144%e2%80%93155&amp;rft.pub=addison-wesley&amp;rft.series=the+art+of+computer+programming&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook&amp;rft.volume=3" class="z3988"><span style="display:none;">&nbsp;</span></span></li> 
+<li><a href="http://en.wikipedia.org/wiki/thomas_h._cormen" title="thomas h. cormen">thomas h. cormen</a>, <a href="http://en.wikipedia.org/wiki/charles_e._leiserson" title="charles e. leiserson">charles e. leiserson</a>, <a href="http://en.wikipedia.org/wiki/ronald_l._rivest" title="ronald l. rivest" class="mw-redirect">ronald l. rivest</a>, and <a href="http://en.wikipedia.org/wiki/clifford_stein" title="clifford stein">clifford stein</a>. <i><a href="http://en.wikipedia.org/wiki/introduction_to_algorithms" title="introduction to algorithms">introduction to algorithms</a></i>, second edition. mit press and mcgraw-hill, 2001. <a href="http://en.wikipedia.org/wiki/special:booksources/0262032937" class="internal mw-magiclink-isbn">isbn 0-262-03293-7</a>. chapters 6 and 7 respectively: heapsort and priority queues</li> 
+<li><a rel="nofollow" class="external text" href="http://www.cs.utexas.edu/users/ewd/ewd07xx/ewd796a.pdf">a pdf of dijkstra's original paper on smoothsort</a></li> 
+<li><a rel="nofollow" class="external text" href="http://cis.stvincent.edu/html/tutorials/swd/heaps/heaps.html">heaps and heapsort tutorial</a> by david carlson, st. vincent college</li> 
+<li><a rel="nofollow" class="external text" href="http://www.nicollet.net/2009/01/heaps-of-knowledge/">heaps of knowledge</a></li> 
+</ul> 
+<h2><span class="mw-headline" id="external_links">external links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=heapsort&action=edit&section=8" title="edit section: external links">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<table class="metadata mbox-small plainlinks" style="border:1px solid #aaa; background-color:#f9f9f9;"> 
+<tbody><tr> 
+<td class="mbox-image"><img alt="" src="./heapsort_files/80px-wikibooks-logo-en-noslogan.svg.png" width="40" height="40" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/d/df/wikibooks-logo-en-noslogan.svg/60px-wikibooks-logo-en-noslogan.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/d/df/wikibooks-logo-en-noslogan.svg/80px-wikibooks-logo-en-noslogan.svg.png 2x"></td> 
+<td class="mbox-text plainlist" style="">the wikibook <i><a href="http://en.wikibooks.org/wiki/algorithm_implementation" class="extiw" title="wikibooks:algorithm implementation">algorithm implementation</a></i> has a page on the topic of: <i><b><a href="http://en.wikibooks.org/wiki/algorithm_implementation/sorting/heapsort" class="extiw" title="wikibooks:algorithm implementation/sorting/heapsort">heapsort</a></b></i></td> 
+</tr> 
+</tbody></table> 
+<ul> 
+<li><a rel="nofollow" class="external text" href="http://www.sorting-algorithms.com/heap-sort">animated sorting algorithms: heap sort</a> – graphical demonstration and discussion of heap sort</li> 
+<li><a rel="nofollow" class="external text" href="http://olli.informatik.uni-oldenburg.de/heapsort_sala/english/start.html">courseware on heapsort from univ. oldenburg</a> - with text, animations and interactive exercises</li> 
+<li><a rel="nofollow" class="external text" href="http://www.nist.gov/dads/html/heapsort.html">nist's dictionary of algorithms and data structures: heapsort</a></li> 
+<li><a rel="nofollow" class="external text" href="http://www.codecodex.com/wiki/heapsort">heapsort implemented in 12 languages</a></li> 
+<li><a rel="nofollow" class="external text" href="http://www.azillionmonkeys.com/qed/sort.html">sorting revisited</a> by paul hsieh</li> 
+<li><a rel="nofollow" class="external text" href="http://coderaptors.com/?heapsort">a color graphical java applet</a> that allows experimentation with initial state and shows statistics</li> 
+<li><a rel="nofollow" class="external text" href="http://employees.oneonta.edu/zhangs/powerpointplatform/index.php">a powerpoint presentation demonstrating how heap sort works</a> that is for educators.</li> 
+<li><a rel="nofollow" class="external text" href="http://opendatastructures.org/versions/edition-0.1e/ods-java/11_1_comparison_based_sorti.html#section001413000000000000000">open data structures - section 11.1.3 - heap-sort</a></li> 
+</ul> 
+<table cellspacing="0" class="navbox" style="border-spacing:0;"> 
+<tbody><tr> 
+<td style="padding:2px;"> 
+<table cellspacing="0" class="nowraplinks collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" id="collapsibletable0"> 
+<tbody><tr> 
+<th scope="col" class="navbox-title" colspan="2"><span class="collapsebutton">[<a id="collapsebutton0" href="http://en.wikipedia.org/wiki/heapsort#">hide</a>]</span> 
+<div class="plainlinks hlist navbar mini"> 
+<ul> 
+<li class="nv-view"><a href="http://en.wikipedia.org/wiki/template:sorting" title="template:sorting"><span title="view this template" style=";;background:none transparent;border:none;;">v</span></a></li> 
+<li class="nv-talk"><a href="http://en.wikipedia.org/wiki/template_talk:sorting" title="template talk:sorting"><span title="discuss this template" style=";;background:none transparent;border:none;;">t</span></a></li> 
+<li class="nv-edit"><a class="external text" href="http://en.wikipedia.org/w/index.php?title=template:sorting&action=edit"><span title="edit this template" style=";;background:none transparent;border:none;;">e</span></a></li> 
+</ul> 
+</div> 
+<div style="font-size:110%;"><a href="http://en.wikipedia.org/wiki/sorting_algorithm" title="sorting algorithm">sorting algorithms</a></div> 
+</th> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">theory</th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/computational_complexity_theory" title="computational complexity theory">computational complexity theory</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/big_o_notation" title="big o notation">big o notation</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/total_order" title="total order">total order</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/list_(computing)" title="list (computing)" class="mw-redirect">lists</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/in-place_algorithm" title="in-place algorithm">inplacement</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/sorting_algorithm#stability" title="sorting algorithm">stability</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/comparison_sort" title="comparison sort">comparison sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/adaptive_sort" title="adaptive sort">adaptive sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/sorting_network" title="sorting network">sorting network</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/integer_sorting" title="integer sorting">integer sorting</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">exchange sorts</th> 
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/bubble_sort" title="bubble sort">bubble sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/cocktail_sort" title="cocktail sort">cocktail sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/odd%e2%80%93even_sort" title="odd–even sort">odd–even sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/comb_sort" title="comb sort">comb sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/gnome_sort" title="gnome sort">gnome sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/quicksort" title="quicksort">quicksort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/stooge_sort" title="stooge sort">stooge sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/bogosort" title="bogosort">bogosort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/selection_algorithm" title="selection algorithm">selection sorts</a></th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/selection_sort" title="selection sort">selection sort</a></li> 
+<li><strong class="selflink">heapsort</strong></li> 
+<li><a href="http://en.wikipedia.org/wiki/smoothsort" title="smoothsort">smoothsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/cartesian_tree#application_in_sorting" title="cartesian tree">cartesian tree sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/tournament_sort" title="tournament sort">tournament sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/cycle_sort" title="cycle sort">cycle sort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">insertion sorts</th> 
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/insertion_sort" title="insertion sort">insertion sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/shellsort" title="shellsort">shellsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/splaysort" title="splaysort">splaysort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/tree_sort" title="tree sort">tree sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/library_sort" title="library sort">library sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/patience_sorting" title="patience sorting">patience sorting</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">merge sorts</th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/merge_sort" title="merge sort">merge sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/cascade_merge_sort" title="cascade merge sort">cascade merge sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/oscillating_merge_sort" title="oscillating merge sort">oscillating merge sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/polyphase_merge_sort" title="polyphase merge sort">polyphase merge sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/strand_sort" title="strand sort">strand sort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">distribution sorts</th> 
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/american_flag_sort" title="american flag sort">american flag sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/bead_sort" title="bead sort">bead sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/bucket_sort" title="bucket sort">bucket sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/burstsort" title="burstsort">burstsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/counting_sort" title="counting sort">counting sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/pigeonhole_sort" title="pigeonhole sort">pigeonhole sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/proxmap_sort" title="proxmap sort">proxmap sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/radix_sort" title="radix sort">radix sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/flashsort" title="flashsort">flashsort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">concurrent sorts</th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/bitonic_sorter" title="bitonic sorter">bitonic sorter</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/batcher_odd%e2%80%93even_mergesort" title="batcher odd–even mergesort">batcher odd–even mergesort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/pairwise_sorting_network" title="pairwise sorting network">pairwise sorting network</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/hybrid_algorithm" title="hybrid algorithm">hybrid sorts</a></th> 
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/timsort" title="timsort">timsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/introsort" title="introsort">introsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/spreadsort" title="spreadsort">spreadsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/unshuffle_sort" title="unshuffle sort">unshuffle sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/jsort" title="jsort">jsort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">other</th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/topological_sorting" title="topological sorting">topological sorting</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/pancake_sorting" title="pancake sorting">pancake sorting</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/spaghetti_sort" title="spaghetti sort">spaghetti sort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+</tbody></table> 
+</td> 
+</tr> 
+</tbody></table> 
+ 
+ 
+<!-- 
+newpp limit report 
+parsed by mw1064 
+cpu time usage: 0.912 seconds 
+real time usage: 0.978 seconds 
+preprocessor visited node count: 1326/1000000 
+preprocessor generated node count: 6417/1500000 
+post‐expand include size: 41384/2048000 bytes 
+template argument size: 2768/2048000 bytes 
+highest expansion depth: 14/40 
+expensive parser function count: 5/500 
+lua time usage: 0.118s 
+lua memory usage: 2.07 mb 
+--> 
+ 
+<!-- saved in parser cache with key enwiki:pcache:idhash:13995-0!0!0!!en!4!* and timestamp 20140202000236 
+--> 
+<noscript>&lt;img src="//en.wikipedia.org/wiki/special:centralautologin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /&gt;</noscript></div>								<div class="printfooter"> 
+retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=heapsort&oldid=593507571">http://en.wikipedia.org/w/index.php?title=heapsort&amp;oldid=593507571</a>"				</div> 
+<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/help:category" title="help:category">categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/category:sorting_algorithms" title="category:sorting algorithms">sorting algorithms</a></li><li><a href="http://en.wikipedia.org/wiki/category:comparison_sorts" title="category:comparison sorts">comparison sorts</a></li><li><a href="http://en.wikipedia.org/wiki/category:heaps_(data_structures)" title="category:heaps (data structures)">heaps (data structures)</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/category:use_dmy_dates_from_july_2012" title="category:use dmy dates from july 2012">use dmy dates from july 2012</a></li><li><a href="http://en.wikipedia.org/wiki/category:all_articles_with_unsourced_statements" title="category:all articles with unsourced statements">all articles with unsourced statements</a></li><li><a href="http://en.wikipedia.org/wiki/category:articles_with_unsourced_statements_from_march_2007" title="category:articles with unsourced statements from march 2007">articles with unsourced statements from march 2007</a></li><li><a href="http://en.wikipedia.org/wiki/category:articles_with_unsourced_statements_from_june_2012" title="category:articles with unsourced statements from june 2012">articles with unsourced statements from june 2012</a></li><li><a href="http://en.wikipedia.org/wiki/category:articles_with_example_pseudocode" title="category:articles with example pseudocode">articles with example pseudocode</a></li></ul></div></div>												<div class="visualclear"></div> 
+</div> 
+</div> 
+<div id="mw-navigation"> 
+<h2>navigation menu</h2> 
+<div id="mw-head"> 
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label"> 
+<h3 id="p-personal-label">personal tools</h3> 
+<ul> 
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=heapsort&type=signup">create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=heapsort" title="you&#39;re encouraged to log in; however, it&#39;s not mandatory. [ctrl-option-o]" accesskey="o">log in</a></li>	</ul> 
+</div> 
+<div id="left-navigation"> 
+<div id="p-namespaces" role="navigation" class="vectortabs" aria-labelledby="p-namespaces-label"> 
+<h3 id="p-namespaces-label">namespaces</h3> 
+<ul> 
+<li id="ca-nstab-main" class="selected"><span><a href="./heapsort_files/heapsort.html" title="view the content page [ctrl-option-c]" accesskey="c">article</a></span></li> 
+<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/talk:heapsort" title="discussion about the content page [ctrl-option-t]" accesskey="t">talk</a></span></li> 
+</ul> 
+</div> 
+<div id="p-variants" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-variants-label"> 
+<h3 id="mw-vector-current-variant"> 
+</h3> 
+<h3 id="p-variants-label" tabindex="0"><span>variants</span><a href="http://en.wikipedia.org/wiki/heapsort#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+</div> 
+<div id="right-navigation"> 
+<div id="p-views" role="navigation" class="vectortabs" aria-labelledby="p-views-label"> 
+<h3 id="p-views-label">views</h3> 
+<ul> 
+<li id="ca-view" class="selected"><span><a href="./heapsort_files/heapsort.html">read</a></span></li> 
+<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=heapsort&action=edit" title="you can edit this page. 
+please review your changes before saving. [ctrl-option-e]" accesskey="e">edit</a></span></li> 
+<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=heapsort&action=history" title="past versions of this page [ctrl-option-h]" accesskey="h">view history</a></span></li> 
+</ul> 
+</div> 
+<div id="p-cactions" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-cactions-label"> 
+<h3 id="p-cactions-label" tabindex="0"><span>actions</span><a href="http://en.wikipedia.org/wiki/heapsort#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+<div id="p-search" role="search"> 
+<h3><label for="searchinput">search</label></h3> 
+<form action="http://en.wikipedia.org/w/index.php" id="searchform"> 
+<div id="simplesearch"> 
+<input name="search" placeholder="search" title="search wikipedia [ctrl-option-f]" accesskey="f" id="searchinput" tabindex="1" autocomplete="off">						<button type="submit" name="button" title="search wikipedia for this text" id="searchbutton"><img src="./heapsort_files/search-ltr.png" alt="search" width="12" height="13"></button>								<input type="hidden" name="title" value="special:search"> 
+</div> 
+</form> 
+</div> 
+</div> 
+</div> 
+<div id="mw-panel" class="collapsible-nav"> 
+<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/wiki.png);" href="http://en.wikipedia.org/wiki/main_page" title="visit the main page"></a></div> 
+<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label"> 
+<h3 id="p-navigation-label">navigation</h3> 
+<div class="body"> 
+<ul> 
+<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/main_page" title="visit the main page [ctrl-option-z]" accesskey="z">main page</a></li> 
+<li id="n-contents"><a href="http://en.wikipedia.org/wiki/portal:contents" title="guides to browsing wikipedia">contents</a></li> 
+<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/portal:featured_content" title="featured content – the best of wikipedia">featured content</a></li> 
+<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/portal:current_events" title="find background information on current events">current events</a></li> 
+<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/special:random" title="load a random article [ctrl-option-x]" accesskey="x">random article</a></li> 
+<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/special:fundraiserredirector?utm_source=donate&utm_medium=sidebar&utm_campaign=c13_en.wikipedia.org&uselang=en" title="support us">donate to wikipedia</a></li> 
+<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="visit the wikimedia shop">wikimedia shop</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label"> 
+<h3 id="p-interaction-label" tabindex="2"><a href="http://en.wikipedia.org/wiki/heapsort#" aria-haspopup="true" aria-controls="p-interaction-list" role="button" aria-pressed="true" aria-expanded="true">interaction</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-interaction-list"> 
+<li id="n-help"><a href="http://en.wikipedia.org/wiki/help:contents" title="guidance on how to use and edit wikipedia">help</a></li> 
+<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="find out about wikipedia">about wikipedia</a></li> 
+<li id="n-portal"><a href="http://en.wikipedia.org/wiki/wikipedia:community_portal" title="about the project, what you can do, where to find things">community portal</a></li> 
+<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/special:recentchanges" title="a list of recent changes in the wiki [ctrl-option-r]" accesskey="r">recent changes</a></li> 
+<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact page</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label"> 
+<h3 id="p-tb-label" tabindex="3"><a href="http://en.wikipedia.org/wiki/heapsort#" aria-haspopup="true" aria-controls="p-tb-list" role="button" aria-pressed="false" aria-expanded="false">tools</a></h3> 
+<div class="body"> 
+<ul id="p-tb-list"> 
+<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/special:whatlinkshere/heapsort" title="list of all english wikipedia pages containing links to this page [ctrl-option-j]" accesskey="j">what links here</a></li> 
+<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/special:recentchangeslinked/heapsort" title="recent changes in pages linked from this page [ctrl-option-k]" accesskey="k">related changes</a></li> 
+<li id="t-upload"><a href="http://en.wikipedia.org/wiki/wikipedia:file_upload_wizard" title="upload files [ctrl-option-u]" accesskey="u">upload file</a></li> 
+<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/special:specialpages" title="a list of all special pages [ctrl-option-q]" accesskey="q">special pages</a></li> 
+<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=heapsort&oldid=593507571" title="permanent link to this revision of the page">permanent link</a></li> 
+<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=heapsort&action=info">page information</a></li> 
+<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/q474095" title="link to connected data repository item [ctrl-option-g]" accesskey="g">data item</a></li> 
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=special:cite&page=heapsort&id=593507571" title="information on how to cite this page">cite this page</a></li>		</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label"> 
+<h3 id="p-coll-print_export-label" tabindex="4"><a href="http://en.wikipedia.org/wiki/heapsort#" aria-haspopup="true" aria-controls="p-coll-print_export-list" role="button" aria-pressed="false" aria-expanded="false">print/export</a></h3> 
+<div class="body"> 
+<ul id="p-coll-print_export-list"> 
+<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=book_creator&referer=heapsort">create a book</a></li> 
+<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=render_article&arttitle=heapsort&oldid=593507571&writer=rl">download as pdf</a></li> 
+<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=heapsort&printable=yes" title="printable version of this page [ctrl-option-p]" accesskey="p">printable version</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"> 
+<h3 id="p-lang-label" tabindex="5"><a href="http://en.wikipedia.org/wiki/heapsort#" aria-haspopup="true" aria-controls="p-lang-list" role="button" aria-pressed="true" aria-expanded="true">languages</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-lang-list"> 
+<li class="interlanguage-link interwiki-bg"><a href="http://bg.wikipedia.org/wiki/%d0%9f%d0%b8%d1%80%d0%b0%d0%bc%d0%b8%d0%b4%d0%b0%d0%bb%d0%bd%d0%be_%d1%81%d0%be%d1%80%d1%82%d0%b8%d1%80%d0%b0%d0%bd%d0%b5" title="пирамидално сортиране – bulgarian" lang="bg" hreflang="bg">български</a></li> 
+<li class="interlanguage-link interwiki-ca"><a href="http://ca.wikipedia.org/wiki/heapsort" title="heapsort – catalan" lang="ca" hreflang="ca">català</a></li> 
+<li class="interlanguage-link interwiki-cs"><a href="http://cs.wikipedia.org/wiki/%c5%98azen%c3%ad_haldou" title="řazení haldou – czech" lang="cs" hreflang="cs">čeština</a></li> 
+<li class="interlanguage-link interwiki-de"><a href="http://de.wikipedia.org/wiki/heapsort" title="heapsort – german" lang="de" hreflang="de">deutsch</a></li> 
+<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/heapsort" title="heapsort – spanish" lang="es" hreflang="es">español</a></li> 
+<li class="interlanguage-link interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%d9%85%d8%b1%d8%aa%d8%a8%e2%80%8c%d8%b3%d8%a7%d8%b2%db%8c_%d9%87%d8%b1%d9%85%db%8c" title="مرتب‌سازی هرمی – persian" lang="fa" hreflang="fa">فارسی</a></li> 
+<li class="interlanguage-link interwiki-fr"><a href="http://fr.wikipedia.org/wiki/tri_par_tas" title="tri par tas – french" lang="fr" hreflang="fr">français</a></li> 
+<li class="interlanguage-link interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%ed%9e%99_%ec%a0%95%eb%a0%ac" title="힙 정렬 – korean" lang="ko" hreflang="ko">한국어</a></li> 
+<li class="interlanguage-link interwiki-hy"><a href="http://hy.wikipedia.org/wiki/heapsort" title="heapsort – armenian" lang="hy" hreflang="hy">հայերեն</a></li> 
+<li class="interlanguage-link interwiki-is"><a href="http://is.wikipedia.org/wiki/hr%c3%bagur%c3%b6%c3%b0un" title="hrúguröðun – icelandic" lang="is" hreflang="is">íslenska</a></li> 
+<li class="interlanguage-link interwiki-it"><a href="http://it.wikipedia.org/wiki/heap_sort" title="heap sort – italian" lang="it" hreflang="it">italiano</a></li> 
+<li class="interlanguage-link interwiki-he"><a href="http://he.wikipedia.org/wiki/%d7%9e%d7%99%d7%95%d7%9f_%d7%a2%d7%a8%d7%99%d7%9e%d7%94" title="מיון ערימה – hebrew" lang="he" hreflang="he">עברית</a></li> 
+<li class="interlanguage-link interwiki-lb"><a href="http://lb.wikipedia.org/wiki/heapsort" title="heapsort – luxembourgish" lang="lb" hreflang="lb">lëtzebuergesch</a></li> 
+<li class="interlanguage-link interwiki-lt"><a href="http://lt.wikipedia.org/wiki/kr%c5%abvos_rikiavimo_algoritmas" title="krūvos rikiavimo algoritmas – lithuanian" lang="lt" hreflang="lt">lietuvių</a></li> 
+<li class="interlanguage-link interwiki-hu"><a href="http://hu.wikipedia.org/wiki/kupacrendez%c3%a9s" title="kupacrendezés – hungarian" lang="hu" hreflang="hu">magyar</a></li> 
+<li class="interlanguage-link interwiki-ml"><a href="http://ml.wikipedia.org/wiki/%e0%b4%b9%e0%b5%80%e0%b4%aa%e0%b5%8d_%e0%b4%b8%e0%b5%8b%e0%b5%bc%e0%b4%9f%e0%b5%8d%e0%b4%9f%e0%b5%8d" title="ഹീപ് സോർട്ട് – malayalam" lang="ml" hreflang="ml">മലയാളം</a></li> 
+<li class="interlanguage-link interwiki-nl"><a href="http://nl.wikipedia.org/wiki/heapsort" title="heapsort – dutch" lang="nl" hreflang="nl">nederlands</a></li> 
+<li class="interlanguage-link interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%e3%83%92%e3%83%bc%e3%83%97%e3%82%bd%e3%83%bc%e3%83%88" title="ヒープソート – japanese" lang="ja" hreflang="ja">日本語</a></li> 
+<li class="interlanguage-link interwiki-no"><a href="http://no.wikipedia.org/wiki/sorteringsalgoritme#heap_sort" title="sorteringsalgoritme – norwegian (bokmål)" lang="no" hreflang="no">norsk bokmål</a></li> 
+<li class="interlanguage-link interwiki-pl"><a href="http://pl.wikipedia.org/wiki/sortowanie_przez_kopcowanie" title="sortowanie przez kopcowanie – polish" lang="pl" hreflang="pl">polski</a></li> 
+<li class="interlanguage-link interwiki-pt"><a href="http://pt.wikipedia.org/wiki/heapsort" title="heapsort – portuguese" lang="pt" hreflang="pt">português</a></li> 
+<li class="interlanguage-link interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%d0%9f%d0%b8%d1%80%d0%b0%d0%bc%d0%b8%d0%b4%d0%b0%d0%bb%d1%8c%d0%bd%d0%b0%d1%8f_%d1%81%d0%be%d1%80%d1%82%d0%b8%d1%80%d0%be%d0%b2%d0%ba%d0%b0" title="пирамидальная сортировка – russian" lang="ru" hreflang="ru">русский</a></li> 
+<li class="interlanguage-link interwiki-sl"><a href="http://sl.wikipedia.org/wiki/urejanje_s_kopico" title="urejanje s kopico – slovenian" lang="sl" hreflang="sl">slovenščina</a></li> 
+<li class="interlanguage-link interwiki-sr"><a href="http://sr.wikipedia.org/wiki/hipsort" title="hipsort – serbian" lang="sr" hreflang="sr">српски / srpski</a></li> 
+<li class="interlanguage-link interwiki-tr"><a href="http://tr.wikipedia.org/wiki/y%c4%b1%c4%9f%c4%b1n_s%c4%b1ralamas%c4%b1" title="yığın sıralaması – turkish" lang="tr" hreflang="tr">türkçe</a></li> 
+<li class="interlanguage-link interwiki-uk"><a href="http://uk.wikipedia.org/wiki/%d0%9f%d1%96%d1%80%d0%b0%d0%bc%d1%96%d0%b4%d0%b0%d0%bb%d1%8c%d0%bd%d0%b5_%d1%81%d0%be%d1%80%d1%82%d1%83%d0%b2%d0%b0%d0%bd%d0%bd%d1%8f" title="пірамідальне сортування – ukrainian" lang="uk" hreflang="uk">українська</a></li> 
+<li class="interlanguage-link interwiki-vi"><a href="http://vi.wikipedia.org/wiki/s%e1%ba%afp_x%e1%ba%bfp_vun_%c4%91%e1%bb%91ng" title="sắp xếp vun đống – vietnamese" lang="vi" hreflang="vi">tiếng việt</a></li> 
+<li class="interlanguage-link interwiki-zh"><a href="http://zh.wikipedia.org/wiki/%e5%a0%86%e6%8e%92%e5%ba%8f" title="堆排序 – chinese" lang="zh" hreflang="zh">中文</a></li> 
+<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/q474095#sitelinks-wikipedia" title="edit interlanguage links">edit links</a></li> 
+</ul> 
+</div> 
+</div> 
+</div> 
+</div> 
+<div id="footer" role="contentinfo"> 
+<ul id="footer-info"> 
+<li id="footer-info-lastmod"> this page was last modified on 2 february 2014 at 00:02.<br></li> 
+<li id="footer-info-copyright">text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/wikipedia:text_of_creative_commons_attribution-sharealike_3.0_unported_license">creative commons attribution-sharealike license</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>; 
+additional terms may apply.  by using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/terms_of_use">terms of use</a> and <a href="http://wikimediafoundation.org/wiki/privacy_policy">privacy policy.</a> <br> 
+wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">wikimedia foundation, inc.</a>, a non-profit organization.</li> 
+</ul> 
+<ul id="footer-places"> 
+<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/privacy_policy" title="wikimedia:privacy policy">privacy policy</a></li> 
+<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="wikipedia:about">about wikipedia</a></li> 
+<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/wikipedia:general_disclaimer" title="wikipedia:general disclaimer">disclaimers</a></li> 
+<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact wikipedia</a></li> 
+<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/special:mylanguage/how_to_contribute">developers</a></li> 
+<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/heapsort" class="noprint stopmobileredirecttoggle">mobile view</a></li> 
+</ul> 
+<ul id="footer-icons" class="noprint"> 
+<li id="footer-copyrightico"> 
+<a href="http://wikimediafoundation.org/"><img src="./heapsort_files/wikimedia-button.png" width="88" height="31" alt="wikimedia foundation"></a> 
+</li> 
+<li id="footer-poweredbyico"> 
+<a href="http://www.mediawiki.org/"><img src="./heapsort_files/poweredby_mediawiki_88x31.png" alt="powered by mediawiki" width="88" height="31"></a> 
+</li> 
+</ul> 
+<div style="clear:both"></div> 
+</div> 
+<script>/*<![cdata[*/window.jquery && jquery.ready();/*]]>*/</script><script>if(window.mw){ 
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"}); 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postedit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchsuggest","ext.gadget.teahouse","ext.gadget.referencetooltips","ext.gadget.drn-wizard","ext.gadget.charinsert","mw.mwembedsupport.style","ext.articlefeedbackv5.startup","ext.wikimediashoplink.core","ext.navigationtiming","skins.vector.collapsiblenav"],null,true); 
+}</script> 
+<script src="./heapsort_files/load(2).php"></script> 
+<!-- served by mw1169 in 0.179 secs. --> 
+ 
+ 
+<div class="suggestions" style="display: none; font-size: 12.800000190734863px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html> 

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://en.wikipedia.org/wiki/Strassen_algorithm -->
+<html lang="en" dir="ltr" class="client-js ve-not-available"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8"><title>Strassen algorithm - Wikipedia, the free encyclopedia</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE"><meta name="generator" content="MediaWiki 1.23wmf11">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Strassen_algorithm&action=edit">
+<link rel="edit" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Strassen_algorithm&action=edit">
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png">
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="Wikipedia (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom feed" href="http://en.wikipedia.org/w/index.php?title=Special:RecentChanges&feed=atom">
+<link rel="canonical" href="./strassen_files/strassen.html">
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.DRN-wizard%2CReferenceTooltips%2Ccharinsert%2Cteahouse%7Cext.rtlcite%2Cwikihiero%7Cext.visualEditor.viewPageTarget.noscript%7Cmediawiki.legacy.commonPrint%2Cshared%7Cskins.common.interface%7Cskins.vector.styles&only=styles&skin=vector&*">
+<style>
+@-webkit-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-webkit-transform:translateY(-20px)}100%{opacity:1;-webkit-transform:translateY(0)}}@-moz-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-moz-transform:translateY(-20px)}100%{opacity:1;-moz-transform:translateY(0)}}@-o-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-o-transform:translateY(-20px)}100%{opacity:1;-o-transform:translateY(0)}}@keyframes centralAuthPPersonalAnimation{0%{opacity:0;transform:translateY(-20px)}100%{opacity:1;transform:translateY(0)}}.centralAuthPPersonalAnimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralAuthPPersonalAnimation;-moz-animation-name:centralAuthPPersonalAnimation;-o-animation-name:centralAuthPPersonalAnimation;animation-name:centralAuthPPersonalAnimation}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAD1BMVEUZAAD///95eXmqqqrY2NjEIQ0cAAAAAXRSTlMAQObYZgAAACdJREFUCNdjYGBgYGIAASUFENNJCUiqmADZTM5OqExFFZAKRSG4YgBjcwODynSgDwAAAABJRU5ErkJggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/Wikibase/client/resources/images/WBC-Asset-Pencil.png?2014-01-16T16:20:00Z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAD1BMVEWBAADY2Nj///8GRa0zZrtW2AECAAAAAXRSTlMAQObYZgAAACdJREFUCNdjYGBgYGYAAWMDEFPYGEgaOgLZzCLCqEwjQ5AKI2W4YgBg5QOTQPzBuAAAAABJRU5ErkJggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/Wikibase/client/resources/images/WBC-Asset-Pencil-Hover.png?2014-01-16T16:20:00Z)!ie;color:#0645AD !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a963c9df079c8688d25d769892467b5c */
+@media print{#centralNotice{display:none}}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */</style><style>
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABblBMVEUAAAD///////9PfTf///80aRdTgjn///9Feij///////////9Rfzf///////////9PfjZRgDh1o1xOfTb///////+bwYqLtnj///////9PfTa82K////9WhT6YxIL///9QgDdTgzr////////j7uDl7eLq8efi693k7OH///////9UhjuBr2rp9uRUhjr///9YljVKgir///9WiTlYjT3////9/v57vFlbkT5PjC9dlD/5/fhuq09stUTs9uhxuElctCpfnT1huDFloEZloUZmpENmvDZpvDxpvTxqvjxrvT5rvT9rwTxsqktswD5uwkBvuUdxw0NztFBztU9ztVBzwkp0tlJ1xkd2t1R3uVR4w1F4xk54x014yE15uVZ5v1R5xVB6v1R7yFJ8wVh9xVl9yFR9yVd9ylN+xVh+yFd/x1l/yFeAylmEx1+Ny2uY0Hqe04Wj1Ymv3Ze33qLD47TJ5L3O6cPU7Mrq9eb2+/Q4j37OAAAAQHRSTlMAAQIEBAUFBQwPFB4fJCUoKiosQEhJS01RUlZZXmdydXaChYuSlJSWmJmoq6uur8LExcvM19fg5ejt8fX2+Pr7SljgewAAAKpJREFUGBkFwQNCAwAAAMDLtl3LtrG4rWXbtvX77gAgZ6grFwC0bhwNVgKgdPZx8b0dgLi+s7Wn0VoAqpfOI9+BNADZI7fLrz2pSEwGHZuH+78lSK8ZLkLezF3ooyUG3VPXq2USei9WngeyoG195yBYWDF3E/2pAhl1e9Gr8bGT+bfOFCC2fnvh4X7rcqIAQNNu+HT6sxkAjceTL/2ZAIhv+PorBwBJxfkA//dFHSCBy/UTAAAAAElFTkSuQmCC);background-image:url(//bits.wikimedia.org/static-1.23wmf11/resources/mediawiki.action/images/green-checkmark.png?2014-01-16T16:15:00Z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:c897cc6a31411b48f47191422cf15c4a */
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4C59A6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#F7F7F7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #F7F7F7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.RTflipped{padding-top:13px}.referencetooltip.RTflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.RTflipped li+li::after{border-top:0;border-bottom:8px #F7F7F7 solid;position:absolute;margin-top:7px}.RTsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/Cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.RTsettings:hover{opacity:1;filter:alpha(opacity=100)}.RTTarget{border:#080086 2px solid}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playerContainer{overflow:hidden;position:relative;height:100%;background:#000}#videoHolder{position:relative;overflow:hidden}.fullscreen #playerContainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwEmbedPlayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayHTML a:visited{color:white}.loadingSpinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/loading_ani.gif?2014-01-16T16:18:20Z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-01-16T16:18:20Z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button.png?2014-01-16T16:18:20Z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button_hover.png?2014-01-16T16:18:20Z)}.carouselContainer{position :absolute;width :100%;z-index :2}.carouselVideoTitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselVideoTitleText{display :block;padding :10px 10px 10px 20px}.carouselTitleDuration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5A5A5A;color :#D9D9D9;font-size :smaller;z-index :2}.carouselImgTitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselImgDuration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselPrevButton,.carouselNextButton{display :block;position :absolute;bottom:23px}.carouselPrevButton{left :5px}.carouselNextButton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#E6E6E6;padding :5px;border-bottom :1px solid #D1D1D1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:40fb0cce50b2525059dbe7ac545e3c42 */</style><style>
+.suggestions a.mw-searchSuggest-link,.suggestions a.mw-searchSuggest-link:hover,.suggestions a.mw-searchSuggest-link:active,.suggestions a.mw-searchSuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchSuggest-link,.suggestions-result-current a.mw-searchSuggest-link:hover,.suggestions-result-current a.mw-searchSuggest-link:active,.suggestions-result-current a.mw-searchSuggest-link:focus{color:white}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=site&only=styles&skin=vector&*">
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style>
+
+<script src="./strassen_files/load.php"></script><script src="./strassen_files/load(1).php"></script><style title="spinjs"></style>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Strassen_algorithm","wgTitle":"Strassen algorithm","wgCurRevisionId":589584518,"wgRevisionId":589584518,"wgArticleId":771965,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Numerical linear algebra"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Strassen_algorithm","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":false,"previewDialog":false,"publish":false,"toc":false},"wgArticleFeedbackv5Permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgBetaFeaturesFeatures":[],"wgVisualEditor":{"isPageWatched":false,"magnifyClipIconURL":"//bits.wikimedia.org/static-1.23wmf11/skins/common/images/magnify-clip.png","pageLanguageCode":"en","pageLanguageDir":"ltr"},"wikilove-recipient":"","wikilove-anon":0,"wgGuidedTourHelpGuiderUrl":"Help:Guided tours/guider","wgULSAcceptLanguageList":["en-us","en","ko"],"wgULSCurrentAutonym":"English","wgFlaggedRevsParams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgStableRevisionId":null,"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","Geo":{"city":"","country":""},"wgNoticeProject":"wikipedia","aftv5Article":{"id":771965,"title":"Strassen algorithm","namespace":0,"categories":["Numerical linear algebra"],"permissionLevel":false},"wgWikibaseItemId":"Q728507"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,
+"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true,
+"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","uls-enable":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,
+"searchNs100":false,"searchNs101":false,"searchNs108":false,"searchNs109":false,"searchNs118":false,"searchNs119":false,"searchNs446":false,"searchNs447":false,"searchNs710":false,"searchNs711":false,"searchNs828":false,"searchNs829":false,"gadget-teahouse":1,"gadget-ReferenceTooltips":1,"gadget-DRN-wizard":1,"gadget-charinsert":1,"gadget-mySandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: enwiki:resourceloader:filter:minify-js:7:264b5b04c69e37444d5b2d63c2a65dc9 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualEditor.viewPageTarget.init","wikibase.client.init","ext.centralNotice.bannerController","skins.vector.js"]);
+}</script>
+<script src="./strassen_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf11/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Strassen_algorithm skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<div id="siteNotice"><div id="centralNotice"></div><!-- CentralNotice --></div>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Strassen algorithm</span></h1>
+			<div id="bodyContent">
+								<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="http://en.wikipedia.org/wiki/Strassen_algorithm#mw-navigation">navigation</a>, 					<a href="http://en.wikipedia.org/wiki/Strassen_algorithm#p-search">search</a>
+				</div>
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="dablink">Not to be confused with the <a href="http://en.wikipedia.org/wiki/Sch%C3%B6nhage%E2%80%93Strassen_algorithm" title="Schönhage–Strassen algorithm">Schönhage–Strassen algorithm</a> for multiplication of polynomials.</div>
+<p>In the <a href="http://en.wikipedia.org/wiki/Mathematics" title="Mathematics">mathematical</a> discipline of <a href="http://en.wikipedia.org/wiki/Linear_algebra" title="Linear algebra">linear algebra</a>, <b>the Strassen algorithm</b>, named after <a href="http://en.wikipedia.org/wiki/Volker_Strassen" title="Volker Strassen">Volker Strassen</a>, is an <a href="http://en.wikipedia.org/wiki/Algorithm" title="Algorithm">algorithm</a> used for <a href="http://en.wikipedia.org/wiki/Matrix_multiplication" title="Matrix multiplication">matrix multiplication</a>. It is faster than the standard matrix multiplication algorithm and is useful in practice for large matrices, but would be slower than <a href="http://en.wikipedia.org/wiki/Coppersmith%E2%80%93Winograd_algorithm" title="Coppersmith–Winograd algorithm">the fastest known algorithm</a> for extremely large matrices.</p>
+<p></p>
+<div id="toc" class="toc">
+<div id="toctitle">
+<h2>Contents</h2>
+<span class="toctoggle">&nbsp;[<a href="http://en.wikipedia.org/wiki/Strassen_algorithm#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#History"><span class="tocnumber">1</span> <span class="toctext">History</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#Algorithm"><span class="tocnumber">2</span> <span class="toctext">Algorithm</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#Asymptotic_complexity"><span class="tocnumber">3</span> <span class="toctext">Asymptotic complexity</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#Rank_or_bilinear_complexity"><span class="tocnumber">3.1</span> <span class="toctext">Rank or bilinear complexity</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#References"><span class="tocnumber">5</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#External_links"><span class="tocnumber">6</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+<p></p>
+<h2><span class="mw-headline" id="History">History</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Strassen_algorithm&action=edit&section=1" title="Edit section: History">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p><a href="http://en.wikipedia.org/wiki/Volker_Strassen" title="Volker Strassen">Volker Strassen</a> published the Strassen algorithm in 1969. Although his algorithm is only slightly faster than the standard algorithm for matrix multiplication, he was the first to point out that the standard approach is not optimal. His paper started the search for even faster algorithms such as the more complex <a href="http://en.wikipedia.org/wiki/Coppersmith%E2%80%93Winograd_algorithm" title="Coppersmith–Winograd algorithm">Coppersmith–Winograd algorithm</a> published in 1987.</p>
+<h2><span class="mw-headline" id="Algorithm">Algorithm</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Strassen_algorithm&action=edit&section=2" title="Edit section: Algorithm">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="thumb tright">
+<div class="thumbinner" style="width:802px;"><a href="http://en.wikipedia.org/wiki/File:Strassen_algorithm.svg" class="image"><img alt="" src="./strassen_files/1600px-Strassen_algorithm.svg.png" width="800" height="264" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Strassen_algorithm.svg/1200px-Strassen_algorithm.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Strassen_algorithm.svg/1600px-Strassen_algorithm.svg.png 2x"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/File:Strassen_algorithm.svg" class="internal" title="Enlarge"><img src="./strassen_files/magnify-clip.png" width="15" height="11" alt=""></a></div>
+The left column represents 2x2 <a href="http://en.wikipedia.org/wiki/Matrix_multiplication" title="Matrix multiplication">matrix multiplication</a>. Naïve matrix multiplication requires one multiplication for each "1" of the left column. Each of the other columns represents a single one of the 7 multiplications in the algorithm, and the sum of the columns gives the full matrix multiplication on the left.</div>
+</div>
+</div>
+<p>Let <i>A</i>, <i>B</i> be two <a href="http://en.wikipedia.org/wiki/Square_matrix" title="Square matrix">square matrices</a> over a <a href="http://en.wikipedia.org/wiki/Ring_(mathematics)" title="Ring (mathematics)">ring</a> <i>R</i>. We want to calculate the matrix product <i>C</i> as</p>
+<dl>
+<dd><img class="tex" alt="\mathbf{C} = \mathbf{A} \mathbf{B} \qquad \mathbf{A},\mathbf{B},\mathbf{C} \in R^{2^n \times 2^n}" src="./strassen_files/20760895a5c89b0cb367b983cc990ab4.png"></dd>
+</dl>
+<p>If the matrices <i>A</i>, <i>B</i> are not of type 2<sup>n</sup> x 2<sup>n</sup> we fill the missing rows and columns with zeros.</p>
+<p>We partition <i>A</i>, <i>B</i> and <i>C</i> into equally sized <a href="http://en.wikipedia.org/wiki/Block_matrix" title="Block matrix">block matrices</a></p>
+<dl>
+<dd><img class="tex" alt=" 
+\mathbf{A} =
+\begin{bmatrix}
+\mathbf{A}_{1,1} &amp; \mathbf{A}_{1,2} \\
+\mathbf{A}_{2,1} &amp; \mathbf{A}_{2,2}
+\end{bmatrix}
+\mbox { , }
+\mathbf{B} =
+\begin{bmatrix}
+\mathbf{B}_{1,1} &amp; \mathbf{B}_{1,2} \\
+\mathbf{B}_{2,1} &amp; \mathbf{B}_{2,2}
+\end{bmatrix}
+\mbox { , }
+\mathbf{C} =
+\begin{bmatrix}
+\mathbf{C}_{1,1} &amp; \mathbf{C}_{1,2} \\
+\mathbf{C}_{2,1} &amp; \mathbf{C}_{2,2}
+\end{bmatrix}
+" src="./strassen_files/080cf4ea03f581c879d1d5282582bc2a.png"></dd>
+</dl>
+<p>with</p>
+<dl>
+<dd><img class="tex" alt="\mathbf{A}_{i,j}, \mathbf{B}_{i,j}, \mathbf{C}_{i,j} \in R^{2^{n-1} \times 2^{n-1}}" src="./strassen_files/8119cddeefd3e13f53f5563eb81a97ca.png"></dd>
+</dl>
+<p>then</p>
+<dl>
+<dd><img class="tex" alt="\mathbf{C}_{1,1} = \mathbf{A}_{1,1} \mathbf{B}_{1,1} + \mathbf{A}_{1,2} \mathbf{B}_{2,1} " src="./strassen_files/9dd7b38ef386a3c048dfc7d380a6f339.png"></dd>
+<dd><img class="tex" alt="\mathbf{C}_{1,2} = \mathbf{A}_{1,1} \mathbf{B}_{1,2} + \mathbf{A}_{1,2} \mathbf{B}_{2,2} " src="./strassen_files/517151c1387064d3902fc7f749c2edd3.png"></dd>
+<dd><img class="tex" alt="\mathbf{C}_{2,1} = \mathbf{A}_{2,1} \mathbf{B}_{1,1} + \mathbf{A}_{2,2} \mathbf{B}_{2,1} " src="./strassen_files/98816449d19f98ba0abfe11e624c44b7.png"></dd>
+<dd><img class="tex" alt="\mathbf{C}_{2,2} = \mathbf{A}_{2,1} \mathbf{B}_{1,2} + \mathbf{A}_{2,2} \mathbf{B}_{2,2} " src="./strassen_files/01250ab3b9e14a14b553ab57a6b34831.png"></dd>
+</dl>
+<p>With this construction we have not reduced the number of multiplications. We still need 8 multiplications to calculate the <i>C<sub>i,j</sub></i> matrices, the same number of multiplications we need when using standard matrix multiplication.</p>
+<p>Now comes the important part. We define new matrices</p>
+<dl>
+<dd><img class="tex" alt="\mathbf{M}_{1} := (\mathbf{A}_{1,1} + \mathbf{A}_{2,2}) (\mathbf{B}_{1,1} + \mathbf{B}_{2,2})" src="./strassen_files/3708df7afb211a7176aff37f31f563f5.png"></dd>
+<dd><img class="tex" alt="\mathbf{M}_{2} := (\mathbf{A}_{2,1} + \mathbf{A}_{2,2}) \mathbf{B}_{1,1}" src="./strassen_files/ed7c1412dbd43428620fdf6a1eee26ed.png"></dd>
+<dd><img class="tex" alt="\mathbf{M}_{3} := \mathbf{A}_{1,1} (\mathbf{B}_{1,2} - \mathbf{B}_{2,2})" src="./strassen_files/0a0c681167a2d5d4f1443f650f438dc1.png"></dd>
+<dd><img class="tex" alt="\mathbf{M}_{4} := \mathbf{A}_{2,2} (\mathbf{B}_{2,1} - \mathbf{B}_{1,1})" src="./strassen_files/1d202612ebfaa569a337adcdde0306a1.png"></dd>
+<dd><img class="tex" alt="\mathbf{M}_{5} := (\mathbf{A}_{1,1} + \mathbf{A}_{1,2}) \mathbf{B}_{2,2}" src="./strassen_files/998e674ff5dce301968933e89505891a.png"></dd>
+<dd><img class="tex" alt="\mathbf{M}_{6} := (\mathbf{A}_{2,1} - \mathbf{A}_{1,1}) (\mathbf{B}_{1,1} + \mathbf{B}_{1,2})" src="./strassen_files/4f06c398a4862fae1825f247bcc4ec55.png"></dd>
+<dd><img class="tex" alt="\mathbf{M}_{7} := (\mathbf{A}_{1,2} - \mathbf{A}_{2,2}) (\mathbf{B}_{2,1} + \mathbf{B}_{2,2})" src="./strassen_files/4ab1ef3bfedec31703561150578ab96e.png"></dd>
+</dl>
+<p>only using 7 multiplications (one for each <i>M</i><sub>k</sub>) instead of 8. We may now express the <i>C</i><sub>i,j</sub> in terms of <i>M</i><sub>k</sub>, like this:</p>
+<dl>
+<dd><img class="tex" alt="\mathbf{C}_{1,1} = \mathbf{M}_{1} + \mathbf{M}_{4} - \mathbf{M}_{5} + \mathbf{M}_{7}" src="./strassen_files/035520f6f1c9f5508fcfe7842ec91d52.png"></dd>
+<dd><img class="tex" alt="\mathbf{C}_{1,2} = \mathbf{M}_{3} + \mathbf{M}_{5}" src="./strassen_files/00c7641c7e7a111370a38e91771721fa.png"></dd>
+<dd><img class="tex" alt="\mathbf{C}_{2,1} = \mathbf{M}_{2} + \mathbf{M}_{4}" src="./strassen_files/5aec9f42e50f89ea6160e64e704ea9e3.png"></dd>
+<dd><img class="tex" alt="\mathbf{C}_{2,2} = \mathbf{M}_{1} - \mathbf{M}_{2} + \mathbf{M}_{3} + \mathbf{M}_{6}" src="./strassen_files/156e59e2ea5121f49c2dfb0348a12531.png"></dd>
+</dl>
+<p>We iterate this division process <i>n</i> times (recursively) until the <a href="http://en.wikipedia.org/wiki/Submatrices" title="Submatrices" class="mw-redirect">submatrices</a> degenerate into numbers (elements of the ring <i>R</i>). The resulting product will be padded with zeroes just like <i>A</i> and <i>B</i>, and should be stripped of the corresponding rows and columns.</p>
+<p>Practical implementations of Strassen's algorithm switch to standard methods of matrix multiplication for small enough submatrices, for which those algorithms are more efficient. The particular crossover point for which Strassen's algorithm is more efficient depends on the specific implementation and hardware. Earlier authors had estimated that Strassen's algorithm is faster for matrices with widths from 32 to 128 for optimized implementations.<sup id="cite_ref-1" class="reference"><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#cite_note-1"><span>[</span>1<span>]</span></a></sup> However, it has been observed that this crossover point has been increasing in recent years, and a 2010 study found that even a single step of Strassen's algorithm is often not beneficial on current architectures, compared to a highly optimized traditional multiplication, until matrix sizes exceed 1000 or more, and even for matrix sizes of several thousand the benefit is typically marginal at best (around 10% or less).<sup id="cite_ref-2" class="reference"><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#cite_note-2"><span>[</span>2<span>]</span></a></sup></p>
+<h2><span class="mw-headline" id="Asymptotic_complexity">Asymptotic complexity</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Strassen_algorithm&action=edit&section=3" title="Edit section: Asymptotic complexity">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>The standard matrix multiplication takes approximately 2<i>N</i><sup>3</sup> (where <i>N</i>&nbsp;=&nbsp;2<sup><i>n</i></sup>) arithmetic operations (additions and multiplications); the asymptotic complexity is O(<i>N</i><sup>3</sup>).</p>
+<p>The number of additions and multiplications required in the Strassen algorithm can be calculated as follows: let <i>f</i>(<i>n</i>) be the number of operations for a 2<sup><i>n</i></sup>&nbsp;×&nbsp;2<sup><i>n</i></sup> matrix. Then by recursive application of the Strassen algorithm, we see that <i>f</i>(<i>n</i>)&nbsp;=&nbsp;7<i>f</i>(<i>n</i>-1)&nbsp;+&nbsp;<i>l</i>4<sup><i>n</i></sup>, for some constant <i>l</i> that depends on the number of additions performed at each application of the algorithm. Hence <i>f</i>(<i>n</i>)&nbsp;=&nbsp;(7&nbsp;+&nbsp;o(1))<sup><i>n</i></sup>, i.e., the asymptotic complexity for multiplying matrices of size <i>N</i>&nbsp;=&nbsp;2<sup><i>n</i></sup> using the Strassen algorithm is</p>
+<dl>
+<dd><img class="tex" alt="O([7+o(1)]^n) = O(N^{\log_{2}7+o(1)}) \approx O(N^{2.8074})" src="./strassen_files/e664cc8d3b5277ab54d63b3c687713e5.png">.</dd>
+</dl>
+<p>The reduction in the number of arithmetic operations however comes at the price of a somewhat reduced <a href="http://en.wikipedia.org/wiki/Numerical_stability" title="Numerical stability">numerical stability</a>,<sup id="cite_ref-3" class="reference"><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#cite_note-3"><span>[</span>3<span>]</span></a></sup>and the algorithm also requires significantly more memory compared to the naive algorithm. Both initial matrices must have their dimensions expanded to the next power of 2, which results in storing up to four times as many elements, and the seven auxiliary matrices each contain a quarter of the elements in the expanded ones.</p>
+<h3><span class="mw-headline" id="Rank_or_bilinear_complexity">Rank or bilinear complexity</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Strassen_algorithm&action=edit&section=4" title="Edit section: Rank or bilinear complexity">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The bilinear complexity or <b>rank</b> of a <a href="http://en.wikipedia.org/wiki/Bilinear_map" title="Bilinear map">bilinear map</a> is an important concept in the asymptotic complexity of matrix multiplication. The rank of a bilinear map <img class="tex" alt="\phi:\mathbf A \times \mathbf B \rightarrow \mathbf C" src="./strassen_files/b50a8fd0696899d4cea0030db209fb7b.png"> over a field <b>F</b> is defined as (somewhat of an <a href="http://en.wikipedia.org/wiki/Abuse_of_notation" title="Abuse of notation">abuse of notation</a>)</p>
+<dl>
+<dd><img class="tex" alt="R(\phi/\mathbf F) = \min \left\{r\left|\exists f_i\in \mathbf A^*,g_i\in\mathbf B^*,w_i\in\mathbf C , \forall \mathbf a\in\mathbf A, \mathbf b\in\mathbf B, \phi(\mathbf a,\mathbf b) = \sum_{i=1}^r f_i(\mathbf a)g_i(\mathbf b)w_i \right.\right\}" src="./strassen_files/e5bb659d11b1540a8c5093b770411c12.png"></dd>
+</dl>
+<p>In other words, the rank of a bilinear map is the length of its shortest bilinear computation.<sup id="cite_ref-4" class="reference"><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#cite_note-4"><span>[</span>4<span>]</span></a></sup> The existence of Strassen's algorithm shows that the rank of 2×2 matrix multiplication is no more than seven. To see this, let us express this algorithm (alongside the standard algorithm) as such a bilinear computation. In the case of matrices, the <a href="http://en.wikipedia.org/wiki/Dual_space" title="Dual space">dual spaces</a> <b>A</b>* and <b>B</b>* consist of maps into the field <b>F</b> induced by a scalar <b><a href="http://en.wikipedia.org/wiki/Dot_product" title="Dot product">double-dot product</a></b>, (i.e. in this case the sum of all the entries of a <a href="http://en.wikipedia.org/wiki/Hadamard_product_(matrices)" title="Hadamard product (matrices)">Hadamard product</a>.)</p>
+<table class="wikitable">
+<tbody><tr>
+<td></td>
+<td colspan="3">Standard algorithm</td>
+<td></td>
+<td colspan="3">Strassen algorithm</td>
+</tr>
+<tr>
+<td><i>i</i></td>
+<td><i>f<sub>i</sub></i>(<b>a</b>)</td>
+<td><i>g<sub>i</sub></i>(<b>b</b>)</td>
+<td><i>w<sub>i</sub></i></td>
+<td></td>
+<td><i>f<sub>i</sub></i>(<b>a</b>)</td>
+<td><i>g<sub>i</sub></i>(<b>b</b>)</td>
+<td><i>w<sub>i</sub></i></td>
+</tr>
+<tr>
+<td>1</td>
+<td><img class="tex" alt="\begin{bmatrix}1&amp;0\\0&amp;0\end{bmatrix}:\mathbf a" src="./strassen_files/624d3add201cef0f2b426c0d77cbd012.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}1&amp;0\\0&amp;0\end{bmatrix}:\mathbf b" src="./strassen_files/1aa3b29545910f8954c587e712c3cf56.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}1&amp;0\\0&amp;0\end{bmatrix}" src="./strassen_files/f7d87b2b07fc819140d1a20efb414a7f.png"></td>
+<td></td>
+<td><img class="tex" alt="\begin{bmatrix}1&amp;0\\0&amp;1\end{bmatrix}:\mathbf a" src="./strassen_files/3e8e32039683b235488efb1d02e2ab95.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}1&amp;0\\0&amp;1\end{bmatrix}:\mathbf b" src="./strassen_files/5ce072a5fa49d0ef0da651efa2bed86f.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}1&amp;0\\0&amp;1\end{bmatrix}" src="./strassen_files/6c7f254e08cd4431743eb7dfb49f9296.png"></td>
+</tr>
+<tr>
+<td>2</td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;1\\0&amp;0\end{bmatrix}:\mathbf a" src="./strassen_files/c40872a2dfb1d548ee7bdc10412190a6.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\1&amp;0\end{bmatrix}:\mathbf b" src="./strassen_files/0b42658d4ab560b4ac86c24277de5b8a.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}1&amp;0\\0&amp;0\end{bmatrix}" src="./strassen_files/f7d87b2b07fc819140d1a20efb414a7f.png"></td>
+<td></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\1&amp;1\end{bmatrix}:\mathbf a" src="./strassen_files/0a6cb764ed55ae2a8a29441f3375b318.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}1&amp;0\\0&amp;0\end{bmatrix}:\mathbf b" src="./strassen_files/1aa3b29545910f8954c587e712c3cf56.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\1&amp;-1\end{bmatrix}" src="./strassen_files/816039e26e80f3a2d3bc16b1799489e9.png"></td>
+</tr>
+<tr>
+<td>3</td>
+<td><img class="tex" alt="\begin{bmatrix}1&amp;0\\0&amp;0\end{bmatrix}:\mathbf a" src="./strassen_files/624d3add201cef0f2b426c0d77cbd012.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;1\\0&amp;0\end{bmatrix}:\mathbf b" src="./strassen_files/236fa35f4df51ce4e72fda7b8eb25685.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;1\\0&amp;0\end{bmatrix}" src="./strassen_files/ce11eed72255716905edc577b53eb406.png"></td>
+<td></td>
+<td><img class="tex" alt="\begin{bmatrix}1&amp;0\\0&amp;0\end{bmatrix}:\mathbf a" src="./strassen_files/624d3add201cef0f2b426c0d77cbd012.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;1\\0&amp;-1\end{bmatrix}:\mathbf b" src="./strassen_files/8391c1cfe42bf4b95b567d9d0648be3b.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;1\\0&amp;1\end{bmatrix}" src="./strassen_files/18356c897616cd7cf99cace7b5473626.png"></td>
+</tr>
+<tr>
+<td>4</td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;1\\0&amp;0\end{bmatrix}:\mathbf a" src="./strassen_files/c40872a2dfb1d548ee7bdc10412190a6.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\0&amp;1\end{bmatrix}:\mathbf b" src="./strassen_files/64ee1c6b518417b2b602c78377ec0635.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;1\\0&amp;0\end{bmatrix}" src="./strassen_files/ce11eed72255716905edc577b53eb406.png"></td>
+<td></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\0&amp;1\end{bmatrix}:\mathbf a" src="./strassen_files/c624723385906690f4bb2818f7800293.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}-1&amp;0\\1&amp;0\end{bmatrix}:\mathbf b" src="./strassen_files/11c91832bbb03f14a76755566d53c77b.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}1&amp;0\\1&amp;0\end{bmatrix}" src="./strassen_files/c388befff0860732fe370dafe2b41632.png"></td>
+</tr>
+<tr>
+<td>5</td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\1&amp;0\end{bmatrix}:\mathbf a" src="./strassen_files/39c56fc04585ac94844a3c5467ab74be.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}1&amp;0\\0&amp;0\end{bmatrix}:\mathbf b" src="./strassen_files/1aa3b29545910f8954c587e712c3cf56.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\1&amp;0\end{bmatrix}" src="./strassen_files/1fef4d1d0f0f453da804d9cf1d129cf1.png"></td>
+<td></td>
+<td><img class="tex" alt="\begin{bmatrix}1&amp;1\\0&amp;0\end{bmatrix}:\mathbf a" src="./strassen_files/fa673d7f3e4931959aeed020581bf3d5.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\0&amp;1\end{bmatrix}:\mathbf b" src="./strassen_files/64ee1c6b518417b2b602c78377ec0635.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}-1&amp;1\\0&amp;0\end{bmatrix}" src="./strassen_files/08a0a4d767d61dc493d665399bf117f8.png"></td>
+</tr>
+<tr>
+<td>6</td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\0&amp;1\end{bmatrix}:\mathbf a" src="./strassen_files/c624723385906690f4bb2818f7800293.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\1&amp;0\end{bmatrix}:\mathbf b" src="./strassen_files/0b42658d4ab560b4ac86c24277de5b8a.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\1&amp;0\end{bmatrix}" src="./strassen_files/1fef4d1d0f0f453da804d9cf1d129cf1.png"></td>
+<td></td>
+<td><img class="tex" alt="\begin{bmatrix}-1&amp;0\\1&amp;0\end{bmatrix}:\mathbf a" src="./strassen_files/786096580ac3f9edd914a013b807179e.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}1&amp;1\\0&amp;0\end{bmatrix}:\mathbf b" src="./strassen_files/8de54cb4f423f3b30c04b207579e530f.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\0&amp;1\end{bmatrix}" src="./strassen_files/ee2025f6dc1651c5445129d521d58230.png"></td>
+</tr>
+<tr>
+<td>7</td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\1&amp;0\end{bmatrix}:\mathbf a" src="./strassen_files/39c56fc04585ac94844a3c5467ab74be.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;1\\0&amp;0\end{bmatrix}:\mathbf b" src="./strassen_files/236fa35f4df51ce4e72fda7b8eb25685.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\0&amp;1\end{bmatrix}" src="./strassen_files/ee2025f6dc1651c5445129d521d58230.png"></td>
+<td></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;1\\0&amp;-1\end{bmatrix}:\mathbf a" src="./strassen_files/48803a680018a6fe2672b8a00b21c12e.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\1&amp;1\end{bmatrix}:\mathbf b" src="./strassen_files/096fd6c13c5f7397f8ad3aac21004ead.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}1&amp;0\\0&amp;0\end{bmatrix}" src="./strassen_files/f7d87b2b07fc819140d1a20efb414a7f.png"></td>
+</tr>
+<tr>
+<td>8</td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\0&amp;1\end{bmatrix}:\mathbf a" src="./strassen_files/c624723385906690f4bb2818f7800293.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\0&amp;1\end{bmatrix}:\mathbf b" src="./strassen_files/64ee1c6b518417b2b602c78377ec0635.png"></td>
+<td><img class="tex" alt="\begin{bmatrix}0&amp;0\\0&amp;1\end{bmatrix}" src="./strassen_files/ee2025f6dc1651c5445129d521d58230.png"></td>
+<td></td>
+<td colspan="3"></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3"><img class="tex" alt="\mathbf a\mathbf b = \sum_{i=1}^8 f_i(\mathbf a)g_i(\mathbf b)w_i" src="./strassen_files/2dba87f888b4339b2a321aad5e13a40b.png"></td>
+<td></td>
+<td colspan="3"><img class="tex" alt="\mathbf a\mathbf b = \sum_{i=1}^7 f_i(\mathbf a)g_i(\mathbf b)w_i" src="./strassen_files/10911b84098e3edfa8803a92ce518e59.png"></td>
+</tr>
+</tbody></table>
+<p>It can be shown that the total number of elementary multiplications <i>L</i> required for matrix multiplication is tightly asymptotically bound to the rank <i>R</i>, i.e. <img class="tex" alt="L = \Theta(R)" src="./strassen_files/37b7298961336dd1a012ef42c610b535.png">, or more specifically, since the constants are known, <img class="tex" alt="\frac 1 2 R\le L\le R." src="./strassen_files/64b966c1628cc48e6fc23d9578956060.png"> One useful property of the rank is that it is submultiplicative for <a href="http://en.wikipedia.org/wiki/Tensor_product" title="Tensor product">tensor products</a>, and this enables one to show that 2<sup><i>n</i></sup>×2<sup><i>n</i></sup>×2<sup><i>n</i></sup> matrix multiplication can be accomplished with no more than 7<sup><i>n</i></sup> elementary multiplications for any <i>n</i>. (This <i>n</i>-fold tensor product of the 2×2×2 matrix multiplication map with itself—an <i>n</i>th tensor power—is realized by the recursive step in the algorithm shown.)</p>
+<h2><span class="mw-headline" id="See_also">See also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Strassen_algorithm&action=edit&section=5" title="Edit section: See also">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Computational_complexity_of_mathematical_operations" title="Computational complexity of mathematical operations">Computational complexity of mathematical operations</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Gauss%E2%80%93Jordan_elimination" title="Gauss–Jordan elimination" class="mw-redirect">Gauss–Jordan elimination</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Coppersmith%E2%80%93Winograd_algorithm" title="Coppersmith–Winograd algorithm">Coppersmith–Winograd algorithm</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Z-order_(curve)" title="Z-order (curve)" class="mw-redirect">Z-order matrix representation</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Karatsuba_algorithm" title="Karatsuba algorithm">Karatsuba algorithm</a>, for multiplying <i>n</i>-digit integers in <img class="tex" alt="O(n^{\log_2 3})" src="./strassen_files/afb447a7bcf68d53382a81484f5e5575.png"> instead of in <img class="tex" alt="O(n^2)" src="./strassen_files/189317b4b935a745fcfaf95940d2b4f0.png"> time</li>
+<li><a href="http://en.wikipedia.org/wiki/Multiplication_algorithm#Gauss.27s_complex_multiplication_algorithm" title="Multiplication algorithm">Gauss's complex multiplication algorithm</a> multiplies two complex numbers using 3 real multiplications instead of 4</li>
+</ul>
+<h2><span class="mw-headline" id="References">References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Strassen_algorithm&action=edit&section=6" title="Edit section: References">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#cite_ref-1"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span id="CITEREFSkiena1998" class="citation">Skiena, Steven S. (1998), "§8.2.3 Matrix multiplication", <i>The Algorithm Design Manual</i>, Berlin, New York: <a href="http://en.wikipedia.org/wiki/Springer-Verlag" title="Springer-Verlag" class="mw-redirect">Springer-Verlag</a>, <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/978-0-387-94860-7" title="Special:BookSources/978-0-387-94860-7">978-0-387-94860-7</a></span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AStrassen+algorithm&amp;rft.atitle=The+Algorithm+Design+Manual&amp;rft.aufirst=Steven+S.&amp;rft.aulast=Skiena&amp;rft.au=Skiena%2C+Steven+S.&amp;rft.btitle=%C2%A78.2.3+Matrix+multiplication&amp;rft.date=1998&amp;rft.genre=bookitem&amp;rft.isbn=978-0-387-94860-7&amp;rft.place=Berlin%2C+New+York&amp;rft.pub=Springer-Verlag&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span>.</span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#cite_ref-2"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text">P. D'Alberto and A. Nicolau, "<a rel="nofollow" class="external text" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.84.1894">Using recursion to boost ATLAS's performance</a>," <i>Lecture Notes in Computer Science</i>, vol. 4759, pp. 142-151 (2010).</span></li>
+<li id="cite_note-3"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#cite_ref-3"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span class="citation journal">Webb, Miller (1975). "Computational complexity and numerical stability". <i>SIAM J. Comput</i>: 97-107.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AStrassen+algorithm&amp;rft.atitle=Computational+complexity+and+numerical+stability&amp;rft.aufirst=Miller&amp;rft.aulast=Webb&amp;rft.au=Webb%2C+Miller&amp;rft.date=1975&amp;rft.genre=article&amp;rft.jtitle=SIAM+J.+Comput&amp;rft.pages=97-107&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-4"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#cite_ref-4"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text">Burgisser, Clausen, and Shokrollahi. <i>Algebraic Complexity Theory.</i> Springer-Verlag 1997.</span></li>
+</ol>
+<ul>
+<li>Strassen, Volker, <i>Gaussian Elimination is not Optimal</i>, Numer. Math. 13, p. 354-356, 1969</li>
+<li><a href="http://en.wikipedia.org/wiki/Thomas_H._Cormen" title="Thomas H. Cormen">Thomas H. Cormen</a>, <a href="http://en.wikipedia.org/wiki/Charles_E._Leiserson" title="Charles E. Leiserson">Charles E. Leiserson</a>, <a href="http://en.wikipedia.org/wiki/Ronald_L._Rivest" title="Ronald L. Rivest" class="mw-redirect">Ronald L. Rivest</a>, and <a href="http://en.wikipedia.org/wiki/Clifford_Stein" title="Clifford Stein">Clifford Stein</a>. <i><a href="http://en.wikipedia.org/wiki/Introduction_to_Algorithms" title="Introduction to Algorithms">Introduction to Algorithms</a></i>, Second Edition. MIT Press and McGraw-Hill, 2001. <a href="http://en.wikipedia.org/wiki/Special:BookSources/0262032937" class="internal mw-magiclink-isbn">ISBN 0-262-03293-7</a>. Chapter 28: Section 28.2: Strassen's algorithm for matrix multiplication, pp.735–741.</li>
+</ul>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Strassen_algorithm&action=edit&section=7" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><span class="citation mathworld" id="Reference-Mathworld-Strassen.27s_Formulas"><a href="http://en.wikipedia.org/wiki/Eric_W._Weisstein" title="Eric W. Weisstein">Weisstein, Eric W.</a>, "<a rel="nofollow" class="external text" href="http://mathworld.wolfram.com/StrassenFormulas.html">Strassen's Formulas</a>", <i><a href="http://en.wikipedia.org/wiki/MathWorld" title="MathWorld">MathWorld</a></i>.</span> (also includes formulas for fast <a href="http://en.wikipedia.org/wiki/Matrix_inversion" title="Matrix inversion" class="mw-redirect">matrix inversion</a>)</li>
+<li>Tyler J. Earnest, <i><a rel="nofollow" class="external text" href="http://www.mc2.umbc.edu/docs/earnest.pdf">Strassen's Algorithm on the Cell Broadband Engine</a></i></li>
+</ul>
+<ul>
+<li><i><a rel="nofollow" class="external text" href="http://gitorious.org/intelws2010/matrix-multiplication/blobs/master/src/matmul.c">Simple Strassen's algorithms implementation in C</a> (easy for education purposes)</i></li>
+</ul>
+<ul>
+<li><i><a rel="nofollow" class="external text" href="http://www.cs.huji.ac.il/~omrif01/Strassen">Simple Strassen's algorithms implementation in Java</a></i></li>
+</ul>
+<table cellspacing="0" class="navbox" style="border-spacing:0;">
+<tbody><tr>
+<td style="padding:2px;">
+<table cellspacing="0" class="nowraplinks collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" id="collapsibleTable0">
+<tbody><tr>
+<th scope="col" class="navbox-title" colspan="2"><span class="collapseButton">[<a id="collapseButton0" href="http://en.wikipedia.org/wiki/Strassen_algorithm#">hide</a>]</span>
+<div class="plainlinks hlist navbar mini">
+<ul>
+<li class="nv-view"><a href="http://en.wikipedia.org/wiki/Template:Numerical_linear_algebra" title="Template:Numerical linear algebra"><span title="View this template" style=";;background:none transparent;border:none;;">v</span></a></li>
+<li class="nv-talk"><a href="http://en.wikipedia.org/wiki/Template_talk:Numerical_linear_algebra" title="Template talk:Numerical linear algebra"><span title="Discuss this template" style=";;background:none transparent;border:none;;">t</span></a></li>
+<li class="nv-edit"><a class="external text" href="http://en.wikipedia.org/w/index.php?title=Template:Numerical_linear_algebra&action=edit"><span title="Edit this template" style=";;background:none transparent;border:none;;">e</span></a></li>
+</ul>
+</div>
+<div style="font-size:110%;"><a href="http://en.wikipedia.org/wiki/Numerical_linear_algebra" title="Numerical linear algebra">Numerical linear algebra</a></div>
+</th>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Key concepts</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Floating_point" title="Floating point">Floating point</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Numerical_stability" title="Numerical stability">Numerical stability</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms" title="Basic Linear Algebra Subprograms">BLAS</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Problems</th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Matrix_multiplication" title="Matrix multiplication">Matrix multiplication</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Matrix_decomposition" title="Matrix decomposition">Matrix decompositions</a></li>
+<li><a href="http://en.wikipedia.org/wiki/System_of_linear_equations" title="System of linear equations">Linear equations</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Sparse_matrix" title="Sparse matrix">Sparse problems</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Hardware</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/CPU_cache" title="CPU cache">CPU cache</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Translation_lookaside_buffer" title="Translation lookaside buffer">TLB</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Cache-oblivious_algorithm" title="Cache-oblivious algorithm">Cache-oblivious algorithm</a></li>
+<li><a href="http://en.wikipedia.org/wiki/SIMD" title="SIMD">SIMD</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Multiprocessing" title="Multiprocessing">Multiprocessing</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Software</th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Comparison_of_linear_algebra_libraries" title="Comparison of linear algebra libraries">Specialized libraries</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Comparison_of_numerical_analysis_software" title="Comparison of numerical analysis software">General purpose software</a></li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+
+
+<!-- 
+NewPP limit report
+Parsed by mw1195
+CPU time usage: 0.396 seconds
+Real time usage: 0.472 seconds
+Preprocessor visited node count: 928/1000000
+Preprocessor generated node count: 3447/1500000
+Post‐expand include size: 11672/2048000 bytes
+Template argument size: 225/2048000 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 2/500
+Lua time usage: 0.034s
+Lua memory usage: 1.17 MB
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:771965-0!0!0!!en!4!* and timestamp 20140107105046
+ -->
+<noscript>&lt;img src="//en.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /&gt;</noscript></div>								<div class="printfooter">
+				Retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=Strassen_algorithm&oldid=589584518">http://en.wikipedia.org/w/index.php?title=Strassen_algorithm&amp;oldid=589584518</a>"				</div>
+												<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/Help:Category" title="Help:Category">Categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/Category:Numerical_linear_algebra" title="Category:Numerical linear algebra">Numerical linear algebra</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&returnto=Strassen+algorithm&type=signup">Create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&returnto=Strassen+algorithm" title="You&#39;re encouraged to log in; however, it&#39;s not mandatory. [ctrl-option-o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><span><a href="./strassen_files/strassen.html" title="View the content page [ctrl-option-c]" accesskey="c">Article</a></span></li>
+					<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/Talk:Strassen_algorithm" title="Discussion about the content page [ctrl-option-t]" accesskey="t">Talk</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label" tabindex="0"><span>Variants</span><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#" tabindex="-1"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="./strassen_files/strassen.html">Read</a></span></li>
+					<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=Strassen_algorithm&action=edit" title="You can edit this page. 
+Please review your changes before saving. [ctrl-option-e]" accesskey="e">Edit</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=Strassen_algorithm&action=history" title="Past versions of this page [ctrl-option-h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label" tabindex="0"><span>Actions</span><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#" tabindex="-1"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="http://en.wikipedia.org/w/index.php" id="searchform">
+				<div id="simpleSearch">
+						<input name="search" placeholder="Search" title="Search Wikipedia [ctrl-option-f]" accesskey="f" id="searchInput" tabindex="1" autocomplete="off">						<button type="submit" name="button" title="Search Wikipedia for this text" id="searchButton"><img src="./strassen_files/search-ltr.png" alt="Search" width="12" height="13"></button>								<input type="hidden" name="title" value="Special:Search">
+		</div>
+	</form>
+</div>
+				</div>
+			</div>
+			<div id="mw-panel" class="collapsible-nav">
+					<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png);" href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page"></a></div>
+				<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label">
+	<h3 id="p-navigation-label">Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page [ctrl-option-z]" accesskey="z">Main page</a></li>
+			<li id="n-contents"><a href="http://en.wikipedia.org/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li>
+			<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li>
+			<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li>
+			<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/Special:Random" title="Load a random article [ctrl-option-x]" accesskey="x">Random article</a></li>
+			<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&utm_medium=sidebar&utm_campaign=C13_en.wikipedia.org&uselang=en" title="Support us">Donate to Wikipedia</a></li>
+			<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="Visit the Wikimedia Shop">Wikimedia Shop</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label">
+	<h3 id="p-interaction-label" tabindex="2"><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#" aria-haspopup="true" aria-controls="p-interaction-list" role="button" aria-pressed="true" aria-expanded="true">Interaction</a></h3>
+	<div class="body" style="display: block;">
+		<ul id="p-interaction-list">
+			<li id="n-help"><a href="http://en.wikipedia.org/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li>
+			<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li>
+			<li id="n-portal"><a href="http://en.wikipedia.org/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+			<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [ctrl-option-r]" accesskey="r">Recent changes</a></li>
+			<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+	<h3 id="p-tb-label" tabindex="3"><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#" aria-haspopup="true" aria-controls="p-tb-list" role="button" aria-pressed="false" aria-expanded="false">Tools</a></h3>
+	<div class="body">
+		<ul id="p-tb-list">
+			<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/Special:WhatLinksHere/Strassen_algorithm" title="List of all English Wikipedia pages containing links to this page [ctrl-option-j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/Special:RecentChangesLinked/Strassen_algorithm" title="Recent changes in pages linked from this page [ctrl-option-k]" accesskey="k">Related changes</a></li>
+			<li id="t-upload"><a href="http://en.wikipedia.org/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [ctrl-option-u]" accesskey="u">Upload file</a></li>
+			<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/Special:SpecialPages" title="A list of all special pages [ctrl-option-q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=Strassen_algorithm&oldid=589584518" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=Strassen_algorithm&action=info">Page information</a></li>
+			<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/Q728507" title="Link to connected data repository item [ctrl-option-g]" accesskey="g">Data item</a></li>
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=Special:Cite&page=Strassen_algorithm&id=589584518" title="Information on how to cite this page">Cite this page</a></li>		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label">
+	<h3 id="p-coll-print_export-label" tabindex="4"><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#" aria-haspopup="true" aria-controls="p-coll-print_export-list" role="button" aria-pressed="false" aria-expanded="false">Print/export</a></h3>
+	<div class="body">
+		<ul id="p-coll-print_export-list">
+			<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&bookcmd=book_creator&referer=Strassen+algorithm">Create a book</a></li>
+			<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&bookcmd=render_article&arttitle=Strassen+algorithm&oldid=589584518&writer=rl">Download as PDF</a></li>
+			<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=Strassen_algorithm&printable=yes" title="Printable version of this page [ctrl-option-p]" accesskey="p">Printable version</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label">
+	<h3 id="p-lang-label" tabindex="5"><a href="http://en.wikipedia.org/wiki/Strassen_algorithm#" aria-haspopup="true" aria-controls="p-lang-list" role="button" aria-pressed="true" aria-expanded="true">Languages</a></h3>
+	<div class="body" style="display: block;">
+		<ul id="p-lang-list">
+			<li class="interlanguage-link interwiki-bg"><a href="http://bg.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D1%8A%D0%BC_%D0%BD%D0%B0_%D0%A9%D1%80%D0%B0%D1%81%D0%B5%D0%BD" title="Алгоритъм на Щрасен – Bulgarian" lang="bg" hreflang="bg">Български</a></li>
+			<li class="interlanguage-link interwiki-cs"><a href="http://cs.wikipedia.org/wiki/Strassen%C5%AFv_algoritmus" title="Strassenův algoritmus – Czech" lang="cs" hreflang="cs">Čeština</a></li>
+			<li class="interlanguage-link interwiki-de"><a href="http://de.wikipedia.org/wiki/Strassen-Algorithmus" title="Strassen-Algorithmus – German" lang="de" hreflang="de">Deutsch</a></li>
+			<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/Algoritmo_de_Strassen" title="Algoritmo de Strassen – Spanish" lang="es" hreflang="es">Español</a></li>
+			<li class="interlanguage-link interwiki-eo"><a href="http://eo.wikipedia.org/wiki/Algoritmo_de_Strassen" title="Algoritmo de Strassen – Esperanto" lang="eo" hreflang="eo">Esperanto</a></li>
+			<li class="interlanguage-link interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%D8%A7%D9%84%DA%AF%D9%88%D8%B1%DB%8C%D8%AA%D9%85_%D8%A7%D8%B3%D8%AA%D8%B1%D8%A7%D8%B3%D9%86" title="الگوریتم استراسن – Persian" lang="fa" hreflang="fa">فارسی</a></li>
+			<li class="interlanguage-link interwiki-fr"><a href="http://fr.wikipedia.org/wiki/Algorithme_de_Strassen" title="Algorithme de Strassen – French" lang="fr" hreflang="fr">Français</a></li>
+			<li class="interlanguage-link interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%EC%8A%88%ED%8A%B8%EB%9D%BC%EC%84%BC_%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98" title="슈트라센 알고리즘 – Korean" lang="ko" hreflang="ko">한국어</a></li>
+			<li class="interlanguage-link interwiki-id"><a href="http://id.wikipedia.org/wiki/Algoritma_Strassen" title="Algoritma Strassen – Indonesian" lang="id" hreflang="id">Bahasa Indonesia</a></li>
+			<li class="interlanguage-link interwiki-it"><a href="http://it.wikipedia.org/wiki/Algoritmo_di_Strassen" title="Algoritmo di Strassen – Italian" lang="it" hreflang="it">Italiano</a></li>
+			<li class="interlanguage-link interwiki-hu"><a href="http://hu.wikipedia.org/wiki/Strassen-algoritmus" title="Strassen-algoritmus – Hungarian" lang="hu" hreflang="hu">Magyar</a></li>
+			<li class="interlanguage-link interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%A5%E3%83%88%E3%83%A9%E3%83%83%E3%82%BB%E3%83%B3%E3%81%AE%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0" title="シュトラッセンのアルゴリズム – Japanese" lang="ja" hreflang="ja">日本語</a></li>
+			<li class="interlanguage-link interwiki-pl"><a href="http://pl.wikipedia.org/wiki/Algorytm_Strassena" title="Algorytm Strassena – Polish" lang="pl" hreflang="pl">Polski</a></li>
+			<li class="interlanguage-link interwiki-pt"><a href="http://pt.wikipedia.org/wiki/Algoritmo_de_Strassen" title="Algoritmo de Strassen – Portuguese" lang="pt" hreflang="pt">Português</a></li>
+			<li class="interlanguage-link interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%A8%D1%82%D1%80%D0%B0%D1%81%D1%81%D0%B5%D0%BD%D0%B0" title="Алгоритм Штрассена – Russian" lang="ru" hreflang="ru">Русский</a></li>
+			<li class="interlanguage-link interwiki-sk"><a href="http://sk.wikipedia.org/wiki/Strassenov_algoritmus" title="Strassenov algoritmus – Slovak" lang="sk" hreflang="sk">Slovenčina</a></li>
+			<li class="interlanguage-link interwiki-zh"><a href="http://zh.wikipedia.org/wiki/%E6%96%BD%E7%89%B9%E6%8B%89%E6%A3%AE%E6%BC%94%E7%AE%97%E6%B3%95" title="施特拉森演算法 – Chinese" lang="zh" hreflang="zh">中文</a></li>
+			<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/Q728507#sitelinks-wikipedia" title="Edit interlanguage links">Edit links</a></li>
+		</ul>
+	</div>
+</div>
+			</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 7 January 2014 at 10:50.<br></li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+additional terms may apply.  By using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="http://wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy.</a> <br>
+Wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/Privacy_policy" title="wikimedia:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+											<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+											<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/Strassen_algorithm" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://wikimediafoundation.org/"><img src="./strassen_files/wikimedia-button.png" width="88" height="31" alt="Wikimedia Foundation"></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="./strassen_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.gadget.DRN-wizard","ext.gadget.charinsert","mw.MwEmbedSupport.style","ext.articleFeedbackv5.startup","ext.wikimediaShopLink.core","ext.navigationTiming","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="./strassen_files/load(2).php"></script>
+<!-- Served by mw1080 in 0.167 secs. -->
+	
+
+<div class="suggestions" style="display: none; font-size: 12.800000190734863px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html>

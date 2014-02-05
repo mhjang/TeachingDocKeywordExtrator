@@ -1,0 +1,569 @@
+<!doctype html> 
+<!-- saved from url=(0039)http://en.wikipedia.org/wiki/bucketsort --> 
+<html lang="en" dir="ltr" class="client-js ve-not-available"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+<meta charset="utf-8"><title>bucket sort - wikipedia, the free encyclopedia</title> 
+<meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="generator" content="mediawiki 1.23wmf11"> 
+<link rel="alternate" type="application/x-wiki" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=bucket_sort&action=edit"> 
+<link rel="edit" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=bucket_sort&action=edit"> 
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png"> 
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico"> 
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="wikipedia (en)"> 
+<link rel="edituri" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd"> 
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/"> 
+<link rel="alternate" type="application/atom+xml" title="wikipedia atom feed" href="http://en.wikipedia.org/w/index.php?title=special:recentchanges&feed=atom"> 
+<link rel="canonical" href="http://en.wikipedia.org/wiki/bucket_sort"> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.drn-wizard%2creferencetooltips%2ccharinsert%2cteahouse%7cext.rtlcite%2cwikihiero%7cext.visualeditor.viewpagetarget.noscript%7cmediawiki.legacy.commonprint%2cshared%7cskins.common.interface%7cskins.vector.styles&only=styles&skin=vector&*"> 
+<style> 
+@-webkit-keyframes centralauthppersonalanimation{0%{opacity:0;-webkit-transform:translatey(-20px)}100%{opacity:1;-webkit-transform:translatey(0)}}@-moz-keyframes centralauthppersonalanimation{0%{opacity:0;-moz-transform:translatey(-20px)}100%{opacity:1;-moz-transform:translatey(0)}}@-o-keyframes centralauthppersonalanimation{0%{opacity:0;-o-transform:translatey(-20px)}100%{opacity:1;-o-transform:translatey(0)}}@keyframes centralauthppersonalanimation{0%{opacity:0;transform:translatey(-20px)}100%{opacity:1;transform:translatey(0)}}.centralauthppersonalanimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralauthppersonalanimation;-moz-animation-name:centralauthppersonalanimation;-o-animation-name:centralauthppersonalanimation;animation-name:centralauthppersonalanimation} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */ 
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */ 
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmveuzaad///95exmqqqry2njeiq0caaaaaxrstlmaqobyzgaaacdjrefucndjygbgygiaasufennjcuiqmadztm5oqexffzakrsg4ygbjcwodynsgdwaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil.png?2014-01-16t16:20:00z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmvewbaady2nj///8gra0zzrtw2aecaaaaaxrstlmaqobyzgaaacdjrefucndjygbgygyaawmdefpygegaoglzzclcqewjq5aki2w4ygbg5qotqpzbuaaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil-hover.png?2014-01-16t16:20:00z)!ie;color:#0645ad !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a963c9df079c8688d25d769892467b5c */ 
+@media print{#centralnotice{display:none}} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */</style><style> 
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */ 
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaabaaaaaqcamaaaaolq9taaabblbmveuaaad///////9pftf///80ardtgjn///9feij///////////9rfzf///////////9pfjzrgdh1o1xoftb///////+bwyqltnj///////9pfta82k////9wht6yxil///9qgddtgzr////////j7udl7elq8efi693k7oh///////9uhjubr2rp9uruhjr///9yljvkgir///9witlyjt3////9/v57vflbkt5pjc9dld/5/fhuq09stuts9uhxuelctcpfnt1hudfloezlouzmpenmvdzpvdxpvtxqvjxrvt5rvt9rwtxsqktswd5uwkbvuudxw0nztfbztu9ztvbzwkp0tlj1xkd2t1r3uvr4w1f4xk54x014ye15uvz5v1r5xvb6v1r7yfj8wvh9xvl9yfr9yvd9yln+xvh+yfd/x1l/yfeaylmex1+ny2uy0hqe04wj1ymv3ze33qld47tj5l3o6cpu7mrq9eb2+/q4j37oaaaaqhrstlmaaqiebaufbqwpfb4fjcuokiosqehjs01rulzzxmdydxachyusljswmjmoq6uur8lexcvm19fg5ejt8fx2+pr7sljgewaaakpjrefugbkfwqncawaaamdltl3ltrg4rwxbtvx77gagz6grfwc0bhwnvgkgdpzx8b0dgli+s7wn0voaqpfoi9+bnadzi7flrz2psewghzuh+78lsk8zlklezf3ooyug3vpxq2usei9wngeyog195ybywdf3e/2pahl1e9gr8bgt+bfofcc2fnvh4x7rcqiaqnnu+ht6sxkajcetl/2zaihv+porbwbjxfka//dfhscby/utaaaaaelftksuqmcc);background-image:url(//bits.wikimedia.org/static-1.23wmf11/resources/mediawiki.action/images/green-checkmark.png?2014-01-16t16:15:00z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:c897cc6a31411b48f47191422cf15c4a */ 
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */ 
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4c59a6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */ 
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */ 
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#f7f7f7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #f7f7f7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.rtflipped{padding-top:13px}.referencetooltip.rtflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.rtflipped li+li::after{border-top:0;border-bottom:8px #f7f7f7 solid;position:absolute;margin-top:7px}.rtsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.rtsettings:hover{opacity:1;filter:alpha(opacity=100)}.rttarget{border:#080086 2px solid} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */ 
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */ 
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playercontainer{overflow:hidden;position:relative;height:100%;background:#000}#videoholder{position:relative;overflow:hidden}.fullscreen #playercontainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwembedplayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayhtml a:visited{color:white}.loadingspinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/loading_ani.gif?2014-01-16t16:18:20z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-01-16t16:18:20z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button.png?2014-01-16t16:18:20z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button_hover.png?2014-01-16t16:18:20z)}.carouselcontainer{position :absolute;width :100%;z-index :2}.carouselvideotitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselvideotitletext{display :block;padding :10px 10px 10px 20px}.carouseltitleduration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5a5a5a;color :#d9d9d9;font-size :smaller;z-index :2}.carouselimgtitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselimgduration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselprevbutton,.carouselnextbutton{display :block;position :absolute;bottom:23px}.carouselprevbutton{left :5px}.carouselnextbutton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#e6e6e6;padding :5px;border-bottom :1px solid #d1d1d1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:40fb0cce50b2525059dbe7ac545e3c42 */</style><style> 
+.suggestions a.mw-searchsuggest-link,.suggestions a.mw-searchsuggest-link:hover,.suggestions a.mw-searchsuggest-link:active,.suggestions a.mw-searchsuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchsuggest-link,.suggestions-result-current a.mw-searchsuggest-link:hover,.suggestions-result-current a.mw-searchsuggest-link:active,.suggestions-result-current a.mw-searchsuggest-link:focus{color:white} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="resourceloaderdynamicstyles" content=""> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=site&only=styles&skin=vector&*"> 
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style> 
+ 
+<script src="./bucketsort_files/load.php"></script><script src="./bucketsort_files/load(1).php"></script><style title="spinjs"></style> 
+<script>if(window.mw){ 
+mw.config.set({"wgcanonicalnamespace":"","wgcanonicalspecialpagename":false,"wgnamespacenumber":0,"wgpagename":"bucket_sort","wgtitle":"bucket sort","wgcurrevisionid":592492002,"wgrevisionid":592492002,"wgarticleid":97592,"wgisarticle":true,"wgisredirect":false,"wgaction":"view","wgusername":null,"wgusergroups":["*"],"wgcategories":["articles needing expert attention with no reason or talk parameter","articles needing expert attention from november 2008","all articles needing expert attention","computer science articles needing expert attention","miscellaneous articles needing expert attention","sorting algorithms","stable sorts","articles with example pseudocode"],"wgbreakframes":false,"wgpagecontentlanguage":"en","wgpagecontentmodel":"wikitext","wgseparatortransformtable":["",""],"wgdigittransformtable":["",""],"wgdefaultdateformat":"dmy","wgmonthnames":["","january","february","march","april","may","june","july","august","september","october","november","december"],"wgmonthnamesshort":["","jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"],"wgrelevantpagename":"bucket_sort","wgisprobablyeditable":true,"wgrestrictionedit":[],"wgrestrictionmove":[],"wgredirectedfrom":"bucketsort","wgwikieditorenabledmodules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateeditor":false,"templates":false,"preview":false,"previewdialog":false,"publish":false,"toc":false},"wgarticlefeedbackv5permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgbetafeaturesfeatures":[],"wgvisualeditor":{"ispagewatched":false,"magnifyclipiconurl":"//bits.wikimedia.org/static-1.23wmf11/skins/common/images/magnify-clip.png","pagelanguagecode":"en","pagelanguagedir":"ltr"},"wikilove-recipient":"","wikilove-anon":0,"wgguidedtourhelpguiderurl":"help:guided tours/guider","wgulsacceptlanguagelist":["en-us","en","ko"],"wgulscurrentautonym":"english","wgflaggedrevsparams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgstablerevisionid":null,"wgcategorytreepagecategoryoptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","geo":{"city":"","country":""},"wgnoticeproject":"wikipedia","aftv5article":{"id":97592,"title":"bucket sort","namespace":0,"categories":["all articles needing expert attention","articles needing expert attention from november 2008","articles needing expert attention with no reason or talk parameter","articles with example pseudocode","computer science articles needing expert attention","miscellaneous articles needing expert attention","sorting algorithms","stable sorts"],"permissionlevel":false},"wgwikibaseitemid":"q6787153"}); 
+}</script><script>if(window.mw){ 
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0, 
+"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true, 
+"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","uls-enable":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchns0":true,"searchns1":false,"searchns2":false,"searchns3":false,"searchns4":false,"searchns5":false,"searchns6":false,"searchns7":false,"searchns8":false,"searchns9":false,"searchns10":false,"searchns11":false,"searchns12":false,"searchns13":false,"searchns14":false,"searchns15":false, 
+"searchns100":false,"searchns101":false,"searchns108":false,"searchns109":false,"searchns118":false,"searchns119":false,"searchns446":false,"searchns447":false,"searchns710":false,"searchns711":false,"searchns828":false,"searchns829":false,"gadget-teahouse":1,"gadget-referencetooltips":1,"gadget-drn-wizard":1,"gadget-charinsert":1,"gadget-mysandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"edittoken":"+\\","patroltoken":false,"watchtoken":false});},{},{}); 
+/* cache key: enwiki:resourceloader:filter:minify-js:7:264b5b04c69e37444d5b2d63c2a65dc9 */ 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualeditor.viewpagetarget.init","wikibase.client.init","ext.centralnotice.bannercontroller","skins.vector.js"]); 
+}</script> 
+<script src="./bucketsort_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt ie 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf11/skins/vector/csshover.min.htc")}</style><![endif]--></head> 
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-bucket_sort skin-vector action-view vector-animatelayout"> 
+<div id="mw-page-base" class="noprint"></div> 
+<div id="mw-head-base" class="noprint"></div> 
+<div id="content" class="mw-body" role="main"> 
+<a id="top"></a> 
+<div id="mw-js-message" style="display:none;"></div> 
+<div id="sitenotice"><div id="centralnotice"></div><!-- centralnotice --></div> 
+<h1 id="firstheading" class="firstheading" lang="en"><span dir="auto">bucket sort</span></h1> 
+<div id="bodycontent"> 
+<div id="sitesub">from wikipedia, the free encyclopedia</div> 
+<div id="contentsub">&nbsp;&nbsp;(redirected from <a href="http://en.wikipedia.org/w/index.php?title=bucketsort&redirect=no" title="bucketsort">bucketsort</a>)</div> 
+<div id="jump-to-nav" class="mw-jump"> 
+jump to:					<a href="http://en.wikipedia.org/wiki/bucketsort#mw-navigation">navigation</a>, 					<a href="http://en.wikipedia.org/wiki/bucketsort#p-search">search</a> 
+</div> 
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table class="infobox" cellspacing="3" style="border-spacing:3px;width:22em;"> 
+<caption>bucket sort</caption> 
+<tbody><tr> 
+<th scope="row" style="text-align:left;">class</th> 
+<td><a href="http://en.wikipedia.org/wiki/sorting_algorithm" title="sorting algorithm">sorting algorithm</a></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;">data structure</th> 
+<td><a href="http://en.wikipedia.org/wiki/array_data_structure" title="array data structure">array</a></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;"><a href="http://en.wikipedia.org/wiki/best,_worst_and_average_case" title="best, worst and average case">worst case performance</a></th> 
+<td><img class="tex" alt="o(n^2)" src="./bucketsort_files/189317b4b935a745fcfaf95940d2b4f0.png"></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;"><a href="http://en.wikipedia.org/wiki/best,_worst_and_average_case" title="best, worst and average case">average case performance</a></th> 
+<td><img class="tex" alt="o(n+k)" src="./bucketsort_files/63c5d99ffd0943799b20f31944fa09a7.png"></td> 
+</tr> 
+<tr> 
+<th scope="row" style="text-align:left;"><a href="http://en.wikipedia.org/wiki/best,_worst_and_average_case" title="best, worst and average case">worst case space complexity</a></th> 
+<td><img class="tex" alt="o(n\cdot k)" src="./bucketsort_files/e1043dd26d986fb2b6f28524e214a4dc.png"></td> 
+</tr> 
+</tbody></table> 
+<table class="metadata plainlinks ambox ambox-content" role="presentation"> 
+<tbody><tr> 
+<td class="mbox-image"> 
+<div style="width:52px;"><img alt="" src="./bucketsort_files/ambox_content.png" width="40" height="40"></div> 
+</td> 
+<td class="mbox-text"><span class="mbox-text-span">this article <b>needs attention from an expert in computer science</b>. <span class="hide-when-compact">please add a <i>reason</i> or a <i>talk</i> parameter to this template to explain the issue with the article. <a href="http://en.wikipedia.org/wiki/wikipedia:wikiproject_computer_science" title="wikipedia:wikiproject computer science">wikiproject computer science</a> (or its <a href="http://en.wikipedia.org/wiki/wikipedia:p" title="wikipedia:p" class="mw-redirect">portal</a>) may be able to help recruit an expert.</span> <small><i>(november 2008)</i></small></span></td> 
+</tr> 
+</tbody></table> 
+<div class="thumb tright"> 
+<div class="thumbinner" style="width:313px;"><a href="http://en.wikipedia.org/wiki/file:bucket_sort_1.png" class="image"><img alt="" src="./bucketsort_files/bucket_sort_1.png" width="311" height="131" class="thumbimage"></a> 
+<div class="thumbcaption">elements are distributed among bins</div> 
+</div> 
+</div> 
+<div class="thumb tright"> 
+<div class="thumbinner" style="width:313px;"><a href="http://en.wikipedia.org/wiki/file:bucket_sort_2.png" class="image"><img alt="" src="./bucketsort_files/bucket_sort_2.png" width="311" height="132" class="thumbimage"></a> 
+<div class="thumbcaption">then, elements are sorted within each bin</div> 
+</div> 
+</div> 
+<p><b>bucket sort</b>, or <b>bin sort</b>, is a <a href="http://en.wikipedia.org/wiki/sorting_algorithm" title="sorting algorithm">sorting algorithm</a> that works by partitioning an <a href="http://en.wikipedia.org/wiki/array_data_structure" title="array data structure">array</a> into a number of <a href="http://en.wikipedia.org/wiki/bucket_(computing)" title="bucket (computing)">buckets</a>. each bucket is then sorted individually, either using a different sorting algorithm, or by recursively applying the bucket sorting algorithm. it is a <a href="http://en.wikipedia.org/wiki/distribution_sort" title="distribution sort" class="mw-redirect">distribution sort</a>, and is a cousin of <a href="http://en.wikipedia.org/wiki/radix_sort" title="radix sort">radix sort</a> in the most to least significant digit flavour. bucket sort is a generalization of <a href="http://en.wikipedia.org/wiki/pigeonhole_sort" title="pigeonhole sort">pigeonhole sort</a>. since bucket sort is not a <a href="http://en.wikipedia.org/wiki/comparison_sort" title="comparison sort">comparison sort</a>, the ω(<i>n</i> log <i>n</i>) lower bound is inapplicable. the <a href="http://en.wikipedia.org/wiki/computational_complexity" title="computational complexity" class="mw-redirect">computational complexity</a> estimates involve the number of buckets.</p> 
+<p>bucket sort works as follows:</p> 
+<ol> 
+<li>set up an array of initially empty "buckets".</li> 
+<li><b>scatter</b>: go over the original array, putting each object in its bucket.</li> 
+<li>sort each non-empty bucket.</li> 
+<li><b>gather</b>: visit the buckets in order and put all elements back into the original array.</li> 
+</ol> 
+<p></p> 
+<div id="toc" class="toc"> 
+<div id="toctitle"> 
+<h2>contents</h2> 
+<span class="toctoggle">&nbsp;[<a href="http://en.wikipedia.org/wiki/bucketsort#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div> 
+<ul> 
+<li class="toclevel-1 tocsection-1"><a href="http://en.wikipedia.org/wiki/bucketsort#pseudocode"><span class="tocnumber">1</span> <span class="toctext">pseudocode</span></a></li> 
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikipedia.org/wiki/bucketsort#optimizations"><span class="tocnumber">2</span> <span class="toctext">optimizations</span></a></li> 
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikipedia.org/wiki/bucketsort#variants"><span class="tocnumber">3</span> <span class="toctext">variants</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-4"><a href="http://en.wikipedia.org/wiki/bucketsort#generic_bucket_sort"><span class="tocnumber">3.1</span> <span class="toctext">generic bucket sort</span></a></li> 
+<li class="toclevel-2 tocsection-5"><a href="http://en.wikipedia.org/wiki/bucketsort#proxmapsort"><span class="tocnumber">3.2</span> <span class="toctext">proxmapsort</span></a></li> 
+<li class="toclevel-2 tocsection-6"><a href="http://en.wikipedia.org/wiki/bucketsort#histogram_sort"><span class="tocnumber">3.3</span> <span class="toctext">histogram sort</span></a></li> 
+<li class="toclevel-2 tocsection-7"><a href="http://en.wikipedia.org/wiki/bucketsort#postman.27s_sort"><span class="tocnumber">3.4</span> <span class="toctext">postman's sort</span></a></li> 
+<li class="toclevel-2 tocsection-8"><a href="http://en.wikipedia.org/wiki/bucketsort#shuffle_sort"><span class="tocnumber">3.5</span> <span class="toctext">shuffle sort</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-9"><a href="http://en.wikipedia.org/wiki/bucketsort#comparison_with_other_sorting_algorithms"><span class="tocnumber">4</span> <span class="toctext">comparison with other sorting algorithms</span></a></li> 
+<li class="toclevel-1 tocsection-10"><a href="http://en.wikipedia.org/wiki/bucketsort#references"><span class="tocnumber">5</span> <span class="toctext">references</span></a></li> 
+<li class="toclevel-1 tocsection-11"><a href="http://en.wikipedia.org/wiki/bucketsort#external_links"><span class="tocnumber">6</span> <span class="toctext">external links</span></a></li> 
+</ul> 
+</div> 
+<p></p> 
+<h2><span class="mw-headline" id="pseudocode">pseudocode</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=bucket_sort&action=edit&section=1" title="edit section: pseudocode">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<pre><b>function</b> bucketsort(array, n) <b>is</b> 
+buckets ← new array of n empty lists 
+<b>for</b> i = 0 <b>to</b> (length(array)-1) <b>do</b> 
+insert <i>array[i]</i> into buckets[msbits(array[i], k)] 
+<b>for</b> i = 0 <b>to</b> n - 1 <b>do</b> 
+nextsort(buckets[i]); 
+<b>return</b> the concatenation of buckets[0], ...., buckets[n-1] 
+</pre> 
+<p>here <i>array</i> is the array to be sorted and <i>n</i> is the number of buckets to use. the function <i>msbits(x,k)</i> returns the <i>k</i> most significant bits of <i>x</i> (<i>floor(x/2^(size(x)-k))</i>); different functions can be used to translate the range of elements in <i>array</i> to <i>n</i> buckets, such as translating the letters a–z to 0–25 or returning the first character (0–255) for sorting strings. the function <i>nextsort</i> is a sorting function; using <i>bucketsort</i> itself as <i>nextsort</i> produces a relative of <a href="http://en.wikipedia.org/wiki/radix_sort" title="radix sort">radix sort</a>; in particular, the case <i>n = 2</i> corresponds to <a href="http://en.wikipedia.org/wiki/quicksort" title="quicksort">quicksort</a> (although potentially with poor pivot choices).</p> 
+<h2><span class="mw-headline" id="optimizations">optimizations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=bucket_sort&action=edit&section=2" title="edit section: optimizations">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>a common optimization is to put the unsorted elements of the buckets back in the original array <i>first</i>, then run <a href="http://en.wikipedia.org/wiki/insertion_sort" title="insertion sort">insertion sort</a> over the complete array; because <a href="http://en.wikipedia.org/wiki/insertion_sort" title="insertion sort">insertion sort's</a> runtime is based on how far each element is from its final position, the number of comparisons remains relatively small, and the memory hierarchy is better exploited by storing the list contiguously in memory.<sup id="cite_ref-1" class="reference"><a href="http://en.wikipedia.org/wiki/bucketsort#cite_note-1"><span>[</span>1<span>]</span></a></sup></p> 
+<h2><span class="mw-headline" id="variants">variants</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=bucket_sort&action=edit&section=3" title="edit section: variants">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<h3><span class="mw-headline" id="generic_bucket_sort">generic bucket sort</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=bucket_sort&action=edit&section=4" title="edit section: generic bucket sort">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>the most common variant of bucket sort operates on a list of <i>n</i> numeric inputs between zero and some maximum value <i>m</i> and divides the value range into <i>n</i> buckets each of size <i>m</i>/<i>n</i>. if each bucket is sorted using <a href="http://en.wikipedia.org/wiki/insertion_sort" title="insertion sort">insertion sort</a>, the sort can be shown to run in expected linear time (where the average is taken over all possible inputs).<sup id="cite_ref-2" class="reference"><a href="http://en.wikipedia.org/wiki/bucketsort#cite_note-2"><span>[</span>2<span>]</span></a></sup> however, the performance of this sort degrades with clustering; if many values occur close together, they will all fall into a single bucket and be sorted slowly.</p> 
+<h3><span class="mw-headline" id="proxmapsort">proxmapsort</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=bucket_sort&action=edit&section=5" title="edit section: proxmapsort">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<div class="rellink relarticle mainarticle">main article: <a href="http://en.wikipedia.org/wiki/proxmap_sort" title="proxmap sort">proxmap sort</a></div> 
+<p>similar to generic bucket sort as described above, <b>proxmapsort</b> works by dividing an array of keys into subarrays via the use of a "map key" function that preserves a partial ordering on the keys; as each key is added to its subarray, insertion sort is used to keep that subarray sorted, resulting in the entire array being in sorted order when proxmapsort completes. proxmapsort differs from bucket sorts in its use of the map key to place the data approximately where it belongs in sorted order, producing a "proxmap" — a proximity mapping — of the keys.</p> 
+<h3><span class="mw-headline" id="histogram_sort">histogram sort</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=bucket_sort&action=edit&section=6" title="edit section: histogram sort">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>another variant of bucket sort known as histogram sort or <a href="http://en.wikipedia.org/wiki/counting_sort" title="counting sort">counting sort</a> adds an initial pass that counts the number of elements that will fall into each bucket using a count array. using this information, the array values can be arranged into a sequence of buckets in-place by a sequence of exchanges, leaving no space overhead for bucket storage.<sup id="cite_ref-3" class="reference"><a href="http://en.wikipedia.org/wiki/bucketsort#cite_note-3"><span>[</span>3<span>]</span></a></sup></p> 
+<h3><span class="mw-headline" id="postman.27s_sort">postman's sort</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=bucket_sort&action=edit&section=7" title="edit section: postman&#39;s sort">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>the <b>postman's sort</b> is a variant of bucket sort that takes advantage of a hierarchical structure of elements, typically described by a set of attributes. this is the algorithm used by letter-sorting machines in <a href="http://en.wikipedia.org/wiki/post_office" title="post office">post offices</a>: mail is sorted first between domestic and international; then by state, province or territory; then by destination post office; then by routes, etc. since keys are not compared against each other, sorting time is o(<i>cn</i>), where <i>c</i> depends on the size of the key and number of buckets. this is similar to a <a href="http://en.wikipedia.org/wiki/radix_sort" title="radix sort">radix sort</a> that works "top down," or "most significant digit first."<sup id="cite_ref-4" class="reference"><a href="http://en.wikipedia.org/wiki/bucketsort#cite_note-4"><span>[</span>4<span>]</span></a></sup></p> 
+<h3><span class="mw-headline" id="shuffle_sort">shuffle sort</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=bucket_sort&action=edit&section=8" title="edit section: shuffle sort">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>the <b>shuffle sort</b> <sup id="cite_ref-5" class="reference"><a href="http://en.wikipedia.org/wiki/bucketsort#cite_note-5"><span>[</span>5<span>]</span></a></sup> is a variant of bucket sort that begins by removing the first 1/8 of the <i>n</i> items to be sorted, sorts them recursively, and puts them in an array. this creates <i>n</i>/8 "buckets" to which the remaining 7/8 of the items are distributed. each "bucket" is then sorted, and the "buckets" are concatenated into a sorted array. shuffle sort is used as a step in a <a href="http://en.wikipedia.org/wiki/j_sort" title="j sort">j sort</a>.</p> 
+<h2><span class="mw-headline" id="comparison_with_other_sorting_algorithms">comparison with other sorting algorithms</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=bucket_sort&action=edit&section=9" title="edit section: comparison with other sorting algorithms">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>bucket sort can be seen as a generalization of <a href="http://en.wikipedia.org/wiki/counting_sort" title="counting sort">counting sort</a>; in fact, if each bucket has size 1 then bucket sort degenerates to counting sort. the variable bucket size of bucket sort allows it to use o(<i>n</i>) memory instead of o(<i>m</i>) memory, where <i>m</i> is the number of distinct values; in exchange, it gives up counting sort's o(<i>n</i> + <i>m</i>) worst-case behavior.</p> 
+<p>bucket sort with two buckets is effectively a version of <a href="http://en.wikipedia.org/wiki/quicksort" title="quicksort">quicksort</a> where the pivot value is always selected to be the middle value of the value range. while this choice is effective for uniformly distributed inputs, other means of choosing the pivot in quicksort such as randomly selected pivots make it more resistant to clustering in the input distribution.</p> 
+<p>the <i>n</i>-way <a href="http://en.wikipedia.org/wiki/mergesort" title="mergesort" class="mw-redirect">mergesort</a> algorithm also begins by distributing the list into <i>n</i> sublists and sorting each one; however, the sublists created by mergesort have overlapping value ranges and so cannot be recombined by simple concatenation as in bucket sort. instead, they must be interleaved by a merge algorithm. however, this added expense is counterbalanced by the simpler scatter phase and the ability to ensure that each sublist is the same size, providing a good worst-case time bound.</p> 
+<p>top-down <a href="http://en.wikipedia.org/wiki/radix_sort" title="radix sort">radix sort</a> can be seen as a special case of bucket sort where both the range of values and the number of buckets is constrained to be a power of two. consequently, each bucket's size is also a power of two, and the procedure can be applied recursively. this approach can accelerate the scatter phase, since we only need to examine a prefix of the bit representation of each element to determine its bucket.</p> 
+<h2><span class="mw-headline" id="references">references</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=bucket_sort&action=edit&section=10" title="edit section: references">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ol class="references"> 
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/bucketsort#cite_ref-1"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">corwin, e. and logar, a. "sorting in linear time — variations on the bucket sort". <i>journal of computing sciences in colleges</i>, 20, 1, pp.197–202. october 2004.</span></li> 
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/bucketsort#cite_ref-2"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a href="http://en.wikipedia.org/wiki/thomas_h._cormen" title="thomas h. cormen">thomas h. cormen</a>, <a href="http://en.wikipedia.org/wiki/charles_e._leiserson" title="charles e. leiserson">charles e. leiserson</a>, <a href="http://en.wikipedia.org/wiki/ronald_l._rivest" title="ronald l. rivest" class="mw-redirect">ronald l. rivest</a>, and <a href="http://en.wikipedia.org/wiki/clifford_stein" title="clifford stein">clifford stein</a>. <i><a href="http://en.wikipedia.org/wiki/introduction_to_algorithms" title="introduction to algorithms">introduction to algorithms</a></i>, second edition. mit press and mcgraw-hill, 2001. <a href="http://en.wikipedia.org/wiki/special:booksources/0262032937" class="internal mw-magiclink-isbn">isbn 0-262-03293-7</a>. section 8.4: bucket sort, pp.174–177.</span></li> 
+<li id="cite_note-3"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/bucketsort#cite_ref-3"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://www.nist.gov/dads/html/histogramsort.html">nist's dictionary of algorithms and data structures: histogram sort</a></span></li> 
+<li id="cite_note-4"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/bucketsort#cite_ref-4"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external free" href="http://www.rrsd.com/psort/cuj/cuj.htm">http://www.rrsd.com/psort/cuj/cuj.htm</a></span></li> 
+<li id="cite_note-5"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/bucketsort#cite_ref-5"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://groups.google.com/group/fido7.ru.algorithms/msg/26084cdb04008ab3">a revolutionary new sort from john cohen nov 26, 1997</a></span></li> 
+</ol> 
+<ul> 
+<li>paul e. black <a rel="nofollow" class="external text" href="http://www.nist.gov/dads/html/postmansort.html">"postman's sort"</a> from <a href="http://en.wikipedia.org/wiki/dictionary_of_algorithms_and_data_structures" title="dictionary of algorithms and data structures">dictionary of algorithms and data structures</a> at <a href="http://en.wikipedia.org/wiki/national_institute_of_standards_and_technology" title="national institute of standards and technology">nist</a>.</li> 
+<li>robert ramey <a rel="nofollow" class="external text" href="http://www.rrsd.com/software_development/postmans_sort/cuj/cuj.htm">'"the postman's sort"</a> <i>c users journal</i> aug. 1992</li> 
+<li><a rel="nofollow" class="external text" href="http://www.nist.gov/dads/html/bucketsort.html">nist's dictionary of algorithms and data structures: bucket sort</a></li> 
+</ul> 
+<h2><span class="mw-headline" id="external_links">external links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=bucket_sort&action=edit&section=11" title="edit section: external links">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li><a rel="nofollow" class="external text" href="http://www.dcc.uchile.cl/~rbaeza/handbook/algs/4/423.sort.c.html">bucket sort code for ansi c</a></li> 
+<li><a rel="nofollow" class="external text" href="http://www1bpt.bridgeport.edu/~dichter/lilly/bucketsort.htm">variant of bucket sort with demo</a></li> 
+</ul> 
+<table cellspacing="0" class="navbox" style="border-spacing:0;"> 
+<tbody><tr> 
+<td style="padding:2px;"> 
+<table cellspacing="0" class="nowraplinks collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" id="collapsibletable0"> 
+<tbody><tr> 
+<th scope="col" class="navbox-title" colspan="2"><span class="collapsebutton">[<a id="collapsebutton0" href="http://en.wikipedia.org/wiki/bucketsort#">hide</a>]</span> 
+<div class="plainlinks hlist navbar mini"> 
+<ul> 
+<li class="nv-view"><a href="http://en.wikipedia.org/wiki/template:sorting" title="template:sorting"><span title="view this template" style=";;background:none transparent;border:none;;">v</span></a></li> 
+<li class="nv-talk"><a href="http://en.wikipedia.org/wiki/template_talk:sorting" title="template talk:sorting"><span title="discuss this template" style=";;background:none transparent;border:none;;">t</span></a></li> 
+<li class="nv-edit"><a class="external text" href="http://en.wikipedia.org/w/index.php?title=template:sorting&action=edit"><span title="edit this template" style=";;background:none transparent;border:none;;">e</span></a></li> 
+</ul> 
+</div> 
+<div style="font-size:110%;"><a href="http://en.wikipedia.org/wiki/sorting_algorithm" title="sorting algorithm">sorting algorithms</a></div> 
+</th> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">theory</th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/computational_complexity_theory" title="computational complexity theory">computational complexity theory</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/big_o_notation" title="big o notation">big o notation</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/total_order" title="total order">total order</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/list_(computing)" title="list (computing)" class="mw-redirect">lists</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/in-place_algorithm" title="in-place algorithm">inplacement</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/sorting_algorithm#stability" title="sorting algorithm">stability</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/comparison_sort" title="comparison sort">comparison sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/adaptive_sort" title="adaptive sort">adaptive sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/sorting_network" title="sorting network">sorting network</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/integer_sorting" title="integer sorting">integer sorting</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">exchange sorts</th> 
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/bubble_sort" title="bubble sort">bubble sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/cocktail_sort" title="cocktail sort">cocktail sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/odd%e2%80%93even_sort" title="odd–even sort">odd–even sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/comb_sort" title="comb sort">comb sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/gnome_sort" title="gnome sort">gnome sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/quicksort" title="quicksort">quicksort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/stooge_sort" title="stooge sort">stooge sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/bogosort" title="bogosort">bogosort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/selection_algorithm" title="selection algorithm">selection sorts</a></th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/selection_sort" title="selection sort">selection sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/heapsort" title="heapsort">heapsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/smoothsort" title="smoothsort">smoothsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/cartesian_tree#application_in_sorting" title="cartesian tree">cartesian tree sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/tournament_sort" title="tournament sort">tournament sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/cycle_sort" title="cycle sort">cycle sort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">insertion sorts</th> 
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/insertion_sort" title="insertion sort">insertion sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/shellsort" title="shellsort">shellsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/splaysort" title="splaysort">splaysort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/tree_sort" title="tree sort">tree sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/library_sort" title="library sort">library sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/patience_sorting" title="patience sorting">patience sorting</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">merge sorts</th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/merge_sort" title="merge sort">merge sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/cascade_merge_sort" title="cascade merge sort">cascade merge sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/oscillating_merge_sort" title="oscillating merge sort">oscillating merge sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/polyphase_merge_sort" title="polyphase merge sort">polyphase merge sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/strand_sort" title="strand sort">strand sort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">distribution sorts</th> 
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/american_flag_sort" title="american flag sort">american flag sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/bead_sort" title="bead sort">bead sort</a></li> 
+<li><strong class="selflink">bucket sort</strong></li> 
+<li><a href="http://en.wikipedia.org/wiki/burstsort" title="burstsort">burstsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/counting_sort" title="counting sort">counting sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/pigeonhole_sort" title="pigeonhole sort">pigeonhole sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/proxmap_sort" title="proxmap sort">proxmap sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/radix_sort" title="radix sort">radix sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/flashsort" title="flashsort">flashsort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">concurrent sorts</th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/bitonic_sorter" title="bitonic sorter">bitonic sorter</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/batcher_odd%e2%80%93even_mergesort" title="batcher odd–even mergesort">batcher odd–even mergesort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/pairwise_sorting_network" title="pairwise sorting network">pairwise sorting network</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/hybrid_algorithm" title="hybrid algorithm">hybrid sorts</a></th> 
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/timsort" title="timsort">timsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/introsort" title="introsort">introsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/spreadsort" title="spreadsort">spreadsort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/unshuffle_sort" title="unshuffle sort">unshuffle sort</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/jsort" title="jsort">jsort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+<tr style="height:2px;"> 
+<td></td> 
+</tr> 
+<tr> 
+<th scope="row" class="navbox-group">other</th> 
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;"> 
+<div style="padding:0em 0.25em;"> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/topological_sorting" title="topological sorting">topological sorting</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/pancake_sorting" title="pancake sorting">pancake sorting</a></li> 
+<li><a href="http://en.wikipedia.org/wiki/spaghetti_sort" title="spaghetti sort">spaghetti sort</a></li> 
+</ul> 
+</div> 
+</td> 
+</tr> 
+</tbody></table> 
+</td> 
+</tr> 
+</tbody></table> 
+ 
+ 
+<!-- 
+newpp limit report 
+parsed by mw1186 
+cpu time usage: 0.372 seconds 
+real time usage: 0.445 seconds 
+preprocessor visited node count: 611/1000000 
+preprocessor generated node count: 3913/1500000 
+post‐expand include size: 22394/2048000 bytes 
+template argument size: 1391/2048000 bytes 
+highest expansion depth: 16/40 
+expensive parser function count: 5/500 
+lua time usage: 0.039s 
+lua memory usage: 952 kb 
+--> 
+ 
+<!-- saved in parser cache with key enwiki:pcache:idhash:97592-0!0!0!!en!4!* and timestamp 20140126160853 
+--> 
+<noscript>&lt;img src="//en.wikipedia.org/wiki/special:centralautologin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /&gt;</noscript></div>								<div class="printfooter"> 
+retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=bucket_sort&oldid=592492002">http://en.wikipedia.org/w/index.php?title=bucket_sort&amp;oldid=592492002</a>"				</div> 
+<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/help:category" title="help:category">categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/category:sorting_algorithms" title="category:sorting algorithms">sorting algorithms</a></li><li><a href="http://en.wikipedia.org/wiki/category:stable_sorts" title="category:stable sorts">stable sorts</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/category:articles_needing_expert_attention_with_no_reason_or_talk_parameter" title="category:articles needing expert attention with no reason or talk parameter">articles needing expert attention with no reason or talk parameter</a></li><li><a href="http://en.wikipedia.org/wiki/category:articles_needing_expert_attention_from_november_2008" title="category:articles needing expert attention from november 2008">articles needing expert attention from november 2008</a></li><li><a href="http://en.wikipedia.org/wiki/category:all_articles_needing_expert_attention" title="category:all articles needing expert attention">all articles needing expert attention</a></li><li><a href="http://en.wikipedia.org/wiki/category:computer_science_articles_needing_expert_attention" title="category:computer science articles needing expert attention">computer science articles needing expert attention</a></li><li><a href="http://en.wikipedia.org/wiki/category:miscellaneous_articles_needing_expert_attention" title="category:miscellaneous articles needing expert attention">miscellaneous articles needing expert attention</a></li><li><a href="http://en.wikipedia.org/wiki/category:articles_with_example_pseudocode" title="category:articles with example pseudocode">articles with example pseudocode</a></li></ul></div></div>												<div class="visualclear"></div> 
+</div> 
+</div> 
+<div id="mw-navigation"> 
+<h2>navigation menu</h2> 
+<div id="mw-head"> 
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label"> 
+<h3 id="p-personal-label">personal tools</h3> 
+<ul> 
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=bucket+sort&type=signup">create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=bucket+sort" title="you&#39;re encouraged to log in; however, it&#39;s not mandatory. [ctrl-option-o]" accesskey="o">log in</a></li>	</ul> 
+</div> 
+<div id="left-navigation"> 
+<div id="p-namespaces" role="navigation" class="vectortabs" aria-labelledby="p-namespaces-label"> 
+<h3 id="p-namespaces-label">namespaces</h3> 
+<ul> 
+<li id="ca-nstab-main" class="selected"><span><a href="http://en.wikipedia.org/wiki/bucket_sort" title="view the content page [ctrl-option-c]" accesskey="c">article</a></span></li> 
+<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/talk:bucket_sort" title="discussion about the content page [ctrl-option-t]" accesskey="t">talk</a></span></li> 
+</ul> 
+</div> 
+<div id="p-variants" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-variants-label"> 
+<h3 id="mw-vector-current-variant"> 
+</h3> 
+<h3 id="p-variants-label" tabindex="0"><span>variants</span><a href="http://en.wikipedia.org/wiki/bucketsort#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+</div> 
+<div id="right-navigation"> 
+<div id="p-views" role="navigation" class="vectortabs" aria-labelledby="p-views-label"> 
+<h3 id="p-views-label">views</h3> 
+<ul> 
+<li id="ca-view" class="selected"><span><a href="http://en.wikipedia.org/wiki/bucket_sort">read</a></span></li> 
+<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=bucket_sort&action=edit" title="you can edit this page. 
+please review your changes before saving. [ctrl-option-e]" accesskey="e">edit</a></span></li> 
+<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=bucket_sort&action=history" title="past versions of this page [ctrl-option-h]" accesskey="h">view history</a></span></li> 
+</ul> 
+</div> 
+<div id="p-cactions" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-cactions-label"> 
+<h3 id="p-cactions-label" tabindex="0"><span>actions</span><a href="http://en.wikipedia.org/wiki/bucketsort#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+<div id="p-search" role="search"> 
+<h3><label for="searchinput">search</label></h3> 
+<form action="http://en.wikipedia.org/w/index.php" id="searchform"> 
+<div id="simplesearch"> 
+<input name="search" placeholder="search" title="search wikipedia [ctrl-option-f]" accesskey="f" id="searchinput" tabindex="1" autocomplete="off">						<button type="submit" name="button" title="search wikipedia for this text" id="searchbutton"><img src="./bucketsort_files/search-ltr.png" alt="search" width="12" height="13"></button>								<input type="hidden" name="title" value="special:search"> 
+</div> 
+</form> 
+</div> 
+</div> 
+</div> 
+<div id="mw-panel" class="collapsible-nav"> 
+<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/wiki.png);" href="http://en.wikipedia.org/wiki/main_page" title="visit the main page"></a></div> 
+<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label"> 
+<h3 id="p-navigation-label">navigation</h3> 
+<div class="body"> 
+<ul> 
+<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/main_page" title="visit the main page [ctrl-option-z]" accesskey="z">main page</a></li> 
+<li id="n-contents"><a href="http://en.wikipedia.org/wiki/portal:contents" title="guides to browsing wikipedia">contents</a></li> 
+<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/portal:featured_content" title="featured content – the best of wikipedia">featured content</a></li> 
+<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/portal:current_events" title="find background information on current events">current events</a></li> 
+<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/special:random" title="load a random article [ctrl-option-x]" accesskey="x">random article</a></li> 
+<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/special:fundraiserredirector?utm_source=donate&utm_medium=sidebar&utm_campaign=c13_en.wikipedia.org&uselang=en" title="support us">donate to wikipedia</a></li> 
+<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="visit the wikimedia shop">wikimedia shop</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label"> 
+<h3 id="p-interaction-label" tabindex="2"><a href="http://en.wikipedia.org/wiki/bucketsort#" aria-haspopup="true" aria-controls="p-interaction-list" role="button" aria-pressed="true" aria-expanded="true">interaction</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-interaction-list"> 
+<li id="n-help"><a href="http://en.wikipedia.org/wiki/help:contents" title="guidance on how to use and edit wikipedia">help</a></li> 
+<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="find out about wikipedia">about wikipedia</a></li> 
+<li id="n-portal"><a href="http://en.wikipedia.org/wiki/wikipedia:community_portal" title="about the project, what you can do, where to find things">community portal</a></li> 
+<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/special:recentchanges" title="a list of recent changes in the wiki [ctrl-option-r]" accesskey="r">recent changes</a></li> 
+<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact page</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label"> 
+<h3 id="p-tb-label" tabindex="3"><a href="http://en.wikipedia.org/wiki/bucketsort#" aria-haspopup="true" aria-controls="p-tb-list" role="button" aria-pressed="false" aria-expanded="false">tools</a></h3> 
+<div class="body"> 
+<ul id="p-tb-list"> 
+<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/special:whatlinkshere/bucket_sort" title="list of all english wikipedia pages containing links to this page [ctrl-option-j]" accesskey="j">what links here</a></li> 
+<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/special:recentchangeslinked/bucket_sort" title="recent changes in pages linked from this page [ctrl-option-k]" accesskey="k">related changes</a></li> 
+<li id="t-upload"><a href="http://en.wikipedia.org/wiki/wikipedia:file_upload_wizard" title="upload files [ctrl-option-u]" accesskey="u">upload file</a></li> 
+<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/special:specialpages" title="a list of all special pages [ctrl-option-q]" accesskey="q">special pages</a></li> 
+<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=bucket_sort&oldid=592492002" title="permanent link to this revision of the page">permanent link</a></li> 
+<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=bucket_sort&action=info">page information</a></li> 
+<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/q6787153" title="link to connected data repository item [ctrl-option-g]" accesskey="g">data item</a></li> 
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=special:cite&page=bucket_sort&id=592492002" title="information on how to cite this page">cite this page</a></li>		</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label"> 
+<h3 id="p-coll-print_export-label" tabindex="4"><a href="http://en.wikipedia.org/wiki/bucketsort#" aria-haspopup="true" aria-controls="p-coll-print_export-list" role="button" aria-pressed="false" aria-expanded="false">print/export</a></h3> 
+<div class="body"> 
+<ul id="p-coll-print_export-list"> 
+<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=book_creator&referer=bucket+sort">create a book</a></li> 
+<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=render_article&arttitle=bucket+sort&oldid=592492002&writer=rl">download as pdf</a></li> 
+<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=bucket_sort&printable=yes" title="printable version of this page [ctrl-option-p]" accesskey="p">printable version</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"> 
+<h3 id="p-lang-label" tabindex="5"><a href="http://en.wikipedia.org/wiki/bucketsort#" aria-haspopup="true" aria-controls="p-lang-list" role="button" aria-pressed="true" aria-expanded="true">languages</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-lang-list"> 
+<li class="interlanguage-link interwiki-bg"><a href="http://bg.wikipedia.org/wiki/bucket_%d1%81%d0%be%d1%80%d1%82%d0%b8%d1%80%d0%b0%d0%bd%d0%b5" title="bucket сортиране – bulgarian" lang="bg" hreflang="bg">български</a></li> 
+<li class="interlanguage-link interwiki-cs"><a href="http://cs.wikipedia.org/wiki/bucket_sort" title="bucket sort – czech" lang="cs" hreflang="cs">čeština</a></li> 
+<li class="interlanguage-link interwiki-de"><a href="http://de.wikipedia.org/wiki/bucketsort" title="bucketsort – german" lang="de" hreflang="de">deutsch</a></li> 
+<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/ordenamiento_por_casilleros" title="ordenamiento por casilleros – spanish" lang="es" hreflang="es">español</a></li> 
+<li class="interlanguage-link interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%d9%85%d8%b1%d8%aa%d8%a8%e2%80%8c%d8%b3%d8%a7%d8%b2%db%8c_%d8%b3%d8%b7%d9%84%db%8c" title="مرتب‌سازی سطلی – persian" lang="fa" hreflang="fa">فارسی</a></li> 
+<li class="interlanguage-link interwiki-fr"><a href="http://fr.wikipedia.org/wiki/tri_comptage" title="tri comptage – french" lang="fr" hreflang="fr">français</a></li> 
+<li class="interlanguage-link interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%eb%b2%84%ed%82%b7_%ec%a0%95%eb%a0%ac" title="버킷 정렬 – korean" lang="ko" hreflang="ko">한국어</a></li> 
+<li class="interlanguage-link interwiki-hy"><a href="http://hy.wikipedia.org/wiki/%d4%b2%d5%ac%d5%b8%d5%af%d5%a1%d5%b5%d5%ab%d5%b6_%d5%a4%d5%a1%d5%bd%d5%a1%d5%af%d5%a1%d6%80%d5%a3%d5%b8%d6%82%d5%b4" title="բլոկային դասակարգում – armenian" lang="hy" hreflang="hy">հայերեն</a></li> 
+<li class="interlanguage-link interwiki-it"><a href="http://it.wikipedia.org/wiki/bucket_sort" title="bucket sort – italian" lang="it" hreflang="it">italiano</a></li> 
+<li class="interlanguage-link interwiki-he"><a href="http://he.wikipedia.org/wiki/%d7%9e%d7%99%d7%95%d7%9f_%d7%a1%d7%9c%d7%99%d7%9d" title="מיון סלים – hebrew" lang="he" hreflang="he">עברית</a></li> 
+<li class="interlanguage-link interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%e3%83%90%e3%82%b1%e3%83%83%e3%83%88%e3%82%bd%e3%83%bc%e3%83%88" title="バケットソート – japanese" lang="ja" hreflang="ja">日本語</a></li> 
+<li class="interlanguage-link interwiki-pl"><a href="http://pl.wikipedia.org/wiki/sortowanie_kube%c5%82kowe" title="sortowanie kubełkowe – polish" lang="pl" hreflang="pl">polski</a></li> 
+<li class="interlanguage-link interwiki-pt"><a href="http://pt.wikipedia.org/wiki/bucket_sort" title="bucket sort – portuguese" lang="pt" hreflang="pt">português</a></li> 
+<li class="interlanguage-link interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%d0%91%d0%bb%d0%be%d1%87%d0%bd%d0%b0%d1%8f_%d1%81%d0%be%d1%80%d1%82%d0%b8%d1%80%d0%be%d0%b2%d0%ba%d0%b0" title="блочная сортировка – russian" lang="ru" hreflang="ru">русский</a></li> 
+<li class="interlanguage-link interwiki-sr"><a href="http://sr.wikipedia.org/wiki/segmentno_sortiranje" title="segmentno sortiranje – serbian" lang="sr" hreflang="sr">српски / srpski</a></li> 
+<li class="interlanguage-link interwiki-tr"><a href="http://tr.wikipedia.org/wiki/kova_s%c4%b1ralamas%c4%b1" title="kova sıralaması – turkish" lang="tr" hreflang="tr">türkçe</a></li> 
+<li class="interlanguage-link interwiki-uk"><a href="http://uk.wikipedia.org/wiki/%d0%a1%d0%be%d1%80%d1%82%d1%83%d0%b2%d0%b0%d0%bd%d0%bd%d1%8f_%d0%ba%d0%be%d0%bc%d1%96%e2%8a%82%e2%8a%87%e2%8a%83%e2%88%90%d1%80%d0%ba%d0%b0%d0%bc%d0%b8" title="сортування комі⊂⊇⊃∐рками – ukrainian" lang="uk" hreflang="uk">українська</a></li> 
+<li class="interlanguage-link interwiki-zh"><a href="http://zh.wikipedia.org/wiki/%e6%a1%b6%e6%8e%92%e5%ba%8f" title="桶排序 – chinese" lang="zh" hreflang="zh">中文</a></li> 
+<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/q6787153#sitelinks-wikipedia" title="edit interlanguage links">edit links</a></li> 
+</ul> 
+</div> 
+</div> 
+</div> 
+</div> 
+<div id="footer" role="contentinfo"> 
+<ul id="footer-info"> 
+<li id="footer-info-lastmod"> this page was last modified on 26 january 2014 at 16:08.<br></li> 
+<li id="footer-info-copyright">text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/wikipedia:text_of_creative_commons_attribution-sharealike_3.0_unported_license">creative commons attribution-sharealike license</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>; 
+additional terms may apply.  by using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/terms_of_use">terms of use</a> and <a href="http://wikimediafoundation.org/wiki/privacy_policy">privacy policy.</a> <br> 
+wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">wikimedia foundation, inc.</a>, a non-profit organization.</li> 
+</ul> 
+<ul id="footer-places"> 
+<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/privacy_policy" title="wikimedia:privacy policy">privacy policy</a></li> 
+<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="wikipedia:about">about wikipedia</a></li> 
+<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/wikipedia:general_disclaimer" title="wikipedia:general disclaimer">disclaimers</a></li> 
+<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact wikipedia</a></li> 
+<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/special:mylanguage/how_to_contribute">developers</a></li> 
+<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/bucket_sort" class="noprint stopmobileredirecttoggle">mobile view</a></li> 
+</ul> 
+<ul id="footer-icons" class="noprint"> 
+<li id="footer-copyrightico"> 
+<a href="http://wikimediafoundation.org/"><img src="./bucketsort_files/wikimedia-button.png" width="88" height="31" alt="wikimedia foundation"></a> 
+</li> 
+<li id="footer-poweredbyico"> 
+<a href="http://www.mediawiki.org/"><img src="./bucketsort_files/poweredby_mediawiki_88x31.png" alt="powered by mediawiki" width="88" height="31"></a> 
+</li> 
+</ul> 
+<div style="clear:both"></div> 
+</div> 
+<script>/*<![cdata[*/window.jquery && jquery.ready();/*]]>*/</script><script>if(window.mw){ 
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"}); 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postedit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchsuggest","ext.gadget.teahouse","ext.gadget.referencetooltips","ext.gadget.drn-wizard","ext.gadget.charinsert","mw.mwembedsupport.style","ext.articlefeedbackv5.startup","ext.wikimediashoplink.core","ext.navigationtiming","skins.vector.collapsiblenav"],null,true); 
+}</script> 
+<script src="./bucketsort_files/load(2).php"></script> 
+<!-- served by mw1106 in 0.245 secs. --> 
+ 
+ 
+<div class="suggestions" style="display: none; font-size: 12.800000190734863px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html> 

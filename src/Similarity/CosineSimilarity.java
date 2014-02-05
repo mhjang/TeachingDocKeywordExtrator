@@ -27,7 +27,11 @@ public class CosineSimilarity extends TestCase {
 
     }
 
+    public static double BinaryCosineSimilarity(Document d1, Document d2) {
+        double similarity = CosineSimilarity.BinaryCosineSimilarity(d1.getAllGrams(), d2.getAllGrams());
+        return similarity;
 
+    }
     /**
      * This method is almost identical to "BinaryConsineSimilarity" except for the part that assigning the term frequency to the vectors,
      * whereas it just assigns '1' if the term exists in "BinaryCosineSimilarity" method

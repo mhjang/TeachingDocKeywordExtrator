@@ -2,7 +2,6 @@ package parser;
 
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
-import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.html.HtmlParser;
 import org.apache.tika.sax.*;
@@ -12,6 +11,7 @@ import org.xml.sax.SAXException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 
 /**
  * Created by mhjang on 2/2/14.
@@ -28,7 +28,7 @@ public class WikiParser {
             Metadata metadata = new Metadata();
             new HtmlParser().parse(input, handler, metadata, new ParseContext());
             plainText = handler.toString();
-           System.out.println(plainText);
+  //          System.out.println(plainText);
         }catch(Exception e) {
             e.printStackTrace();
         }

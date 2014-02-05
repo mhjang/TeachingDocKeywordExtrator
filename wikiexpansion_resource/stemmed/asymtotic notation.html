@@ -1,0 +1,843 @@
+<!doctype html> 
+<!-- saved from url=(0043)http://en.wikipedia.org/wiki/big_o_notation --> 
+<html lang="en" dir="ltr" class="client-js ve-not-available"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+<meta charset="utf-8"><title>big o notation - wikipedia, the free encyclopedia</title> 
+<meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="generator" content="mediawiki 1.23wmf11"> 
+<link rel="alternate" type="application/x-wiki" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit"> 
+<link rel="edit" title="edit this page" href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit"> 
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png"> 
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico"> 
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="wikipedia (en)"> 
+<link rel="edituri" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd"> 
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/"> 
+<link rel="alternate" type="application/atom+xml" title="wikipedia atom feed" href="http://en.wikipedia.org/w/index.php?title=special:recentchanges&feed=atom"> 
+<link rel="canonical" href="./asymtotic notation_files/asymtotic notation.html"> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.drn-wizard%2creferencetooltips%2ccharinsert%2cteahouse%7cext.rtlcite%2cwikihiero%7cext.visualeditor.viewpagetarget.noscript%7cmediawiki.legacy.commonprint%2cshared%7cskins.common.interface%7cskins.vector.styles&only=styles&skin=vector&*"> 
+<style> 
+@-webkit-keyframes centralauthppersonalanimation{0%{opacity:0;-webkit-transform:translatey(-20px)}100%{opacity:1;-webkit-transform:translatey(0)}}@-moz-keyframes centralauthppersonalanimation{0%{opacity:0;-moz-transform:translatey(-20px)}100%{opacity:1;-moz-transform:translatey(0)}}@-o-keyframes centralauthppersonalanimation{0%{opacity:0;-o-transform:translatey(-20px)}100%{opacity:1;-o-transform:translatey(0)}}@keyframes centralauthppersonalanimation{0%{opacity:0;transform:translatey(-20px)}100%{opacity:1;transform:translatey(0)}}.centralauthppersonalanimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralauthppersonalanimation;-moz-animation-name:centralauthppersonalanimation;-o-animation-name:centralauthppersonalanimation;animation-name:centralauthppersonalanimation} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */ 
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */ 
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmveuzaad///95exmqqqry2njeiq0caaaaaxrstlmaqobyzgaaacdjrefucndjygbgygiaasufennjcuiqmadztm5oqexffzakrsg4ygbjcwodynsgdwaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil.png?2014-01-16t16:20:00z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaaaoaaaakbamaaab/hnkoaaaad1bmvewbaady2nj///8gra0zzrtw2aecaaaaaxrstlmaqobyzgaaacdjrefucndjygbgygyaawmdefpygegaoglzzclcqewjq5aki2w4ygbg5qotqpzbuaaaaabjru5erkjggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/wikibase/client/resources/images/wbc-asset-pencil-hover.png?2014-01-16t16:20:00z)!ie;color:#0645ad !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a963c9df079c8688d25d769892467b5c */ 
+@media print{#centralnotice{display:none}} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */</style><style> 
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */ 
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,ivborw0kggoaaaansuheugaaabaaaaaqcamaaaaolq9taaabblbmveuaaad///////9pftf///80ardtgjn///9feij///////////9rfzf///////////9pfjzrgdh1o1xoftb///////+bwyqltnj///////9pfta82k////9wht6yxil///9qgddtgzr////////j7udl7elq8efi693k7oh///////9uhjubr2rp9uruhjr///9yljvkgir///9witlyjt3////9/v57vflbkt5pjc9dld/5/fhuq09stuts9uhxuelctcpfnt1hudfloezlouzmpenmvdzpvdxpvtxqvjxrvt5rvt9rwtxsqktswd5uwkbvuudxw0nztfbztu9ztvbzwkp0tlj1xkd2t1r3uvr4w1f4xk54x014ye15uvz5v1r5xvb6v1r7yfj8wvh9xvl9yfr9yvd9yln+xvh+yfd/x1l/yfeaylmex1+ny2uy0hqe04wj1ymv3ze33qld47tj5l3o6cpu7mrq9eb2+/q4j37oaaaaqhrstlmaaqiebaufbqwpfb4fjcuokiosqehjs01rulzzxmdydxachyusljswmjmoq6uur8lexcvm19fg5ejt8fx2+pr7sljgewaaakpjrefugbkfwqncawaaamdltl3ltrg4rwxbtvx77gagz6grfwc0bhwnvgkgdpzx8b0dgli+s7wn0voaqpfoi9+bnadzi7flrz2psewghzuh+78lsk8zlklezf3ooyug3vpxq2usei9wngeyog195ybywdf3e/2pahl1e9gr8bgt+bfofcc2fnvh4x7rcqiaqnnu+ht6sxkajcetl/2zaihv+porbwbjxfka//dfhscby/utaaaaaelftksuqmcc);background-image:url(//bits.wikimedia.org/static-1.23wmf11/resources/mediawiki.action/images/green-checkmark.png?2014-01-16t16:15:00z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:c897cc6a31411b48f47191422cf15c4a */ 
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */ 
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4c59a6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */ 
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */ 
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#f7f7f7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #f7f7f7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.rtflipped{padding-top:13px}.referencetooltip.rtflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.rtflipped li+li::after{border-top:0;border-bottom:8px #f7f7f7 solid;position:absolute;margin-top:7px}.rtsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.rtsettings:hover{opacity:1;filter:alpha(opacity=100)}.rttarget{border:#080086 2px solid} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */ 
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */ 
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playercontainer{overflow:hidden;position:relative;height:100%;background:#000}#videoholder{position:relative;overflow:hidden}.fullscreen #playercontainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwembedplayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayhtml a:visited{color:white}.loadingspinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/loading_ani.gif?2014-01-16t16:18:20z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-01-16t16:18:20z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button.png?2014-01-16t16:18:20z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf11/extensions/mwembedsupport/mwembedmodules/mwembedsupport/skins/common/images/player_big_play_button_hover.png?2014-01-16t16:18:20z)}.carouselcontainer{position :absolute;width :100%;z-index :2}.carouselvideotitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselvideotitletext{display :block;padding :10px 10px 10px 20px}.carouseltitleduration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5a5a5a;color :#d9d9d9;font-size :smaller;z-index :2}.carouselimgtitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselimgduration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselprevbutton,.carouselnextbutton{display :block;position :absolute;bottom:23px}.carouselprevbutton{left :5px}.carouselnextbutton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#e6e6e6;padding :5px;border-bottom :1px solid #d1d1d1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:40fb0cce50b2525059dbe7ac545e3c42 */</style><style> 
+.suggestions a.mw-searchsuggest-link,.suggestions a.mw-searchsuggest-link:hover,.suggestions a.mw-searchsuggest-link:active,.suggestions a.mw-searchsuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchsuggest-link,.suggestions-result-current a.mw-searchsuggest-link:hover,.suggestions-result-current a.mw-searchsuggest-link:active,.suggestions-result-current a.mw-searchsuggest-link:focus{color:white} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="resourceloaderdynamicstyles" content=""> 
+<link rel="stylesheet" href="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=site&only=styles&skin=vector&*"> 
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none} 
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style> 
+ 
+<script src="./asymtotic notation_files/load.php"></script><script src="./asymtotic notation_files/load(1).php"></script><style title="spinjs"></style> 
+<script>if(window.mw){ 
+mw.config.set({"wgcanonicalnamespace":"","wgcanonicalspecialpagename":false,"wgnamespacenumber":0,"wgpagename":"big_o_notation","wgtitle":"big o notation","wgcurrevisionid":592325053,"wgrevisionid":592325053,"wgarticleid":44578,"wgisarticle":true,"wgisredirect":false,"wgaction":"view","wgusername":null,"wgusergroups":["*"],"wgcategories":["articles needing additional references from january 2013","all articles needing additional references","mathematical notation","asymptotic analysis","analysis of algorithms"],"wgbreakframes":false,"wgpagecontentlanguage":"en","wgpagecontentmodel":"wikitext","wgseparatortransformtable":["",""],"wgdigittransformtable":["",""],"wgdefaultdateformat":"dmy","wgmonthnames":["","january","february","march","april","may","june","july","august","september","october","november","december"],"wgmonthnamesshort":["","jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"],"wgrelevantpagename":"big_o_notation","wgisprobablyeditable":true,"wgrestrictionedit":[],"wgrestrictionmove":[],"wgwikieditorenabledmodules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateeditor":false,"templates":false,"preview":false,"previewdialog":false,"publish":false,"toc":false},"wgarticlefeedbackv5permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgbetafeaturesfeatures":[],"wgvisualeditor":{"ispagewatched":false,"magnifyclipiconurl":"//bits.wikimedia.org/static-1.23wmf11/skins/common/images/magnify-clip.png","pagelanguagecode":"en","pagelanguagedir":"ltr"},"wikilove-recipient":"","wikilove-anon":0,"wgguidedtourhelpguiderurl":"help:guided tours/guider","wgulsacceptlanguagelist":["en-us","en"],"wgulscurrentautonym":"english","wgflaggedrevsparams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgstablerevisionid":null,"wgcategorytreepagecategoryoptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","geo":{"city":"","country":""},"wgnoticeproject":"wikipedia","aftv5article":{"id":44578,"title":"big o notation","namespace":0,"categories":["all articles needing additional references","analysis of algorithms","articles needing additional references from january 2013","asymptotic analysis","mathematical notation"],"permissionlevel":false},"wgwikibaseitemid":"q269878"}); 
+}</script><script>if(window.mw){ 
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0, 
+"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true, 
+"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","uls-enable":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchns0":true,"searchns1":false,"searchns2":false,"searchns3":false,"searchns4":false,"searchns5":false,"searchns6":false,"searchns7":false,"searchns8":false,"searchns9":false,"searchns10":false,"searchns11":false,"searchns12":false,"searchns13":false,"searchns14":false,"searchns15":false, 
+"searchns100":false,"searchns101":false,"searchns108":false,"searchns109":false,"searchns118":false,"searchns119":false,"searchns446":false,"searchns447":false,"searchns710":false,"searchns711":false,"searchns828":false,"searchns829":false,"gadget-teahouse":1,"gadget-referencetooltips":1,"gadget-drn-wizard":1,"gadget-charinsert":1,"gadget-mysandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"edittoken":"+\\","patroltoken":false,"watchtoken":false});},{},{}); 
+/* cache key: enwiki:resourceloader:filter:minify-js:7:264b5b04c69e37444d5b2d63c2a65dc9 */ 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualeditor.viewpagetarget.init","wikibase.client.init","ext.centralnotice.bannercontroller","skins.vector.js"]); 
+}</script> 
+<script src="./asymtotic notation_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt ie 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf11/skins/vector/csshover.min.htc")}</style><![endif]--></head> 
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-big_o_notation skin-vector action-view vector-animatelayout"> 
+<div id="mw-page-base" class="noprint"></div> 
+<div id="mw-head-base" class="noprint"></div> 
+<div id="content" class="mw-body" role="main"> 
+<a id="top"></a> 
+<div id="mw-js-message" style="display:none;"></div> 
+<div id="sitenotice"><div id="centralnotice"></div><!-- centralnotice --></div> 
+<h1 id="firstheading" class="firstheading" lang="en"><span dir="auto">big o notation</span></h1> 
+<div id="bodycontent"> 
+<div id="sitesub">from wikipedia, the free encyclopedia</div> 
+<div id="contentsub"></div> 
+<div id="jump-to-nav" class="mw-jump"> 
+jump to:					<a href="http://en.wikipedia.org/wiki/big_o_notation#mw-navigation">navigation</a>, 					<a href="http://en.wikipedia.org/wiki/big_o_notation#p-search">search</a> 
+</div> 
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table class="metadata plainlinks ambox ambox-content ambox-refimprove" role="presentation"> 
+<tbody><tr> 
+<td class="mbox-image"> 
+<div style="width:52px;"><a href="http://en.wikipedia.org/wiki/file:question_book-new.svg" class="image"><img alt="" src="./asymtotic notation_files/100px-question_book-new.svg.png" width="50" height="39" srcset="//upload.wikimedia.org/wikipedia/en/thumb/9/99/question_book-new.svg/75px-question_book-new.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/9/99/question_book-new.svg/100px-question_book-new.svg.png 2x"></a></div> 
+</td> 
+<td class="mbox-text"><span class="mbox-text-span">this article <b>needs additional citations for <a href="http://en.wikipedia.org/wiki/wikipedia:verifiability" title="wikipedia:verifiability">verification</a></b>. <span class="hide-when-compact">please help <a class="external text" href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit">improve this article</a> by <a href="http://en.wikipedia.org/wiki/help:introduction_to_referencing/1" title="help:introduction to referencing/1">adding citations to reliable sources</a>. unsourced material may be challenged and removed.</span> <small><i>(january 2013)</i></small></span></td> 
+</tr> 
+</tbody></table> 
+<div class="thumb tright"> 
+<div class="thumbinner" style="width:402px;"><a href="http://en.wikipedia.org/wiki/file:big-o-notation.png" class="image"><img alt="" src="./asymtotic notation_files/big-o-notation.png" width="400" height="376" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/8/89/big-o-notation.png/600px-big-o-notation.png 1.5x, //upload.wikimedia.org/wikipedia/commons/8/89/big-o-notation.png 2x"></a> 
+<div class="thumbcaption"> 
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/file:big-o-notation.png" class="internal" title="enlarge"><img src="./asymtotic notation_files/magnify-clip.png" width="15" height="11" alt=""></a></div> 
+example of big o notation: <i>f</i>(<i>x</i>) ∈ o(<i>g</i>(<i>x</i>)) as there exists <i>c</i>&nbsp;&gt;&nbsp;0 (e.g., <i>c</i>&nbsp;=&nbsp;1) and <i>x</i><sub>0</sub> (e.g., <i>x</i><sub>0</sub>&nbsp;=&nbsp;5) such that <i>f</i>(<i>x</i>)&nbsp;&lt;&nbsp;<i>cg</i>(<i>x</i>) whenever <i>x</i>&nbsp;&gt;&nbsp;<i>x</i><sub>0</sub>.</div> 
+</div> 
+</div> 
+<p>in <a href="http://en.wikipedia.org/wiki/mathematics" title="mathematics">mathematics</a>, <b>big o notation</b> describes the <a href="http://en.wikipedia.org/wiki/asymptotic_analysis" title="asymptotic analysis">limiting behavior</a> of a <a href="http://en.wikipedia.org/wiki/function_(mathematics)" title="function (mathematics)">function</a> when the argument tends towards a particular value or infinity, usually in terms of simpler functions. it is a member of a larger family of notations that is called <b>landau notation</b>, <b>bachmann–landau notation</b> (after <a href="http://en.wikipedia.org/wiki/edmund_landau" title="edmund landau">edmund landau</a> and <a href="http://en.wikipedia.org/wiki/paul_gustav_heinrich_bachmann" title="paul gustav heinrich bachmann">paul bachmann</a>), or <b>asymptotic notation</b>. in <a href="http://en.wikipedia.org/wiki/computer_science" title="computer science">computer science</a>, big o notation is used to <a href="http://en.wikipedia.org/wiki/computational_complexity_theory" title="computational complexity theory">classify algorithms</a> by how they respond (<i>e.g.,</i> in their processing time or working space requirements) to changes in input size. in <a href="http://en.wikipedia.org/wiki/analytic_number_theory" title="analytic number theory">analytic number theory</a>, it is used to estimate the "error committed" while replacing the asymptotic size, or asymptotic mean size, of an <a href="http://en.wikipedia.org/wiki/arithmetic_function" title="arithmetic function">arithmetical function</a>, by the value, or mean value, it takes at a large finite argument. a famous example is the problem of estimating the remainder term in the <a href="http://en.wikipedia.org/wiki/prime_number_theorem" title="prime number theorem">prime number theorem</a>.</p> 
+<p>big o notation characterizes functions according to their growth rates: different functions with the same growth rate may be represented using the same o notation. the letter o is used because the growth rate of a function is also referred to as order of the function. a description of a function in terms of big o notation usually only provides an <a href="http://en.wikipedia.org/wiki/upper_bound" title="upper bound" class="mw-redirect">upper bound</a> on the growth rate of the function. associated with big o notation are several related notations, using the symbols <a href="http://en.wikipedia.org/wiki/big_o_notation#related_asymptotic_notations"><i>o</i>, ω, ω, and θ</a>, to describe other kinds of bounds on asymptotic growth rates.</p> 
+<p>big o notation is also used in many other fields to provide similar estimates.</p> 
+<p></p> 
+<div id="toc" class="toc"> 
+<div id="toctitle"> 
+<h2>contents</h2> 
+<span class="toctoggle">&nbsp;[<a href="http://en.wikipedia.org/wiki/big_o_notation#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div> 
+<ul> 
+<li class="toclevel-1 tocsection-1"><a href="http://en.wikipedia.org/wiki/big_o_notation#formal_definition"><span class="tocnumber">1</span> <span class="toctext">formal definition</span></a></li> 
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikipedia.org/wiki/big_o_notation#example"><span class="tocnumber">2</span> <span class="toctext">example</span></a></li> 
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikipedia.org/wiki/big_o_notation#usage"><span class="tocnumber">3</span> <span class="toctext">usage</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-4"><a href="http://en.wikipedia.org/wiki/big_o_notation#infinite_asymptotics"><span class="tocnumber">3.1</span> <span class="toctext">infinite asymptotics</span></a></li> 
+<li class="toclevel-2 tocsection-5"><a href="http://en.wikipedia.org/wiki/big_o_notation#infinitesimal_asymptotics"><span class="tocnumber">3.2</span> <span class="toctext">infinitesimal asymptotics</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-6"><a href="http://en.wikipedia.org/wiki/big_o_notation#properties"><span class="tocnumber">4</span> <span class="toctext">properties</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-7"><a href="http://en.wikipedia.org/wiki/big_o_notation#product"><span class="tocnumber">4.1</span> <span class="toctext">product</span></a></li> 
+<li class="toclevel-2 tocsection-8"><a href="http://en.wikipedia.org/wiki/big_o_notation#sum"><span class="tocnumber">4.2</span> <span class="toctext">sum</span></a></li> 
+<li class="toclevel-2 tocsection-9"><a href="http://en.wikipedia.org/wiki/big_o_notation#multiplication_by_a_constant"><span class="tocnumber">4.3</span> <span class="toctext">multiplication by a constant</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-10"><a href="http://en.wikipedia.org/wiki/big_o_notation#multiple_variables"><span class="tocnumber">5</span> <span class="toctext">multiple variables</span></a></li> 
+<li class="toclevel-1 tocsection-11"><a href="http://en.wikipedia.org/wiki/big_o_notation#matters_of_notation"><span class="tocnumber">6</span> <span class="toctext">matters of notation</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-12"><a href="http://en.wikipedia.org/wiki/big_o_notation#equals_sign"><span class="tocnumber">6.1</span> <span class="toctext">equals sign</span></a></li> 
+<li class="toclevel-2 tocsection-13"><a href="http://en.wikipedia.org/wiki/big_o_notation#other_arithmetic_operators"><span class="tocnumber">6.2</span> <span class="toctext">other arithmetic operators</span></a> 
+<ul> 
+<li class="toclevel-3 tocsection-14"><a href="http://en.wikipedia.org/wiki/big_o_notation#example_2"><span class="tocnumber">6.2.1</span> <span class="toctext">example </span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-2 tocsection-15"><a href="http://en.wikipedia.org/wiki/big_o_notation#declaration_of_variables"><span class="tocnumber">6.3</span> <span class="toctext">declaration of variables</span></a></li> 
+<li class="toclevel-2 tocsection-16"><a href="http://en.wikipedia.org/wiki/big_o_notation#multiple_usages"><span class="tocnumber">6.4</span> <span class="toctext">multiple usages</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-17"><a href="http://en.wikipedia.org/wiki/big_o_notation#orders_of_common_functions"><span class="tocnumber">7</span> <span class="toctext">orders of common functions</span></a></li> 
+<li class="toclevel-1 tocsection-18"><a href="http://en.wikipedia.org/wiki/big_o_notation#related_asymptotic_notations"><span class="tocnumber">8</span> <span class="toctext">related asymptotic notations</span></a> 
+<ul> 
+<li class="toclevel-2 tocsection-19"><a href="http://en.wikipedia.org/wiki/big_o_notation#little-o_notation"><span class="tocnumber">8.1</span> <span class="toctext">little-o notation</span></a></li> 
+<li class="toclevel-2 tocsection-20"><a href="http://en.wikipedia.org/wiki/big_o_notation#big_omega_notation"><span class="tocnumber">8.2</span> <span class="toctext">big omega notation</span></a> 
+<ul> 
+<li class="toclevel-3 tocsection-21"><a href="http://en.wikipedia.org/wiki/big_o_notation#the_hardy.e2.80.93littlewood_definition"><span class="tocnumber">8.2.1</span> <span class="toctext">the hardy–littlewood definition</span></a></li> 
+<li class="toclevel-3 tocsection-22"><a href="http://en.wikipedia.org/wiki/big_o_notation#simple_examples"><span class="tocnumber">8.2.2</span> <span class="toctext">simple examples</span></a></li> 
+<li class="toclevel-3 tocsection-23"><a href="http://en.wikipedia.org/wiki/big_o_notation#the_knuth_definition"><span class="tocnumber">8.2.3</span> <span class="toctext">the knuth definition</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-2 tocsection-24"><a href="http://en.wikipedia.org/wiki/big_o_notation#family_of_bachmann.e2.80.93landau_notations"><span class="tocnumber">8.3</span> <span class="toctext">family of bachmann–landau notations</span></a></li> 
+<li class="toclevel-2 tocsection-25"><a href="http://en.wikipedia.org/wiki/big_o_notation#use_in_computer_science"><span class="tocnumber">8.4</span> <span class="toctext">use in computer science</span></a></li> 
+<li class="toclevel-2 tocsection-26"><a href="http://en.wikipedia.org/wiki/big_o_notation#extensions_to_the_bachmann.e2.80.93landau_notations"><span class="tocnumber">8.5</span> <span class="toctext">extensions to the bachmann–landau notations</span></a></li> 
+</ul> 
+</li> 
+<li class="toclevel-1 tocsection-27"><a href="http://en.wikipedia.org/wiki/big_o_notation#generalizations_and_related_usages"><span class="tocnumber">9</span> <span class="toctext">generalizations and related usages</span></a></li> 
+<li class="toclevel-1 tocsection-28"><a href="http://en.wikipedia.org/wiki/big_o_notation#history_.28bachmann.e2.80.93landau.2c_hardy.2c_and_vinogradov_notations.29"><span class="tocnumber">10</span> <span class="toctext">history (bachmann–landau, hardy, and vinogradov notations)</span></a></li> 
+<li class="toclevel-1 tocsection-29"><a href="http://en.wikipedia.org/wiki/big_o_notation#see_also"><span class="tocnumber">11</span> <span class="toctext">see also</span></a></li> 
+<li class="toclevel-1 tocsection-30"><a href="http://en.wikipedia.org/wiki/big_o_notation#references_and_notes"><span class="tocnumber">12</span> <span class="toctext">references and notes</span></a></li> 
+<li class="toclevel-1 tocsection-31"><a href="http://en.wikipedia.org/wiki/big_o_notation#further_reading"><span class="tocnumber">13</span> <span class="toctext">further reading</span></a></li> 
+<li class="toclevel-1 tocsection-32"><a href="http://en.wikipedia.org/wiki/big_o_notation#external_links"><span class="tocnumber">14</span> <span class="toctext">external links</span></a></li> 
+</ul> 
+</div> 
+<p></p> 
+<h2><span class="mw-headline" id="formal_definition">formal definition</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=1" title="edit section: formal definition">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>let <i>f</i>(<i>x</i>) and <i>g</i>(<i>x</i>) be two functions defined on some subset of the <a href="http://en.wikipedia.org/wiki/real_number" title="real number">real numbers</a>. one writes</p> 
+<dl> 
+<dd><img class="tex" alt="f(x)=o(g(x))\text{ as }x\to\infty\," src="./asymtotic notation_files/03f0892b09b6d78de9ced3fbedce20a2.png"></dd> 
+</dl> 
+<p><a href="http://en.wikipedia.org/wiki/if_and_only_if" title="if and only if">if and only if</a> there is a positive constant m such that for all sufficiently large values of <i>x</i>, <i>f</i>(<i>x</i>) is at most m multiplied by <i>g</i>(<i>x</i>) in absolute value. that is, <i>f</i>(<i>x</i>)&nbsp;=&nbsp;<i>o</i>(<i>g</i>(<i>x</i>)) if and only if there exists a positive real number <i>m</i> and a real number <i>x</i><sub>0</sub> such that</p> 
+<dl> 
+<dd><img class="tex" alt="|f(x)| \le \; m |g(x)|\text{ for all }x&gt;x_0." src="./asymtotic notation_files/b56d470c75afa00a266ce010d56df51d.png"></dd> 
+</dl> 
+<p>in many contexts, the assumption that we are interested in the growth rate as the variable <i>x</i> goes to infinity is left unstated, and one writes more simply that <i>f</i>(<i>x</i>)&nbsp;=&nbsp;<i>o</i>(<i>g</i>(<i>x</i>)). the notation can also be used to describe the behavior of <i>f</i> near some real number <i>a</i> (often, <i>a</i>&nbsp;=&nbsp;0): we say</p> 
+<dl> 
+<dd><img class="tex" alt="f(x)=o(g(x))\text{ as }x\to a\," src="./asymtotic notation_files/0f61a992fc4df86fb78360f11476660b.png"></dd> 
+</dl> 
+<p>if and only if there exist positive numbers <i>δ</i> and <i>m</i> such that</p> 
+<dl> 
+<dd><img class="tex" alt="|f(x)| \le \; m |g(x)|\text{ for }|x - a| &lt; \delta." src="./asymtotic notation_files/00c62c77f9a1264f11565835f190f9cd.png"></dd> 
+</dl> 
+<p>if <i>g</i>(<i>x</i>) is non-zero for values of <i>x</i> <a href="http://en.wikipedia.org/wiki/mathematical_jargon#sufficiently_large" title="mathematical jargon" class="mw-redirect">sufficiently close</a> to <i>a</i>, both of these definitions can be unified using the <a href="http://en.wikipedia.org/wiki/limit_superior" title="limit superior" class="mw-redirect">limit superior</a>:</p> 
+<dl> 
+<dd><img class="tex" alt="f(x)=o(g(x))\text{ as }x \to a\," src="./asymtotic notation_files/0f61a992fc4df86fb78360f11476660b.png"></dd> 
+</dl> 
+<p>if and only if</p> 
+<dl> 
+<dd><img class="tex" alt="\limsup_{x\to a} \left|\frac{f(x)}{g(x)}\right| &lt; \infty." src="./asymtotic notation_files/2f2f99a0bfbb20a47555c4234ba34470.png"></dd> 
+</dl> 
+<h2><span class="mw-headline" id="example">example</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=2" title="edit section: example">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>in typical usage, the formal definition of <i>o</i> notation is not used directly; rather, the <i>o</i> notation for a function <i>f</i>(<i>x</i>) is derived by the following simplification rules:</p> 
+<ul> 
+<li>if <i>f</i>(<i>x</i>) is a sum of several terms, the one with the largest growth rate is kept, and all others omitted.</li> 
+<li>if <i>f</i>(<i>x</i>) is a product of several factors, any constants (terms in the product that do not depend on <i>x</i>) are omitted.</li> 
+</ul> 
+<p>for example, let <img class="tex" alt="f(x) = 6x^4 - 2x^3 +5" src="./asymtotic notation_files/d1a95afe92b407dda1086301b9e7398d.png">, and suppose we wish to simplify this function, using <i>o</i> notation, to describe its growth rate as <i>x</i> approaches infinity. this function is the sum of three terms: 6<i>x</i><sup>4</sup>, −2<i>x</i><sup>3</sup>, and 5. of these three terms, the one with the highest growth rate is the one with the largest exponent as a function of <i>x</i>, namely 6<i>x</i><sup>4</sup>. now one may apply the second rule: 6<i>x</i><sup>4</sup> is a product of 6 and <i>x</i><sup>4</sup> in which the first factor does not depend on <i>x</i>. omitting this factor results in the simplified form <i>x</i><sup>4</sup>. thus, we say that <i>f</i>(<i>x</i>) is a "big-oh" of (<i>x</i><sup>4</sup>). mathematically, we can write <i>f</i>(<i>x</i>)&nbsp;=&nbsp;<i>o</i>(<i>x</i><sup>4</sup>). one may confirm this calculation using the formal definition: let <i>f</i>(<i>x</i>)&nbsp;=&nbsp;6<i>x</i><sup>4</sup>&nbsp;−&nbsp;2<i>x</i><sup>3</sup>&nbsp;+&nbsp;5 and <i>g</i>(<i>x</i>)&nbsp;=&nbsp;<i>x</i><sup>4</sup>. applying the <a href="http://en.wikipedia.org/wiki/big_o_notation#formal_definition">formal definition</a> from above, the statement that <i>f</i>(<i>x</i>)&nbsp;=&nbsp;<i>o</i>(<i>x</i><sup>4</sup>) is equivalent to its expansion,</p> 
+<dl> 
+<dd><img class="tex" alt="|f(x)| \le \; m |g(x)|" src="./asymtotic notation_files/dc776096fe102054b9e8eecad60d3b99.png"></dd> 
+</dl> 
+<p>for some suitable choice of <i>x</i><sub>0</sub> and <i>m</i> and for all <i>x</i>&nbsp;&gt;&nbsp;<i>x</i><sub>0</sub>. to prove this, let <i>x</i><sub>0</sub>&nbsp;=&nbsp;1 and <i>m</i>&nbsp;=&nbsp;13. then, for all <i>x</i>&nbsp;&gt;&nbsp;<i>x</i><sub>0</sub>:</p> 
+<dl> 
+<dd><img class="tex" alt="\begin{align}|6x^4 - 2x^3 + 5| &amp;\le 6x^4 + |2x^3| + 5\\ 
+&amp;\le 6x^4 + 2x^4 + 5x^4\\ 
+&amp;\le 13x^4\\ 
+&amp;\le 13|x^4|\end{align}" src="./asymtotic notation_files/896063c97e349e13f1b23649b7cf6b48.png"></dd> 
+</dl> 
+<p>so</p> 
+<dl> 
+<dd><img class="tex" alt=" |6x^4 - 2x^3 + 5| \le 13 \,|x^4 |." src="./asymtotic notation_files/d0da494c288f8a32450a07c8eebf52e3.png"></dd> 
+</dl> 
+<h2><span class="mw-headline" id="usage">usage</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=3" title="edit section: usage">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>big o notation has two main areas of application. in <a href="http://en.wikipedia.org/wiki/mathematics" title="mathematics">mathematics</a>, it is commonly used to describe how closely a finite series approximates a given function, especially in the case of a truncated <a href="http://en.wikipedia.org/wiki/taylor_series" title="taylor series">taylor series</a> or <a href="http://en.wikipedia.org/wiki/asymptotic_expansion" title="asymptotic expansion">asymptotic expansion</a>. in <a href="http://en.wikipedia.org/wiki/computer_science" title="computer science">computer science</a>, it is useful in the <a href="http://en.wikipedia.org/wiki/analysis_of_algorithms" title="analysis of algorithms">analysis of algorithms</a>. in both applications, the function <i>g</i>(<i>x</i>) appearing within the <i>o</i>(...) is typically chosen to be as simple as possible, omitting constant factors and lower order terms. there are two formally close, but noticeably different, usages of this notation: <a href="http://en.wikipedia.org/wiki/infinity" title="infinity">infinite</a> asymptotics and <a href="http://en.wikipedia.org/wiki/infinitesimal" title="infinitesimal">infinitesimal</a> asymptotics. this distinction is only in application and not in principle, however—the formal definition for the "big o" is the same for both cases, only with different limits for the function argument.</p> 
+<h3><span class="mw-headline" id="infinite_asymptotics">infinite asymptotics</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=4" title="edit section: infinite asymptotics">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>big o notation is useful when <a href="http://en.wikipedia.org/wiki/analysis_of_algorithms" title="analysis of algorithms">analyzing algorithms</a> for efficiency. for example, the time (or the number of steps) it takes to complete a problem of size <i>n</i> might be found to be <i>t</i>(<i>n</i>) = 4<i>n</i><sup>2</sup> − 2<i>n</i> + 2. as <i>n</i> grows large, the <i>n</i><sup>2</sup> <a href="http://en.wikipedia.org/wiki/term_(mathematics)" title="term (mathematics)" class="mw-redirect">term</a> will come to dominate, so that all other terms can be neglected—for instance when <i>n</i> = 500, the term 4<i>n</i><sup>2</sup> is 1000 times as large as the 2<i>n</i> term. ignoring the latter would have negligible effect on the expression's value for most purposes. further, the <a href="http://en.wikipedia.org/wiki/coefficient" title="coefficient">coefficients</a> become irrelevant if we compare to any other <a href="http://en.wikipedia.org/wiki/orders_of_approximation" title="orders of approximation">order</a> of expression, such as an expression containing a term n<sup>3</sup> or n<sup>4</sup>. even if <i>t</i>(<i>n</i>) = 1,000,000<i>n</i><sup>2</sup>, if <i>u</i>(<i>n</i>) = <i>n</i><sup>3</sup>, the latter will always exceed the former once <i>n</i> grows larger than 1,000,000 (<i>t</i>(1,000,000) = 1,000,000<sup>3</sup>= <i>u</i>(1,000,000)). additionally, the number of steps depends on the details of the machine model on which the algorithm runs, but different types of machines typically vary by only a constant factor in the number of steps needed to execute an algorithm. so the big o notation captures what remains: we write either</p> 
+<dl> 
+<dd><img class="tex" alt="\ t(n)= o(n^2) \, " src="./asymtotic notation_files/b1ed787cd2ac4222359a45c69501498f.png"></dd> 
+</dl> 
+<p>or</p> 
+<dl> 
+<dd><img class="tex" alt="t(n)\in o(n^2) \, " src="./asymtotic notation_files/026cb43e401bf47c1f0d57b98f13e1ef.png"></dd> 
+</dl> 
+<p>and say that the algorithm has <i>order of n<sup>2</sup></i> time complexity. note that "=" is not meant to express "is equal to" in its normal mathematical sense, but rather a more colloquial "is", so the second expression is technically accurate (see the "<a href="http://en.wikipedia.org/wiki/big_o_notation#equals_sign">equals sign</a>" discussion below) while the first is a common <a href="http://en.wikipedia.org/wiki/abuse_of_notation#big_o_notation" title="abuse of notation">abuse of notation</a>.<sup id="cite_ref-introduction_to_algorithms_1-0" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-introduction_to_algorithms-1"><span>[</span>1<span>]</span></a></sup></p> 
+<h3><span class="mw-headline" id="infinitesimal_asymptotics">infinitesimal asymptotics</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=5" title="edit section: infinitesimal asymptotics">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>big o can also be used to describe the <a href="http://en.wikipedia.org/w/index.php?title=error_bound&action=edit&redlink=1" class="new" title="error bound (page does not exist)">error term</a> in an approximation to a mathematical function. the most significant terms are written explicitly, and then the least-significant terms are summarized in a single big o term. for example,</p> 
+<dl> 
+<dd><img class="tex" alt="e^x=1+x+\frac{x^2}{2}+o(x^3) \,, \qquad\text{as } x\to 0  \,, " src="./asymtotic notation_files/5f6c40997d4e325572c73889b7e97890.png"></dd> 
+</dl> 
+<p>expresses the fact that the error, the difference <img class="tex" alt="\ e^x - (1 + x + x^2/2)" src="./asymtotic notation_files/5ff487da3a2290f7ff3b20b7a027cc40.png">, is smaller in <a href="http://en.wikipedia.org/wiki/absolute_value" title="absolute value">absolute value</a> than some constant times <img class="tex" alt="|x^3|" src="./asymtotic notation_files/fc7e6c654102a676d7f8d0e83c42f105.png"> when <img class="tex" alt="x" src="./asymtotic notation_files/9dd4e461268c8034f5c8564e155c67a6.png"> is close enough to&nbsp;0.</p> 
+<h2><span class="mw-headline" id="properties">properties</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=6" title="edit section: properties">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>if a function <i>f</i>(<i>n</i>) can be written as a finite sum of other functions, then the fastest growing one determines the order of <i>f</i>(<i>n</i>). for example</p> 
+<dl> 
+<dd><img class="tex" alt="f(n) = 9 \log n + 5 (\log n)^3 + 3n^2 + 2n^3 = o(n^3) \,, \qquad\text{as } n\to\infty  \,\!." src="./asymtotic notation_files/f3b82062abf7b259e0a7638b3d1b5e85.png"></dd> 
+</dl> 
+<p>in particular, if a function may be bounded by a polynomial in <i>n</i>, then as <i>n</i> tends to <i>infinity</i>, one may disregard <i>lower-order</i> terms of the polynomial. <i>o</i>(<i>n</i><sup><i>c</i></sup>) and <i>o</i>(<i>c</i><sup><i>n</i></sup>) are very different. if <i>c</i> is greater than one, then the latter grows much faster. a function that grows faster than <i>n</i><sup><i>c</i></sup> for any <i>c</i> is called <i>superpolynomial</i>. one that grows more slowly than any exponential function of the form <img class="tex" alt="c^n" src="./asymtotic notation_files/a4071ffb6a95575ea6187a052ee2d95b.png"> is called <i>subexponential</i>. an algorithm can require time that is both superpolynomial and subexponential; examples of this include the fastest known algorithms for <a href="http://en.wikipedia.org/wiki/integer_factorization" title="integer factorization">integer factorization</a>. <i>o</i>(log <i>n</i>) is exactly the same as <i>o</i>(log(<i>n</i><sup><i>c</i></sup>)). the logarithms differ only by a constant factor (since <img class="tex" alt="\log(n^c)=c \log n" src="./asymtotic notation_files/1980341efd9de8f4539c5badabd6c8c1.png">) and thus the big o notation ignores that. similarly, logs with different constant bases are equivalent.</p> 
+<p>exponentials with different bases, on the other hand, are not of the same order. for example, <img class="tex" alt="2^n" src="./asymtotic notation_files/9aa0ec0374c89d2f7f3d9cd2e05a4bc5.png"> and <img class="tex" alt="3^n" src="./asymtotic notation_files/c2f307ab1e6ecb7e8ced4c1de16e38ff.png"> are not of the same order. changing units may or may not affect the order of the resulting algorithm. changing units is equivalent to multiplying the appropriate variable by a constant wherever it appears. for example, if an algorithm runs in the order of <i>n</i><sup>2</sup>, replacing <i>n</i> by <i>cn</i> means the algorithm runs in the order of <img class="tex" alt="c^2n^2" src="./asymtotic notation_files/d0137f09a9eb91f385a75b9b0d397cd2.png">, and the big o notation ignores the constant <img class="tex" alt="c^2" src="./asymtotic notation_files/d1361fe8d9cd3d38c0919846ab0d3d8e.png">. this can be written as <img class="tex" alt=" c^2n^2 \in o(n^2) " src="./asymtotic notation_files/60ef6f6eeccc99589ec8839e66f95eb8.png">. if, however, an algorithm runs in the order of <img class="tex" alt="2^n" src="./asymtotic notation_files/9aa0ec0374c89d2f7f3d9cd2e05a4bc5.png">, replacing n with cn gives <img class="tex" alt="2^{cn} = (2^c)^n" src="./asymtotic notation_files/dba15733dce418227613cae800ce98d4.png">. this is not equivalent to <img class="tex" alt="2^n" src="./asymtotic notation_files/9aa0ec0374c89d2f7f3d9cd2e05a4bc5.png"> in general. changing of variable may affect the order of the resulting algorithm. for example, if an algorithm's running time is <i>o</i>(<i>n</i>) when measured in terms of the number <i>n</i> of <i>digits</i> of an input number&nbsp;<i>x</i>, then its running time is <i>o</i>(log&nbsp;<i>x</i>) when measured as a function of the input number <i>x</i> itself, because <i>n</i>&nbsp;=&nbsp;θ(log&nbsp;<i>x</i>).</p> 
+<h3><span class="mw-headline" id="product">product</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=7" title="edit section: product">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<dl> 
+<dd><img class="tex" alt=" f_1 \in o(g_1) \text{ and } f_2\in o(g_2)\, \rightarrow f_1  f_2\in o(g_1  g_2)\," src="./asymtotic notation_files/cf2568cc06d490eea26b8276abc8c978.png"></dd> 
+<dd><img class="tex" alt="f\cdot o(g) \subset o(f g)" src="./asymtotic notation_files/f1e5afa0d47c2ee5237dcc1bcef90406.png"></dd> 
+</dl> 
+<h3><span class="mw-headline" id="sum">sum</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=8" title="edit section: sum">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<dl> 
+<dd><img class="tex" alt=" f_1 \in o(g_1) \text{ and } 
+f_2\in o(g_2)\, \rightarrow f_1 + f_2\in o(|g_1| + |g_2|)\," src="./asymtotic notation_files/e852caacad0ee3ff07a1a818aeab7b43.png"> 
+<dl> 
+<dd>this implies <img class="tex" alt=" f_1 \in o(g) \text{ and } f_2 \in o(g) \rightarrow f_1+f_2 \in o(g) " src="./asymtotic notation_files/f54fae9e11b58b30123d3e186887b005.png">, which means that <img class="tex" alt="o(g)" src="./asymtotic notation_files/50260fedafa9f167ceacad16344f17f4.png"> is a <a href="http://en.wikipedia.org/wiki/convex_cone" title="convex cone">convex cone</a>.</dd> 
+</dl> 
+</dd> 
+<dd>if <i>f</i> and <i>g</i> are positive functions, <img class="tex" alt="f + o(g) \in o(f + g)" src="./asymtotic notation_files/413db8ea87ed02c997ae3f17894599ae.png"></dd> 
+</dl> 
+<h3><span class="mw-headline" id="multiplication_by_a_constant">multiplication by a constant</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=9" title="edit section: multiplication by a constant">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<dl> 
+<dd>let <i>k</i> be a constant. then:</dd> 
+<dd><img class="tex" alt="\ o(k g) = o(g)" src="./asymtotic notation_files/a3e016c8c07c503b2a11d42a9f2f6bbb.png"> if <i>k</i> is nonzero.</dd> 
+<dd><img class="tex" alt="f\in o(g) \rightarrow kf\in o(g). " src="./asymtotic notation_files/08b300b00684abebeab3f7316a509b11.png"></dd> 
+</dl> 
+<h2><span class="mw-headline" id="multiple_variables">multiple variables</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=10" title="edit section: multiple variables">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>big <i>o</i> (and little o, and ω...) can also be used with multiple variables. to define big <i>o</i> formally for multiple variables, suppose <img class="tex" alt="f(\vec{x})" src="./asymtotic notation_files/d16820857ec5c5876e2a622b30b2ecea.png"> and <img class="tex" alt="g(\vec{x})" src="./asymtotic notation_files/7cd5e99be2b85e8a168ae0a8a2c62078.png"> are two functions defined on some subset of <img class="tex" alt="\mathbb{r}^n" src="./asymtotic notation_files/30c28f76ef7517dbd19df4d4c683dbe6.png">. we say</p> 
+<dl> 
+<dd><img class="tex" alt="f(\vec{x})\text{ is }o(g(\vec{x}))\text{ as }\vec{x}\to\infty" src="./asymtotic notation_files/c31be13418d942f9ca6c3969cbfa9711.png"></dd> 
+</dl> 
+<p>if and only if</p> 
+<dl> 
+<dd><img class="tex" alt="\exists c\,\exists m&gt;0\text{ such that } |f(\vec{x})| \le c |g(\vec{x})|\text{ for all }\vec{x} \text{ with } x_i&gt;m \text{ for all }i." src="./asymtotic notation_files/b9045fa3d5d77a74c2956c49ce91c48f.png"></dd> 
+</dl> 
+<p>for example, the statement</p> 
+<dl> 
+<dd><img class="tex" alt="f(n,m) = n^2 + m^3 + o(n+m) \text{ as } n,m\to\infty\," src="./asymtotic notation_files/78e1b401f654ae18924d59f8880815a5.png"></dd> 
+</dl> 
+<p>asserts that there exist constants <i>c</i> and <i>m</i> such that</p> 
+<dl> 
+<dd><img class="tex" alt="\forall n, m&gt;m\colon |g(n,m)| \le c(n+m)," src="./asymtotic notation_files/34afcbfebb16008d2b52c02de9daaa40.png"></dd> 
+</dl> 
+<p>where <i>g</i>(<i>n</i>,<i>m</i>) is defined by</p> 
+<dl> 
+<dd><img class="tex" alt="f(n,m) = n^2 + m^3 + g(n,m).\," src="./asymtotic notation_files/d885fceb0ec4036dbd2b13b02ff707cf.png"></dd> 
+</dl> 
+<p>note that this definition allows all of the coordinates of <img class="tex" alt="\vec{x}" src="./asymtotic notation_files/0c36debf81f9e48066eb18dc8f8432e2.png"> to increase to infinity. in particular, the statement</p> 
+<dl> 
+<dd><img class="tex" alt="f(n,m) = o(n^m) \text{ as } n,m\to\infty\," src="./asymtotic notation_files/abdb3f6599f84c94606caae7e842294d.png"></dd> 
+</dl> 
+<p>(i.e., <img class="tex" alt="\exists c\,\exists m\,\forall n\,\forall m\dots" src="./asymtotic notation_files/997b659f89aea2c50d956e1f0c1214bb.png">) is quite different from</p> 
+<dl> 
+<dd><img class="tex" alt="\forall m\colon f(n,m) = o(n^m) \text{ as } n\to\infty" src="./asymtotic notation_files/85d9441f3f8db00788b7e28b45f8137e.png"></dd> 
+</dl> 
+<p>(i.e., <img class="tex" alt="\forall m\,\exists c\,\exists m\,\forall n\dots" src="./asymtotic notation_files/8e9bff06c52f1e72a5dbd849309cdbff.png">).</p> 
+<p>it is worth noting that rodney r. howell in his <a rel="nofollow" class="external text" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.110.3078">paper</a> "on asymptotic notation with multiple variables" claims that it is impossible to define big o notation in multiple variables in a way that implies the properties commonly used in algorithms analysis.</p> 
+<h2><span class="mw-headline" id="matters_of_notation">matters of notation</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=11" title="edit section: matters of notation">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<h3><span class="mw-headline" id="equals_sign">equals sign</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=12" title="edit section: equals sign">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>the statement "<i>f</i>(<i>x</i>) is <i>o</i>(<i>g</i>(<i>x</i>))" as defined above is usually written as <i>f</i>(<i>x</i>)&nbsp;=&nbsp;<i>o</i>(<i>g</i>(<i>x</i>)). some consider this to be an <a href="http://en.wikipedia.org/wiki/abuse_of_notation" title="abuse of notation">abuse of notation</a>, since the use of the equals sign could be misleading as it suggests a symmetry that this statement does not have. as <a href="http://en.wikipedia.org/wiki/nicolaas_govert_de_bruijn" title="nicolaas govert de bruijn">de bruijn</a> says, <i>o</i>(<i>x</i>)&nbsp;=&nbsp;<i>o</i>(<i>x</i><sup>2</sup>) is true but <i>o</i>(<i>x</i><sup>2</sup>)&nbsp;=&nbsp;<i>o</i>(<i>x</i>) is not.<sup id="cite_ref-2" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-2"><span>[</span>2<span>]</span></a></sup> <a href="http://en.wikipedia.org/wiki/donald_knuth" title="donald knuth">knuth</a> describes such statements as "one-way equalities", since if the sides could be reversed, "we could deduce ridiculous things like <i>n</i>&nbsp;=&nbsp;<i>n</i><sup>2</sup> from the identities <i>n</i>&nbsp;=&nbsp;<i>o</i>(<i>n</i><sup>2</sup>) and <i>n</i><sup>2</sup>&nbsp;=&nbsp;<i>o</i>(<i>n</i><sup>2</sup>)."<sup id="cite_ref-concrete_mathematics_3-0" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-concrete_mathematics-3"><span>[</span>3<span>]</span></a></sup> for these reasons, it would be more precise to use <a href="http://en.wikipedia.org/wiki/set_notation" title="set notation">set notation</a> and write <i>f</i>(<i>x</i>)&nbsp;∈&nbsp;<i>o</i>(<i>g</i>(<i>x</i>)), thinking of <i>o</i>(<i>g</i>(<i>x</i>)) as the class of all functions <i>h</i>(<i>x</i>) such that |<i>h</i>(<i>x</i>)|&nbsp;≤&nbsp;<i>c</i>|<i>g</i>(<i>x</i>)| for some constant <i>c</i>.<sup id="cite_ref-concrete_mathematics_3-1" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-concrete_mathematics-3"><span>[</span>3<span>]</span></a></sup> however, the use of the equals sign is customary. knuth pointed out that "mathematicians customarily use the = sign as they use the word 'is' in english: aristotle is a man, but a man isn't necessarily aristotle."<sup id="cite_ref-4" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-4"><span>[</span>4<span>]</span></a></sup></p> 
+<h3><span class="mw-headline" id="other_arithmetic_operators">other arithmetic operators</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=13" title="edit section: other arithmetic operators">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>big o notation can also be used in conjunction with other arithmetic operators in more complicated equations. for example, <i>h</i>(<i>x</i>) + <i>o</i>(<i>f</i>(<i>x</i>)) denotes the collection of functions having the growth of <i>h</i>(<i>x</i>) plus a part whose growth is limited to that of <i>f</i>(<i>x</i>). thus,</p> 
+<dl> 
+<dd><img class="tex" alt="g(x) = h(x) + o(f(x))\," src="./asymtotic notation_files/81d0dc2b1a4658c42af1f618b6d9b335.png"></dd> 
+</dl> 
+<p>expresses the same as</p> 
+<dl> 
+<dd><img class="tex" alt="g(x) - h(x) \in o(f(x))\,." src="./asymtotic notation_files/eb3c2bb309513136d7f4c880b1a4600f.png"></dd> 
+</dl> 
+<h4><span class="mw-headline" id="example_2">example <span id="example_.28matters_of_notation.29"></span></span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=14" title="edit section: example">edit</a><span class="mw-editsection-bracket">]</span></span></h4> 
+<p>suppose an <a href="http://en.wikipedia.org/wiki/algorithm" title="algorithm">algorithm</a> is being developed to operate on a set of <i>n</i> elements. its developers are interested in finding a function <i>t</i>(<i>n</i>) that will express how long the algorithm will take to run (in some arbitrary measurement of time) in terms of the number of elements in the input set. the algorithm works by first calling a subroutine to sort the elements in the set and then perform its own operations. the sort has a known time complexity of <i>o</i>(<i>n</i><sup>2</sup>), and after the subroutine runs the algorithm must take an additional <img class="tex" alt=" 55n^3+2n+10" src="./asymtotic notation_files/900513e1c303b2dfc927f3491a615644.png"> time before it terminates. thus the overall time complexity of the algorithm can be expressed as</p> 
+<dl> 
+<dd><img class="tex" alt="t(n)=o(n^2)+55n^3+2n+10.\ " src="./asymtotic notation_files/eca2802ce66d91c71ba8a90edc3e5816.png"></dd> 
+</dl> 
+<p>this can perhaps be most easily read by replacing <i>o</i>(<i>n</i><sup>2</sup>) with "some function that grows asymptotically no faster than <i>n</i><sup>2</sup> ". again, this usage disregards some of the formal meaning of the "=" and "+" symbols, but it does allow one to use the big o notation as a kind of convenient placeholder.</p> 
+<h3><span class="mw-headline" id="declaration_of_variables">declaration of variables</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=15" title="edit section: declaration of variables">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>another feature of the notation, although less exceptional, is that function arguments may need to be inferred from the context when several variables are involved. the following two right-hand side big o notations have dramatically different meanings:</p> 
+<dl> 
+<dd><img class="tex" alt="f(m) = o(m^n)\,," src="./asymtotic notation_files/b44f96970fe23f8d193cfc3fa4bc053f.png"></dd> 
+<dd><img class="tex" alt="g(n)\,\, = o(m^n)\,." src="./asymtotic notation_files/f73e07c38eaeb39fcb659947095eb7ae.png"></dd> 
+</dl> 
+<p>the first case states that <i>f</i>(<i>m</i>) exhibits polynomial growth, while the second, assuming <i>m</i> &gt; 1, states that <i>g</i>(<i>n</i>) exhibits exponential growth. to avoid confusion, some authors use the notation</p> 
+<dl> 
+<dd><img class="tex" alt="g(x) \in o(f(x))\,." src="./asymtotic notation_files/5130aadcef1f1c8ea2d8283d199ecc2b.png"></dd> 
+</dl> 
+<p>rather than the less explicit</p> 
+<dl> 
+<dd><img class="tex" alt="g \in o(f)\,," src="./asymtotic notation_files/1e1cab4496efc04c09800df2d2af388e.png"></dd> 
+</dl> 
+<h3><span class="mw-headline" id="multiple_usages">multiple usages</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=16" title="edit section: multiple usages">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>in more complicated usage, <i>o</i>(...) can appear in different places in an equation, even several times on each side. for example, the following are true for <img class="tex" alt="n\to\infty" src="./asymtotic notation_files/d3a3154c093175197f6594a7db2f1b2f.png"></p> 
+<dl> 
+<dd><img class="tex" alt="(n+1)^2 = n^2 + o(n)\ " src="./asymtotic notation_files/f330c45fcf71362ee34b72a70e1fb3c5.png"></dd> 
+<dd><img class="tex" alt="(n+o(n^{1/2}))(n + o(\log n))^2 = n^3 + o(n^{5/2})\ " src="./asymtotic notation_files/4601634a3c69208889e312a2d5b1d35d.png"></dd> 
+<dd><img class="tex" alt="n^{o(1)} = o(e^n).\ " src="./asymtotic notation_files/53597f72fd3ec714b2a76b5b2ea4b54f.png"></dd> 
+</dl> 
+<p>the meaning of such statements is as follows: for <i>any</i> functions which satisfy each <i>o</i>(...) on the left side, there are <i>some</i> functions satisfying each <i>o</i>(...) on the right side, such that substituting all these functions into the equation makes the two sides equal. for example, the third equation above means: "for any function <img class="tex" alt="f(n)=o(1)\," src="./asymtotic notation_files/164bb2c5e87cb4246ba5b43dfbbac5cb.png">, there is some function <img class="tex" alt="g(n)=o(e^n)\," src="./asymtotic notation_files/728604c59a23b50108c2c244cbe00e32.png"> such that <img class="tex" alt="n^{f(n)}=g(n)" src="./asymtotic notation_files/81fe8a2e4243e64ca6f5709a455676f0.png">." in terms of the "set notation" above, the meaning is that the class of functions represented by the left side is a subset of the class of functions represented by the right side. in this use the "=" is a formal symbol that unlike the usual use of "=" is not a <a href="http://en.wikipedia.org/wiki/symmetric_relation" title="symmetric relation">symmetric relation</a>. thus for example <img class="tex" alt="n^{o(1)} = o(e^n)\, " src="./asymtotic notation_files/1ccd3b4b2aed508f623f047b4fd48357.png"> does not imply the false statement <img class="tex" alt="o(e^n) = n^{o(1)}\, " src="./asymtotic notation_files/bf994758c8ba27b5ec2199413a3f508a.png">.</p> 
+<h2><span class="mw-headline" id="orders_of_common_functions">orders of common functions</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=17" title="edit section: orders of common functions">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<div class="rellink">further information: <a href="http://en.wikipedia.org/wiki/time_complexity#table_of_common_time_complexities" title="time complexity">time complexity#table of common time complexities</a></div> 
+<p>here is a list of classes of functions that are commonly encountered when analyzing the running time of an algorithm. in each case, <i>c</i> is a constant and <i>n</i> increases without bound. the slower-growing functions are generally listed first.</p> 
+<table class="wikitable"> 
+<tbody><tr> 
+<th>notation</th> 
+<th>name</th> 
+<th>example</th> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="o(1)\," src="./asymtotic notation_files/3cafa487bd35dc5de745b73b42e41f8c.png"></td> 
+<td><a href="http://en.wikipedia.org/wiki/constant_time" title="constant time" class="mw-redirect">constant</a></td> 
+<td>determining if a number is even or odd; using a constant-size <a href="http://en.wikipedia.org/wiki/lookup_table" title="lookup table">lookup table</a></td> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="o(\log \log n)\," src="./asymtotic notation_files/2eed40c44c1696160d04074665120a20.png"></td> 
+<td>double logarithmic</td> 
+<td>number of comparisons spent finding an item using <a href="http://en.wikipedia.org/wiki/interpolation_search" title="interpolation search">interpolation search</a> in a sorted array of uniformly distributed values.</td> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="o(\log n)\," src="./asymtotic notation_files/5ffe63dd51eb6795ef395eb4382065cc.png"></td> 
+<td><a href="http://en.wikipedia.org/wiki/logarithmic_time" title="logarithmic time" class="mw-redirect">logarithmic</a></td> 
+<td>finding an item in a sorted array with a <a href="http://en.wikipedia.org/wiki/binary_search_algorithm" title="binary search algorithm">binary search</a> or a balanced search <a href="http://en.wikipedia.org/wiki/tree_data_structure" title="tree data structure" class="mw-redirect">tree</a> as well as all operations in a <a href="http://en.wikipedia.org/wiki/binomial_heap" title="binomial heap">binomial heap</a>.</td> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="o(n^c),\;0&lt;c&lt;1\," src="./asymtotic notation_files/e2e9dafd80ed9978a061d5d53bba18e0.png"></td> 
+<td>fractional power</td> 
+<td>searching in a <a href="http://en.wikipedia.org/wiki/kd-tree" title="kd-tree" class="mw-redirect">kd-tree</a></td> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="o(n)\," src="./asymtotic notation_files/6e85ed16b150a2e8c2dd03d09406ff4e.png"></td> 
+<td><a href="http://en.wikipedia.org/wiki/linear_time" title="linear time" class="mw-redirect">linear</a></td> 
+<td>finding an item in an unsorted list or a malformed tree (worst case) or in an unsorted array; adding two <i>n</i>-bit integers by <a href="http://en.wikipedia.org/wiki/ripple_carry_adder" title="ripple carry adder" class="mw-redirect">ripple carry</a>.</td> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="o(n\log^* n)\," src="./asymtotic notation_files/15de31e462a56542fc5869d08849d76f.png"></td> 
+<td>n <a href="http://en.wikipedia.org/wiki/log-star" title="log-star" class="mw-redirect">log-star</a> n</td> 
+<td>performing <a href="http://en.wikipedia.org/wiki/polygon_triangulation" title="polygon triangulation">triangulation</a> of a simple polygon using seidel's algorithm, or the <a href="http://en.wikipedia.org/wiki/proof_of_o(log*n)_time_complexity_of_union%e2%80%93find" title="proof of o(log*n) time complexity of union–find">union–find algorithm</a>. (note <img class="tex" alt="\log^*(n) = 
+\begin{cases} 
+0, &amp; \text{if }n \leq 1 \\ 
+1 + \log^*(\log n), &amp; \text{if }n&gt;1 
+\end{cases}" src="./asymtotic notation_files/ed24695710b00ef85e04174f7c7ce13b.png"></td> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="o(n\log n)=o(\log n!)\," src="./asymtotic notation_files/743201a39160a9f6a2fc706363af3cf5.png"></td> 
+<td><a href="http://en.wikipedia.org/wiki/linearithmic_time" title="linearithmic time" class="mw-redirect">linearithmic</a>, loglinear, or quasilinear</td> 
+<td>performing a <a href="http://en.wikipedia.org/wiki/fast_fourier_transform" title="fast fourier transform">fast fourier transform</a>; <a href="http://en.wikipedia.org/wiki/heapsort" title="heapsort">heapsort</a>, <a href="http://en.wikipedia.org/wiki/quicksort" title="quicksort">quicksort</a> (best and average case), or <a href="http://en.wikipedia.org/wiki/merge_sort" title="merge sort">merge sort</a></td> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="o(n^2)\," src="./asymtotic notation_files/2505c72066c2e1cc1a51e4be2f0a1085.png"></td> 
+<td><a href="http://en.wikipedia.org/wiki/quadratic_time" title="quadratic time" class="mw-redirect">quadratic</a></td> 
+<td>multiplying two <i>n</i>-digit numbers by a simple algorithm; <a href="http://en.wikipedia.org/wiki/bubble_sort" title="bubble sort">bubble sort</a> (worst case or naive implementation), <a href="http://en.wikipedia.org/wiki/shell_sort" title="shell sort" class="mw-redirect">shell sort</a>, quicksort (worst case), <a href="http://en.wikipedia.org/wiki/selection_sort" title="selection sort">selection sort</a> or <a href="http://en.wikipedia.org/wiki/insertion_sort" title="insertion sort">insertion sort</a></td> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="o(n^c),\;c&gt;1" src="./asymtotic notation_files/3a6946fab2dad8152e62c85a924deb13.png"></td> 
+<td><a href="http://en.wikipedia.org/wiki/polynomial_time" title="polynomial time" class="mw-redirect">polynomial</a> or algebraic</td> 
+<td><a href="http://en.wikipedia.org/wiki/tree-adjoining_grammar" title="tree-adjoining grammar">tree-adjoining grammar</a> parsing; maximum <a href="http://en.wikipedia.org/wiki/matching_(graph_theory)" title="matching (graph theory)">matching</a> for <a href="http://en.wikipedia.org/wiki/bipartite_graph" title="bipartite graph">bipartite graphs</a></td> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="l_n[\alpha,c],\;0 &lt; \alpha &lt; 1=\," src="./asymtotic notation_files/4c7865eedf738031608f23d47d2d51d3.png"><br> 
+<img class="tex" alt="e^{(c+o(1)) (\ln n)^\alpha (\ln \ln n)^{1-\alpha}}" src="./asymtotic notation_files/aaa734cf2ce4a61bcc3825416603a61f.png"></td> 
+<td><a href="http://en.wikipedia.org/wiki/l-notation" title="l-notation">l-notation</a> or <a href="http://en.wikipedia.org/wiki/sub-exponential_time" title="sub-exponential time" class="mw-redirect">sub-exponential</a></td> 
+<td>factoring a number using the <a href="http://en.wikipedia.org/wiki/quadratic_sieve" title="quadratic sieve">quadratic sieve</a> or <a href="http://en.wikipedia.org/wiki/number_field_sieve" title="number field sieve" class="mw-redirect">number field sieve</a></td> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="o(c^n),\;c&gt;1" src="./asymtotic notation_files/c0dcf3a8da4f8216140b2d5f3d447cb9.png"></td> 
+<td><a href="http://en.wikipedia.org/wiki/exponential_time" title="exponential time" class="mw-redirect">exponential</a></td> 
+<td>finding the (exact) solution to the <a href="http://en.wikipedia.org/wiki/travelling_salesman_problem" title="travelling salesman problem">travelling salesman problem</a> using <a href="http://en.wikipedia.org/wiki/dynamic_programming" title="dynamic programming">dynamic programming</a>; determining if two logical statements are equivalent using <a href="http://en.wikipedia.org/wiki/brute-force_search" title="brute-force search">brute-force search</a></td> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="o(n!)\," src="./asymtotic notation_files/e1fe6841751d0fd2041c14533582c7d4.png"></td> 
+<td><a href="http://en.wikipedia.org/wiki/factorial" title="factorial">factorial</a></td> 
+<td>solving the traveling salesman problem via brute-force search; generating all unrestricted permutations of a <a href="http://en.wikipedia.org/wiki/partially_ordered_set" title="partially ordered set">poset</a>; finding the <a href="http://en.wikipedia.org/wiki/determinant" title="determinant">determinant</a> with <a href="http://en.wikipedia.org/wiki/expansion_by_minors" title="expansion by minors" class="mw-redirect">expansion by minors</a>; enumerating <a href="http://en.wikipedia.org/wiki/bell_number" title="bell number">all partitions of a set</a>.</td> 
+</tr> 
+</tbody></table> 
+<p>the statement <img class="tex" alt="f(n)=o(n!)\," src="./asymtotic notation_files/b223cb300532ed765e400847bbca8b7a.png"> is sometimes weakened to <img class="tex" alt="f(n)=o\left(n^n\right)" src="./asymtotic notation_files/120b95162613c79842035c2cbfbcbed0.png"> to derive simpler formulas for asymptotic complexity. for any <img class="tex" alt="k&gt;0" src="./asymtotic notation_files/1ceed399f1d8fa4a79cc94a5e6c5c76c.png"> and <img class="tex" alt="c&gt;0" src="./asymtotic notation_files/96df96dd95bbf61a8224853c7a06c48c.png">, <img class="tex" alt="o(n^c(\log n)^k)" src="./asymtotic notation_files/ccee052fb163fe8b7e3b9c5ebe0efe20.png"> is a subset of <img class="tex" alt="o(n^{c+\varepsilon })" src="./asymtotic notation_files/b484dc2979385c32ed7a7e8a14e3a788.png"> for any <img class="tex" alt=" \varepsilon &gt;0" src="./asymtotic notation_files/b0f19c5714fe9f9891ed26ff783cf639.png">, so may be considered as a polynomial with some bigger order.</p> 
+<h2><span class="mw-headline" id="related_asymptotic_notations">related asymptotic notations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=18" title="edit section: related asymptotic notations">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>big <i>o</i> is the most commonly used asymptotic notation for comparing functions, although in many cases big <i>o</i> may be replaced with big theta θ for asymptotically tighter bounds. here, we define some related notations in terms of big <i>o</i>, progressing up to the family of bachmann–landau notations to which big <i>o</i> notation belongs.</p> 
+<h3><span class="mw-headline" id="little-o_notation">little-o notation</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=19" title="edit section: little-o notation">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>the relation <img class="tex" alt="f(x) \in  o(g(x))" src="./asymtotic notation_files/4759670e35ecabcda6175efb393fb781.png"> is read as "<img class="tex" alt="f(x)" src="./asymtotic notation_files/50bbd36e1fd2333108437a2ca378be62.png"> is little-o of <img class="tex" alt="g(x)" src="./asymtotic notation_files/e84fec1e074026d6fa8e3155482c35c3.png">". intuitively, it means that <img class="tex" alt="g(x)" src="./asymtotic notation_files/e84fec1e074026d6fa8e3155482c35c3.png"> grows much faster than <img class="tex" alt="f(x)" src="./asymtotic notation_files/50bbd36e1fd2333108437a2ca378be62.png">, or similarly, the growth of <img class="tex" alt="f(x)" src="./asymtotic notation_files/50bbd36e1fd2333108437a2ca378be62.png"> is nothing compared to that of <img class="tex" alt="g(x)" src="./asymtotic notation_files/e84fec1e074026d6fa8e3155482c35c3.png">. it assumes that <i>f</i> and <i>g</i> are both functions of one variable. formally, <i>f</i>(<i>n</i>)&nbsp;=&nbsp;<i>o</i>(<i>g</i>(<i>n</i>)) as <span class="texhtml"><i>n</i> → ∞</span> means that for every positive constant <img class="tex" alt="\epsilon" src="./asymtotic notation_files/c50b9e82e318d4c163e4b1b060f7daf5.png"> there exists a constant <i>n</i> such that</p> 
+<dl> 
+<dd><img class="tex" alt="|f(n)|\leq\epsilon|g(n)|\qquad\text{for all }n\geq n~." src="./asymtotic notation_files/668fff9e5d0f19ba8d5673f078695ab9.png"><sup id="cite_ref-concrete_mathematics_3-2" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-concrete_mathematics-3"><span>[</span>3<span>]</span></a></sup></dd> 
+</dl> 
+<p>note the difference between the earlier <a href="http://en.wikipedia.org/wiki/big_o_notation#formal_definition">formal definition</a> for the big-o notation, and the present definition of little-o: while the former has to be true for <i>at least one</i> constant <i>m</i> the latter must hold for <i>every</i> positive constant <img class="tex" alt="\epsilon" src="./asymtotic notation_files/c50b9e82e318d4c163e4b1b060f7daf5.png">, however small.<sup id="cite_ref-introduction_to_algorithms_1-1" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-introduction_to_algorithms-1"><span>[</span>1<span>]</span></a></sup> in this way little-o notation makes a stronger statement than the corresponding big-o notation: every function that is little-o of <i>g</i> is also big-o of <i>g</i>, but not every function that is big-o <i>g</i> is also little-o of <i>g</i> (for instance <i>g</i> itself is not, unless it is identically zero near ∞).</p> 
+<p>if <i>g</i>(<i>x</i>) is nonzero, or at least becomes nonzero beyond a certain point, the relation <i>f</i>(<i>x</i>)&nbsp;=&nbsp;<i>o</i>(<i>g</i>(<i>x</i>)) is equivalent to</p> 
+<dl> 
+<dd><img class="tex" alt="\lim_{x \to \infty}\frac{f(x)}{g(x)}=0." src="./asymtotic notation_files/32d63c9679e72f07d0ba3fceef5d6553.png"></dd> 
+</dl> 
+<p>for example,</p> 
+<ul> 
+<li><img class="tex" alt="2x  \in o(x^2) \,\!" src="./asymtotic notation_files/20ef4c65bca00c3f1d61755cdfcf4818.png"></li> 
+<li><img class="tex" alt="2x^2 \not \in  o(x^2)" src="./asymtotic notation_files/4dee7efcc1f703c9fd27eac380d3a6a5.png"></li> 
+<li><img class="tex" alt="1/x \in o(1)" src="./asymtotic notation_files/8d9a3a9dd35b13574989d63ebf91dc06.png"></li> 
+</ul> 
+<p>little-o notation is common in mathematics but rarer in computer science. in computer science the variable (and function value) is most often a natural number. in mathematics, the variable and function values are often real numbers. the following properties can be useful:</p> 
+<ul> 
+<li><img class="tex" alt="o(f) + o(f) \subseteq o(f)" src="./asymtotic notation_files/2ab375e3e6dfcefc066d1eb3c9172fe1.png"></li> 
+<li><img class="tex" alt="o(f)o(g) \subseteq o(fg)" src="./asymtotic notation_files/26184371a0aba09849fe01219aceb3de.png"></li> 
+<li><img class="tex" alt="o(o(f)) \subseteq o(f)" src="./asymtotic notation_files/d5b84b11f0e1cd23d2b43ad47926254b.png"></li> 
+<li><img class="tex" alt="o(f) \subset o(f)" src="./asymtotic notation_files/969dc399cd0c9701c9878c20b92492c5.png"> (and thus the above properties apply with most combinations of o and o).</li> 
+</ul> 
+<p>as with big o notation, the statement "<img class="tex" alt="f(x)" src="./asymtotic notation_files/50bbd36e1fd2333108437a2ca378be62.png"> is <img class="tex" alt="o(g(x))" src="./asymtotic notation_files/9365089adf72414c0725ef63f6c99df5.png">" is usually written as <img class="tex" alt=" f(x) = o(g(x))" src="./asymtotic notation_files/a42c9f07c576261de42a9f45aed73238.png">, which is a slight <a href="http://en.wikipedia.org/wiki/abuse_of_notation" title="abuse of notation">abuse of notation</a>.</p> 
+<h3><span class="mw-headline" id="big_omega_notation">big omega notation</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=20" title="edit section: big omega notation">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>there are two very widespread and incompatible definitions of the statement</p> 
+<dl> 
+<dd><img class="tex" alt="f(x)=\omega(g(x))\ (x\rightarrow a)," src="./asymtotic notation_files/c1af835df3fadd5ec72d40056fd20f54.png"></dd> 
+</dl> 
+<p>where <img class="tex" alt="a" src="./asymtotic notation_files/0cc175b9c0f1b6a831c399e269772661.png"> is some real number, <img class="tex" alt="\infty" src="./asymtotic notation_files/d245777abca64ece2d5d7ca0d19fddb6.png"> or <img class="tex" alt="-\infty" src="./asymtotic notation_files/beab416080922c84a90ba092f7734fe5.png">, where <img class="tex" alt="f" src="./asymtotic notation_files/8fa14cdd754f91cc6554c9e71929cce7.png"> and <img class="tex" alt="g" src="./asymtotic notation_files/b2f5ff47436671b6e533d8dc3614845d.png"> are real functions defined in a neighbourhood of <img class="tex" alt="a" src="./asymtotic notation_files/0cc175b9c0f1b6a831c399e269772661.png">, and where <img class="tex" alt="g" src="./asymtotic notation_files/b2f5ff47436671b6e533d8dc3614845d.png"> is positive in this neighbourhood.</p> 
+<p>the first one (chronologically) is used in <a href="http://en.wikipedia.org/wiki/analytic_number_theory" title="analytic number theory">analytic number theory</a>, and the other one in <a href="http://en.wikipedia.org/wiki/computational_complexity_theory" title="computational complexity theory">computational complexity theory</a>. when the two subjects meet, this situation is bound to generate confusion.</p> 
+<h4><span class="mw-headline" id="the_hardy.e2.80.93littlewood_definition">the hardy–littlewood definition</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=21" title="edit section: the hardy–littlewood definition">edit</a><span class="mw-editsection-bracket">]</span></span></h4> 
+<p>in 1914 <a href="http://en.wikipedia.org/wiki/godfrey_harold_hardy" title="godfrey harold hardy" class="mw-redirect">g.h. hardy</a> and <a href="http://en.wikipedia.org/wiki/john_edensor_littlewood" title="john edensor littlewood">j.e. littlewood</a> introduced the new symbol <img class="tex" alt="\omega" src="./asymtotic notation_files/b9d99db8626de63193c7fe96273a6cae.png">,<sup id="cite_ref-hl_5-0" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-hl-5"><span>[</span>5<span>]</span></a></sup> which is defined as follows:</p> 
+<dl> 
+<dd><img class="tex" alt="f(x)=\omega(g(x))\ (x\rightarrow\infty)\;\leftrightarrow\;\limsup_{x \to \infty} \left|\frac{f(x)}{g(x)}\right|&gt; 0" src="./asymtotic notation_files/87900734d86c2e4581ac88311952c839.png">.</dd> 
+</dl> 
+<p>thus <img class="tex" alt="f(x)=\omega(g(x))" src="./asymtotic notation_files/976b89c58e76a403ee96d32fa31ce6fa.png"> is the negation of <img class="tex" alt="f(x)=o(g(x))" src="./asymtotic notation_files/a42c9f07c576261de42a9f45aed73238.png">.</p> 
+<p>in 1918 the same authors introduced the two new symbols <img class="tex" alt="\omega_r" src="./asymtotic notation_files/9ba17fdfed43b9b53ea595d12166ff03.png"> and <img class="tex" alt="\omega_l" src="./asymtotic notation_files/b020d58b54a77b0cf182b9b6b04d1c5f.png">,<sup id="cite_ref-hl2_6-0" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-hl2-6"><span>[</span>6<span>]</span></a></sup> thus defined:</p> 
+<dl> 
+<dd><img class="tex" alt="f(x)=\omega_r(g(x))\ (x\rightarrow\infty)\;\leftrightarrow\;\limsup_{x \to \infty} \frac{f(x)}{g(x)}&gt; 0" src="./asymtotic notation_files/06fe2c0799e1a99267a1b87d0a485f35.png">;</dd> 
+</dl> 
+<dl> 
+<dd><img class="tex" alt="f(x)=\omega_l(g(x))\ (x\rightarrow\infty)\;\leftrightarrow\;\liminf_{x \to \infty} \frac{f(x)}{g(x)}&lt; 0" src="./asymtotic notation_files/0f93292412e6d22ce6bfba37b0b99b01.png">.</dd> 
+</dl> 
+<p>hence <img class="tex" alt="f(x)=\omega_r(g(x))" src="./asymtotic notation_files/f96faeeb4aaf327f72daae075d88bbb4.png"> is the negation of <img class="tex" alt="f(x)&lt;o(g(x))" src="./asymtotic notation_files/9e6f95e906585f9df67bd41ce5af4ece.png">, and <img class="tex" alt="f(x)=\omega_l(g(x))" src="./asymtotic notation_files/b37de7d644de92ac619cd1ac2557297b.png"> the negation of <img class="tex" alt="f(x)&gt;o(g(x))" src="./asymtotic notation_files/2b4a005ceb07be7cba325cbde58665f7.png">.</p> 
+<p>contrary to a later assertion of <a href="http://en.wikipedia.org/wiki/donald_knuth" title="donald knuth">d.e. knuth</a>,<sup id="cite_ref-knuth_7-0" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-knuth-7"><span>[</span>7<span>]</span></a></sup> <a href="http://en.wikipedia.org/wiki/edmund_landau" title="edmund landau">edmund landau</a> did use these three symbols, with the same meanings, in 1924.<sup id="cite_ref-landau_8-0" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-landau-8"><span>[</span>8<span>]</span></a></sup></p> 
+<p>these hardy-littlewood symbols are prototypes, which after landau were never used again exactly thus.</p> 
+<dl> 
+<dd><img class="tex" alt="\omega_r" src="./asymtotic notation_files/9ba17fdfed43b9b53ea595d12166ff03.png"> became <img class="tex" alt="\omega_+" src="./asymtotic notation_files/b262dad3e2fef0c1214019c72d848162.png">, and <img class="tex" alt="\omega_l" src="./asymtotic notation_files/b020d58b54a77b0cf182b9b6b04d1c5f.png"> became <img class="tex" alt="\omega_-" src="./asymtotic notation_files/3d319af817d17df4620b1e3bac8816b6.png">.</dd> 
+</dl> 
+<p>these three symbols <img class="tex" alt="\omega, \omega_+, \omega_-" src="./asymtotic notation_files/0194117b74d15e5370cba4852e3b4c31.png">, as well as <img class="tex" alt="f(x)=\omega_\pm(g(x))" src="./asymtotic notation_files/e7a39744c86b3019516ebd751b7861df.png"> (meaning that <img class="tex" alt="f(x)=\omega_+(g(x))" src="./asymtotic notation_files/908e5a8a77440a2b9c12defa4118efbf.png"> and <img class="tex" alt="f(x)=\omega_-(g(x))" src="./asymtotic notation_files/956991c0b71262006e578c6ec1df7642.png"> are both satisfied), are now currently used in <a href="http://en.wikipedia.org/wiki/analytic_number_theory" title="analytic number theory">analytic number theory</a>.</p> 
+<h4><span class="mw-headline" id="simple_examples">simple examples</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=22" title="edit section: simple examples">edit</a><span class="mw-editsection-bracket">]</span></span></h4> 
+<p>we have</p> 
+<dl> 
+<dd><img class="tex" alt="\sin x=\omega(1)\ (x\rightarrow\infty)" src="./asymtotic notation_files/2b991e555d9c534e415780943c0e2165.png">,</dd> 
+</dl> 
+<p>and more precisely</p> 
+<dl> 
+<dd><img class="tex" alt="\sin x=\omega_\pm(1)\ (x\rightarrow\infty)" src="./asymtotic notation_files/231f0e328e4dbd369c725e6e287d9caf.png">.</dd> 
+</dl> 
+<p>we have</p> 
+<dl> 
+<dd><img class="tex" alt="\sin x+1=\omega(1)\ (x\rightarrow\infty)" src="./asymtotic notation_files/45ddba0d35f25c3f9856ef4f7cf6477c.png">,</dd> 
+</dl> 
+<p>and more precisely</p> 
+<dl> 
+<dd><img class="tex" alt="\sin x+1=\omega_+(1)\ (x\rightarrow\infty)" src="./asymtotic notation_files/1ebd244ccdc7ce7c31606bb91229914b.png">;</dd> 
+</dl> 
+<p>however</p> 
+<dl> 
+<dd><img class="tex" alt="\sin x+1\not=\omega_-(1)\ (x\rightarrow\infty)" src="./asymtotic notation_files/dd71b846ac689a9a86990078c60bb27b.png">.</dd> 
+</dl> 
+<h4><span class="mw-headline" id="the_knuth_definition">the knuth definition</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=23" title="edit section: the knuth definition">edit</a><span class="mw-editsection-bracket">]</span></span></h4> 
+<p>in 1976 <a href="http://en.wikipedia.org/wiki/donald_knuth" title="donald knuth">d.e. knuth</a> published a paper<sup id="cite_ref-knuth_7-1" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-knuth-7"><span>[</span>7<span>]</span></a></sup> to justify his use of the <img class="tex" alt="\omega" src="./asymtotic notation_files/b9d99db8626de63193c7fe96273a6cae.png">-symbol to describe a stronger property. knuth wrote: "for all the applications i have seen so far in computer science, a stronger requirement […] is much more appropriate". he defined</p> 
+<dl> 
+<dd><img class="tex" alt="f(x)=\omega(g(x))\leftrightarrow g(x)=o(f(x))" src="./asymtotic notation_files/75316ad718eb295265b4cd7d6d7fba66.png"></dd> 
+</dl> 
+<p>with the comment: "although i have changed hardy and littlewood's definition of <img class="tex" alt="\omega" src="./asymtotic notation_files/b9d99db8626de63193c7fe96273a6cae.png">, i feel justified in doing so because their definition is by no mean in wide use, and because there are other ways to say what they want to say in the comparatively rare cases when their definition applies". however, the hardy–littlewood definition had been well used for at least 25 years.<sup id="cite_ref-titchmarsh_9-0" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-titchmarsh-9"><span>[</span>9<span>]</span></a></sup></p> 
+<h3><span class="mw-headline" id="family_of_bachmann.e2.80.93landau_notations">family of bachmann–landau notations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=24" title="edit section: family of bachmann–landau notations">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<table class="wikitable"> 
+<tbody><tr> 
+<th>notation</th> 
+<th>name</th> 
+<th>intuition</th> 
+<th>informal definition: for sufficiently large <img class="tex" alt="n" src="./asymtotic notation_files/7b8b965ad4bca0e41ab51de7b31363a1.png">...</th> 
+<th>formal definition</th> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="f(n) \in o(g(n))" src="./asymtotic notation_files/d9b0c3a5fdb436804c7a00f5571443b2.png"></td> 
+<td>big omicron; big o; big oh</td> 
+<td><img class="tex" alt="f" src="./asymtotic notation_files/8fa14cdd754f91cc6554c9e71929cce7.png"> is bounded above by <img class="tex" alt="g" src="./asymtotic notation_files/b2f5ff47436671b6e533d8dc3614845d.png"> (up to constant factor) asymptotically</td> 
+<td><img class="tex" alt="|f(n)|  \leq  g(n)\cdot k" src="./asymtotic notation_files/4376462be3c60d810893793d489cc095.png"> for some positive <i>k</i></td> 
+<td><img class="tex" alt="\exists k&gt;0 \; \exists n_0 \; \forall n&gt;n_0 \; |f(n)| \leq |g(n)\cdot k| " src="./asymtotic notation_files/124ac9385aa60919b622e91c85c47835.png"><br> 
+or<br> 
+<img class="tex" alt="  \exists k&gt;0 \; \exists n_0 \; \forall n&gt;n_0 \; f(n) \leq g(n)\cdot k" src="./asymtotic notation_files/e384c9f40870e4bee99a2b61d3d66d54.png"></td> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="f(n) \in \omega(g(n))" src="./asymtotic notation_files/d0ab994a416beabeeeef7aeb8325169b.png"></td> 
+<td>big omega</td> 
+<td><b>two definitions&nbsp;:</b> 
+<p>number theory:</p> 
+<p><img class="tex" alt="f" src="./asymtotic notation_files/8fa14cdd754f91cc6554c9e71929cce7.png"> is not dominated by <img class="tex" alt="g" src="./asymtotic notation_files/b2f5ff47436671b6e533d8dc3614845d.png"> asymptotically</p> 
+<p>complexity theory:</p> 
+<p><img class="tex" alt="f" src="./asymtotic notation_files/8fa14cdd754f91cc6554c9e71929cce7.png"> is bounded below by <img class="tex" alt="g" src="./asymtotic notation_files/b2f5ff47436671b6e533d8dc3614845d.png"> asymptotically</p> 
+</td> 
+<td>number theory: 
+<p><img class="tex" alt="f(n)  \geq  g(n)\cdot k" src="./asymtotic notation_files/5f820407c39f3bcf4c739c4f613ddac6.png"> for infinitely many values of <i>n</i> and for some positive <i>k</i></p> 
+<p>complexity theory:</p> 
+<p><img class="tex" alt="f(n)  \geq  g(n)\cdot k" src="./asymtotic notation_files/5f820407c39f3bcf4c739c4f613ddac6.png"> for some positive <i>k</i></p> 
+</td> 
+<td>number theory: 
+<p><img class="tex" alt="\exists k&gt;0 \; \forall n_0 \; \exists n&gt;n_0 \; g(n)\cdot k \leq f(n)" src="./asymtotic notation_files/268abf9593c9d13970ff6234a3911606.png"></p> 
+<p>complexity theory:</p> 
+<p><img class="tex" alt="\exists k&gt;0 \; \exists n_0 \; \forall n&gt;n_0 \; g(n)\cdot k \leq f(n)" src="./asymtotic notation_files/8f7a2bd8fe1a21d9422c454e6f6a43ec.png"></p> 
+</td> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="f(n) \in \theta(g(n))" src="./asymtotic notation_files/94227c841132a2c0d7cbf1daefab5ab9.png"></td> 
+<td>big theta</td> 
+<td><img class="tex" alt="f" src="./asymtotic notation_files/8fa14cdd754f91cc6554c9e71929cce7.png"> is bounded both above and below by <img class="tex" alt="g" src="./asymtotic notation_files/b2f5ff47436671b6e533d8dc3614845d.png"> asymptotically</td> 
+<td><img class="tex" alt="g(n)\cdot k_1 \leq f(n) \leq g(n)\cdot k_2" src="./asymtotic notation_files/a7bf1253ffc0edc76b0440ea31117b98.png"> for some positive <i>k</i><sub>1</sub>, <i>k</i><sub>2</sub></td> 
+<td><img class="tex" alt="\exists k_1&gt;0 \; \exists k_2&gt;0 \; \exists n_0 \; \forall n&gt;n_0" src="./asymtotic notation_files/25a27685e68e0d2397c1667331a22ba5.png"> 
+<p><img class="tex" alt="g(n) \cdot k_1 \leq f(n) \leq g(n) \cdot k_2 " src="./asymtotic notation_files/a7bf1253ffc0edc76b0440ea31117b98.png"></p> 
+</td> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="f(n) \in o(g(n))" src="./asymtotic notation_files/34c983f7b71cf5c6587598e40e8aecbb.png"></td> 
+<td>small omicron; small o; small oh</td> 
+<td><img class="tex" alt="f" src="./asymtotic notation_files/8fa14cdd754f91cc6554c9e71929cce7.png"> is dominated by <img class="tex" alt="g" src="./asymtotic notation_files/b2f5ff47436671b6e533d8dc3614845d.png"> asymptotically</td> 
+<td><img class="tex" alt="|f(n)| \le k\cdot|g(n)|" src="./asymtotic notation_files/0a52b589700b2bc205da17cb9d1f5b82.png">, for every fixed positive number <img class="tex" alt="k" src="./asymtotic notation_files/8ce4b16b22b58894aa86c421e8759df3.png"></td> 
+<td><img class="tex" alt="\forall k&gt;0 \; \exists n_0 \; \forall n&gt;n_0 \; |f(n)| \le k\cdot |g(n)|" src="./asymtotic notation_files/b82bff37f0239dfdea42960a7af21782.png"></td> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="f(n) \in \omega(g(n))" src="./asymtotic notation_files/841cb2659745f261061344fe1ef740f9.png"></td> 
+<td>small omega</td> 
+<td><img class="tex" alt="f" src="./asymtotic notation_files/8fa14cdd754f91cc6554c9e71929cce7.png"> dominates <img class="tex" alt="g" src="./asymtotic notation_files/b2f5ff47436671b6e533d8dc3614845d.png"> asymptotically</td> 
+<td><img class="tex" alt="|f(n)| \ge k\cdot|g(n)|" src="./asymtotic notation_files/9a215fc1e215f9d527c9f1d6f65603ad.png">, for every fixed positive number <img class="tex" alt="k" src="./asymtotic notation_files/8ce4b16b22b58894aa86c421e8759df3.png"></td> 
+<td><img class="tex" alt="\forall k&gt;0 \; \exists n_0 \; \forall n&gt;n_0 \  |f(n)| \ge k\cdot |g(n)|" src="./asymtotic notation_files/b6dc16c95cfa9bf962b79860afedd2df.png"></td> 
+</tr> 
+<tr> 
+<td><img class="tex" alt="f(n)\sim g(n)\!" src="./asymtotic notation_files/08ca46b884a7d9c3da24a279e3a7d043.png"></td> 
+<td>on the order of</td> 
+<td><img class="tex" alt="f" src="./asymtotic notation_files/8fa14cdd754f91cc6554c9e71929cce7.png"> is equal to <img class="tex" alt="g" src="./asymtotic notation_files/b2f5ff47436671b6e533d8dc3614845d.png"> asymptotically</td> 
+<td><img class="tex" alt="f(n)/g(n) \to 1" src="./asymtotic notation_files/1eb256c6c344e96e8be29f502e0fa061.png"></td> 
+<td><img class="tex" alt="\forall \varepsilon&gt;0\;\exists n_0\;\forall n&gt;n_0\;\left|{f(n) \over g(n)}-1\right|&lt;\varepsilon" src="./asymtotic notation_files/9dc04574ebf15c7cce0643b892b709cf.png"></td> 
+</tr> 
+</tbody></table> 
+<p><br> 
+aside from the big <i>o</i> notation, the big theta θ and big omega ω notations are the two most often used in computer science; the small omega ω notation is occasionally used in computer science.</p> 
+<p>aside from the big <i>o</i> notation, the small <i>o</i>, big omega ω and <img class="tex" alt="\sim" src="./asymtotic notation_files/f55d4435e31a3e1d665905db4b6afe24.png"> notations are the three most often used in number theory; the small omega ω notation is never used in number theory.</p> 
+<h3><span class="mw-headline" id="use_in_computer_science">use in computer science</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=25" title="edit section: use in computer science">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<div class="rellink boilerplate seealso">for more details on this topic, see <a href="http://en.wikipedia.org/wiki/analysis_of_algorithms" title="analysis of algorithms">analysis of algorithms</a>.</div> 
+<p>informally, especially in computer science, the big <i>o</i> notation often is permitted to be somewhat abused to describe an asymptotic tight bound where using big theta θ notation might be more factually appropriate in a given context. for example, when considering a function <img class="tex" alt="t(n) = 73n^3 + 22n^2 + 58" src="./asymtotic notation_files/8fc2acda3119cdcb6316cf905bf6cf11.png">, all of the following are generally acceptable, but tightnesses of bound (i.e., numbers 2 and 3 below) are usually strongly preferred over laxness of bound (i.e., number 1 below).</p> 
+<ol> 
+<li><i>t</i>(<i>n</i>)&nbsp;=&nbsp;<i>o</i>(<i>n</i><sup>100</sup>), which is identical to <i>t</i>(<i>n</i>)&nbsp;∈&nbsp;<i>o</i>(<i>n</i><sup>100</sup>)</li> 
+<li><i>t</i>(<i>n</i>)&nbsp;=&nbsp;<i>o</i>(<i>n</i><sup>3</sup>), which is identical to <i>t</i>(<i>n</i>)&nbsp;∈&nbsp;<i>o</i>(<i>n</i><sup>3</sup>)</li> 
+<li><i>t</i>(<i>n</i>)&nbsp;=&nbsp;θ(<i>n</i><sup>3</sup>), which is identical to <i>t</i>(<i>n</i>)&nbsp;∈&nbsp;θ(<i>n</i><sup>3</sup>).</li> 
+</ol> 
+<p>the equivalent english statements are respectively:</p> 
+<ol> 
+<li><i>t</i>(<i>n</i>) grows asymptotically no faster than <i>n</i><sup>100</sup></li> 
+<li><i>t</i>(<i>n</i>) grows asymptotically no faster than <i>n</i><sup>3</sup></li> 
+<li><i>t</i>(<i>n</i>) grows asymptotically as fast as <i>n</i><sup>3</sup>.</li> 
+</ol> 
+<p>so while all three statements are true, progressively more information is contained in each. in some fields, however, the big o notation (number 2 in the lists above) would be used more commonly than the big theta notation (bullets number 3 in the lists above) because functions that grow more slowly are more desirable. for example, if <img class="tex" alt="t(n)" src="./asymtotic notation_files/514884be093e9ab7909b0d394e7b74d2.png"> represents the running time of a newly developed algorithm for input size <img class="tex" alt="n" src="./asymtotic notation_files/7b8b965ad4bca0e41ab51de7b31363a1.png">, the inventors and users of the algorithm might be more inclined to put an upper asymptotic bound on how long it will take to run without making an explicit statement about the lower asymptotic bound.</p> 
+<h3><span class="mw-headline" id="extensions_to_the_bachmann.e2.80.93landau_notations">extensions to the bachmann–landau notations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=26" title="edit section: extensions to the bachmann–landau notations">edit</a><span class="mw-editsection-bracket">]</span></span></h3> 
+<p>another notation sometimes used in computer science is õ (read <i>soft-o</i>): <i>f</i>(<i>n</i>)&nbsp;=&nbsp;<i>õ</i>(<i>g</i>(<i>n</i>)) is shorthand for <i>f</i>(<i>n</i>)&nbsp;=&nbsp;<i>o</i>(<i>g</i>(<i>n</i>)&nbsp;log<sup><i>k</i></sup>&nbsp;<i>g</i>(<i>n</i>)) for some <i>k</i>. essentially, it is big o notation, ignoring logarithmic factors because the growth-rate effects of some other super-logarithmic function indicate a growth-rate explosion for large-sized input parameters that is more important to predicting bad run-time performance than the finer-point effects contributed by the logarithmic-growth factor(s). this notation is often used to obviate the "nitpicking" within growth-rates that are stated as too tightly bounded for the matters at hand (since log<sup><i>k</i></sup>&nbsp;<i>n</i> is always <i>o</i>(<i>n</i><sup>ε</sup>) for any constant <i>k</i> and any ε&nbsp;&gt;&nbsp;0).</p> 
+<p>also the <a href="http://en.wikipedia.org/wiki/l-notation" title="l-notation">l notation</a>, defined as</p> 
+<dl> 
+<dd><img class="tex" alt="l_n[\alpha,c]=o\left(e^{(c+o(1))(\ln n)^\alpha(\ln\ln n)^{1-\alpha}}\right)," src="./asymtotic notation_files/a742357e75a2dd425a7ff99159b0fbe0.png"></dd> 
+</dl> 
+<p>is convenient for functions that are between polynomial and exponential.</p> 
+<h2><span class="mw-headline" id="generalizations_and_related_usages">generalizations and related usages</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=27" title="edit section: generalizations and related usages">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>the generalization to functions taking values in any <a href="http://en.wikipedia.org/wiki/normed_vector_space" title="normed vector space">normed vector space</a> is straightforward (replacing absolute values by norms), where <i>f</i> and <i>g</i> need not take their values in the same space. a generalization to functions <i>g</i> taking values in any <a href="http://en.wikipedia.org/wiki/topological_group" title="topological group">topological group</a> is also possible. the "limiting process" <i>x→x<sub>o</sub></i> can also be generalized by introducing an arbitrary <a href="http://en.wikipedia.org/wiki/filter_base" title="filter base" class="mw-redirect">filter base</a>, i.e. to directed <a href="http://en.wikipedia.org/wiki/net_(mathematics)" title="net (mathematics)">nets</a> <i>f</i> and <i>g</i>. the <i>o</i> notation can be used to define <a href="http://en.wikipedia.org/wiki/derivative" title="derivative">derivatives</a> and <a href="http://en.wikipedia.org/wiki/differentiability" title="differentiability" class="mw-redirect">differentiability</a> in quite general spaces, and also (asymptotical) equivalence of functions,</p> 
+<dl> 
+<dd><img class="tex" alt=" f\sim g \iff (f-g) \in o(g) " src="./asymtotic notation_files/723557861ce6dde84d54b5643d2e5a75.png"></dd> 
+</dl> 
+<p>which is an <a href="http://en.wikipedia.org/wiki/equivalence_relation" title="equivalence relation">equivalence relation</a> and a more restrictive notion than the relationship "<i>f</i> is θ(<i>g</i>)" from above. (it reduces to <img class="tex" alt="\lim f/g = 1" src="./asymtotic notation_files/edac71f7c31ebdd150854f924571b7f8.png"> if <i>f</i> and <i>g</i> are positive real valued functions.) for example, 2<i>x</i> is θ(<i>x</i>), but 2<i>x</i>&nbsp;−&nbsp;<i>x</i> is not <i>o</i>(<i>x</i>).</p> 
+<h2><span class="mw-headline" id="history_.28bachmann.e2.80.93landau.2c_hardy.2c_and_vinogradov_notations.29">history (bachmann–landau, hardy, and vinogradov notations)</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=28" title="edit section: history (bachmann–landau, hardy, and vinogradov notations)">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<p>the symbol o was first introduced by number theorist <a href="http://en.wikipedia.org/wiki/paul_bachmann" title="paul bachmann" class="mw-redirect">paul bachmann</a> in 1894, in the second volume of his book <i>analytische zahlentheorie</i> ("<a href="http://en.wikipedia.org/wiki/analytic_number_theory" title="analytic number theory">analytic number theory</a>"), the first volume of which (not yet containing big o notation) was published in 1892.<sup id="cite_ref-10" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-10"><span>[</span>10<span>]</span></a></sup> the number theorist <a href="http://en.wikipedia.org/wiki/edmund_landau" title="edmund landau">edmund landau</a> adopted it, and was thus inspired to introduce in 1909 the notation o;<sup id="cite_ref-11" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-11"><span>[</span>11<span>]</span></a></sup> hence both are now called landau symbols. these notations were used in applied mathematics during the 1950s for asymptotic analysis.<sup id="cite_ref-12" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-12"><span>[</span>12<span>]</span></a></sup> the big o was popularized in computer science by <a href="http://en.wikipedia.org/wiki/donald_knuth" title="donald knuth">donald knuth</a>, who re-introduced the related omega and theta notations.<sup id="cite_ref-knuth_7-2" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-knuth-7"><span>[</span>7<span>]</span></a></sup> knuth also noted that the omega notation had been introduced by hardy and littlewood<sup id="cite_ref-hl_5-1" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-hl-5"><span>[</span>5<span>]</span></a></sup> under a different meaning "≠<i>o</i>" (i.e. "is not an <i>o</i> of"), and proposed the above definition. hardy and littlewood's original definition (which was also used in one paper by landau<sup id="cite_ref-landau_8-1" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-landau-8"><span>[</span>8<span>]</span></a></sup>) is still used in number theory (where knuth's definition is never used). in fact, landau introduced in 1924, in the paper just mentioned, the symbols <img class="tex" alt="\omega_r" src="./asymtotic notation_files/9ba17fdfed43b9b53ea595d12166ff03.png"> ("rechts") and <img class="tex" alt="\omega_l" src="./asymtotic notation_files/b020d58b54a77b0cf182b9b6b04d1c5f.png"> ("links"), precursors for the modern symbols <img class="tex" alt="\omega_+" src="./asymtotic notation_files/b262dad3e2fef0c1214019c72d848162.png"> ("is not smaller than a small o of") and <img class="tex" alt="\omega_-" src="./asymtotic notation_files/3d319af817d17df4620b1e3bac8816b6.png"> ("is not larger than a small o of"). thus the omega symbols (with their original meanings) are sometimes also referred to as "landau symbols". also, landau never used the big theta and small omega symbols.</p> 
+<p>hardy's symbols were (in terms of the modern <i>o</i> notation)</p> 
+<dl> 
+<dd><img class="tex" alt=" f \preceq g\iff f \in o(g) " src="./asymtotic notation_files/f0689013520c8dc07ae47588ffb296ef.png"> &nbsp; and &nbsp; <img class="tex" alt=" f\prec g\iff f\in o(g); " src="./asymtotic notation_files/bda72f7c67fadea95e2d213709a9f8c4.png"></dd> 
+</dl> 
+<p>(hardy however never defined or used the notation <img class="tex" alt="\prec\!\!\prec" src="./asymtotic notation_files/2d3bcce08eb208a6a3f50f48c9373b3f.png">, nor <img class="tex" alt="\ll" src="./asymtotic notation_files/9439146cc81e763e0563ccbbcb523314.png">, as it has been sometimes reported). it should also be noted that hardy introduces the symbols <img class="tex" alt="\preceq " src="./asymtotic notation_files/5791d84255c53a7198e039aab5295a1a.png"> and <img class="tex" alt="\prec " src="./asymtotic notation_files/b5c779f34ffff5e68f7daffdd1a3fc12.png"> (as well as some other symbols) in his 1910 tract "orders of infinity", and makes use of it only in three papers (1910–1913). in the remaining papers (nearly 400!) and books he constantly uses the landau symbols o and o.</p> 
+<p>hardy's notation is not used anymore. on the other hand, in the 1930s,<sup id="cite_ref-13" class="reference"><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_note-13"><span>[</span>13<span>]</span></a></sup> the russian number theorist <a href="http://en.wikipedia.org/wiki/ivan_matveyevich_vinogradov" title="ivan matveyevich vinogradov">ivan matveyevich vinogradov</a> introduced his notation <img class="tex" alt="\ll" src="./asymtotic notation_files/9439146cc81e763e0563ccbbcb523314.png">, which has been increasingly used in number theory instead of the <img class="tex" alt="o" src="./asymtotic notation_files/f186217753c37b9b9f958d906208506e.png"> notation. we have</p> 
+<dl> 
+<dd><img class="tex" alt=" f\ll g \iff f \in o(g), " src="./asymtotic notation_files/4ea87c7bd2c8be39e71dea29ea2642b5.png"></dd> 
+</dl> 
+<p>and frequently both notations are used in the same paper.</p> 
+<p>the big-o, standing for "order of", was originally a capital <a href="http://en.wikipedia.org/wiki/omicron" title="omicron">omicron</a>; today the identical-looking latin capital letter <a href="http://en.wikipedia.org/wiki/o" title="o">o</a> is used, but never the digit <a href="http://en.wikipedia.org/wiki/0_(number)" title="0 (number)">zero</a>.</p> 
+<h2><span class="mw-headline" id="see_also">see also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=29" title="edit section: see also">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/asymptotic_expansion" title="asymptotic expansion">asymptotic expansion</a>: approximation of functions generalizing taylor's formula</li> 
+<li><a href="http://en.wikipedia.org/wiki/asymptotically_optimal" title="asymptotically optimal" class="mw-redirect">asymptotically optimal</a>: a phrase frequently used to describe an algorithm that has an upper bound asymptotically within a constant of a lower bound for the problem</li> 
+<li><a href="http://en.wikipedia.org/wiki/big_o_in_probability_notation" title="big o in probability notation">big o in probability notation</a>: <i>o<sub>p</sub></i>,<i>o<sub>p</sub></i></li> 
+<li><a href="http://en.wikipedia.org/wiki/computational_complexity_theory" title="computational complexity theory">computational complexity theory</a>: a sub-field strongly related to this article</li> 
+<li><a href="http://en.wikipedia.org/wiki/limit_superior_and_limit_inferior" title="limit superior and limit inferior">limit superior and limit inferior</a>: an explanation of some of the limit notation used in this article</li> 
+<li><a href="http://en.wikipedia.org/wiki/nachbin%27s_theorem" title="nachbin&#39;s theorem">nachbin's theorem</a>: a precise method of bounding <a href="http://en.wikipedia.org/wiki/complex_analytic" title="complex analytic" class="mw-redirect">complex analytic</a> functions so that the domain of convergence of <a href="http://en.wikipedia.org/wiki/integral_transform" title="integral transform">integral transforms</a> can be stated</li> 
+</ul> 
+<h2><span class="mw-headline" id="references_and_notes">references and notes</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=30" title="edit section: references and notes">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<div class="reflist" style="list-style-type: decimal;"> 
+<ol class="references"> 
+<li id="cite_note-introduction_to_algorithms-1"><span class="mw-cite-backlink">^ <a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-introduction_to_algorithms_1-0"><span class="cite-accessibility-label">jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-introduction_to_algorithms_1-1"><sup><i><b>b</b></i></sup></a></span> <span class="reference-text">thomas h. cormen et al., 2001, <a rel="nofollow" class="external text" href="http://highered.mcgraw-hill.com/sites/0070131511/">introduction to algorithms, second edition</a></span></li> 
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-2"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span class="citation book"><a href="http://en.wikipedia.org/wiki/n._g._de_bruijn" title="n. g. de bruijn" class="mw-redirect">n. g. de bruijn</a> (1958). <a rel="nofollow" class="external text" href="http://books.google.com/?id=_tnwmvhmvwmc&pg=pa5&vq=%22the+trouble+is%22"><i>asymptotic methods in analysis</i></a>. amsterdam: north-holland. pp.&nbsp;5–7. <a href="http://en.wikipedia.org/wiki/international_standard_book_number" title="international standard book number">isbn</a>&nbsp;<a href="http://en.wikipedia.org/wiki/special:booksources/978-0-486-64221-5" title="special:booksources/978-0-486-64221-5">978-0-486-64221-5</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3abig+o+notation&amp;rft.aulast=n.+g.+de+bruijn&amp;rft.au=n.+g.+de+bruijn&amp;rft.btitle=asymptotic+methods+in+analysis&amp;rft.date=1958&amp;rft.genre=book&amp;rft_id=http%3a%2f%2fbooks.google.com%2f%3fid%3d_tnwmvhmvwmc%26pg%3dpa5%26vq%3d%2522the%2btrouble%2bis%2522&amp;rft.isbn=978-0-486-64221-5&amp;rft.pages=5%e2%80%937&amp;rft.place=amsterdam&amp;rft.pub=north-holland&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+<li id="cite_note-concrete_mathematics-3"><span class="mw-cite-backlink">^ <a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-concrete_mathematics_3-0"><span class="cite-accessibility-label">jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-concrete_mathematics_3-1"><sup><i><b>b</b></i></sup></a> <a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-concrete_mathematics_3-2"><sup><i><b>c</b></i></sup></a></span> <span class="reference-text"><span class="citation book"><a href="http://en.wikipedia.org/wiki/ronald_graham" title="ronald graham">ronald graham</a>, donald knuth, and <a href="http://en.wikipedia.org/wiki/oren_patashnik" title="oren patashnik">oren patashnik</a> (1994). <a rel="nofollow" class="external text" href="http://books.google.com/?id=pntqaaaamaaj&dq=editions:isbn">0-201-55802-5 <i>concrete mathematics</i></a> (2 ed.). reading, massachusetts: addison–wesley. p.&nbsp;446. <a href="http://en.wikipedia.org/wiki/international_standard_book_number" title="international standard book number">isbn</a>&nbsp;<a href="http://en.wikipedia.org/wiki/special:booksources/978-0-201-55802-9" title="special:booksources/978-0-201-55802-9">978-0-201-55802-9</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3abig+o+notation&amp;rft.aulast=ronald+graham%2c+donald+knuth%2c+and+oren+patashnik&amp;rft.au=ronald+graham%2c+donald+knuth%2c+and+oren+patashnik&amp;rft.btitle=concrete+mathematics&amp;rft.date=1994&amp;rft.edition=2&amp;rft.genre=book&amp;rft_id=http%3a%2f%2fbooks.google.com%2f%3fid%3dpntqaaaamaaj%26dq%3deditions%3aisbn+0-201-55802-5&amp;rft.isbn=978-0-201-55802-9&amp;rft.pages=446&amp;rft.place=reading%2c+massachusetts&amp;rft.pub=addison%e2%80%93wesley&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+<li id="cite_note-4"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-4"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span class="citation journal">donald knuth (june/july 1998). <a rel="nofollow" class="external text" href="http://www.ams.org/notices/199806/commentary.pdf">"teach calculus with big o"</a>. <i><a href="http://en.wikipedia.org/wiki/notices_of_the_american_mathematical_society" title="notices of the american mathematical society">notices of the american mathematical society</a></i> <b>45</b> (6): 687.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3abig+o+notation&amp;rft.atitle=teach+calculus+with+big+o&amp;rft.au=donald+knuth&amp;rft.aulast=donald+knuth&amp;rft.date=june%2fjuly+1998&amp;rft.genre=article&amp;rft_id=http%3a%2f%2fwww.ams.org%2fnotices%2f199806%2fcommentary.pdf&amp;rft.issue=6&amp;rft.jtitle=notices+of+the+american+mathematical+society&amp;rft.pages=687&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3ajournal&amp;rft.volume=45" class="z3988"><span style="display:none;">&nbsp;</span></span> (<a rel="nofollow" class="external text" href="http://www-cs-staff.stanford.edu/~knuth/ocalc.tex">unabridged version</a>)</span></li> 
+<li id="cite_note-hl-5"><span class="mw-cite-backlink">^ <a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-hl_5-0"><span class="cite-accessibility-label">jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-hl_5-1"><sup><i><b>b</b></i></sup></a></span> <span class="reference-text">g. h. hardy and j. e. littlewood, "some problems of diophantine approximation", acta mathematica 37 (1914), p. 225</span></li> 
+<li id="cite_note-hl2-6"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-hl2_6-0"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">g. h. hardy and j. e. littlewood, «&nbsp;contribution to the theory of the riemann zeta-function and the theory of the distribution of primes&nbsp;», <i><a href="http://en.wikipedia.org/wiki/acta_mathematica" title="acta mathematica">acta mathematica</a></i>, vol. 41, 1918.</span></li> 
+<li id="cite_note-knuth-7"><span class="mw-cite-backlink">^ <a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-knuth_7-0"><span class="cite-accessibility-label">jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-knuth_7-1"><sup><i><b>b</b></i></sup></a> <a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-knuth_7-2"><sup><i><b>c</b></i></sup></a></span> <span class="reference-text">donald knuth. "big omicron and big omega and big theta", sigact news, apr.-june 1976, 18-24. <a rel="nofollow" class="external autonumber" href="http://www.phil.uu.nl/datastructuren/10-11/knuth_big_omicron.pdf">[1]</a></span></li> 
+<li id="cite_note-landau-8"><span class="mw-cite-backlink">^ <a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-landau_8-0"><span class="cite-accessibility-label">jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-landau_8-1"><sup><i><b>b</b></i></sup></a></span> <span class="reference-text">e. landau, "über die anzahl der gitterpunkte in gewissen bereichen. iv." nachr. gesell. wiss. gött. math-phys. kl. 1924, 137–150.</span></li> 
+<li id="cite_note-titchmarsh-9"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-titchmarsh_9-0"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">e. c. titchmarsh, the theory of the riemann zeta-function (oxford; clarendon press, 1951)</span></li> 
+<li id="cite_note-10"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-10"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><a href="http://en.wikipedia.org/wiki/nicholas_j._higham" title="nicholas j. higham" class="mw-redirect">nicholas j. higham</a>, <i>handbook of writing for the mathematical sciences</i>, siam. <a href="http://en.wikipedia.org/wiki/special:booksources/0898714206" class="internal mw-magiclink-isbn">isbn 0-89871-420-6</a>, p. 25</span></li> 
+<li id="cite_note-11"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-11"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">edmund landau. handbuch der lehre von der verteilung der primzahlen, teubner, leipzig 1909, p.883.</span></li> 
+<li id="cite_note-12"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-12"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text"><span class="citation book">erdelyi, a. (1956). <i>asymptotic expansions</i>. <a href="http://en.wikipedia.org/wiki/international_standard_book_number" title="international standard book number">isbn</a>&nbsp;<a href="http://en.wikipedia.org/wiki/special:booksources/978-0486603186" title="special:booksources/978-0486603186">978-0486603186</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3abig+o+notation&amp;rft.au=erdelyi%2c+a.&amp;rft.aufirst=a.&amp;rft.aulast=erdelyi&amp;rft.btitle=asymptotic+expansions&amp;rft.date=1956&amp;rft.genre=book&amp;rft.isbn=978-0486603186&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span></span></li> 
+<li id="cite_note-13"><span class="mw-cite-backlink"><b><a href="http://en.wikipedia.org/wiki/big_o_notation#cite_ref-13"><span class="cite-accessibility-label">jump up </span>^</a></b></span> <span class="reference-text">see for instance "a new estimate for <i>g(n)</i> in waring's problem" (russian). doklady akademii nauk sssr 5, no 5-6 (1934), 249-253. translated in english in: selected works / ivan matveevič vinogradov&nbsp;; prepared by the steklov mathematical institute of the academy of sciences of the ussr on the occasion of his 90th birthday. springer-verlag, 1985.</span></li> 
+</ol> 
+</div> 
+<h2><span class="mw-headline" id="further_reading">further reading</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=31" title="edit section: further reading">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<ul> 
+<li><a href="http://en.wikipedia.org/wiki/paul_bachmann" title="paul bachmann" class="mw-redirect">paul bachmann</a>. <i>die analytische zahlentheorie. zahlentheorie</i>. pt. 2 leipzig: b. g. teubner, 1894.</li> 
+<li><a href="http://en.wikipedia.org/wiki/edmund_landau" title="edmund landau">edmund landau</a>. <i>handbuch der lehre von der verteilung der primzahlen</i>. 2 vols. leipzig: b. g. teubner, 1909.</li> 
+<li><a href="http://en.wikipedia.org/wiki/g._h._hardy" title="g. h. hardy">g. h. hardy</a>. <i>orders of infinity: the 'infinitärcalcül' of paul du bois-reymond</i>, 1910.</li> 
+<li><a href="http://en.wikipedia.org/wiki/donald_knuth" title="donald knuth">donald knuth</a>. <i>the art of computer programming</i>, volume 1: <i>fundamental algorithms</i>, third edition. addison–wesley, 1997. <a href="http://en.wikipedia.org/wiki/special:booksources/0201896834" class="internal mw-magiclink-isbn">isbn 0-201-89683-4</a>. section 1.2.11: asymptotic representations, pp.&nbsp;107–123.</li> 
+<li><a href="http://en.wikipedia.org/wiki/thomas_h._cormen" title="thomas h. cormen">thomas h. cormen</a>, <a href="http://en.wikipedia.org/wiki/charles_e._leiserson" title="charles e. leiserson">charles e. leiserson</a>, <a href="http://en.wikipedia.org/wiki/ronald_l._rivest" title="ronald l. rivest" class="mw-redirect">ronald l. rivest</a>, and <a href="http://en.wikipedia.org/wiki/clifford_stein" title="clifford stein">clifford stein</a>. <i><a href="http://en.wikipedia.org/wiki/introduction_to_algorithms" title="introduction to algorithms">introduction to algorithms</a></i>, second edition. mit press and mcgraw–hill, 2001. <a href="http://en.wikipedia.org/wiki/special:booksources/0262032937" class="internal mw-magiclink-isbn">isbn 0-262-03293-7</a>. section 3.1: asymptotic notation, pp.&nbsp;41–50.</li> 
+<li><span class="citation book"><a href="http://en.wikipedia.org/wiki/michael_sipser" title="michael sipser">michael sipser</a> (1997). <i>introduction to the theory of computation</i>. pws publishing. <a href="http://en.wikipedia.org/wiki/international_standard_book_number" title="international standard book number">isbn</a>&nbsp;<a href="http://en.wikipedia.org/wiki/special:booksources/0-534-94728-x" title="special:booksources/0-534-94728-x">0-534-94728-x</a>.</span><span title="ctx_ver=z39.88-2004&amp;rfr_id=info%3asid%2fen.wikipedia.org%3abig+o+notation&amp;rft.aulast=michael+sipser&amp;rft.au=michael+sipser&amp;rft.btitle=introduction+to+the+theory+of+computation&amp;rft.date=1997&amp;rft.genre=book&amp;rft.isbn=0-534-94728-x&amp;rft.pub=pws+publishing&amp;rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3abook" class="z3988"><span style="display:none;">&nbsp;</span></span> pages 226–228 of section 7.1: measuring complexity.</li> 
+<li>jeremy avigad, kevin donnelly. <i><a rel="nofollow" class="external text" href="http://www.andrew.cmu.edu/~avigad/papers/bigo.pdf">formalizing o notation in isabelle/hol</a></i></li> 
+<li>paul e. black, <a rel="nofollow" class="external text" href="http://www.nist.gov/dads/html/bigonotation.html">"big-o notation"</a>, in <i>dictionary of algorithms and data structures</i> [online], paul e. black, ed., u.s. national institute of standards and technology. 11 march 2005. retrieved december 16, 2006.</li> 
+<li>paul e. black, <a rel="nofollow" class="external text" href="http://www.nist.gov/dads/html/littleonotation.html">"little-o notation"</a>, in <i>dictionary of algorithms and data structures</i> [online], paul e. black, ed., u.s. national institute of standards and technology. 17 december 2004. retrieved december 16, 2006.</li> 
+<li>paul e. black, <a rel="nofollow" class="external text" href="http://www.nist.gov/dads/html/omegacapital.html">"ω"</a>, in <i>dictionary of algorithms and data structures</i> [online], paul e. black, ed., u.s. national institute of standards and technology. 17 december 2004. retrieved december 16, 2006.</li> 
+<li>paul e. black, <a rel="nofollow" class="external text" href="http://www.nist.gov/dads/html/omega.html">"ω"</a>, in <i>dictionary of algorithms and data structures</i> [online], paul e. black, ed., u.s. national institute of standards and technology. 29 november 2004. retrieved december 16, 2006.</li> 
+<li>paul e. black, <a rel="nofollow" class="external text" href="http://www.nist.gov/dads/html/theta.html">"θ"</a>, in <i>dictionary of algorithms and data structures</i> [online], paul e. black, ed., u.s. national institute of standards and technology. 17 december 2004. retrieved december 16, 2006.</li> 
+</ul> 
+<h2><span class="mw-headline" id="external_links">external links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit&section=32" title="edit section: external links">edit</a><span class="mw-editsection-bracket">]</span></span></h2> 
+<table class="metadata mbox-small plainlinks" style="border:1px solid #aaa; background-color:#f9f9f9;"> 
+<tbody><tr> 
+<td class="mbox-image"><img alt="" src="./asymtotic notation_files/80px-wikibooks-logo-en-noslogan.svg.png" width="40" height="40" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/d/df/wikibooks-logo-en-noslogan.svg/60px-wikibooks-logo-en-noslogan.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/d/df/wikibooks-logo-en-noslogan.svg/80px-wikibooks-logo-en-noslogan.svg.png 2x"></td> 
+<td class="mbox-text plainlist" style="">the wikibook <i><a href="http://en.wikibooks.org/wiki/data_structures" class="extiw" title="wikibooks:data structures">data structures</a></i> has a page on the topic of: <i><b><a href="http://en.wikibooks.org/wiki/data_structures/asymptotic_notation#big-o_notation" class="extiw" title="wikibooks:data structures/asymptotic notation">big-o notation</a></b></i></td> 
+</tr> 
+</tbody></table> 
+<ul> 
+<li><a rel="nofollow" class="external text" href="http://www.soe.ucsc.edu/classes/cmps102/spring04/tantaloasymp.pdf">introduction to asymptotic notations</a></li> 
+<li><a rel="nofollow" class="external text" href="http://mathworld.wolfram.com/landausymbols.html">landau symbols</a></li> 
+<li><a rel="nofollow" class="external text" href="https://students.ics.uci.edu/~zmohiudd/onotationvisualizer.html">o-notation visualizer: interactive graphs of common o-notations</a></li> 
+<li><a rel="nofollow" class="external text" href="http://www.perlmonks.org/?node_id=573138">big-o notation – what is it good for</a></li> 
+</ul> 
+ 
+ 
+<!-- 
+newpp limit report 
+parsed by mw1035 
+cpu time usage: 1.332 seconds 
+real time usage: 2.013 seconds 
+preprocessor visited node count: 2732/1000000 
+preprocessor generated node count: 8429/1500000 
+post‐expand include size: 13313/2048000 bytes 
+template argument size: 953/2048000 bytes 
+highest expansion depth: 9/40 
+expensive parser function count: 2/500 
+lua time usage: 0.082s 
+lua memory usage: 1.6 mb 
+--> 
+ 
+<!-- saved in parser cache with key enwiki:pcache:idhash:44578-0!0!0!!en!4!* and timestamp 20140125135722 
+--> 
+<noscript>&lt;img src="//en.wikipedia.org/wiki/special:centralautologin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /&gt;</noscript></div>								<div class="printfooter"> 
+retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&oldid=592325053">http://en.wikipedia.org/w/index.php?title=big_o_notation&amp;oldid=592325053</a>"				</div> 
+<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/help:category" title="help:category">categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/category:mathematical_notation" title="category:mathematical notation">mathematical notation</a></li><li><a href="http://en.wikipedia.org/wiki/category:asymptotic_analysis" title="category:asymptotic analysis">asymptotic analysis</a></li><li><a href="http://en.wikipedia.org/wiki/category:analysis_of_algorithms" title="category:analysis of algorithms">analysis of algorithms</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/category:articles_needing_additional_references_from_january_2013" title="category:articles needing additional references from january 2013">articles needing additional references from january 2013</a></li><li><a href="http://en.wikipedia.org/wiki/category:all_articles_needing_additional_references" title="category:all articles needing additional references">all articles needing additional references</a></li></ul></div></div>												<div class="visualclear"></div> 
+</div> 
+</div> 
+<div id="mw-navigation"> 
+<h2>navigation menu</h2> 
+<div id="mw-head"> 
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label"> 
+<h3 id="p-personal-label">personal tools</h3> 
+<ul> 
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=big+o+notation&type=signup">create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=special:userlogin&returnto=big+o+notation" title="you&#39;re encouraged to log in; however, it&#39;s not mandatory. [ctrl-option-o]" accesskey="o">log in</a></li>	</ul> 
+</div> 
+<div id="left-navigation"> 
+<div id="p-namespaces" role="navigation" class="vectortabs" aria-labelledby="p-namespaces-label"> 
+<h3 id="p-namespaces-label">namespaces</h3> 
+<ul> 
+<li id="ca-nstab-main" class="selected"><span><a href="./asymtotic notation_files/asymtotic notation.html" title="view the content page [ctrl-option-c]" accesskey="c">article</a></span></li> 
+<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/talk:big_o_notation" title="discussion about the content page [ctrl-option-t]" accesskey="t">talk</a></span></li> 
+</ul> 
+</div> 
+<div id="p-variants" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-variants-label"> 
+<h3 id="mw-vector-current-variant"> 
+</h3> 
+<h3 id="p-variants-label" tabindex="0"><span>variants</span><a href="http://en.wikipedia.org/wiki/big_o_notation#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+</div> 
+<div id="right-navigation"> 
+<div id="p-views" role="navigation" class="vectortabs" aria-labelledby="p-views-label"> 
+<h3 id="p-views-label">views</h3> 
+<ul> 
+<li id="ca-view" class="selected"><span><a href="./asymtotic notation_files/asymtotic notation.html">read</a></span></li> 
+<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=edit" title="you can edit this page. 
+please review your changes before saving. [ctrl-option-e]" accesskey="e">edit</a></span></li> 
+<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=history" title="past versions of this page [ctrl-option-h]" accesskey="h">view history</a></span></li> 
+</ul> 
+</div> 
+<div id="p-cactions" role="navigation" class="vectormenu emptyportlet" aria-labelledby="p-cactions-label"> 
+<h3 id="p-cactions-label" tabindex="0"><span>actions</span><a href="http://en.wikipedia.org/wiki/big_o_notation#" tabindex="-1"></a></h3> 
+<div class="menu"> 
+<ul> 
+</ul> 
+</div> 
+</div> 
+<div id="p-search" role="search"> 
+<h3><label for="searchinput">search</label></h3> 
+<form action="http://en.wikipedia.org/w/index.php" id="searchform"> 
+<div id="simplesearch"> 
+<input name="search" placeholder="search" title="search wikipedia [ctrl-option-f]" accesskey="f" id="searchinput" tabindex="1" autocomplete="off">						<button type="submit" name="button" title="search wikipedia for this text" id="searchbutton"><img src="./asymtotic notation_files/search-ltr.png" alt="search" width="12" height="13"></button>								<input type="hidden" name="title" value="special:search"> 
+</div> 
+</form> 
+</div> 
+</div> 
+</div> 
+<div id="mw-panel" class="collapsible-nav"> 
+<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/wiki.png);" href="http://en.wikipedia.org/wiki/main_page" title="visit the main page"></a></div> 
+<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label"> 
+<h3 id="p-navigation-label">navigation</h3> 
+<div class="body"> 
+<ul> 
+<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/main_page" title="visit the main page [ctrl-option-z]" accesskey="z">main page</a></li> 
+<li id="n-contents"><a href="http://en.wikipedia.org/wiki/portal:contents" title="guides to browsing wikipedia">contents</a></li> 
+<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/portal:featured_content" title="featured content – the best of wikipedia">featured content</a></li> 
+<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/portal:current_events" title="find background information on current events">current events</a></li> 
+<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/special:random" title="load a random article [ctrl-option-x]" accesskey="x">random article</a></li> 
+<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/special:fundraiserredirector?utm_source=donate&utm_medium=sidebar&utm_campaign=c13_en.wikipedia.org&uselang=en" title="support us">donate to wikipedia</a></li> 
+<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="visit the wikimedia shop">wikimedia shop</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label"> 
+<h3 id="p-interaction-label" tabindex="2"><a href="http://en.wikipedia.org/wiki/big_o_notation#" aria-haspopup="true" aria-controls="p-interaction-list" role="button" aria-pressed="true" aria-expanded="true">interaction</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-interaction-list"> 
+<li id="n-help"><a href="http://en.wikipedia.org/wiki/help:contents" title="guidance on how to use and edit wikipedia">help</a></li> 
+<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="find out about wikipedia">about wikipedia</a></li> 
+<li id="n-portal"><a href="http://en.wikipedia.org/wiki/wikipedia:community_portal" title="about the project, what you can do, where to find things">community portal</a></li> 
+<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/special:recentchanges" title="a list of recent changes in the wiki [ctrl-option-r]" accesskey="r">recent changes</a></li> 
+<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact page</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label"> 
+<h3 id="p-tb-label" tabindex="3"><a href="http://en.wikipedia.org/wiki/big_o_notation#" aria-haspopup="true" aria-controls="p-tb-list" role="button" aria-pressed="false" aria-expanded="false">tools</a></h3> 
+<div class="body"> 
+<ul id="p-tb-list"> 
+<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/special:whatlinkshere/big_o_notation" title="list of all english wikipedia pages containing links to this page [ctrl-option-j]" accesskey="j">what links here</a></li> 
+<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/special:recentchangeslinked/big_o_notation" title="recent changes in pages linked from this page [ctrl-option-k]" accesskey="k">related changes</a></li> 
+<li id="t-upload"><a href="http://en.wikipedia.org/wiki/wikipedia:file_upload_wizard" title="upload files [ctrl-option-u]" accesskey="u">upload file</a></li> 
+<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/special:specialpages" title="a list of all special pages [ctrl-option-q]" accesskey="q">special pages</a></li> 
+<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&oldid=592325053" title="permanent link to this revision of the page">permanent link</a></li> 
+<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&action=info">page information</a></li> 
+<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/q269878" title="link to connected data repository item [ctrl-option-g]" accesskey="g">data item</a></li> 
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=special:cite&page=big_o_notation&id=592325053" title="information on how to cite this page">cite this page</a></li>		</ul> 
+</div> 
+</div> 
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label"> 
+<h3 id="p-coll-print_export-label" tabindex="4"><a href="http://en.wikipedia.org/wiki/big_o_notation#" aria-haspopup="true" aria-controls="p-coll-print_export-list" role="button" aria-pressed="false" aria-expanded="false">print/export</a></h3> 
+<div class="body"> 
+<ul id="p-coll-print_export-list"> 
+<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=book_creator&referer=big+o+notation">create a book</a></li> 
+<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=special:book&bookcmd=render_article&arttitle=big+o+notation&oldid=592325053&writer=rl">download as pdf</a></li> 
+<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=big_o_notation&printable=yes" title="printable version of this page [ctrl-option-p]" accesskey="p">printable version</a></li> 
+</ul> 
+</div> 
+</div> 
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"> 
+<h3 id="p-lang-label" tabindex="5"><a href="http://en.wikipedia.org/wiki/big_o_notation#" aria-haspopup="true" aria-controls="p-lang-list" role="button" aria-pressed="true" aria-expanded="true">languages</a></h3> 
+<div class="body" style="display: block;"> 
+<ul id="p-lang-list"> 
+<li class="interlanguage-link interwiki-ar"><a href="http://ar.wikipedia.org/wiki/%d8%b1%d9%85%d8%b2_o_%d8%a7%d9%84%d9%83%d8%a8%d9%8a%d8%b1" title="رمز o الكبير – arabic" lang="ar" hreflang="ar">العربية</a></li> 
+<li class="interlanguage-link interwiki-bn"><a href="http://bn.wikipedia.org/wiki/%e0%a6%ac%e0%a6%a1%e0%a6%bc_o_%e0%a6%b2%e0%a6%bf%e0%a6%96%e0%a6%a8%e0%a6%aa%e0%a6%a6%e0%a7%8d%e0%a6%a7%e0%a6%a4%e0%a6%bf" title="বড় o লিখনপদ্ধতি – bengali" lang="bn" hreflang="bn">বাংলা</a></li> 
+<li class="interlanguage-link interwiki-ca"><a href="http://ca.wikipedia.org/wiki/cota_superior_asimpt%c3%b2tica" title="cota superior asimptòtica – catalan" lang="ca" hreflang="ca">català</a></li> 
+<li class="interlanguage-link interwiki-cs"><a href="http://cs.wikipedia.org/wiki/asymptotick%c3%a1_slo%c5%beitost" title="asymptotická složitost – czech" lang="cs" hreflang="cs">čeština</a></li> 
+<li class="interlanguage-link interwiki-de"><a href="http://de.wikipedia.org/wiki/landau-symbole" title="landau-symbole – german" lang="de" hreflang="de">deutsch</a></li> 
+<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/cota_superior_asint%c3%b3tica" title="cota superior asintótica – spanish" lang="es" hreflang="es">español</a></li> 
+<li class="interlanguage-link interwiki-eo"><a href="http://eo.wikipedia.org/wiki/granda_o" title="granda o – esperanto" lang="eo" hreflang="eo">esperanto</a></li> 
+<li class="interlanguage-link interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%d9%86%d9%85%d8%a7%d8%af_o_%d8%a8%d8%b2%d8%b1%da%af" title="نماد o بزرگ – persian" lang="fa" hreflang="fa">فارسی</a></li> 
+<li class="interlanguage-link interwiki-fr"><a href="http://fr.wikipedia.org/wiki/comparaison_asymptotique" title="comparaison asymptotique – french" lang="fr" hreflang="fr">français</a></li> 
+<li class="interlanguage-link interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%ec%a0%90%ea%b7%bc_%ed%91%9c%ea%b8%b0%eb%b2%95" title="점근 표기법 – korean" lang="ko" hreflang="ko">한국어</a></li> 
+<li class="interlanguage-link interwiki-id"><a href="http://id.wikipedia.org/wiki/notasi_o_besar" title="notasi o besar – indonesian" lang="id" hreflang="id">bahasa indonesia</a></li> 
+<li class="interlanguage-link interwiki-it"><a href="http://it.wikipedia.org/wiki/o-grande" title="o-grande – italian" lang="it" hreflang="it">italiano</a></li> 
+<li class="interlanguage-link interwiki-he"><a href="http://he.wikipedia.org/wiki/%d7%a1%d7%99%d7%9e%d7%95%d7%9f_%d7%90%d7%a1%d7%99%d7%9e%d7%a4%d7%98%d7%95%d7%98%d7%99" title="סימון אסימפטוטי – hebrew" lang="he" hreflang="he">עברית</a></li> 
+<li class="interlanguage-link interwiki-hu"><a href="http://hu.wikipedia.org/wiki/o_jel%c3%b6l%c3%a9s" title="o jelölés – hungarian" lang="hu" hreflang="hu">magyar</a></li> 
+<li class="interlanguage-link interwiki-nl"><a href="http://nl.wikipedia.org/wiki/grote-o-notatie" title="grote-o-notatie – dutch" lang="nl" hreflang="nl">nederlands</a></li> 
+<li class="interlanguage-link interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%e3%83%a9%e3%83%b3%e3%83%80%e3%82%a6%e3%81%ae%e8%a8%98%e5%8f%b7" title="ランダウの記号 – japanese" lang="ja" hreflang="ja">日本語</a></li> 
+<li class="interlanguage-link interwiki-no"><a href="http://no.wikipedia.org/wiki/stor_o-notasjon" title="stor o-notasjon – norwegian (bokmål)" lang="no" hreflang="no">norsk bokmål</a></li> 
+<li class="interlanguage-link interwiki-pl"><a href="http://pl.wikipedia.org/wiki/asymptotyczne_tempo_wzrostu" title="asymptotyczne tempo wzrostu – polish" lang="pl" hreflang="pl">polski</a></li> 
+<li class="interlanguage-link interwiki-pt"><a href="http://pt.wikipedia.org/wiki/grande-o" title="grande-o – portuguese" lang="pt" hreflang="pt">português</a></li> 
+<li class="interlanguage-link interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%c2%abo%c2%bb_%d0%b1%d0%be%d0%bb%d1%8c%d1%88%d0%be%d0%b5_%d0%b8_%c2%abo%c2%bb_%d0%bc%d0%b0%d0%bb%d0%be%d0%b5" title="«o» большое и «o» малое – russian" lang="ru" hreflang="ru">русский</a></li> 
+<li class="interlanguage-link interwiki-simple"><a href="http://simple.wikipedia.org/wiki/big_o_notation" title="big o notation – simple english" lang="simple" hreflang="simple">simple english</a></li> 
+<li class="interlanguage-link interwiki-sl"><a href="http://sl.wikipedia.org/wiki/o_notacija" title="o notacija – slovenian" lang="sl" hreflang="sl">slovenščina</a></li> 
+<li class="interlanguage-link interwiki-sr"><a href="http://sr.wikipedia.org/wiki/%d0%92%d0%b5%d0%bb%d0%b8%d0%ba%d0%be_%d0%9e" title="велико о – serbian" lang="sr" hreflang="sr">српски / srpski</a></li> 
+<li class="interlanguage-link interwiki-fi"><a href="http://fi.wikipedia.org/wiki/asymptoottinen_suoritusaika" title="asymptoottinen suoritusaika – finnish" lang="fi" hreflang="fi">suomi</a></li> 
+<li class="interlanguage-link interwiki-sv"><a href="http://sv.wikipedia.org/wiki/ordo" title="ordo – swedish" lang="sv" hreflang="sv">svenska</a></li> 
+<li class="interlanguage-link interwiki-th"><a href="http://th.wikipedia.org/wiki/%e0%b8%aa%e0%b8%b1%e0%b8%8d%e0%b8%81%e0%b8%a3%e0%b8%93%e0%b9%8c%e0%b9%82%e0%b8%ad%e0%b9%83%e0%b8%ab%e0%b8%8d%e0%b9%88" title="สัญกรณ์โอใหญ่ – thai" lang="th" hreflang="th">ไทย</a></li> 
+<li class="interlanguage-link interwiki-tr"><a href="http://tr.wikipedia.org/wiki/b%c3%bcy%c3%bck_o_g%c3%b6sterimi" title="büyük o gösterimi – turkish" lang="tr" hreflang="tr">türkçe</a></li> 
+<li class="interlanguage-link interwiki-uk"><a href="http://uk.wikipedia.org/wiki/%d0%9d%d0%be%d1%82%d0%b0%d1%86%d1%96%d1%8f_%d0%9b%d0%b0%d0%bd%d0%b4%d0%b0%d1%83" title="нотація ландау – ukrainian" lang="uk" hreflang="uk">українська</a></li> 
+<li class="interlanguage-link interwiki-vi"><a href="http://vi.wikipedia.org/wiki/k%c3%ad_hi%e1%bb%87u_o_l%e1%bb%9bn" title="kí hiệu o lớn – vietnamese" lang="vi" hreflang="vi">tiếng việt</a></li> 
+<li class="interlanguage-link interwiki-zh"><a href="http://zh.wikipedia.org/wiki/%e5%a4%a7o%e7%ac%a6%e5%8f%b7" title="大o符号 – chinese" lang="zh" hreflang="zh">中文</a></li> 
+<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/q269878#sitelinks-wikipedia" title="edit interlanguage links">edit links</a></li> 
+</ul> 
+</div> 
+</div> 
+</div> 
+</div> 
+<div id="footer" role="contentinfo"> 
+<ul id="footer-info"> 
+<li id="footer-info-lastmod"> this page was last modified on 25 january 2014 at 13:57.<br></li> 
+<li id="footer-info-copyright">text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/wikipedia:text_of_creative_commons_attribution-sharealike_3.0_unported_license">creative commons attribution-sharealike license</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>; 
+additional terms may apply.  by using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/terms_of_use">terms of use</a> and <a href="http://wikimediafoundation.org/wiki/privacy_policy">privacy policy.</a> <br> 
+wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">wikimedia foundation, inc.</a>, a non-profit organization.</li> 
+</ul> 
+<ul id="footer-places"> 
+<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/privacy_policy" title="wikimedia:privacy policy">privacy policy</a></li> 
+<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/wikipedia:about" title="wikipedia:about">about wikipedia</a></li> 
+<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/wikipedia:general_disclaimer" title="wikipedia:general disclaimer">disclaimers</a></li> 
+<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/wikipedia:contact_us">contact wikipedia</a></li> 
+<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/special:mylanguage/how_to_contribute">developers</a></li> 
+<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/big_o_notation" class="noprint stopmobileredirecttoggle">mobile view</a></li> 
+</ul> 
+<ul id="footer-icons" class="noprint"> 
+<li id="footer-copyrightico"> 
+<a href="http://wikimediafoundation.org/"><img src="./asymtotic notation_files/wikimedia-button.png" width="88" height="31" alt="wikimedia foundation"></a> 
+</li> 
+<li id="footer-poweredbyico"> 
+<a href="http://www.mediawiki.org/"><img src="./asymtotic notation_files/poweredby_mediawiki_88x31.png" alt="powered by mediawiki" width="88" height="31"></a> 
+</li> 
+</ul> 
+<div style="clear:both"></div> 
+</div> 
+<script>/*<![cdata[*/window.jquery && jquery.ready();/*]]>*/</script><script>if(window.mw){ 
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"}); 
+}</script> 
+<script>if(window.mw){ 
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postedit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchsuggest","ext.gadget.teahouse","ext.gadget.referencetooltips","ext.gadget.drn-wizard","ext.gadget.charinsert","mw.mwembedsupport.style","ext.articlefeedbackv5.startup","ext.wikimediashoplink.core","ext.navigationtiming","skins.vector.collapsiblenav"],null,true); 
+}</script> 
+<script src="./asymtotic notation_files/load(2).php"></script> 
+<!-- served by mw1061 in 0.252 secs. --> 
+ 
+ 
+<div class="suggestions" style="display: none; font-size: 12.800000190734863px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html> 
