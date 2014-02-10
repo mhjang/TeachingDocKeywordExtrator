@@ -3,6 +3,7 @@ package Clustering;
 import Similarity.CosineSimilarity;
 import TFIDF.StopWordRemover;
 import TFIDF.TFIDFCalculator;
+import evaluation.ClusteringFMeasure;
 import org.lemurproject.galago.core.parse.stem.KrovetzStemmer;
 import parser.Tokenizer;
 import parser.WikiParser;
@@ -25,10 +26,24 @@ public class Clustering {
         BufferedReader br = new BufferedReader(new FileReader(new File("./topics_stemmed")));
         ArrayList<String> topiclist = new ArrayList<String>();
         String line = null;
+      // added this, because when topic names are long.. it's hard to recognize the cluster and the gold standard cluster name when parsing
+      // It's simpler if I use a separate label index by line
+        Integer clusterLabelIndex = 0;
+        HashMap<String, Integer> clusterLabelMap = new HashMap<String, Integer>();
         while((line= br.readLine()) != null) {
             topiclist.add(line);
+            clusterLabelMap.put(line, clusterLabelIndex++);
         }
-        clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
+        clusterLabelMap.put("dummy", clusterLabelIndex);
+        topiclist.add("dummy");
+
+   //     HashMap<String, LinkedList<String>> clusters= clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
+        double[] thresholdSettings = {0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4};
+        for(int i=0; i<7; i++) {
+            HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdate(documentMap, topiclist, thresholdSettings[i]);
+            System.out.println("Threshold = " + thresholdSettings[i]);
+            ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "/Users/mhjang/Documents/teaching_documents/evaluation/01.csv");
+        }
   //      clustering.naiveAssignmentLazyUpdate(documentMap, topiclist);
      }
 
@@ -116,7 +131,7 @@ public class Clustering {
      * @param topics
      * @throws java.io.IOException
      */
-    public void naiveAssignmentFirstRandomAssign(HashMap<String, Document> documentMap, ArrayList<String> topics) {
+    public HashMap<String, LinkedList<String>> naiveAssignmentFirstRandomAssign(HashMap<String, Document> documentMap, ArrayList<String> topics) {
 
         try {
             AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(documentMap, topics);
@@ -147,7 +162,7 @@ public class Clustering {
           //      System.out.println(bestTopic);
                 LinkedList<String> clusterList = clusters.get(bestTopic);
                 clusterList.add(docID);
-                clusters.put(docID, clusterList);
+                clusters.put(bestTopic, clusterList);
 
                 // updating cluster features
                 if(bestTopic != DUMMY) {
@@ -160,10 +175,13 @@ public class Clustering {
              * print the clustering result
              */
 
-            printCluster(clusters, topics);
+      //      printCluster(clusters, topics);
+            return clusters;
+
         }catch(Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 
@@ -175,19 +193,19 @@ public class Clustering {
      * @param topics
      * @throws java.io.IOException
      */
-    public void naiveAssignmentLazyUpdate(HashMap<String, Document> documentMap, ArrayList<String> topics) throws IOException {
+    public HashMap<String, LinkedList<String>> naiveAssignmentLazyUpdate(HashMap<String, Document> documentMap, ArrayList<String> topics, double threshold) throws IOException {
         AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(documentMap, topics);
         HashMap<String, LinkedList<String>> clusters = entry.getKey();
         HashMap<String, Document> clusterFeatureMap = entry.getValue();
 
-        clusterFeatureMap = expandTopicQueries(clusterFeatureMap, "./wikiexpansion_resource/stemmed/");
+      //  clusterFeatureMap = expandTopicQueries(clusterFeatureMap, "./wikiexpansion_resource/stemmed/");
         /****
          * clustering
          */
         LinkedList<String> dummyCluster = clusters.get(DUMMY);
         dummyCluster.addAll(documentMap.keySet());
         boolean isConverged = false, finished = false;
-        while(!isConverged || !finished) {
+        while(!isConverged && !finished) {
             // since we can't modify the list while enumerating, save the list of items we're moving, and delete them after the loop
             LinkedList<String> documentMoved = new LinkedList<String>();
             HashMap<String, LinkedList<String>> clusterUpdate = initializeTopicCluster(topics);
@@ -205,7 +223,7 @@ public class Clustering {
                         bestTopic = clusterTopic;
                     }
                 }
-                if(bestTopic != null) {
+                if(bestTopic != null && maxSim > threshold) {
                     LinkedList<String> clusterList =  clusterUpdate.get(bestTopic);
                     clusterList.add(docID);
                      clusterUpdate.put(bestTopic, clusterList);
@@ -230,9 +248,10 @@ public class Clustering {
             }
             clusters.put(DUMMY, dummyCluster);
             if(dummyCluster.isEmpty()) finished = true;
-            System.out.println("# of dummy Docs: " + numOfDummyDocs +", # of documents moved: " + numOfDocMoved);
+      //      System.out.println("# of dummy Docs: " + numOfDummyDocs +", # of documents moved: " + numOfDocMoved);
         }
         printCluster(clusters, topics);
+        return clusters;
    }
 
 
@@ -299,7 +318,6 @@ public class Clustering {
                         topicTokensFreq.put(token, 1);
                         topicTokens.add(token);
                     }
-                    System.out.println("token: " + token);
                 }
             }
             Document topicDoc = new Document(topicTokens);
