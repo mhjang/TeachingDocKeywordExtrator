@@ -14,12 +14,13 @@ public class Document {
     public static int UNIGRAM = 0;
     public static int BIGRAM = 1;
     public static int TRIGRAM = 2;
-
+    private String docName;
     HashMap<String, Integer> termFrequency;
-    public Document(LinkedList<String> unigrams, LinkedList<String> bigrams, LinkedList<String> trigrams) {
+    public Document(String docName, LinkedList<String> unigrams, LinkedList<String> bigrams, LinkedList<String> trigrams) {
         this.unigrams = unigrams;
         this.bigrams = bigrams;
         this.trigrams = trigrams;
+        this.docName = docName;
     }
 
     public Document(LinkedList<String> unigrams) {
@@ -50,6 +51,8 @@ public class Document {
         return this.trigrams;
     }
 
+    public String getName() { return this.docName; }
+
     public void setTermFrequency(HashMap<String, Integer> termFrequency) {
         this.termFrequency = termFrequency;
 
@@ -76,6 +79,17 @@ public class Document {
             mergeTerms(d.getTrigrams(), Document.TRIGRAM);
     }
 
+    /**
+     * for the sake of quality evaluations
+     */
+    public void printTerms() {
+       System.out.println("******************************" + getName() + "*****************************");
+       LinkedList<String> allTerms = getAllGrams();
+       for(String term : allTerms) {
+           System.out.println(term);
+       }
+    }
+
     private void mergeTerms(LinkedList<String> anotherGrams, int type) {
         for(String w : anotherGrams) {
             if(termFrequency.containsKey(w))
@@ -99,8 +113,32 @@ public class Document {
             }
         }
     }
+
+
+
+    /**
+     * Written in 2/14/2014
+     * @param ngramType
+     * @param term
+     *
+     * This is to remove infrequent terms from QueryExpander
+     */
+    public void removeTerm(int ngramType, String term) {
+        if(ngramType == Document.UNIGRAM)
+            unigrams.remove(term);
+        else if(ngramType == Document.BIGRAM)
+            bigrams.remove(term);
+        else if(ngramType == Document.TRIGRAM)
+            trigrams.remove(term);
+
+    }
+
+
+
+
     /**
      * return a list of unigrams, bigrams, trigrams combined
+     * The list has to be generated on the fly when the method is called because unigrams / bigrams / trigrams can be altered after the document is constructed
      * @return
      */
     public LinkedList<String> getAllGrams() {

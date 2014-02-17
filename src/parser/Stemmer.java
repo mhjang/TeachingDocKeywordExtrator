@@ -3,14 +3,16 @@ package parser;
 import org.lemurproject.galago.core.parse.stem.KrovetzStemmer;
 
 import java.io.*;
+import java.util.StringTokenizer;
 
 /**
  * Created by mhjang on 2/2/14.
  * Just a few different interface methods for using KrovetzStemmer
  */
 public class Stemmer {
-
+    KrovetzStemmer stemmer;
     public Stemmer() {
+        stemmer = new KrovetzStemmer();
 
     }
 
@@ -35,15 +37,13 @@ public class Stemmer {
             File fileEntry = new File(path);
             LineNumberReader reader = new LineNumberReader(new FileReader(fileEntry));
             String line;
-            KrovetzStemmer stemmer = new KrovetzStemmer();
             line = reader.readLine();
             while (line != null) {
                 line = line.trim();
-                String [] tokens = line.split(" ,");
-                for( int i=0 ; i<tokens.length ; i++ ) {
-                        String stem = stemmer.stem(tokens[i]);
-                        System.out.println(tokens[i] + " " + stem);
-                        sb.append(stem + " ");
+                StringTokenizer st = new StringTokenizer(line, " ,\n", false);
+                while(st.hasMoreTokens()) {
+                    String stem = stemmer.stem(st.nextToken());
+                    sb.append(stem + " ");
                 }
                 sb.append("\n");
                 line = reader.readLine();
@@ -56,6 +56,25 @@ public class Stemmer {
 
      }
 
+    /**
+     *
+     * @param text
+     * @return text
+     * This method assembles the tokenized terms to a string so that it'll be tokenized by Tokenizer later.
+     * I know it sounds dumb to put it back and split it later again, but for "modulization", I'll let one component do one job.
+     */
+    public String stemString(String text) {
+        StringBuilder sb = new StringBuilder();
+        StringTokenizer st = new StringTokenizer(text, " ,\n", false);
+        while(st.hasMoreTokens()) {
+            String token = st.nextToken();
+            String stem = stemmer.stem(token);
+            sb.append(stem + " ");
+        }
+        sb.append("\n");
+        return sb.toString();
+    }
+
     public void stemOneFileOutput(String path) {
         try {
             File fileEntry = new File(path);
@@ -63,15 +82,13 @@ public class Stemmer {
             String pathPreFix = path.substring(0, path.lastIndexOf('/'));
             BufferedWriter bw = new BufferedWriter(new FileWriter(new File(pathPreFix + "/stemmed/"+fileEntry.getName())));
             String line;
-            KrovetzStemmer stemmer = new KrovetzStemmer();
             try {
                 line = reader.readLine();
                 while (line != null) {
                     line = line.trim();
-                    String [] tokens = line.split(" ,");
-                    for( int i=0 ; i<tokens.length ; i++ ) {
-                        String stem = stemmer.stem(tokens[i]);
-                        System.out.println(tokens[i] + " " + stem);
+                    StringTokenizer st = new StringTokenizer(line, " ,\n", false);
+                    while(st.hasMoreTokens()) {
+                        String stem = stemmer.stem(st.nextToken());
                         bw.write(stem + " ");
                     }
                     bw.write("\n");

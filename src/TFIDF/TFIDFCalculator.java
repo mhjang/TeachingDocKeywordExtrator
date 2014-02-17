@@ -23,12 +23,14 @@ public class TFIDFCalculator {
     public static int LOGTFIDF = 1;
     public static int AUGMENTEDTFIDF = 2;
 
-    public HashSet<String> stopwords;
-    public HashMap<String, Document> documentSet;
+    public HashSet<String> stopwords = null;
+    public HashMap<String, Document> documentSet = null;
+    public HashMap<String, Integer> globalTermCountMap = null;
 
     // test
     // contains a parsed text per each document in the given directory
     private HashMap<String, String> documentTextMap = new HashMap<String, String>();
+
     public TFIDFCalculator() throws IOException {
         stopwords = new HashSet<String>();
         BufferedReader br = new BufferedReader(new FileReader("stopwords.txt"));
@@ -52,6 +54,22 @@ public class TFIDFCalculator {
         }
         return documentSet;
     }
+
+
+
+    /***
+     *
+     * @return a map of document set with tokenized n-grams and term frequency
+     */
+    public HashMap<String, Integer> getDocumentWordCountDic(String dir, int ngram, boolean wikifiltering) {
+        if(globalTermCountMap == null) {
+            HashMap<String, LinkedList<String>> documentMap = Tokenize(dir, ngram, wikifiltering);
+            calculateTFIDF(documentMap, TFIDFCalculator.LOGTFIDF);
+        }
+        return globalTermCountMap;
+    }
+
+
 
     /**
      * reads files from the given directory and tokenize the words
@@ -89,7 +107,7 @@ public class TFIDFCalculator {
                     trigrams = getTrigrams(wordlist);
                 }
              }
-            Document doc = new Document(unigrams, bigrams, trigrams);
+            Document doc = new Document(docName, unigrams, bigrams, trigrams);
             LinkedList<String> wordPool = doc.getAllGrams();
             if(documentSet == null)
                 documentSet = new HashMap<String, Document>();
@@ -126,8 +144,6 @@ public class TFIDFCalculator {
     }
 
 
-    //public HashMap<String, LinkedList<String>> generateInvertedIndex(HashMap<String, LinkedList<String>> documentTokensMap) {}
-
     /**
      *
      * @param documentTokensMap
@@ -137,7 +153,7 @@ public class TFIDFCalculator {
        // the number of documents that the term appears
        HashMap<String, Integer> binaryTermFreqInDoc = new HashMap<String, Integer>();
        // stores term frequency over the collection
-       HashMap<String, Integer> globalMap = new HashMap<String, Integer>();
+        globalTermCountMap = new HashMap<String, Integer>();
        // count term frequencies
        HashMap<String, HashMap<String, Integer>> docTermFreqMap = new HashMap<String, HashMap<String, Integer>>();
        for(String docName : documentTokensMap.keySet()) {
@@ -146,12 +162,12 @@ public class TFIDFCalculator {
             HashMap<String, Integer> docTFMap = new HashMap<String, Integer>();
             for(String word : wordPool) {
                 // counting global term frequency
-                if(!globalMap.containsKey(word))
-                    globalMap.put(word, 1);
+                if(!globalTermCountMap.containsKey(word))
+                    globalTermCountMap.put(word, 1);
                 else
                 {
-                    int count = globalMap.get(word);
-                    globalMap.put(word, count+1);
+                    int count = globalTermCountMap.get(word);
+                    globalTermCountMap.put(word, count+1);
                 }
                 // counting term frequency within the document
                 if(!docTFMap.containsKey(word)) {
@@ -173,7 +189,7 @@ public class TFIDFCalculator {
         for(String docName : docTermFreqMap.keySet()) {
             LinkedList<TermTFIDF> rankedTerms = null;
             boolean printResult = true;
-            rankedTerms = getTFIDFScore(TFIDFOption, globalMap, docTermFreqMap.get(docName), binaryTermFreqInDoc, printResult);
+            rankedTerms = getTFIDFScore(TFIDFOption, globalTermCountMap, docTermFreqMap.get(docName), binaryTermFreqInDoc, printResult);
         }
     }
 

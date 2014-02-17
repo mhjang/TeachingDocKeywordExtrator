@@ -1,12 +1,11 @@
 package Clustering;
 
+import QueryExpansion.QueryExpander;
 import Similarity.CosineSimilarity;
 import TFIDF.StopWordRemover;
 import TFIDF.TFIDFCalculator;
 import evaluation.ClusteringFMeasure;
 import org.lemurproject.galago.core.parse.stem.KrovetzStemmer;
-import parser.Tokenizer;
-import parser.WikiParser;
 
 import java.io.*;
 import java.util.*;
@@ -17,19 +16,30 @@ import java.util.*;
  */
 public class Clustering {
     private String DUMMY = "dummy";
+    HashMap<String, Integer> termOccurrenceDic;
     public static void main(String[] args) throws IOException {
+        // redirecting a system output to a file
+        PrintStream console = System.out;
+        File file = new File("log.txt");
+        FileOutputStream fos = new FileOutputStream(file);
+        PrintStream ps = new PrintStream(fos);
+    //    System.setOut(ps);
+
         Clustering clustering = new Clustering();
         TFIDFCalculator tfidf = new TFIDFCalculator();
         HashMap<String, Document> documentMap = tfidf.getDocumentSet("/Users/mhjang/Documents/teaching_documents/stemmed_coderm/", TFIDFCalculator.UNIGRAM, false);
+        clustering.termOccurrenceDic = tfidf.getDocumentWordCountDic("/Users/mhjang/Documents/teaching_documents/stemmed_coderm/", TFIDFCalculator.UNIGRAM, false);
+
      //   String[] topics = {"list and array representation", "graph traverse", "sorting algorithm"};
     //    clustering.stemming("./topics");
-        BufferedReader br = new BufferedReader(new FileReader(new File("./topics_stemmed")));
-        ArrayList<String> topiclist = new ArrayList<String>();
-        String line = null;
       // added this, because when topic names are long.. it's hard to recognize the cluster and the gold standard cluster name when parsing
       // It's simpler if I use a separate label index by line
         Integer clusterLabelIndex = 0;
         HashMap<String, Integer> clusterLabelMap = new HashMap<String, Integer>();
+      // reading a topic file
+        BufferedReader br = new BufferedReader(new FileReader(new File("./topics_stemmed")));
+        ArrayList<String> topiclist = new ArrayList<String>();
+        String line = null;
         while((line= br.readLine()) != null) {
             topiclist.add(line);
             clusterLabelMap.put(line, clusterLabelIndex++);
@@ -37,14 +47,18 @@ public class Clustering {
         clusterLabelMap.put("dummy", clusterLabelIndex);
         topiclist.add("dummy");
 
-   //     HashMap<String, LinkedList<String>> clusters= clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
-        double[] thresholdSettings = {0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4};
+    /*    double[] thresholdSettings = {0.03, 0.07};
         for(int i=0; i<7; i++) {
             HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdate(documentMap, topiclist, thresholdSettings[i]);
             System.out.println("Threshold = " + thresholdSettings[i]);
             ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "/Users/mhjang/Documents/teaching_documents/evaluation/01.csv");
         }
-  //      clustering.naiveAssignmentLazyUpdate(documentMap, topiclist);
+     */
+        HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdate(documentMap, topiclist, 10, 0.05);
+        ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "/Users/mhjang/Documents/teaching_documents/evaluation/01.csv");
+
+        //     HashMap<String, LinkedList<String>> clusters= clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
+
      }
 
     private void stemming(String path) throws IOException {
@@ -75,55 +89,6 @@ public class Clustering {
 
 
 
-    /**
-     *
-     * @param topicDocumentMap: a set of documents whose words are initial topic words
-     * @param resourceDir: the directory that contains Wikipedia files
-     *                   I manually downloaded a few matching Wikipedia articles.
-     * Written 2/2/14 8:21pm
-     */
-    private HashMap<String, Document> expandTopicQueries(HashMap<String, Document> topicDocumentMap, String resourceDir) {
-        File directory = new File(resourceDir);
-        File[] listOfFiles = directory.listFiles();
-        WikiParser wikiparser = new WikiParser();
-        Tokenizer tokenizer = new Tokenizer();
-        for(File file: listOfFiles) {
-            String parsedText = wikiparser.parse(file.getPath());
-            System.out.println("parsed " + file.getName());
-            // For simplicity, I saved all wikipedi articles with the same topic labels
-            // It ends with ".txt". I just need a name of the file, which is also the topic label
-            String topicName = file.getName().substring(0, file.getName().length()-5);
-
-            Document wikiDoc = tokenizer.tokenize(parsedText, Tokenizer.TRIGRAM);
-            String matchingTopic = getMatchingTopicLabel(topicName.toLowerCase(), topicDocumentMap);
-            Document topicDoc = topicDocumentMap.get(matchingTopic);
-            //     System.out.println("Topic Name: " + topicName);
-            topicDoc.mergeDocument(wikiDoc);
-            topicDocumentMap.put(matchingTopic, topicDoc);
-        }
-        return topicDocumentMap;
-    }
-
-
-    /**
-     * The name of the Wikipedia article is like "analysis of algorithm" whereas the topic key is "analysis of algorithm, and bubble sort..."
-     * So instead of retrieving the matching document by hashing, we have to see if the key "contains" the given query
-     * The usage of this method is very limited; it works under the assumption that the wikipedia article's filename is always the part of the topic key string.
-     * I hate generating such ad-hoc methods like this, but at this point making it work is more important.
-     *
-     * Written in 2/2/14 8:55 pm
-     * @param articleName
-     * @param topicDocumentMap
-     * @return
-     */
-    private String getMatchingTopicLabel(String articleName, HashMap<String, Document> topicDocumentMap) {
-        for(String label : topicDocumentMap.keySet()) {
-            if(label.contains(articleName))
-                return label;
-        }
-        return null;
-    }
-    /**
 
     /**
      *
@@ -189,16 +154,21 @@ public class Clustering {
      * Written in in 2/2 3:23 pm
      * assign a set of documents to the cluster whose similarity score to is the maximum at one phase, and update the cluster features.
      * Then come back to the "dummy" clusters, and deal with the unassigned documents until it converges or there is no document to be assigned.
+     *
      * @param documentMap
      * @param topics
-     * @throws java.io.IOException
+     * @param clusterThreshold
+     *@param termFilterThreshold @throws java.io.IOException
      */
-    public HashMap<String, LinkedList<String>> naiveAssignmentLazyUpdate(HashMap<String, Document> documentMap, ArrayList<String> topics, double threshold) throws IOException {
+    public HashMap<String, LinkedList<String>> naiveAssignmentLazyUpdate(HashMap<String, Document> documentMap, ArrayList<String> topics, int termFilterThreshold, double clusterThreshold) throws IOException {
         AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(documentMap, topics);
         HashMap<String, LinkedList<String>> clusters = entry.getKey();
         HashMap<String, Document> clusterFeatureMap = entry.getValue();
 
       //  clusterFeatureMap = expandTopicQueries(clusterFeatureMap, "./wikiexpansion_resource/stemmed/");
+        QueryExpander qe = new QueryExpander();
+        qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "./wikiexpansion_resource/stemmed/", termOccurrenceDic, termFilterThreshold);
+
         /****
          * clustering
          */
@@ -223,7 +193,8 @@ public class Clustering {
                         bestTopic = clusterTopic;
                     }
                 }
-                if(bestTopic != null && maxSim > threshold) {
+           //     System.out.println("maxsim = "+ maxSim);
+                if(bestTopic != null && maxSim > clusterThreshold) {
                     LinkedList<String> clusterList =  clusterUpdate.get(bestTopic);
                     clusterList.add(docID);
                      clusterUpdate.put(bestTopic, clusterList);
@@ -248,9 +219,9 @@ public class Clustering {
             }
             clusters.put(DUMMY, dummyCluster);
             if(dummyCluster.isEmpty()) finished = true;
-      //      System.out.println("# of dummy Docs: " + numOfDummyDocs +", # of documents moved: " + numOfDocMoved);
+            System.out.println("# of dummy Docs: " + numOfDummyDocs +", # of documents moved: " + numOfDocMoved);
         }
-        printCluster(clusters, topics);
+    //    printCluster(clusters, topics);
         return clusters;
    }
 

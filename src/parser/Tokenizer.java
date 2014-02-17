@@ -4,7 +4,6 @@ import Clustering.Document;
 import TFIDF.StopWordRemover;
 import db.DBConnector;
 
-import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ public class Tokenizer {
     public static int BIGRAM = 2;
     public static int TRIGRAM = 3;
 
+
     public Tokenizer() {
     }
 
@@ -30,7 +30,7 @@ public class Tokenizer {
      * @param ngram
      * @return
      */
-    public Document tokenize(String line, int ngram) {
+    public Document tokenize(String docName, String line, int ngram) {
         String[] rawwords = line.split("[^a-zA-Z0-9]+");
         // removing stopwords
         StopWordRemover stopRemover = new StopWordRemover();
@@ -43,19 +43,19 @@ public class Tokenizer {
 
         if(wordlist.size() >= Tokenizer.TRIGRAM) {
             if(ngram == Tokenizer.UNIGRAM) {
-                unigrams = new LinkedList<String>(wordlist);
+                unigrams = getUnigrams(wordlist);
             }
             else if(ngram == Tokenizer.BIGRAM) {
-                unigrams = new LinkedList<String>(wordlist);
-                bigrams = getBigrams(wordlist);
+                unigrams = getUnigrams(wordlist);
+                bigrams = generateBigrams(wordlist);
             }
             else {
-                unigrams = new LinkedList<String>(wordlist);
-                bigrams = getBigrams(wordlist);
-                trigrams = getTrigrams(wordlist);
+                unigrams = getUnigrams(wordlist);
+                bigrams = generateBigrams(wordlist);
+                trigrams = generateTrigrams(wordlist);
             }
         }
-        Document doc = new Document(unigrams, bigrams, trigrams);
+        Document doc = new Document(docName, unigrams, bigrams, trigrams);
 
         LinkedList<String> wordPool = doc.getAllGrams();
         HashMap<String, Integer> docTFMap = new HashMap<String, Integer>();
@@ -70,13 +70,23 @@ public class Tokenizer {
         return doc;
      }
 
+    private LinkedList<String> getUnigrams(ArrayList<String> wordlist) {
+        LinkedList<String> wordPool = new LinkedList<String>();
+        for(String term : wordlist) {
+            if(!wordPool.contains(term)) {
+                wordPool.add(term);
+            }
+        }
+        return wordPool;
+
+    }
 
     /**
      * generate bigrams
      * @param wordlist
      * @return
      */
-    private LinkedList<String> getBigrams(ArrayList<String> wordlist) {
+    private LinkedList<String> generateBigrams(ArrayList<String> wordlist) {
         //    uncomment if you want to generate *UPTO* bigrams in addition to unigrams (this line includes unigrams)
         //     LinkedList<String> wordPool = new LinkedList<String>(wordlist);
         LinkedList<String> wordPool = new LinkedList<String>();
@@ -100,13 +110,13 @@ public class Tokenizer {
      * @param wordlist
      * @return
      */
-    private LinkedList<String> getTrigrams(ArrayList<String> wordlist) {
+    private LinkedList<String> generateTrigrams(ArrayList<String> wordlist) {
         //    uncomment star-marked (*) lines if you want to generate *UPTO* trigrams in addition to unigrams (this line includes unigrams)
         //*     LinkedList<String> wordPool = new LinkedList<String>(wordlist);
         LinkedList<String> wordPool = new LinkedList<String>();
         if(wordlist.size() < 3) {
             System.out.println("There is less than 3 words in the list; can't build trigrams");
-            return getBigrams(wordlist);
+            return generateBigrams(wordlist);
         }
         String bigram = wordlist.get(0) + " " + wordlist.get(1);
         //*    wordPool.add(bigram);
