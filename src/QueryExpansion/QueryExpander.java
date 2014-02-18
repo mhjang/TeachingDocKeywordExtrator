@@ -7,6 +7,7 @@ import parser.WikiParser;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 /**
@@ -49,6 +50,63 @@ public class QueryExpander {
         return topicDocumentMap;
     }
 
+
+    /**
+     * Added 2/17/2014 2:35 AM, at very remorseful night
+     * expand the topic queries with terms that had appeared at least once in the first top K words in any of those document from the collection
+     * Note that we only generate UNIGRAMS here from WikiDocs because the first-K-word list was generated for the unigrams. (at least for now!)
+     * @param topicDocumentMap
+     * @param resourceDir
+     * @return
+     */
+    public HashMap<String, Document> expandTopicQueriesWithFirstKTerms(HashMap<String, Document> topicDocumentMap, String resourceDir, HashSet<String> firstKTerms) {
+        File directory = new File(resourceDir);
+        File[] listOfFiles = directory.listFiles();
+        WikiParser wikiparser = new WikiParser();
+        Tokenizer tokenizer = new Tokenizer();
+        Stemmer stemmer = new Stemmer();
+        int numOfExpandedTerms = 0;
+        for(File file: listOfFiles) {
+            String parsedText = wikiparser.parse(file.getPath());
+            parsedText = stemmer.stemString(parsedText);
+            String topicName = file.getName().substring(0, file.getName().length()-5);
+            Document wikiDoc = tokenizer.tokenize(file.getName(), parsedText, Tokenizer.TRIGRAM);
+            LinkedList<String> wikiUnigrams = new LinkedList<String>(wikiDoc.getUnigrams());
+            for(String term : wikiUnigrams) {
+                if(!firstKTerms.contains(term))
+                    wikiDoc.removeTerm(Document.UNIGRAM, term);
+            }
+
+            LinkedList<String> wikiBigrams = new LinkedList<String>(wikiDoc.getBigrams());
+            for(String term : wikiBigrams) {
+                if(!firstKTerms.contains(term))
+                    wikiDoc.removeTerm(Document.BIGRAM, term);
+            }
+
+            LinkedList<String> wikiTrigrams = new LinkedList<String>(wikiDoc.getTrigrams());
+            for(String term : wikiTrigrams) {
+                if(!firstKTerms.contains(term))
+                    wikiDoc.removeTerm(Document.TRIGRAM, term);
+            }
+
+            wikiDoc.printTerms();
+            numOfExpandedTerms += wikiDoc.getAllGrams().size();
+
+            String matchingTopic = getMatchingTopicLabel(topicName.toLowerCase(), topicDocumentMap);
+            Document topicDoc = topicDocumentMap.get(matchingTopic);
+            //     System.out.println("Topic Name: " + topicName);
+            topicDoc.mergeDocument(wikiDoc);
+            topicDocumentMap.put(matchingTopic, topicDoc);
+        }
+        System.out.println("# of average expanded terms: " + (double)(numOfExpandedTerms)/(double)(listOfFiles.length));
+        return topicDocumentMap;
+
+
+    }
+
+
+
+
     /**
      * expand the topic queries with frequent terms whose occurence in the collection is bigger than a given threshold
      * @param topicDocumentMap
@@ -66,7 +124,7 @@ public class QueryExpander {
             String parsedText = wikiparser.parse(file.getPath());
             parsedText = stemmer.stemString(parsedText);
             String topicName = file.getName().substring(0, file.getName().length()-5);
-            Document wikiDoc = tokenizer.tokenize(file.getName(), parsedText, Tokenizer.TRIGRAM);
+            Document wikiDoc = tokenizer.tokenize(file.getName(), parsedText, Tokenizer.UNIGRAM);
             /****
              * filtering out the infrequent terms
              *
@@ -77,8 +135,8 @@ public class QueryExpander {
              * Made this method static in Document class because this has to be used in Clustering class for documents to be clustered.
              */
             Document.removeInfrequentTerms(wikiDoc, Document.UNIGRAM, termOccrurenceDic, threshold);
-            Document.removeInfrequentTerms(wikiDoc, Document.BIGRAM, termOccrurenceDic, threshold);
-            Document.removeInfrequentTerms(wikiDoc, Document.TRIGRAM, termOccrurenceDic, threshold);
+       //     Document.removeInfrequentTerms(wikiDoc, Document.BIGRAM, termOccrurenceDic, threshold);
+        //    Document.removeInfrequentTerms(wikiDoc, Document.TRIGRAM, termOccrurenceDic, threshold);
 
             numOfExpandedTerms += wikiDoc.getAllGrams().size();
 

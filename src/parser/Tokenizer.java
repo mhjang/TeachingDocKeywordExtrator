@@ -17,9 +17,9 @@ import java.util.LinkedHashSet;
  * Written at 8:25 pm
  */
 public class Tokenizer {
-    public static int UNIGRAM = 1;
-    public static int BIGRAM = 2;
-    public static int TRIGRAM = 3;
+    public static int UNIGRAM = 0;
+    public static int BIGRAM = 1;
+    public static int TRIGRAM = 2;
 
 
     public Tokenizer() {
@@ -165,4 +165,19 @@ public class Tokenizer {
         return wordlist;
     }
 
+    /**
+     * Added at 2/17/2014 3:05 am.
+     * This method was written because this has to be used from Query Expander
+     * @param unigram
+     * @param ngramType
+     * @return
+     */
+    public LinkedList<String> generateNramsWrapper(LinkedList<String> unigram, int ngramType) {
+        ArrayList<String> unigramList = new ArrayList<String>(unigram);
+        if(ngramType == Tokenizer.BIGRAM)
+            return generateBigrams(unigramList);
+        else if(ngramType == Tokenizer.TRIGRAM)
+            return generateTrigrams(unigramList);
+        else return null;
+    }
 }

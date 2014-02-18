@@ -1,5 +1,9 @@
 package Clustering;
 
+
+
+import parser.Tokenizer;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -68,11 +72,43 @@ public class Document {
         return true;
     }
 
-    public LinkedList<String> getFirstKUnigrams(int k) {
+    /**
+     * added 2/17/2014 3:08 am
+     * @param k
+     * @param ngramType
+     * @param termOccurenceDic: (Term, Frequency) from the collection
+     * @param threshold: throw away the terms whose frequency is lower than the threshold from the collection
+     * @return
+     */
+    public LinkedList<String> getFirstKGrams(int k, int ngramType, HashMap<String, Integer> termOccurenceDic, int threshold) {
         if(unigrams == null) return new LinkedList<String>();
-        else return (LinkedList<String>)(unigrams.subList(0, k));
-    }
+        LinkedList<String> sublist = new LinkedList<String>();
+        if(unigrams.size() < k)
+            k = unigrams.size();
+        for(int i=0; i<k; i++) {
+            sublist.add(unigrams.get(i));
+        }
+        Tokenizer tokenizer = new Tokenizer();
+        if(ngramType == Document.UNIGRAM) return sublist;
+        else if(ngramType == Document.BIGRAM) {
+            sublist.addAll(tokenizer.generateNramsWrapper(sublist, Document.BIGRAM));
+        }
+        else {
+            LinkedList<String> subgrams = tokenizer.generateNramsWrapper(sublist, Document.BIGRAM);
+            subgrams.addAll(tokenizer.generateNramsWrapper(sublist, Document.TRIGRAM));
+            subgrams.addAll(sublist);
+        }
 
+        LinkedList<String> finalList = new LinkedList<String>();
+        for(String term: sublist) {
+            if(termOccurenceDic.containsKey(term)) {
+                if(termOccurenceDic.get(term) > threshold) {
+                    finalList.add(term);
+                }
+            }
+        }
+        return finalList;
+     }
     public HashMap<String, Integer> getTermFrequency() {
         return termFrequency;
     }
@@ -91,8 +127,9 @@ public class Document {
        System.out.println("******************************" + getName() + "*****************************");
        LinkedList<String> allTerms = getAllGrams();
        for(String term : allTerms) {
-           System.out.println(term);
+           System.out.print(term + ", ");
        }
+        System.out.println();
     }
 
     public static int removeInfrequentTerms(Document doc, int ngramType, HashMap<String, Integer> termOccrurenceDic, int threshold) {

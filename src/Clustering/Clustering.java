@@ -17,6 +17,7 @@ import java.util.*;
 public class Clustering {
     private String DUMMY = "dummy";
     HashMap<String, Integer> termOccurrenceDic;
+    HashSet<String> documentFirstKTerms;
     public static void main(String[] args) throws IOException {
         // redirecting a system output to a file
         PrintStream console = System.out;
@@ -25,26 +26,34 @@ public class Clustering {
         PrintStream ps = new PrintStream(fos);
   //      System.setOut(ps);
 
+        /***
+         * Setting the parameters
+         */
+        int firstTopK = 50;
+        double clusteringThreshold = 0.05;
+        int infrequentTermThreshold = 10;
+        int kgramsTermThreshold = 1;
+
         Clustering clustering = new Clustering();
         TFIDFCalculator tfidf = new TFIDFCalculator();
         HashMap<String, Document> documentMap = tfidf.getDocumentSet("/Users/mhjang/Documents/teaching_documents/stemmed/", TFIDFCalculator.TRIGRAM, false);
-        clustering.termOccurrenceDic = tfidf.getDocumentWordCountDic("/Users/mhjang/Documents/teaching_documents/stemmed/", TFIDFCalculator.TRIGRAM, false);
+        HashMap<String, Integer> termOccurrenceDic = tfidf.getDocumentWordCountDic("/Users/mhjang/Documents/teaching_documents/stemmed/", TFIDFCalculator.TRIGRAM, false);
+        clustering.termOccurrenceDic = termOccurrenceDic;
         /**
          * cleaning the document terms by dropping a bunch of infrequent bigrams and trigrams
          */
         clustering.documentTermCleansing(documentMap);
-
+        /**
+         * Setting documents' first K term words
+         */
+        HashSet<String> firstKWords = new HashSet<String>();
         for(String docID : documentMap.keySet()) {
             Document doc = documentMap.get(docID);
-            LinkedList<String> kUnigrams = doc.getFirstKUnigrams(30);
-            System.out.println("**********************" + docID + " ********************** ");
-            for(String term : kUnigrams) {
-                System.out.print(term + "\t");
-            }
-//            System.out.println("removed terms: " + docID + ": " + removedTerms);
+            LinkedList<String> kGrams = doc.getFirstKGrams(firstTopK, Document.BIGRAM, termOccurrenceDic, kgramsTermThreshold);
+            firstKWords.addAll(kGrams);
         }
+        clustering.documentFirstKTerms = firstKWords;
 
-      /*
 
      //   String[] topics = {"list and array representation", "graph traverse", "sorting algorithm"};
       // added this, because when topic names are long.. it's hard to recognize the cluster and the gold standard cluster name when parsing
@@ -68,14 +77,14 @@ public class Clustering {
             System.out.println("Threshold = " + thresholdSettings[i]);
             ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "/Users/mhjang/Documents/teaching_documents/evaluation/01.csv");
         }
-
-        HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdate(documentMap, topiclist, 20, 0.05);
+*/
+        HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdate(documentMap, topiclist, infrequentTermThreshold, clusteringThreshold);
       //  HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdateDuplicate(documentMap, topiclist, 0, 0.05);
 
-        ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "/Users/mhjang/Documents/teaching_documents/evaluation/goldstandard_v2.csv");
+        ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "./annotation/goldstandard_v2.csv");
 
         //     HashMap<String, LinkedList<String>> clusters= clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
-*/
+
      }
 
     /**
@@ -206,7 +215,8 @@ public class Clustering {
          * Query Expansion
          */
         QueryExpander qe = new QueryExpander();
-        qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", termOccurrenceDic, termFilterThreshold);
+     //   qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", termOccurrenceDic, termFilterThreshold);
+        qe.expandTopicQueriesWithFirstKTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", documentFirstKTerms);
 
         /****
          * clustering
