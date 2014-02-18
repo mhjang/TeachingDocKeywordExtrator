@@ -31,7 +31,7 @@ public class ClusteringFMeasure {
     }
 
     public static void main(String[] args) {
-        ClusteringFMeasure cfm = new ClusteringFMeasure(null, null, null, "/Users/mhjang/Documents/teaching_documents/evaluation/01.csv");
+        ClusteringFMeasure cfm = new ClusteringFMeasure(null, null, null, "/Users/mhjang/Documents/teaching_documents/evaluation/goldstandard_v2.csv");
     }
     // read goldstandard
     private HashMap<Integer, LinkedList<String>> readGoldstandard(String goldDir) {

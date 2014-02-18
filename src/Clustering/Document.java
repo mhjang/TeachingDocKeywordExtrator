@@ -90,6 +90,32 @@ public class Document {
        }
     }
 
+    public static int removeInfrequentTerms(Document doc, int ngramType, HashMap<String, Integer> termOccrurenceDic, int threshold) {
+        LinkedList<String> terms = null;
+        int removedTerms = 0;
+        if(ngramType == Document.UNIGRAM)
+            terms = new LinkedList<String>(doc.getUnigrams());
+        else if(ngramType == Document.BIGRAM)
+            terms = new LinkedList<String>(doc.getBigrams());
+        else if(ngramType == Document.TRIGRAM)
+            terms = new LinkedList<String>(doc.getTrigrams());
+        for(String term : terms) {
+            if(termOccrurenceDic.containsKey(term)) {
+                if(termOccrurenceDic.get(term) < threshold) {
+                    doc.removeTerm(ngramType, term);
+                    removedTerms++;
+                }
+            }
+            else {
+                doc.removeTerm(ngramType, term);
+                removedTerms++;
+
+            }
+        }
+//        doc.printTerms();
+        return removedTerms;
+    }
+
     private void mergeTerms(LinkedList<String> anotherGrams, int type) {
         for(String w : anotherGrams) {
             if(termFrequency.containsKey(w))

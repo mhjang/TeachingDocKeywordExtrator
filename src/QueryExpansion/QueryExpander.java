@@ -74,10 +74,11 @@ public class QueryExpander {
              * but I just thought it would be better if "Tokenizer" does tokenizing, and this sort of post-processing for query expansion
              * is done in the "Query Expander" for the sake of component modularization. (2/16/2014)
              *
+             * Made this method static in Document class because this has to be used in Clustering class for documents to be clustered.
              */
-            removeInfrequentTerms(wikiDoc, Document.UNIGRAM, termOccrurenceDic, threshold);
-            removeInfrequentTerms(wikiDoc, Document.BIGRAM, termOccrurenceDic, threshold);
-            removeInfrequentTerms(wikiDoc, Document.TRIGRAM, termOccrurenceDic, threshold);
+            Document.removeInfrequentTerms(wikiDoc, Document.UNIGRAM, termOccrurenceDic, threshold);
+            Document.removeInfrequentTerms(wikiDoc, Document.BIGRAM, termOccrurenceDic, threshold);
+            Document.removeInfrequentTerms(wikiDoc, Document.TRIGRAM, termOccrurenceDic, threshold);
 
             numOfExpandedTerms += wikiDoc.getAllGrams().size();
 
@@ -93,28 +94,7 @@ public class QueryExpander {
 
     }
 
-    private void removeInfrequentTerms(Document doc, int ngramType, HashMap<String, Integer> termOccrurenceDic, int threshold) {
-        LinkedList<String> terms = null;
-        if(ngramType == Document.UNIGRAM)
-            terms = new LinkedList<String>(doc.getUnigrams());
-        else if(ngramType == Document.BIGRAM)
-            terms = new LinkedList<String>(doc.getBigrams());
-        else if(ngramType == Document.TRIGRAM)
-            terms = new LinkedList<String>(doc.getTrigrams());
-        for(String term : terms) {
-            if(termOccrurenceDic.containsKey(term)) {
-                if(termOccrurenceDic.get(term) < threshold) {
-                   doc.removeTerm(ngramType, term);
-                }
-            }
-            else {
-                doc.removeTerm(ngramType, term);
 
-            }
-        }
-        doc.printTerms();
-
-    }
 
 
     /**

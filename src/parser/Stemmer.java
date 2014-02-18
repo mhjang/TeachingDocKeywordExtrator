@@ -18,16 +18,18 @@ public class Stemmer {
 
     public static void main(String[] args) {
         Stemmer stemmer = new Stemmer();
-        stemmer.stemAllFilesOutput("./wikiexpansion_resource");
+      //  stemmer.stemOneFileOutput("./topics_resource/topics_v2");
+     //   stemmer.stemAllFilesOutput("/Users/mhjang/Documents/teaching_documents/newdocs_tobestemmed/");
     }
 
     public void stemAllFilesOutput(String path) {
         File fileEntry = new File(path);
         File[] listOfFiles = fileEntry.listFiles();
         for(File file : listOfFiles) {
-            if(file.isFile() && file.getName().endsWith(".html")) {
+            if(file.isFile())
+       //     if(file.isFile() && file.getName().endsWith(".html")) {
                 stemOneFileOutput(file.getPath());
-            }
+      //      }
         }
     }
 
@@ -80,7 +82,10 @@ public class Stemmer {
             File fileEntry = new File(path);
             LineNumberReader reader = new LineNumberReader(new FileReader(fileEntry));
             String pathPreFix = path.substring(0, path.lastIndexOf('/'));
-            BufferedWriter bw = new BufferedWriter(new FileWriter(new File(pathPreFix + "/stemmed/"+fileEntry.getName())));
+        //    BufferedWriter bw = new BufferedWriter(new FileWriter(new File(pathPreFix + "/stemmed/"+fileEntry.getName())));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(new File(pathPreFix +"/" +fileEntry.getName() + "_stemmed")));
+            System.out.println(pathPreFix +"/" + fileEntry.getName() + "_stemmed");
+
             String line;
             try {
                 line = reader.readLine();

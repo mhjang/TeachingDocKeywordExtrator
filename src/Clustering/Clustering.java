@@ -23,21 +23,24 @@ public class Clustering {
         File file = new File("log.txt");
         FileOutputStream fos = new FileOutputStream(file);
         PrintStream ps = new PrintStream(fos);
-    //    System.setOut(ps);
+  //      System.setOut(ps);
 
         Clustering clustering = new Clustering();
         TFIDFCalculator tfidf = new TFIDFCalculator();
-        HashMap<String, Document> documentMap = tfidf.getDocumentSet("/Users/mhjang/Documents/teaching_documents/stemmed_coderm/", TFIDFCalculator.UNIGRAM, false);
-        clustering.termOccurrenceDic = tfidf.getDocumentWordCountDic("/Users/mhjang/Documents/teaching_documents/stemmed_coderm/", TFIDFCalculator.UNIGRAM, false);
+        HashMap<String, Document> documentMap = tfidf.getDocumentSet("/Users/mhjang/Documents/teaching_documents/stemmed/", TFIDFCalculator.TRIGRAM, false);
+        clustering.termOccurrenceDic = tfidf.getDocumentWordCountDic("/Users/mhjang/Documents/teaching_documents/stemmed/", TFIDFCalculator.TRIGRAM, false);
+        /**
+         * cleaning the document terms by dropping a bunch of infrequent bigrams and trigrams
+         */
+        clustering.documentTermCleansing(documentMap);
 
      //   String[] topics = {"list and array representation", "graph traverse", "sorting algorithm"};
-    //    clustering.stemming("./topics");
       // added this, because when topic names are long.. it's hard to recognize the cluster and the gold standard cluster name when parsing
       // It's simpler if I use a separate label index by line
         Integer clusterLabelIndex = 0;
         HashMap<String, Integer> clusterLabelMap = new HashMap<String, Integer>();
       // reading a topic file
-        BufferedReader br = new BufferedReader(new FileReader(new File("./topics_stemmed")));
+        BufferedReader br = new BufferedReader(new FileReader(new File("./topics_resource/topics_v2_stemmed")));
         ArrayList<String> topiclist = new ArrayList<String>();
         String line = null;
         while((line= br.readLine()) != null) {
@@ -55,11 +58,31 @@ public class Clustering {
         }
      */
         HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdate(documentMap, topiclist, 10, 0.05);
-        ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "/Users/mhjang/Documents/teaching_documents/evaluation/01.csv");
+        ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "/Users/mhjang/Documents/teaching_documents/evaluation/goldstandard_v2.csv");
 
         //     HashMap<String, LinkedList<String>> clusters= clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
 
      }
+
+    /**
+     * Written 2/17/2014 8:34 PM
+     *
+     * After all "Document" objects are created, we have to filter out some noisy terms with term frequency dictionary obtained from the collection.
+     * This method removes bigrams and trigrams that do not appear more than threshold k times from the collection for all documents.
+     * @param termOccurrenceDic
+     */
+    private void documentTermCleansing(HashMap<String, Document> documentMap) {
+        for(String docID : documentMap.keySet()) {
+            Document doc = documentMap.get(docID);
+            int removedTerms = 0;
+//            removedTerms += Document.removeInfrequentTerms(doc, Document.UNIGRAM, termOccurrenceDic, threshold);
+            removedTerms += Document.removeInfrequentTerms(doc, Document.BIGRAM, termOccurrenceDic, 10);
+            removedTerms += Document.removeInfrequentTerms(doc, Document.TRIGRAM, termOccurrenceDic, 5);
+            System.out.println("removed terms: " + docID + ": " + removedTerms);
+        }
+    }
+
+
 
     private void stemming(String path) throws IOException {
         File fileEntry = new File(path);
@@ -165,9 +188,11 @@ public class Clustering {
         HashMap<String, LinkedList<String>> clusters = entry.getKey();
         HashMap<String, Document> clusterFeatureMap = entry.getValue();
 
-      //  clusterFeatureMap = expandTopicQueries(clusterFeatureMap, "./wikiexpansion_resource/stemmed/");
+        /***
+         * Query Expansion
+         */
         QueryExpander qe = new QueryExpander();
-        qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "./wikiexpansion_resource/stemmed/", termOccurrenceDic, termFilterThreshold);
+        qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", termOccurrenceDic, termFilterThreshold);
 
         /****
          * clustering
@@ -221,7 +246,7 @@ public class Clustering {
             if(dummyCluster.isEmpty()) finished = true;
             System.out.println("# of dummy Docs: " + numOfDummyDocs +", # of documents moved: " + numOfDocMoved);
         }
-    //    printCluster(clusters, topics);
+        printCluster(clusters, topics);
         return clusters;
    }
 

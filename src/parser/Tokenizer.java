@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.LinkedHashSet;
 
 /**
  * Created by mhjang on 2/2/14.
@@ -55,6 +56,7 @@ public class Tokenizer {
                 trigrams = generateTrigrams(wordlist);
             }
         }
+
         Document doc = new Document(docName, unigrams, bigrams, trigrams);
 
         LinkedList<String> wordPool = doc.getAllGrams();
@@ -71,13 +73,16 @@ public class Tokenizer {
      }
 
     private LinkedList<String> getUnigrams(ArrayList<String> wordlist) {
-        LinkedList<String> wordPool = new LinkedList<String>();
+        LinkedHashSet<String> wordPool = new LinkedHashSet<String>();
         for(String term : wordlist) {
             if(!wordPool.contains(term)) {
                 wordPool.add(term);
             }
         }
-        return wordPool;
+
+        LinkedList<String> listToReturn = new LinkedList<String>();
+        listToReturn.addAll(wordPool);
+        return listToReturn;
 
     }
 
@@ -89,10 +94,12 @@ public class Tokenizer {
     private LinkedList<String> generateBigrams(ArrayList<String> wordlist) {
         //    uncomment if you want to generate *UPTO* bigrams in addition to unigrams (this line includes unigrams)
         //     LinkedList<String> wordPool = new LinkedList<String>(wordlist);
-        LinkedList<String> wordPool = new LinkedList<String>();
+        LinkedHashSet<String> wordPool = new LinkedHashSet<String>();
+        LinkedList<String> listToReturn = new LinkedList<String>();
+
         if(wordlist.size() < 2) {
             System.out.println("There is only one word in the list");
-            return wordPool;
+            return listToReturn;
         }
 
         String bigram = wordlist.get(0) + " " + wordlist.get(1);
@@ -102,7 +109,9 @@ public class Tokenizer {
             bigram = wordlist.get(i-1) + " " + wordlist.get(i);
             wordPool.add(bigram);
         }
-        return wordPool;
+
+        listToReturn.addAll(wordPool);
+        return listToReturn;
     }
 
     /**
@@ -113,7 +122,7 @@ public class Tokenizer {
     private LinkedList<String> generateTrigrams(ArrayList<String> wordlist) {
         //    uncomment star-marked (*) lines if you want to generate *UPTO* trigrams in addition to unigrams (this line includes unigrams)
         //*     LinkedList<String> wordPool = new LinkedList<String>(wordlist);
-        LinkedList<String> wordPool = new LinkedList<String>();
+        LinkedHashSet<String> wordPool = new LinkedHashSet<String>();
         if(wordlist.size() < 3) {
             System.out.println("There is less than 3 words in the list; can't build trigrams");
             return generateBigrams(wordlist);
@@ -128,7 +137,10 @@ public class Tokenizer {
             //*     wordPool.add(bigram);
             wordPool.add(trigram);
         }
-        return wordPool;
+
+        LinkedList<String> listToReturn = new LinkedList<String>();
+        listToReturn.addAll(wordPool);
+        return listToReturn;
     }
 
     /**
