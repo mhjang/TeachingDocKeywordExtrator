@@ -68,6 +68,11 @@ public class Document {
         return true;
     }
 
+    public LinkedList<String> getFirstKUnigrams(int k) {
+        if(unigrams == null) return new LinkedList<String>();
+        else return (LinkedList<String>)(unigrams.subList(0, k));
+    }
+
     public HashMap<String, Integer> getTermFrequency() {
         return termFrequency;
     }

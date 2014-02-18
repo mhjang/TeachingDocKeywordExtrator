@@ -34,6 +34,18 @@ public class Clustering {
          */
         clustering.documentTermCleansing(documentMap);
 
+        for(String docID : documentMap.keySet()) {
+            Document doc = documentMap.get(docID);
+            LinkedList<String> kUnigrams = doc.getFirstKUnigrams(30);
+            System.out.println("**********************" + docID + " ********************** ");
+            for(String term : kUnigrams) {
+                System.out.print(term + "\t");
+            }
+//            System.out.println("removed terms: " + docID + ": " + removedTerms);
+        }
+
+      /*
+
      //   String[] topics = {"list and array representation", "graph traverse", "sorting algorithm"};
       // added this, because when topic names are long.. it's hard to recognize the cluster and the gold standard cluster name when parsing
       // It's simpler if I use a separate label index by line
@@ -56,12 +68,14 @@ public class Clustering {
             System.out.println("Threshold = " + thresholdSettings[i]);
             ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "/Users/mhjang/Documents/teaching_documents/evaluation/01.csv");
         }
-     */
-        HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdate(documentMap, topiclist, 10, 0.05);
+
+        HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdate(documentMap, topiclist, 20, 0.05);
+      //  HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdateDuplicate(documentMap, topiclist, 0, 0.05);
+
         ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "/Users/mhjang/Documents/teaching_documents/evaluation/goldstandard_v2.csv");
 
         //     HashMap<String, LinkedList<String>> clusters= clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
-
+*/
      }
 
     /**
@@ -249,6 +263,81 @@ public class Clustering {
         printCluster(clusters, topics);
         return clusters;
    }
+
+
+
+    /**
+     * Written in in 2/2 3:23 pm
+     * assign a set of documents to the cluster whose similarity score to is the maximum at one phase, and update the cluster features.
+     * Then come back to the "dummy" clusters, and deal with the unassigned documents until it converges or there is no document to be assigned.
+     *
+     * @param documentMap
+     * @param topics
+     * @param clusterThreshold
+     *@param termFilterThreshold @throws java.io.IOException
+     */
+    public HashMap<String, LinkedList<String>> naiveAssignmentLazyUpdateDuplicate(HashMap<String, Document> documentMap, ArrayList<String> topics, int termFilterThreshold, double clusterThreshold) throws IOException {
+        AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(documentMap, topics);
+        HashMap<String, LinkedList<String>> clusters = entry.getKey();
+        HashMap<String, Document> clusterFeatureMap = entry.getValue();
+
+        /***
+         * Query Expansion
+         */
+        QueryExpander qe = new QueryExpander();
+        qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", termOccurrenceDic, termFilterThreshold);
+
+        /****
+         * clustering
+         */
+        LinkedList<String> dummyCluster = clusters.get(DUMMY);
+        dummyCluster.addAll(documentMap.keySet());
+        boolean isConverged = false, finished = false;
+        while(!isConverged && !finished) {
+            // since we can't modify the list while enumerating, save the list of items we're moving, and delete them after the loop
+            LinkedList<String> documentMoved = new LinkedList<String>();
+            HashMap<String, LinkedList<String>> clusterUpdate = initializeTopicCluster(topics);
+            isConverged = true;
+            for(String docID : dummyCluster) {
+                Document document = documentMap.get(docID);
+                double sim = 0.0, maxSim = 0.0;
+                String bestTopic = null;
+                for(String clusterTopic : clusterFeatureMap.keySet()) {
+                    if(clusterTopic == DUMMY) continue;
+                    Document clusterDoc = clusterFeatureMap.get(clusterTopic);
+                    sim = CosineSimilarity.BinaryCosineSimilarity(document, clusterDoc);
+                    if(sim > clusterThreshold) {
+                        LinkedList<String> clusterList =  clusterUpdate.get(clusterTopic);
+                        clusterList.add(docID);
+                        clusterUpdate.put(clusterTopic, clusterList);
+                        isConverged = false;
+                    }
+                  }
+            }
+            int numOfDocMoved = 0;
+            int numOfDummyDocs = dummyCluster.size();
+            // cluster feature update
+            for(String clusterTopic :  clusterUpdate.keySet()) {
+                LinkedList<String> clusterList = clusters.get(clusterTopic);
+                LinkedList<String> clusterListToAttach =  clusterUpdate.get(clusterTopic);
+                // removing the documents from the dummy cluster that were just assigned to clusters
+                dummyCluster.removeAll(clusterListToAttach);
+                numOfDocMoved += clusterListToAttach.size();
+                // updating the cluster (1) by adding the documents and (2) updating the features
+                clusterList.addAll(clusterListToAttach);
+                Document clusterDoc = clusterFeatureMap.get(clusterTopic);
+                for(String docID : clusterListToAttach)
+                    clusterDoc.mergeDocument(documentMap.get(docID));
+                clusterFeatureMap.put(clusterTopic, clusterDoc);
+            }
+            clusters.put(DUMMY, dummyCluster);
+            if(dummyCluster.isEmpty()) finished = true;
+            System.out.println("# of dummy Docs: " + numOfDummyDocs +", # of documents moved: " + numOfDocMoved);
+        }
+        printCluster(clusters, topics);
+        return clusters;
+    }
+
 
 
     public void naiveAssignmentSortByPurity(HashMap<String, Document> documentMap, ArrayList<String> topics) throws IOException {
