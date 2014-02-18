@@ -16,8 +16,8 @@ import java.util.*;
  */
 public class Clustering {
     private String DUMMY = "dummy";
-    HashMap<String, Integer> termOccurrenceDic;
     HashSet<String> documentFirstKTerms;
+    DocumentCollection dc;
     public static void main(String[] args) throws IOException {
         // redirecting a system output to a file
         PrintStream console = System.out;
@@ -29,16 +29,17 @@ public class Clustering {
         /***
          * Setting the parameters
          */
-        int firstTopK = 50;
+        int firstTopK = 100;
         double clusteringThreshold = 0.05;
-        int infrequentTermThreshold = 10;
+        int infrequentTermThreshold = 0;
         int kgramsTermThreshold = 1;
 
         Clustering clustering = new Clustering();
         TFIDFCalculator tfidf = new TFIDFCalculator();
-        HashMap<String, Document> documentMap = tfidf.getDocumentSet("/Users/mhjang/Documents/teaching_documents/stemmed/", TFIDFCalculator.TRIGRAM, false);
-        HashMap<String, Integer> termOccurrenceDic = tfidf.getDocumentWordCountDic("/Users/mhjang/Documents/teaching_documents/stemmed/", TFIDFCalculator.TRIGRAM, false);
-        clustering.termOccurrenceDic = termOccurrenceDic;
+        DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/stemmed/", TFIDFCalculator.TRIGRAM, false);
+        HashMap<String, Document> documentMap = dc.getDocumentSet();
+        HashMap<String, Integer> termOccurrenceDic = dc.getglobalTermCountMap();
+        clustering.dc = dc;
         /**
          * cleaning the document terms by dropping a bunch of infrequent bigrams and trigrams
          */
@@ -46,11 +47,12 @@ public class Clustering {
         /**
          * Setting documents' first K term words
          */
+        System.out.println("Kgrams : " + kgramsTermThreshold);
         HashSet<String> firstKWords = new HashSet<String>();
         for(String docID : documentMap.keySet()) {
             Document doc = documentMap.get(docID);
             LinkedList<String> kGrams = doc.getFirstKGrams(firstTopK, Document.BIGRAM, termOccurrenceDic, kgramsTermThreshold);
-            firstKWords.addAll(kGrams);
+             firstKWords.addAll(kGrams);
         }
         clustering.documentFirstKTerms = firstKWords;
 
@@ -92,15 +94,15 @@ public class Clustering {
      *
      * After all "Document" objects are created, we have to filter out some noisy terms with term frequency dictionary obtained from the collection.
      * This method removes bigrams and trigrams that do not appear more than threshold k times from the collection for all documents.
-     * @param termOccurrenceDic
+     *
      */
     private void documentTermCleansing(HashMap<String, Document> documentMap) {
         for(String docID : documentMap.keySet()) {
             Document doc = documentMap.get(docID);
             int removedTerms = 0;
 //            removedTerms += Document.removeInfrequentTerms(doc, Document.UNIGRAM, termOccurrenceDic, threshold);
-            removedTerms += Document.removeInfrequentTerms(doc, Document.BIGRAM, termOccurrenceDic, 10);
-            removedTerms += Document.removeInfrequentTerms(doc, Document.TRIGRAM, termOccurrenceDic, 5);
+            removedTerms += Document.removeInfrequentTerms(doc, Document.BIGRAM, dc.getglobalTermCountMap(), 10);
+            removedTerms += Document.removeInfrequentTerms(doc, Document.TRIGRAM, dc.getglobalTermCountMap(), 5);
             System.out.println("removed terms: " + docID + ": " + removedTerms);
         }
     }
@@ -214,9 +216,9 @@ public class Clustering {
         /***
          * Query Expansion
          */
-        QueryExpander qe = new QueryExpander();
-     //   qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", termOccurrenceDic, termFilterThreshold);
-        qe.expandTopicQueriesWithFirstKTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", documentFirstKTerms);
+        QueryExpander qe = new QueryExpander(dc);
+        qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", dc.getglobalTermCountMap(), termFilterThreshold);
+   //    qe.expandTopicQueriesWithFirstKTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", documentFirstKTerms);
 
         /****
          * clustering
@@ -237,6 +239,8 @@ public class Clustering {
                     if(clusterTopic == DUMMY) continue;
                     Document clusterDoc = clusterFeatureMap.get(clusterTopic);
                     sim = CosineSimilarity.BinaryCosineSimilarity(document, clusterDoc);
+                 //   sim = CosineSimilarity.TFIDFCosineSimilarity(document, clusterDoc);
+
                     if(sim > maxSim) {
                         maxSim = sim;
                         bestTopic = clusterTopic;
@@ -294,8 +298,8 @@ public class Clustering {
         /***
          * Query Expansion
          */
-        QueryExpander qe = new QueryExpander();
-        qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", termOccurrenceDic, termFilterThreshold);
+        QueryExpander qe = new QueryExpander(dc);
+        qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", dc.getglobalTermCountMap(), termFilterThreshold);
 
         /****
          * clustering
@@ -417,6 +421,11 @@ public class Clustering {
             }
             Document topicDoc = new Document(topicTokens);
             topicDoc.setTermFrequency(topicTokensFreq);
+            TFIDFCalculator.calculateTFIDFGivenCollection(topicDoc, dc, TFIDFCalculator.LOGTFIDF);
+            for(String t : topicDoc.termTFIDFMap.keySet()) {
+                System.out.print(t + ": " + topicDoc.getTFIDF(t));
+            }
+            System.out.println();
             clusterFeatureMap.put(topic, topicDoc);
         }
         // I know this is an abuse of "Entry" for using a tuple.. but it works!

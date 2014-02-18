@@ -1,6 +1,7 @@
 package TFIDF;
 
 import Clustering.Document;
+import Clustering.DocumentCollection;
 import db.DBConnector;
 
 import java.io.BufferedReader;
@@ -26,7 +27,7 @@ public class TFIDFCalculator {
     public HashSet<String> stopwords = null;
     public HashMap<String, Document> documentSet = null;
     public HashMap<String, Integer> globalTermCountMap = null;
-
+    HashMap<String, Integer> binaryTermFreqInDoc = null;
     // test
     // contains a parsed text per each document in the given directory
     private HashMap<String, String> documentTextMap = new HashMap<String, String>();
@@ -45,14 +46,11 @@ public class TFIDFCalculator {
 
     /***
      *
-     * @return a map of document set with tokenized n-grams and term frequency
+     * @return a collection of document set with tokenized n-grams and term frequency
      */
-    public HashMap<String, Document> getDocumentSet(String dir, int ngram, boolean wikifiltering) {
-        if(documentSet == null) {
-            HashMap<String, LinkedList<String>> documentMap = Tokenize(dir, ngram, wikifiltering);
-            calculateTFIDF(documentMap, TFIDFCalculator.LOGTFIDF);
-        }
-        return documentSet;
+    public DocumentCollection getDocumentCollection(String dir, int ngram, boolean wikifiltering) {
+        HashMap<String, LinkedList<String>> documentMap = Tokenize(dir, ngram, wikifiltering);
+        return calculateTFIDF(documentMap, TFIDFCalculator.LOGTFIDF);
     }
 
 
@@ -143,19 +141,20 @@ public class TFIDFCalculator {
         return wordlist;
     }
 
-
+    public static void calculateTFIDFGivenCollection(Document doc, DocumentCollection dc, int TFIDFOption) {
+        getTFIDFScore(TFIDFOption, dc.getglobalTermCountMap(), doc, dc.getBinaryTermFreqInDoc(), false);
+    }
     /**
      *
      * @param documentTokensMap
      * @param TFIDFOption  = {BINARYTFIDF, LOGTFIDF, AUGMENTEDTFIDF}
      */
-    public void calculateTFIDF(HashMap<String, LinkedList<String>> documentTokensMap, int TFIDFOption) {
+    public DocumentCollection calculateTFIDF(HashMap<String, LinkedList<String>> documentTokensMap, int TFIDFOption) {
        // the number of documents that the term appears
-       HashMap<String, Integer> binaryTermFreqInDoc = new HashMap<String, Integer>();
+       binaryTermFreqInDoc = new HashMap<String, Integer>();
        // stores term frequency over the collection
         globalTermCountMap = new HashMap<String, Integer>();
        // count term frequencies
-       HashMap<String, HashMap<String, Integer>> docTermFreqMap = new HashMap<String, HashMap<String, Integer>>();
        for(String docName : documentTokensMap.keySet()) {
             LinkedList<String> wordPool = documentTokensMap.get(docName);
             // stores term frequency within the document
@@ -186,18 +185,23 @@ public class TFIDFCalculator {
            Document d = documentSet.get(docName);
            d.setTermFrequency(docTFMap);
         }
-        for(String docName : docTermFreqMap.keySet()) {
+        for(String docName : documentSet.keySet()) {
             LinkedList<TermTFIDF> rankedTerms = null;
             boolean printResult = true;
-            rankedTerms = getTFIDFScore(TFIDFOption, globalTermCountMap, docTermFreqMap.get(docName), binaryTermFreqInDoc, printResult);
+            rankedTerms = getTFIDFScore(TFIDFOption, globalTermCountMap, documentSet.get(docName), binaryTermFreqInDoc, printResult);
         }
+        DocumentCollection docCol = new DocumentCollection(documentSet, globalTermCountMap, binaryTermFreqInDoc);
+        return docCol;
     }
 
 
-    private LinkedList<TermTFIDF> getTFIDFScore(int TFType, HashMap<String, Integer> globalMap, HashMap<String, Integer> termFreqMap, HashMap<String, Integer> binaryTermFreqInDoc, boolean printTerms) {
+    private static LinkedList<TermTFIDF> getTFIDFScore(int TFType, HashMap<String, Integer> globalMap, Document doc, HashMap<String, Integer> binaryTermFreqInDoc, boolean printTerms) {
         int totalDocs = globalMap.keySet().size();
         LinkedList<TermTFIDF> scoredTerms = new LinkedList<TermTFIDF>();
         LinkedList<String> terms = new LinkedList<String>();
+        HashMap<String, Integer> termFreqMap = doc.getTermFrequency();
+        HashMap<String, Double> termTFIDFMap = new HashMap<String, Double>();
+
         for(String term : termFreqMap.keySet()) {
             double tf = 0.0;
             if(TFType == TFIDFCalculator.BINARYTFIDF) {
@@ -215,13 +219,20 @@ public class TFIDFCalculator {
                 }
                 tf = 0.5 + 0.5 * ((double)(termFreqMap.get(term)) / (double)(maxFrequency));
             }
-
-            double idf = Math.log(globalMap.keySet().size() / binaryTermFreqInDoc.get(term));
+            double idf;
+            if(binaryTermFreqInDoc.containsKey(term))
+                idf = Math.log(globalMap.keySet().size() / binaryTermFreqInDoc.get(term));
+            else
+                idf = 0.0;
             double tfidf = tf * idf;
             scoredTerms.add(new TermTFIDF(term, tfidf));
+            termTFIDFMap.put(term, tfidf);
         }
 
-        Collections.sort(scoredTerms, new Comparator() {
+        doc.setTermTFIDF(termTFIDFMap);
+
+      // I commented it out because I don't need a ranked list for now to save the running time.
+     /*   Collections.sort(scoredTerms, new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
                 TermTFIDF t1 = (TermTFIDF) (o1);
@@ -235,6 +246,8 @@ public class TFIDFCalculator {
                 System.out.println(st.term + " : " + st.score);
              }
         }
+        return scoredTerms;
+       */
         return scoredTerms;
     }
 
@@ -318,7 +331,7 @@ public class TFIDFCalculator {
     }
 
 
-    class TermTFIDF {
+    static class TermTFIDF {
         String term;
         Double score;
         public TermTFIDF(String term_, Double score_) {

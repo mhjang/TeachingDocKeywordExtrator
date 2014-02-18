@@ -20,6 +20,8 @@ public class Document {
     public static int TRIGRAM = 2;
     private String docName;
     HashMap<String, Integer> termFrequency;
+    HashMap<String, Double> termTFIDFMap = new HashMap<String, Double>();
+
     public Document(String docName, LinkedList<String> unigrams, LinkedList<String> bigrams, LinkedList<String> trigrams) {
         this.unigrams = unigrams;
         this.bigrams = bigrams;
@@ -62,6 +64,11 @@ public class Document {
 
     }
 
+    public void setTermTFIDF(HashMap<String, Double> termTFIDF) {
+        this.termTFIDFMap = termTFIDF;
+
+    }
+
     public boolean hasBigrams() {
         if(bigrams == null) return false;
         return true;
@@ -70,6 +77,11 @@ public class Document {
     public boolean hasTrigrams() {
         if(trigrams == null) return false;
         return true;
+    }
+
+    public double getTFIDF(String term) {
+        if(termTFIDFMap.containsKey(term)) return termTFIDFMap.get(term);
+        else return 0.0;
     }
 
     /**

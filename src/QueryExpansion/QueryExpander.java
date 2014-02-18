@@ -1,6 +1,8 @@
 package QueryExpansion;
 
 import Clustering.Document;
+import Clustering.DocumentCollection;
+import TFIDF.TFIDFCalculator;
 import parser.Stemmer;
 import parser.Tokenizer;
 import parser.WikiParser;
@@ -15,8 +17,9 @@ import java.util.LinkedList;
  * Written by 9:13 pm
  */
 public class QueryExpander {
-    public QueryExpander() {
-
+    DocumentCollection dc;
+    public QueryExpander(DocumentCollection dc) {
+        this.dc = dc;
     }
 
     /**
@@ -72,6 +75,7 @@ public class QueryExpander {
             String topicName = file.getName().substring(0, file.getName().length()-5);
             Document wikiDoc = tokenizer.tokenize(file.getName(), parsedText, Tokenizer.TRIGRAM);
             LinkedList<String> wikiUnigrams = new LinkedList<String>(wikiDoc.getUnigrams());
+            int wikiWordDrop = 0;
             for(String term : wikiUnigrams) {
                 if(!firstKTerms.contains(term))
                     wikiDoc.removeTerm(Document.UNIGRAM, term);
@@ -95,7 +99,15 @@ public class QueryExpander {
             String matchingTopic = getMatchingTopicLabel(topicName.toLowerCase(), topicDocumentMap);
             Document topicDoc = topicDocumentMap.get(matchingTopic);
             //     System.out.println("Topic Name: " + topicName);
+            if(wikiDoc == null) {
+                System.out.println("why is this null");
+            }
+
+            if(topicDoc == null) {
+                System.out.println("why is this null");
+            }
             topicDoc.mergeDocument(wikiDoc);
+            TFIDFCalculator.calculateTFIDFGivenCollection(topicDoc, dc, TFIDFCalculator.LOGTFIDF);
             topicDocumentMap.put(matchingTopic, topicDoc);
         }
         System.out.println("# of average expanded terms: " + (double)(numOfExpandedTerms)/(double)(listOfFiles.length));
