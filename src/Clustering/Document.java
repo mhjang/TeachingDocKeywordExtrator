@@ -4,9 +4,7 @@ package Clustering;
 
 import parser.Tokenizer;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Created by mhjang on 1/31/14.
@@ -67,6 +65,22 @@ public class Document {
     public void setTermTFIDF(HashMap<String, Double> termTFIDF) {
         this.termTFIDFMap = termTFIDF;
 
+    }
+
+    public LinkedList<Map.Entry<String, Double>> getTopTermsTFIDF(int k) {
+        LinkedList<Map.Entry<String, Double>> list =
+                new LinkedList<Map.Entry<String, Double>>(termTFIDFMap.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
+            @Override
+            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
+                return (o2.getValue().compareTo(o1.getValue()));
+            }
+        });
+         LinkedList<Map.Entry<String, Double>> sublist = new LinkedList<Map.Entry<String, Double>>();
+        for(int i=0; i<k; i++) {
+            sublist.add(list.get(i));
+        }
+        return sublist;
     }
 
     public boolean hasBigrams() {
@@ -210,6 +224,7 @@ public class Document {
             bigrams.remove(term);
         else if(ngramType == Document.TRIGRAM)
             trigrams.remove(term);
+        termFrequency.remove(term);
 
     }
 

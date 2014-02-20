@@ -43,7 +43,7 @@ public class QueryExpander {
             // It ends with ".txt". I just need a name of the file, which is also the topic label
             String topicName = file.getName().substring(0, file.getName().length()-5);
 
-            Document wikiDoc = tokenizer.tokenize(file.getName(), parsedText, Tokenizer.TRIGRAM);
+            Document wikiDoc = tokenizer.tokenize(file.getName(), parsedText, false, Tokenizer.TRIGRAM);
             String matchingTopic = getMatchingTopicLabel(topicName.toLowerCase(), topicDocumentMap);
             Document topicDoc = topicDocumentMap.get(matchingTopic);
             //     System.out.println("Topic Name: " + topicName);
@@ -73,7 +73,7 @@ public class QueryExpander {
             String parsedText = wikiparser.parse(file.getPath());
             parsedText = stemmer.stemString(parsedText);
             String topicName = file.getName().substring(0, file.getName().length()-5);
-            Document wikiDoc = tokenizer.tokenize(file.getName(), parsedText, Tokenizer.TRIGRAM);
+            Document wikiDoc = tokenizer.tokenize(file.getName(), parsedText, false, Tokenizer.TRIGRAM);
             LinkedList<String> wikiUnigrams = new LinkedList<String>(wikiDoc.getUnigrams());
             int wikiWordDrop = 0;
             for(String term : wikiUnigrams) {
@@ -136,7 +136,7 @@ public class QueryExpander {
             String parsedText = wikiparser.parse(file.getPath());
             parsedText = stemmer.stemString(parsedText);
             String topicName = file.getName().substring(0, file.getName().length()-5);
-            Document wikiDoc = tokenizer.tokenize(file.getName(), parsedText, Tokenizer.UNIGRAM);
+            Document wikiDoc = tokenizer.tokenize(file.getName(), parsedText, false, Tokenizer.UNIGRAM);
             /****
              * filtering out the infrequent terms
              *
@@ -165,7 +165,23 @@ public class QueryExpander {
     }
 
 
-
+    public HashMap<String, Document> getWikiDocuments(String resourceDir) {
+        File directory = new File(resourceDir);
+        File[] listOfFiles = directory.listFiles();
+        WikiParser wikiparser = new WikiParser();
+        Tokenizer tokenizer = new Tokenizer();
+        Stemmer stemmer = new Stemmer();
+        HashMap<String, Document> wikiDocMap = new HashMap<String, Document>();
+        int numOfExpandedTerms = 0;
+        for(File file: listOfFiles) {
+            String parsedText = wikiparser.parse(file.getPath());
+            parsedText = stemmer.stemString(parsedText);
+            String topicName = file.getName().substring(0, file.getName().length()-5);
+            Document wikiDoc = tokenizer.tokenize(file.getName(), parsedText, false, Tokenizer.UNIGRAM);
+            wikiDocMap.put(topicName, wikiDoc);
+        }
+        return wikiDocMap;
+    }
 
     /**
      * The name of the Wikipedia article is like "analysis of algorithm" whereas the topic key is "analysis of algorithm, and bubble sort..."

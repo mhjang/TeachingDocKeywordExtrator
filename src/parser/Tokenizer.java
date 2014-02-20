@@ -1,9 +1,13 @@
 package parser;
 
 import Clustering.Document;
+import Clustering.DocumentCollection;
 import TFIDF.StopWordRemover;
 import db.DBConnector;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,6 +25,7 @@ public class Tokenizer {
     public static int BIGRAM = 1;
     public static int TRIGRAM = 2;
 
+    DBConnector db;
 
     public Tokenizer() {
     }
@@ -31,7 +36,7 @@ public class Tokenizer {
      * @param ngram
      * @return
      */
-    public Document tokenize(String docName, String line, int ngram) {
+    public Document tokenize(String docName, String line, boolean wikiFiltering, int ngram) {
         String[] rawwords = line.split("[^a-zA-Z0-9]+");
         // removing stopwords
         StopWordRemover stopRemover = new StopWordRemover();
@@ -45,15 +50,27 @@ public class Tokenizer {
         if(wordlist.size() >= Tokenizer.TRIGRAM) {
             if(ngram == Tokenizer.UNIGRAM) {
                 unigrams = getUnigrams(wordlist);
+                if(wikiFiltering) unigrams = filterWikiAnchor(unigrams);
             }
             else if(ngram == Tokenizer.BIGRAM) {
                 unigrams = getUnigrams(wordlist);
                 bigrams = generateBigrams(wordlist);
+                if(wikiFiltering) {
+                    unigrams = filterWikiAnchor(unigrams);
+                    bigrams = filterWikiAnchor(bigrams);
+                }
+
             }
             else {
                 unigrams = getUnigrams(wordlist);
                 bigrams = generateBigrams(wordlist);
                 trigrams = generateTrigrams(wordlist);
+                if(wikiFiltering) {
+                    unigrams = filterWikiAnchor(unigrams);
+                    bigrams = filterWikiAnchor(bigrams);
+                    trigrams = filterWikiAnchor(trigrams);
+                }
+
             }
         }
 
@@ -71,6 +88,49 @@ public class Tokenizer {
         doc.setTermFrequency(docTFMap);
         return doc;
      }
+
+
+    public HashMap<String, Document> tokenize(String dir, boolean wikiFiltering, int nGramType) {
+        HashMap<String, String> documentTextMap = readFiles(dir);
+        HashMap<String, Document> documentSet = new HashMap<String, Document>();
+        for(String docName : documentTextMap.keySet()) {
+            Document d = tokenize(docName, documentTextMap.get(docName), wikiFiltering, nGramType);
+            documentSet.put(docName, d);
+        }
+        return documentSet;
+
+
+    }
+
+    /**
+     * reads files in the given directory and return a parsed text per each document that's ready to be tokenized
+     * @param dir
+     * @return
+     */
+    private HashMap<String, String> readFiles(String dir) {
+        HashMap<String, String> documentTextMap = new HashMap<String, String>();
+        File folder = new File(dir);
+        for (final File fileEntry : folder.listFiles()) {
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(fileEntry));
+                StringBuilder sb = new StringBuilder();
+                String line = br.readLine();
+                int charsCount = 0;
+                int wordsCount = 0;
+                while (line != null) {
+                    sb.append(line);
+                    sb.append('\n');
+                    line = br.readLine();
+                }
+                String text = sb.toString();
+                documentTextMap.put(fileEntry.getName().toLowerCase(), text);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return documentTextMap;
+    }
+
 
     private LinkedList<String> getUnigrams(ArrayList<String> wordlist) {
         LinkedHashSet<String> wordPool = new LinkedHashSet<String>();
@@ -144,12 +204,12 @@ public class Tokenizer {
     }
 
     /**
-     * haven't decided whether i should put this method here or TFIDFCaluclator
      * @param wordlist
      * @return
      */
     private LinkedList<String> filterWikiAnchor(LinkedList<String> wordlist) {
-        DBConnector db = new DBConnector();
+        if(db == null)
+            db = new DBConnector();
         LinkedList<String> filteredList = new LinkedList<String>();
         for(String word: wordlist) {
             ResultSet rs = db.getQueryResult("SELECT * from titles where title ='"+word+"'");
@@ -161,7 +221,7 @@ public class Tokenizer {
                 e.printStackTrace();
             }
         }
-        System.out.println(wordlist.size() - filteredList.size() + " words are dropped with WikiAnchorFiltering.");
+   //     System.out.println(wordlist.size() - filteredList.size() + " words are dropped with WikiAnchorFiltering.");
         return wordlist;
     }
 

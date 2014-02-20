@@ -34,7 +34,7 @@ public class ClusteringFMeasure {
         ClusteringFMeasure cfm = new ClusteringFMeasure(null, null, null, "/Users/mhjang/Documents/teaching_documents/evaluation/goldstandard_v2.csv");
     }
     // read goldstandard
-    private HashMap<Integer, LinkedList<String>> readGoldstandard(String goldDir) {
+    public static HashMap<Integer, LinkedList<String>> readGoldstandard(String goldDir) {
         HashMap<Integer, LinkedList<String>> goldstandard = null;
         Integer clusterID = 0;
         try{

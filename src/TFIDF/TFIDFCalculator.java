@@ -3,10 +3,8 @@ package TFIDF;
 import Clustering.Document;
 import Clustering.DocumentCollection;
 import db.DBConnector;
+import parser.Tokenizer;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,130 +31,47 @@ public class TFIDFCalculator {
     private HashMap<String, String> documentTextMap = new HashMap<String, String>();
 
     public TFIDFCalculator() throws IOException {
-        stopwords = new HashSet<String>();
-        BufferedReader br = new BufferedReader(new FileReader("stopwords.txt"));
-        String line = br.readLine();
-        int docLength = 0;
-        while(line != null) {
-            String word = line.replaceAll("[^A-Za-z0-9]", "");
-            stopwords.add(word.toLowerCase().trim());
-            line = br.readLine();
-        }
+
     }
+
 
     /***
      *
      * @return a collection of document set with tokenized n-grams and term frequency
      */
     public DocumentCollection getDocumentCollection(String dir, int ngram, boolean wikifiltering) {
-        HashMap<String, LinkedList<String>> documentMap = Tokenize(dir, ngram, wikifiltering);
-        return calculateTFIDF(documentMap, TFIDFCalculator.LOGTFIDF);
+        Tokenizer tokenizer = new Tokenizer();
+        documentSet = tokenizer.tokenize(dir, wikifiltering, ngram);
+        return calculateTFIDF(TFIDFCalculator.LOGTFIDF);
     }
 
 
 
-    /***
-     *
-     * @return a map of document set with tokenized n-grams and term frequency
-     */
-    public HashMap<String, Integer> getDocumentWordCountDic(String dir, int ngram, boolean wikifiltering) {
-        if(globalTermCountMap == null) {
-            HashMap<String, LinkedList<String>> documentMap = Tokenize(dir, ngram, wikifiltering);
-            calculateTFIDF(documentMap, TFIDFCalculator.LOGTFIDF);
-        }
-        return globalTermCountMap;
-    }
-
-
-
-    /**
-     * reads files from the given directory and tokenize the words
-     * returns a map <filename, a list of tokenized words>
-     * @param dir
-     */
-    public HashMap<String, LinkedList<String>> Tokenize(String dir, int ngram, boolean wikifiltering) {
-        HashMap<String, String> documentTextMap= readFiles(dir);
-        HashMap<String, LinkedList<String>> documentTokensMap = new HashMap<String, LinkedList<String>>();
-        for(String docName : documentTextMap.keySet()) {
-            String[] rawwords = documentTextMap.get(docName).split("[^a-zA-Z0-9]+");
-            // removing stopwords
-            ArrayList<String> wordlist = new ArrayList<String>();
-            for(int i=0; i<rawwords.length; i++) {
-                if(!stopwords.contains(rawwords[i]))
-                    wordlist.add(rawwords[i].toLowerCase());
-            }
-
-            HashMap<String, Integer> docTFMap = new HashMap<String, Integer>();
-            LinkedList<String> unigrams = null;
-            LinkedList<String> bigrams = null;
-            LinkedList<String> trigrams = null;
-
-            if(wordlist.size() >= TFIDFCalculator.TRIGRAM) {
-                if(ngram == TFIDFCalculator.UNIGRAM) {
-                    unigrams = new LinkedList<String>(wordlist);
-                }
-                else if(ngram == TFIDFCalculator.BIGRAM) {
-                    unigrams = new LinkedList<String>(wordlist);
-                    bigrams = getBigrams(wordlist);
-                 }
-                else {
-                    unigrams = new LinkedList<String>(wordlist);
-                    bigrams = getBigrams(wordlist);
-                    trigrams = getTrigrams(wordlist);
-                }
-             }
-            Document doc = new Document(docName, unigrams, bigrams, trigrams);
-            LinkedList<String> wordPool = doc.getAllGrams();
-            if(documentSet == null)
-                documentSet = new HashMap<String, Document>();
-            documentSet.put(docName, doc);
-            if(wikifiltering)
-                  documentTokensMap.put(docName, filterWikiAnchor(wordPool));
-             else
-              documentTokensMap.put(docName, wordPool);
-        }
-        return documentTokensMap;
-    }
-
-    /**
-     * takes a list of words and drops if a word is not matched with any of wikipedia title.
-     * Return the list of remaining words
-     * @param wordlist
-     * @return
-     */
-    private LinkedList<String> filterWikiAnchor(LinkedList<String> wordlist) {
-        DBConnector db = new DBConnector();
-        LinkedList<String> filteredList = new LinkedList<String>();
-        for(String word: wordlist) {
-            ResultSet rs = db.getQueryResult("SELECT * from titles where title ='"+word+"'");
-            try {
-                if(rs.next()) {
-                    filteredList.add(word);
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        System.out.println(wordlist.size() - filteredList.size() + " words are dropped with WikiAnchorFiltering.");
-        return wordlist;
-    }
 
     public static void calculateTFIDFGivenCollection(Document doc, DocumentCollection dc, int TFIDFOption) {
-        getTFIDFScore(TFIDFOption, dc.getglobalTermCountMap(), doc, dc.getBinaryTermFreqInDoc(), false);
+        calculateTFIDFGivenDistribution(TFIDFOption, dc.getglobalTermCountMap(), doc, dc.getBinaryTermFreqInDoc(), false);
     }
     /**
      *
-     * @param documentTokensMap
      * @param TFIDFOption  = {BINARYTFIDF, LOGTFIDF, AUGMENTEDTFIDF}
      */
-    public DocumentCollection calculateTFIDF(HashMap<String, LinkedList<String>> documentTokensMap, int TFIDFOption) {
+    public DocumentCollection calculateTFIDF(int TFIDFOption) {
+
+        /*****************************************************************************************************
+         * Counting
+         * (1) term frequencies in a document (docTFMap),
+         * (2) # of documents that the term appears (binaryTermFreqInDoc),
+         * (3) # of term counts in the collection (globalTermCountMap)
+         ****************************************************************************************************/
+
        // the number of documents that the term appears
        binaryTermFreqInDoc = new HashMap<String, Integer>();
        // stores term frequency over the collection
         globalTermCountMap = new HashMap<String, Integer>();
        // count term frequencies
-       for(String docName : documentTokensMap.keySet()) {
-            LinkedList<String> wordPool = documentTokensMap.get(docName);
+       for(String docName : documentSet.keySet()) {
+            Document doc = documentSet.get(docName);
+            LinkedList<String> wordPool = doc.getAllGrams();
             // stores term frequency within the document
             HashMap<String, Integer> docTFMap = new HashMap<String, Integer>();
             for(String word : wordPool) {
@@ -182,20 +97,96 @@ public class TFIDFCalculator {
                     docTFMap.put(word,  (docTFMap.get(word) + 1));
                 }
             }
-           Document d = documentSet.get(docName);
-           d.setTermFrequency(docTFMap);
+           doc.setTermFrequency(docTFMap);
         }
+
+        filterInfrequentTerms(2, Tokenizer.TRIGRAM);
+
+        /**************************************************
+         *               Calculating TF * IDF
+         **************************************************/
+
         for(String docName : documentSet.keySet()) {
-            LinkedList<TermTFIDF> rankedTerms = null;
-            boolean printResult = true;
-            rankedTerms = getTFIDFScore(TFIDFOption, globalTermCountMap, documentSet.get(docName), binaryTermFreqInDoc, printResult);
+            Document doc = documentSet.get(docName);
+            HashMap<String, Integer> termFreqMap = doc.getTermFrequency();
+            HashMap<String, Double> termTFIDFMap = new HashMap<String, Double>();
+
+            for(String term : termFreqMap.keySet()) {
+                double tf = 0.0;
+                if(TFIDFOption == TFIDFCalculator.BINARYTFIDF) {
+                    if(termFreqMap.containsKey(term))
+                        tf = 1.0;
+                }
+                else if (TFIDFOption == TFIDFCalculator.LOGTFIDF)
+                    tf = Math.log(termFreqMap.get(term) + 1);
+                else if (TFIDFOption == TFIDFCalculator.AUGMENTEDTFIDF) {
+                    int maxFrequency = 0;
+                    LinkedList<String> termKeySet = new LinkedList<String>(termFreqMap.keySet());
+                    for(String t : termKeySet) {
+                        if(termFreqMap.get(t) > maxFrequency)
+                            maxFrequency = termFreqMap.get(t);
+                    }
+                    tf = 0.5 + 0.5 * ((double)(termFreqMap.get(term)) / (double)(maxFrequency));
+                }
+                double idf;
+                if(binaryTermFreqInDoc.containsKey(term))
+                    idf = Math.log(documentSet.size() / binaryTermFreqInDoc.get(term));
+                else
+                    idf = 0.0;
+
+                double tfidf = tf * idf;
+                termTFIDFMap.put(term, tfidf);
+                System.out.println(term + "\t" + tf + "\t" + binaryTermFreqInDoc.get(term) + "\t" + tfidf);
+            }
+            doc.setTermTFIDF(termTFIDFMap);
         }
         DocumentCollection docCol = new DocumentCollection(documentSet, globalTermCountMap, binaryTermFreqInDoc);
         return docCol;
     }
 
 
-    private static LinkedList<TermTFIDF> getTFIDFScore(int TFType, HashMap<String, Integer> globalMap, Document doc, HashMap<String, Integer> binaryTermFreqInDoc, boolean printTerms) {
+    private void filterTermsInList(Document doc, int ngramType, int termDocumentFrequency, LinkedList<String> ngrams) {
+        for(String term: ngrams) {
+            if(binaryTermFreqInDoc.get(term) < termDocumentFrequency) {
+                doc.removeTerm(ngramType, term);
+                System.out.println("removing "+ term);
+            }
+        }
+    }
+    /**
+     *
+     * @param termDocumentFrequency: a threshold of # of documents that a term has to appear to be not dropped
+     */
+    private void filterInfrequentTerms(int termDocumentFrequency, int nGramType) {
+        for(String docName : documentSet.keySet()) {
+            Document doc = documentSet.get(docName);
+            if(nGramType == Tokenizer.UNIGRAM) {
+                filterTermsInList(doc, Tokenizer.UNIGRAM, termDocumentFrequency, new LinkedList<String>(doc.getUnigrams()));
+            }
+            else if(nGramType == Tokenizer.BIGRAM) {
+                filterTermsInList(doc, Tokenizer.UNIGRAM, termDocumentFrequency, new LinkedList<String>(doc.getUnigrams()));
+                filterTermsInList(doc, Tokenizer.BIGRAM, termDocumentFrequency, new LinkedList<String>(doc.getBigrams()));
+            }
+            else if(nGramType == Tokenizer.TRIGRAM) {
+                filterTermsInList(doc, Tokenizer.UNIGRAM, termDocumentFrequency, new LinkedList<String>(doc.getUnigrams()));
+                filterTermsInList(doc, Tokenizer.BIGRAM, termDocumentFrequency, new LinkedList<String>(doc.getBigrams()));
+                filterTermsInList(doc, Tokenizer.TRIGRAM, termDocumentFrequency, new LinkedList<String>(doc.getTrigrams()));
+            }
+
+        }
+    }
+
+    /**
+     * This is a more generic method that takes a term frequency and binary term frequency, and calculate TFIDF score for a given document
+     * @param TFType
+     * @param globalMap
+     * @param doc
+     * @param binaryTermFreqInDoc
+     * @param printTerms
+     * @return
+     */
+
+    private static LinkedList<TermTFIDF> calculateTFIDFGivenDistribution(int TFType, HashMap<String, Integer> globalMap, Document doc, HashMap<String, Integer> binaryTermFreqInDoc, boolean printTerms) {
         int totalDocs = globalMap.keySet().size();
         LinkedList<TermTFIDF> scoredTerms = new LinkedList<TermTFIDF>();
         LinkedList<String> terms = new LinkedList<String>();
@@ -251,34 +242,7 @@ public class TFIDFCalculator {
         return scoredTerms;
     }
 
-    /**
-     * reads files in the given directory and return a parsed text per each document that's ready to be tokenized
-     * @param dir
-     * @return
-     */
-    private HashMap<String, String> readFiles(String dir) {
-        HashMap<String, String> documentTextMap = new HashMap<String, String>();
-        File folder = new File(dir);
-        for (final File fileEntry : folder.listFiles()) {
-            try {
-                BufferedReader br = new BufferedReader(new FileReader(fileEntry));
-                StringBuilder sb = new StringBuilder();
-                String line = br.readLine();
-                int charsCount = 0;
-                int wordsCount = 0;
-                while (line != null) {
-                    sb.append(line);
-                    sb.append('\n');
-                    line = br.readLine();
-                }
-                String text = sb.toString();
-                documentTextMap.put(fileEntry.getName().toLowerCase(), text);
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return documentTextMap;
-    }
+
 
     /**
      * generate bigrams

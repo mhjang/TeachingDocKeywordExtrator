@@ -21,6 +21,11 @@ public class DocumentCollection {
         return documentSet;
     }
 
+    public void printDocumentList() {
+        for(String doc : documentSet.keySet()) {
+            System.out.println(doc);
+        }
+    }
     public HashMap<String, Integer> getglobalTermCountMap()
     {
         return globalTermCountMap;
@@ -28,6 +33,12 @@ public class DocumentCollection {
     public HashMap<String, Integer> getBinaryTermFreqInDoc()
     {
         return binaryTermFreqInDoc;
+    }
+
+    public Document getDocument(String docName) {
+        if(documentSet.containsKey(docName))
+            return documentSet.get(docName);
+        else return null;
     }
 
 }
