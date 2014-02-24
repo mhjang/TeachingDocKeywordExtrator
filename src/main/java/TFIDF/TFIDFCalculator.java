@@ -124,7 +124,7 @@ public class TFIDFCalculator {
 
                 double tfidf = tf * idf;
                 termTFIDFMap.put(term, tfidf);
-                System.out.println(docName + "\t" + term + "\t" + (termFreqMap.get(term)+1) + "\t" + tf + "\t" + binaryTermFreqInDoc.get(term) + "\t" + idf + "\t" + tfidf);
+          //     System.out.println(docName + "\t" + term + "\t" + (termFreqMap.get(term)+1) + "\t" + tf + "\t" + binaryTermFreqInDoc.get(term) + "\t" + idf + "\t" + tfidf);
             }
             doc.setTermTFIDF(termTFIDFMap);
         }

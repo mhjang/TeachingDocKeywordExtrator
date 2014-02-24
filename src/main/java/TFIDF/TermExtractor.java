@@ -31,6 +31,7 @@ public class TermExtractor {
         FileOutputStream fos = new FileOutputStream(file);
         PrintStream ps = new PrintStream(fos);
         System.setOut(ps);
+        attachInstruction();
         String[] colors = {"yellow", "Coral", "orange", "DarkSalmon", "DarkTurquoise", "GreenYellow", "lime", "teal", "Pink", "Salmon", "SlateBlue", "Skyblue", "RoyalBlue", "Violet", "Tomato"};
         HashMap<Integer, LinkedList<String>> goldSet = ClusteringFMeasure.readGoldstandard("./annotation/goldstandard_v2.csv");
         TFIDFCalculator tfidf = new TFIDFCalculator();
@@ -43,8 +44,8 @@ public class TermExtractor {
         BufferedReader br = new BufferedReader(new FileReader(new File("./topics_resource/topics_v2_stemmed")));
         ArrayList<String> topiclist = new ArrayList<String>();
         String line = null;
-   //    System.out.println("<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js\"></script>");
-   //     System.out.println("<table border=\"0\" width=\"1051\">");
+       System.out.println("<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js\"></script>");
+        System.out.println("<table border=\"0\" width=\"1051\">");
 
 
         while((line= br.readLine()) != null) {
@@ -57,7 +58,7 @@ public class TermExtractor {
         HashMap<String, Document> wikiDocMap = qe.getWikiDocuments("./wikiexpansion_resource/ver2/html");
 
         int colorIdx = 0;
-   /*     for(String topicName: topiclist) {
+        for(String topicName: topiclist) {
             Document wikiDoc = wikiDocMap.get(topicName);
             LinkedList<Map.Entry<String, Integer>> topRankedTermsWiki = wikiDoc.getTopTermsTF(20);
             generateHTMLTableWiki(topicName, topRankedTermsWiki, colors[colorIdx]);
@@ -71,16 +72,16 @@ public class TermExtractor {
                 Document relevantDoc = dc.getDocument(docName);
                 if(relevantDoc != null) {
                     LinkedList<Map.Entry<String, Double>> topRankedTerms = relevantDoc.getTopTermsTFIDF(20);
-          //          generateHTMLTable(docName, topRankedTerms, colors[colorIdx]);
+                    generateHTMLTable(docName, topRankedTerms, colors[colorIdx]);
                 }
             }
             colorIdx++;
             if(colorIdx == colors.length) colorIdx = 0;
         }
-   //     System.out.println("</table>");
-   //     attachScript();
+        System.out.println("</table>");
+        attachScript();
 
-*/
+
     }
 
     /**
@@ -96,8 +97,8 @@ public class TermExtractor {
         }
         System.out.println("<td>");
         System.out.println("<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\" style=\"width:250px\" text-align: center;\">");
-        System.out.println("<tr> <td style=\"background-color: "+tableColor +"; id=\""+ tableName + "\">" + tableName + "</td></tr>");
-        for(Map.Entry<String, Integer> ele : elements) {
+        System.out.println("<tr> <td style=\"background-color: "+tableColor +"; id=\""+ tableName + "\"><b>" + tableName + "</b></td></tr>");
+            for(Map.Entry<String, Integer> ele : elements) {
             System.out.println("<tr> <td style=\"background-color: "+tableColor+"; id=\""+ele.getKey()+"\">" + ele.getKey() + "("+ ele.getValue() +") </td></tr>");
         }
         System.out.println("</table>");
@@ -107,6 +108,14 @@ public class TermExtractor {
 
 
 
+    public static void attachInstruction() {
+        System.out.println("<h2> A Table of Terms extracted from Wikipedia Articles & Relevant Documents </h2>\n" +
+                "\n" +
+                "<li><h4> Fully-colored table: terms extracted from a relevant wikipedia article: Term (term frequency)  <h4></li>\n" +
+                "<li><h4> The following tables with the same color heading contain the top TF-IDF terms from the relevant documents labeled in the gold standard: Term (TF/IDF score). Note that terms are filtered using Wikipedia title dataset. </h4></li>\n" +
+                "<li><h4> If you click the term, the similar terms over the documents will be highlighted </h4></li>\n" +
+                "<li><h4> To navigate full TF/IDF term score from each document in the collection (257) <a href=\"./tfidf.txt\"> Click HERE </a></h4>  </li>\n";)
+    }
     public static void generateHTMLTable(String tableName, LinkedList<Map.Entry<String, Double>> elements, String tableColor) {
         if(lineIndex % 5 == 0) {
             System.out.println("</tr>");
@@ -114,9 +123,11 @@ public class TermExtractor {
         }
         System.out.println("<td>");
         System.out.println("<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\" style=\"width:250px\" text-align: center;\">");
-        System.out.println("<tr> <td style=\"background-color: "+tableColor +"; id=\""+ tableName + "\">" + tableName + "</td></tr>");
+        System.out.println("<tr> <td style=\"background-color: "+tableColor +" id=\""+ tableName + "\"><b>" + tableName + "</b></td></tr>");
         for(Map.Entry<String, Double> ele : elements) {
-            System.out.println("<tr> <td id=\""+ele.getKey()+"\">" + ele.getKey() + "("+ numberFormat.format(ele.getValue()) +") </td></tr>");
+            String[] tokens = ele.getKey().split(" ");
+
+            System.out.println("<tr> <td class=\""+tokens[0]+"\">" + ele.getKey() + "("+ numberFormat.format(ele.getValue()) +") </td></tr>");
         }
         System.out.println("</table>");
         System.out.println("</td>");

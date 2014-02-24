@@ -12,7 +12,7 @@ public class makeNGramDB {
     public static void main(String[] args) throws FileNotFoundException {
         String dir = "/Users/mhjang/3gms/extracted/";
         File folder = new File(dir);
-        String query = "INSERT INTO 3gms VALUES " + "(?,?)";
+        String query = "INSERT INTO 3gmts VALUES " + "(?,?)";
         DBConnector db = new DBConnector("google_ngrams");
         int n = 3;
         String tablename = "3gms";
