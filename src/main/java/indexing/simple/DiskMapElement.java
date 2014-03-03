@@ -1,0 +1,37 @@
+// BSD License (http://lemurproject.org/galago-license)
+package indexing.simple;
+
+import org.lemurproject.galago.core.index.IndexElement;
+
+import java.io.IOException;
+import java.io.OutputStream;
+
+/**
+ *
+ * @author jfoley
+ */
+class DiskMapElement implements IndexElement {
+	private final byte[] key;
+	private final byte[] value;
+
+	public DiskMapElement(byte[] key, byte[] value) {
+		this.key = key;
+		this.value = value;
+	}
+
+	@Override
+	public byte[] key() {
+		return this.key;
+	}
+
+	@Override
+	public long dataLength() {
+		return this.value.length;
+	}
+
+	@Override
+	public void write(OutputStream stream) throws IOException {
+		stream.write(this.value);
+	}
+	
+}
