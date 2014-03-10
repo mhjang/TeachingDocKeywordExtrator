@@ -2,12 +2,9 @@ package TFIDF;
 
 import Clustering.Document;
 import Clustering.DocumentCollection;
-import db.DBConnector;
 import parser.Tokenizer;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 
 /**

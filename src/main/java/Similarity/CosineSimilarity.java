@@ -1,6 +1,5 @@
 package Similarity;
 
-import Clustering.Clustering;
 import Clustering.Document;
 import junit.framework.TestCase;
 

@@ -58,7 +58,7 @@ public class LanguageModeling {
          */
 
         int mu = 2000;
-        String docName = "7.03.BubbleSort.pdf.txt";
+        String docName = "MC_Graph_Theory.pdf.txt";
     //    for(String docName : docSet.keySet()) {
             System.out.println(docName);
             Document doc = docSet.get(docName.toLowerCase());
@@ -70,12 +70,12 @@ public class LanguageModeling {
                 double prob = 1.0;
                 for(String token : tokensInLine) {
                     double tokenProb = (wordFreq.get(token) + mu * (globalWordProb.get(token))) / (D + mu);
-         //           System.out.println(token + ": " + tokenProb);
-                    prob *= tokenProb;
+                    System.out.println(token + ": " + tokenProb);
+         //           prob *= tokenProb;
                 }
-                prob = (double)prob / (double)tokensInLine.size();
-                System.out.print(prob + ":");
-                printListToLine(tokensInLine);
+       //         prob = (double)prob / (double)tokensInLine.size();
+        //        System.out.print(prob + ":");
+        //        printListToLine(tokensInLine);
      //       }
         }
     }

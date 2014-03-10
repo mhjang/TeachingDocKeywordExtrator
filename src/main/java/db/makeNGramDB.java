@@ -2,7 +2,6 @@ package db;
 
 import java.io.*;
 import java.sql.PreparedStatement;
-import java.util.HashMap;
 import java.util.StringTokenizer;
 
 /**

@@ -1,7 +1,6 @@
 package parser;
 
 import Clustering.Document;
-import Clustering.DocumentCollection;
 import TFIDF.StopWordRemover;
 import com.google.cloud.bigquery.samples.BigQuerySender;
 import db.DBConnector;
@@ -45,11 +44,22 @@ public class Tokenizer {
      * @return
      */
     public Document tokenize(String docName, String line, boolean wikiFiltering, int ngram) {
-        String[] rawwords = line.split("[^a-zA-Z0-9]+");
-        // removing stopwords
+        // splitting line by line s.t. we can apply language modeling to the line unit
+        String[] lines = line.split("\\n");
         StopWordRemover stopRemover = new StopWordRemover();
-        String[] words = stopRemover.removeStopWords(rawwords);
-        ArrayList<String> wordlist = new ArrayList<String>(Arrays.asList(words));
+        LinkedList<ArrayList<String>> corpusSplitByLine = new LinkedList<ArrayList<String>>();
+        ArrayList<String> wordlist = new ArrayList<String>();
+        for(int i=0; i<lines.length; i++) {
+            String l = lines[i];
+            String[] rawwords = l.split("[^a-zA-Z0-9]+");
+        // removing stopwords
+            String[] words = stopRemover.removeStopWords(rawwords);
+            ArrayList<String> wordsInLine = new ArrayList<String>(Arrays.asList(words));
+            if(wordsInLine.size()>0) {
+                corpusSplitByLine.add(wordsInLine);
+                  wordlist.addAll(wordsInLine);
+            }
+        }
 
         LinkedList<String> unigrams = null;
         LinkedList<String> bigrams = null;
@@ -82,8 +92,7 @@ public class Tokenizer {
             }
         }
 
-        Document doc = new Document(docName, unigrams, bigrams, trigrams);
-
+        Document doc = new Document(docName, unigrams, bigrams, trigrams, corpusSplitByLine);
         LinkedList<String> wordPool = doc.getAllGrams();
         HashMap<String, Integer> docTFMap = new HashMap<String, Integer>();
         for(String word : wordPool) {

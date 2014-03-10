@@ -21,6 +21,23 @@ public class DocumentCollection {
         return documentSet;
     }
 
+    public HashMap<String, Double> getWordProbablity() {
+        HashMap<String, Double> wordProb = new HashMap<String, Double>();
+        int wordCountSum = 0;
+        for(String t : globalTermCountMap.keySet()) {
+            wordCountSum+=globalTermCountMap.get(t);
+        }
+        double probSum = 0.0;
+        for(String t : globalTermCountMap.keySet()) {
+            double wProb = (double) globalTermCountMap.get(t) / (double) wordCountSum;
+            probSum += wProb;
+            wordProb.put(t, wProb);
+        }
+  //      System.out.println("sum of global word prob: " + probSum);
+        return wordProb;
+
+    }
+
     public void printDocumentList() {
         for(String doc : documentSet.keySet()) {
             System.out.println(doc);

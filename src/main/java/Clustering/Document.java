@@ -19,6 +19,7 @@ public class Document {
     private String docName;
     HashMap<String, Integer> termFrequency = null;
     HashMap<String, Double> termTFIDFMap = new HashMap<String, Double>();
+    LinkedList<ArrayList<String>> corpusByLine;
 
     public Document(String docName, LinkedList<String> unigrams, LinkedList<String> bigrams, LinkedList<String> trigrams) {
         this.unigrams = unigrams;
@@ -27,10 +28,54 @@ public class Document {
         this.docName = docName;
     }
 
+    public Document(String docName, LinkedList<String> unigrams, LinkedList<String> bigrams, LinkedList<String> trigrams, LinkedList<ArrayList<String>> corpusByLine) {
+        this.unigrams = unigrams;
+        this.bigrams = bigrams;
+        this.trigrams = trigrams;
+        this.docName = docName;
+        this.corpusByLine = corpusByLine;
+    }
+
+
     public Document(LinkedList<String> unigrams) {
         this.unigrams = unigrams;
     }
 
+
+    public LinkedList<ArrayList<String>> getCorpusByLine() {
+        return this.corpusByLine;
+    }
+    /**
+     * denominator for word probability
+     * @return
+     */
+    public HashMap<String, Double> getWordProbability() {
+        HashMap<String, Double> wordProb = new HashMap<String, Double>();
+        int wordCountSum = 0;
+        for(String t : termFrequency.keySet()) {
+            wordCountSum+=termFrequency.get(t);
+        }
+        double probSum = 0.0;
+        for(String t : termFrequency.keySet()) {
+            double wProb =(double) termFrequency.get(t) / (double) wordCountSum;
+            probSum += wProb;
+            wordProb.put(t, probSum);
+        }
+     //   System.out.println("document word probablity sum = " + probSum);
+        return wordProb;
+    }
+
+    /**
+     * @return word probablity denominator
+     *
+     */
+    public int getWordCountSum() {
+        int wordCountSum = 0;
+        for(String t : termFrequency.keySet()) {
+            wordCountSum+=termFrequency.get(t);
+        }
+        return wordCountSum;
+    }
     public void setUnigrams(LinkedList<String> grams) {
         this.unigrams = grams;
     }
@@ -131,7 +176,7 @@ public class Document {
         for(int i=0; i<k; i++) {
             sublist.add(unigrams.get(i));
         }
-        Tokenizer tokenizer = new Tokenizer(true);
+        Tokenizer tokenizer = new Tokenizer(false);
         if(ngramType == Document.UNIGRAM) return sublist;
         else if(ngramType == Document.BIGRAM) {
             sublist.addAll(tokenizer.generateNramsWrapper(sublist, Document.BIGRAM));
