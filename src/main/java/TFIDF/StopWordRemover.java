@@ -3,7 +3,6 @@ package TFIDF;
 import junit.framework.TestCase;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashSet;

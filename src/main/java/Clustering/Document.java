@@ -20,6 +20,7 @@ public class Document {
     HashMap<String, Integer> termFrequency = null;
     HashMap<String, Double> termTFIDFMap = new HashMap<String, Double>();
     LinkedList<ArrayList<String>> corpusByLine;
+    LinkedList<String> corpus = new LinkedList<String>();
 
     public Document(String docName, LinkedList<String> unigrams, LinkedList<String> bigrams, LinkedList<String> trigrams) {
         this.unigrams = unigrams;
@@ -41,7 +42,20 @@ public class Document {
         this.unigrams = unigrams;
     }
 
+    /**
+     * I preserved the original sequence of words separated by lines,
+     * but now I just need a flatten list of this.
+     */
+    private void flattenCorpusByLine() {
+        for(ArrayList<String> corpusInLine : corpusByLine) {
+            corpus.addAll(corpusInLine);
+        }
+    }
 
+    public LinkedList<String> getCorpus() {
+        flattenCorpusByLine();
+        return corpus;
+    }
     public LinkedList<ArrayList<String>> getCorpusByLine() {
         return this.corpusByLine;
     }
