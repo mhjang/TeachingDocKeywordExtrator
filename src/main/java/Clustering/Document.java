@@ -21,6 +21,7 @@ public class Document {
     HashMap<String, Double> termTFIDFMap = new HashMap<String, Double>();
     LinkedList<ArrayList<String>> corpusByLine;
     LinkedList<String> corpus = new LinkedList<String>();
+    private HashMap<String, Double> languageModelProb = new HashMap<String, Double>();
 
     public Document(String docName, LinkedList<String> unigrams, LinkedList<String> bigrams, LinkedList<String> trigrams) {
         this.unigrams = unigrams;
@@ -78,7 +79,23 @@ public class Document {
      //   System.out.println("document word probablity sum = " + probSum);
         return wordProb;
     }
+    public void addLMProb(String term, double probability) {
+        if(languageModelProb.containsKey(term))
+            languageModelProb.put(term, languageModelProb.get(term) + probability);
+        else
+            languageModelProb.put(term, probability);
+    }
 
+    public HashMap<String, Double> getLMProb() {
+        return languageModelProb;
+    }
+
+    public Double getLMProb(String term) {
+        if(!languageModelProb.containsKey(term))
+            return null;
+        else
+            return languageModelProb.get(term);
+    }
     /**
      * @return word probablity denominator
      *
