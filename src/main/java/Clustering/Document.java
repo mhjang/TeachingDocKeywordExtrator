@@ -43,6 +43,8 @@ public class Document {
         this.unigrams = unigrams;
     }
 
+
+
     /**
      * I preserved the original sequence of words separated by lines,
      * but now I just need a flatten list of this.
