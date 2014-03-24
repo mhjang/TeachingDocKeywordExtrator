@@ -15,13 +15,16 @@ public class ClusteringFMeasure {
     HashMap<String, LinkedList<String>> clusters;
     HashMap<String, Integer> clusterLabelMap;
     HashMap<Integer, LinkedList<String>> goldClusters;
-    public ClusteringFMeasure(HashMap<String, LinkedList<String>> clusters_, HashMap<String, Integer> clusterLabelMap_, ArrayList<String> topiclist, String goldDir) {
+    ArrayList<String> topiclist;
+    public ClusteringFMeasure(HashMap<String, LinkedList<String>> clusters_, HashMap<String, Integer> clusterLabelMap_, ArrayList<String> topiclist_, String goldDir) {
         clusters = clusters_;
         clusterLabelMap = clusterLabelMap_;
         goldClusters = readGoldstandard(goldDir);
-        for(String clusterName: topiclist) {
-            calcFMeasure(clusterName);
-        }
+        this.topiclist = topiclist_;
+    }
+
+    public void getAccuracy() {
+        computeAccuracy(topiclist);
 
     }
 
@@ -55,29 +58,40 @@ public class ClusteringFMeasure {
 
     }
 
-    private double calcFMeasure(String clusterName) {
-        LinkedList<String> goldCluster = goldClusters.get(clusterLabelMap.get(clusterName));
-        LinkedList<String> cluster = clusters.get(clusterName);
-        /***
-         * precision = correctInCluster / |cluster|
-         * recall = correctInCluster / |gold cluster|
-         */
-        int correctInCluster = 0, correctInGoldCluster = 0;
-        for(String element : goldCluster) {
-            if(cluster.contains(element)) correctInCluster++;
+    private void computeAccuracy(ArrayList<String> topicList) {
+        double avgPrecision = 0.0, avgRecall = 0.0;
+        for(String clusterName : topicList) {
+            LinkedList<String> goldCluster = goldClusters.get(clusterLabelMap.get(clusterName));
+            LinkedList<String> cluster = clusters.get(clusterName);
+            /***
+             * precision = correctInCluster / |cluster|
+             * recall = correctInCluster / |gold cluster|
+             */
+            int correctInCluster = 0, correctInGoldCluster = 0;
+            for (String element : goldCluster) {
+                if (cluster.contains(element)) correctInCluster++;
+            }
+            double precision = 0.0, recall = 0.0, fMeasure = 0.0;
+            if (cluster.size() > 0)
+                precision = (double) (correctInCluster) / (double) (cluster.size());
+            else
+                precision = 0.0;
+            if (goldCluster.size() > 0)
+                recall = (double) (correctInCluster) / (double) (goldCluster.size());
+            else
+                recall = -1;
+            avgPrecision += precision;
+            avgRecall += recall;
+
+            fMeasure = (2 * precision * recall) / (precision + recall);
+            System.out.println(clusterName + "\t" + precision + "\t" + recall + "\t" + fMeasure);
         }
-        double precision = 0.0, recall = 0.0, fMeasure = 0.0;
-        if(cluster.size() > 0)
-           precision = (double)(correctInCluster) / (double)(cluster.size());
-        else
-            precision = 0.0;
-        if(goldCluster.size() > 0)
-            recall = (double)(correctInCluster) / (double)(goldCluster.size());
-        else
-            recall = -1;
-        fMeasure = (2*precision*recall)/(precision + recall);
-        System.out.println(clusterName + "\t" + precision + "\t" + recall + "\t" + fMeasure);
-        return fMeasure;
+        double length = (double)topicList.size()-1;
+        avgPrecision /= length;
+        avgRecall /= length;
+        System.out.println("Avg Precision: " + avgPrecision+ "\t Avg Recall: " + avgRecall + "\t Avg F-measure:" + (2*avgPrecision*avgRecall)/(avgPrecision + avgRecall));
+ //      return fMeasure;
+
       }
 
 

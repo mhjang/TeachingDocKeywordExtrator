@@ -16,9 +16,22 @@ public class DocumentCollection {
         this.globalTermCountMap = globalTermCountMap;
         this.binaryTermFreqInDoc = binaryTermFreqInDoc;
     }
+
     public HashMap<String, Document> getDocumentSet()
     {
         return documentSet;
+    }
+
+    /**
+     * 2014/3/23
+     * Print the average number of unigrams over the collection
+     */
+    public void printUnigramStats() {
+        int sum = 0;
+        for(Document d : documentSet.values()) {
+            sum += d.getUnigrams().size();
+        }
+        System.out.println("Unigram Stats: " + (double)(sum)/(double)(documentSet.size()));
     }
 
     public HashMap<String, Double> getWordProbablity() {

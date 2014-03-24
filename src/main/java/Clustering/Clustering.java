@@ -1,5 +1,6 @@
 package Clustering;
 
+import LanguageModeling.LanguageModeling;
 import QueryExpansion.QueryExpander;
 import Similarity.CosineSimilarity;
 import TFIDF.StopWordRemover;
@@ -39,14 +40,27 @@ public class Clustering {
         DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/stemmed/", TFIDFCalculator.TRIGRAM, false);
         HashMap<String, Document> documentMap = dc.getDocumentSet();
         HashMap<String, Integer> termOccurrenceDic = dc.getglobalTermCountMap();
+
+        /**
+         * Applying language modeling
+         * After this method, dc.unigram contains upto top K terms sorted by language modeling
+         * by default, k = 50
+         * NOTE that this method nullifies bigrams and trigrams.
+         */
+      //  dc.printUnigramStats();
+
+        LanguageModeling lm = new LanguageModeling(dc, 30, 0.7, 0.2);
+        lm.run();
+
+
         clustering.dc = dc;
         /**
          * cleaning the document terms by dropping a bunch of infrequent bigrams and trigrams
          */
-        clustering.documentTermCleansing(documentMap);
-        /**
-         * Setting documents' first K term words
-         */
+        // clustering.documentTermCleansing(documentMap);
+
+       // Setting documents' first K term words
+         /*
         System.out.println("Kgrams : " + kgramsTermThreshold);
         HashSet<String> firstKWords = new HashSet<String>();
         for(String docID : documentMap.keySet()) {
@@ -55,7 +69,7 @@ public class Clustering {
              firstKWords.addAll(kGrams);
         }
         clustering.documentFirstKTerms = firstKWords;
-
+        */
 
      //   String[] topics = {"list and array representation", "graph traverse", "sorting algorithm"};
       // added this, because when topic names are long.. it's hard to recognize the cluster and the gold standard cluster name when parsing
@@ -84,7 +98,7 @@ public class Clustering {
       //  HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdateDuplicate(documentMap, topiclist, 0, 0.05);
 
         ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "./annotation/goldstandard_v2.csv");
-
+        cfm.getAccuracy();
         //     HashMap<String, LinkedList<String>> clusters= clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
 
      }
@@ -216,8 +230,8 @@ public class Clustering {
         /***
          * Query Expansion
          */
-        QueryExpander qe = new QueryExpander(dc);
-        qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", dc.getglobalTermCountMap(), termFilterThreshold);
+    //    QueryExpander qe = new QueryExpander(dc);
+    //    qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", dc.getglobalTermCountMap(), termFilterThreshold);
    //    qe.expandTopicQueriesWithFirstKTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", documentFirstKTerms);
 
         /****

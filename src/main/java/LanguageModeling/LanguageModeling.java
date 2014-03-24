@@ -17,12 +17,25 @@ import java.util.*;
  */
 public class LanguageModeling {
     NGramReader ng;
-    public static double unigramModelWeight = 0.7;
-    public static double bigramModelWeight = 0.2;
-    public static double trigramModelWeight = 0.1;
-
-    public LanguageModeling() throws IOException {
+    public double unigramModelWeight = 0.7;
+    public double bigramModelWeight = 0.2;
+    public double trigramModelWeight = 0.1;
+    DocumentCollection documentCollection;
+    int termWindow = 7;
+    int k = 30;
+    public LanguageModeling(DocumentCollection dc, int topK, double alpha, double beta) throws IOException {
         ng = new NGramReader();
+        this.documentCollection = dc;
+        this.k = topK;
+        this.unigramModelWeight = alpha;
+        this.bigramModelWeight = beta;
+        this.trigramModelWeight = 1-(alpha + beta);
+    }
+
+    public LanguageModeling(DocumentCollection dc) throws IOException {
+        ng = new NGramReader();
+        this.documentCollection = dc;
+
     }
     public static void main(String[] args) throws IOException {
         PrintStream console = System.out;
@@ -31,13 +44,13 @@ public class LanguageModeling {
         PrintStream ps = new PrintStream(fos);
         System.setOut(ps);
 
-        LanguageModeling lm = new LanguageModeling();
-        lm.applyLanguageModelingToTerms();
+     //   LanguageModeling lm = new LanguageModeling();
+    //    lm.run();
     }
 
 
 
-    public double getCollectionProbability(String term) {
+    private double getCollectionProbability(String term) {
         BigInteger collectionCount = new BigInteger("1024908267229");
         Integer count = ng.lookUpTerm(term);
         double collectionProb = (count.doubleValue()) / (collectionCount.doubleValue());
@@ -53,25 +66,23 @@ public class LanguageModeling {
      * More details can be found in /documentation/language_modeling.pdf
      * @throws IOException
      */
-    public void applyLanguageModelingToTerms() throws IOException {
+    public void run() throws IOException {
         TFIDFCalculator tfidf = new TFIDFCalculator();
-        DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/stemmed/", TFIDFCalculator.TRIGRAM, false);
-        HashMap<String, Document> docSet = dc.getDocumentSet();
+   //     DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/stemmed/", TFIDFCalculator.TRIGRAM, false);
+        HashMap<String, Document> docSet = documentCollection.getDocumentSet();
 
         /***
          * Dirichlet smoothing
          */
 
         int mu = 2000;
-        int shiftFactor = 50;
+        int shiftFactor = 100;
         // slice window
-        int termWindow = 7;
         // taking top k terms
-        int k = 50;
         boolean debugMode = false;
      //      String docName = "lect21.html.txt";
         for (String docName : docSet.keySet()) {
-            System.out.println(docName);
+            if(debugMode) System.out.println(docName);
             Document doc = docSet.get(docName.toLowerCase());
 
             HashMap<String, Integer> wordFreq = doc.getTermFrequency();
@@ -217,9 +228,13 @@ public class LanguageModeling {
             for (Map.Entry<String, Double> e : entryList) {
                 if (idx++ > k) break;
                 newUnigrams.add(e.getKey());
-            System.out.println(e.getKey() + "\t " + e.getValue());
+        //    System.out.println(e.getKey() + "\t " + e.getValue());
             }
             doc.setUnigrams(newUnigrams);
+            // because we're testing unigrams arnked by language modeling, set bigrams and trigrams to null
+            // so that getAllGrams() only returns unigrams later
+            doc.setBigrams(null);
+            doc.setTrigrams(null);
         }
     }
 

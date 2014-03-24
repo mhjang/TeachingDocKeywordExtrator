@@ -339,6 +339,7 @@ public class Document {
            l.addAll(getBigrams());
         if(trigrams != null)
             l.addAll(getTrigrams());
+   //     System.out.println(this.docName + ": grams (" + l.size());
         return l;
     }
 
