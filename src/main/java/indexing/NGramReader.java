@@ -29,12 +29,43 @@ public class NGramReader {
     File bigramFile = new File("ngram_index/2gms");
     File trigramFile = new File("ngram_index/3gms_1");
 
+    BigInteger unigramTotalCount = BigInteger.valueOf(1024908267);
+    BigInteger bigramTotalCount = BigInteger.valueOf(1024908267);
+    BigInteger trigramTotalCount = BigInteger.valueOf(1024908267);
+
     public NGramReader() throws IOException {
         unigramReader = new DiskMapReader(unigramFile.getAbsolutePath());
         bigramReader = new DiskMapReader(bigramFile.getAbsolutePath());
         trigramReader = new DiskMapReader(trigramFile.getAbsolutePath());
+   //     setTotalCount();
     }
 
+
+    public double termCollectionProbability(String term) {
+        String[] tokens = term.split(" ");
+        byte[] data = null;
+        BigInteger total = null;
+        if(tokens.length == 1) {
+            data = unigramReader.get(Utility.fromString(term));
+            total = this.unigramTotalCount;
+        }
+        else if(tokens.length == 2) {
+            data = bigramReader.get(Utility.fromString(term));
+            total = this.bigramTotalCount;
+        }
+        else if(tokens.length == 3) {
+            data = trigramReader.get(Utility.fromString(term));
+            total = this.trigramTotalCount;
+        }
+        if(data != null) {
+            String count = Utility.toString(data);
+            double v =  total.doubleValue() * 100 / (Double.parseDouble(count));
+            return v;
+        }
+        else {
+           return 0.001;
+        }
+    }
     public int lookUpTerm(String term) {
         String[] tokens = term.split(" ");
         byte[] data;
@@ -60,13 +91,26 @@ public class NGramReader {
 
     }
 
-    public void getTotalCount() {
-        BigInteger totalCount = BigInteger.valueOf(0);
-        for(byte[] key: unigramReader.keySet()) {
+    private void setTotalCount() {
+        System.out.println("here to count");
+     /*   for(byte[] key: unigramReader.keySet()) {
             byte[] data = unigramReader.get(key);
-            totalCount = totalCount.add(new BigInteger(Utility.toString(data)));
+            unigramTotalCount = unigramTotalCount.add(new BigInteger(Utility.toString(data)));
         }
-   //     System.out.print("1gram: " + totalCount);
+      */
+        System.out.print("1gram: " + unigramTotalCount);
+        for(byte[] key: bigramReader.keySet()) {
+            byte[] data = bigramReader.get(key);
+            bigramTotalCount = bigramTotalCount.add(new BigInteger(Utility.toString(data)));
+        }
+        System.out.print("bigram: " + bigramTotalCount);
+
+        for(byte[] key: trigramReader.keySet()) {
+            byte[] data = trigramReader.get(key);
+            trigramTotalCount = trigramTotalCount.add(new BigInteger(Utility.toString(data)));
+        }
+        System.out.print("trigram: " + trigramTotalCount);
+
     }
     public static void main(String[] args) throws IOException {
   //      NGramReader ng = new NGramReader();

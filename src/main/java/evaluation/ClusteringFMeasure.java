@@ -1,5 +1,7 @@
 package evaluation;
 
+import Clustering.DocumentCollection;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -16,20 +18,18 @@ public class ClusteringFMeasure {
     HashMap<String, Integer> clusterLabelMap;
     HashMap<Integer, LinkedList<String>> goldClusters;
     ArrayList<String> topiclist;
-    public ClusteringFMeasure(HashMap<String, LinkedList<String>> clusters_, HashMap<String, Integer> clusterLabelMap_, ArrayList<String> topiclist_, String goldDir) {
+    DocumentCollection dc;
+    public ClusteringFMeasure(HashMap<String, LinkedList<String>> clusters_, HashMap<String, Integer> clusterLabelMap_, ArrayList<String> topiclist_, String goldDir, DocumentCollection dc) {
         clusters = clusters_;
         clusterLabelMap = clusterLabelMap_;
         goldClusters = readGoldstandard(goldDir);
         this.topiclist = topiclist_;
+        this.dc = dc;
     }
 
     public void getAccuracy() {
         computeAccuracy(topiclist);
 
-    }
-
-    public static void main(String[] args) {
-        ClusteringFMeasure cfm = new ClusteringFMeasure(null, null, null, "/Users/mhjang/Documents/teaching_documents/evaluation/goldstandard_v2.csv");
     }
     // read goldstandard
     public static HashMap<Integer, LinkedList<String>> readGoldstandard(String goldDir) {
@@ -70,6 +70,10 @@ public class ClusteringFMeasure {
             int correctInCluster = 0, correctInGoldCluster = 0;
             for (String element : goldCluster) {
                 if (cluster.contains(element)) correctInCluster++;
+            }
+            System.out.println(clusterName + " cluster:");
+            for(String element : cluster) {
+                dc.getDocument(element).printTerms();
             }
             double precision = 0.0, recall = 0.0, fMeasure = 0.0;
             if (cluster.size() > 0)

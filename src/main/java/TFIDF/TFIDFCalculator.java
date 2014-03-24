@@ -2,6 +2,7 @@ package TFIDF;
 
 import Clustering.Document;
 import Clustering.DocumentCollection;
+import indexing.NGramReader;
 import parser.Tokenizer;
 
 import java.io.IOException;
@@ -23,12 +24,14 @@ public class TFIDFCalculator {
     public HashMap<String, Document> documentSet = null;
     public HashMap<String, Integer> globalTermCountMap = null;
     HashMap<String, Integer> binaryTermFreqInDoc = null;
+    NGramReader ngReader;
+    private boolean useGoogleNGram = true;
     // test
     // contains a parsed text per each document in the given directory
     private HashMap<String, String> documentTextMap = new HashMap<String, String>();
 
-    public TFIDFCalculator() throws IOException {
-
+    public TFIDFCalculator(boolean useGoogleNGram) throws IOException {
+          this.useGoogleNGram = useGoogleNGram;
     }
 
 
@@ -36,7 +39,7 @@ public class TFIDFCalculator {
      *
      * @return a collection of document set with tokenized n-grams and term frequency
      */
-    public DocumentCollection getDocumentCollection(String dir, int ngram, boolean wikifiltering) {
+    public DocumentCollection getDocumentCollection(String dir, int ngram, boolean wikifiltering) throws IOException {
         Tokenizer tokenizer = new Tokenizer(false);
         documentSet = tokenizer.tokenize(dir, wikifiltering, ngram);
         return calculateTFIDF(TFIDFCalculator.LOGTFIDF);
@@ -52,7 +55,7 @@ public class TFIDFCalculator {
      *
      * @param TFIDFOption  = {BINARYTFIDF, LOGTFIDF, AUGMENTEDTFIDF}
      */
-    public DocumentCollection calculateTFIDF(int TFIDFOption) {
+    public DocumentCollection calculateTFIDF(int TFIDFOption) throws IOException {
 
         /*****************************************************************************************************
          * Counting
@@ -91,6 +94,9 @@ public class TFIDFCalculator {
          *               Calculating TF * IDF
          **************************************************/
       //  System.out.println("document set size = " + documentSet.size());
+        if(this.useGoogleNGram) {
+             ngReader = new NGramReader();
+        }
         for(String docName : documentSet.keySet()) {
             Document doc = documentSet.get(docName);
             HashMap<String, Integer> termFreqMap = doc.getTermFrequency();
@@ -114,14 +120,19 @@ public class TFIDFCalculator {
                     tf = 0.5 + 0.5 * ((double)(termFreqMap.get(term)) / (double)(maxFrequency));
                 }
                 double idf;
-                if(binaryTermFreqInDoc.containsKey(term))
-                    idf = Math.log((double)documentSet.size() / (double)binaryTermFreqInDoc.get(term));
-                else
-                    idf = 0.0;
-
+                if(!this.useGoogleNGram) {
+                    if (binaryTermFreqInDoc.containsKey(term))
+                        idf = Math.log((double) documentSet.size() / (double) binaryTermFreqInDoc.get(term));
+                    else
+                        idf = 0.0;
+                }
+                else {
+                    idf = Math.log(ngReader.termCollectionProbability(term));
+      //              System.out.println("idf= " + idf);
+                }
                 double tfidf = tf * idf;
                 termTFIDFMap.put(term, tfidf);
-          //     System.out.println(docName + "\t" + term + "\t" + (termFreqMap.get(term)+1) + "\t" + tf + "\t" + binaryTermFreqInDoc.get(term) + "\t" + idf + "\t" + tfidf);
+            //    System.out.println(docName + "\t" + term + "\t" + (termFreqMap.get(term)+1) + "\t" + tf + "\t" + binaryTermFreqInDoc.get(term) + "\t" + idf + "\t" + tfidf);
             }
             doc.setTermTFIDF(termTFIDFMap);
         }

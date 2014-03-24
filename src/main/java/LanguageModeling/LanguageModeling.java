@@ -67,8 +67,6 @@ public class LanguageModeling {
      * @throws IOException
      */
     public void run() throws IOException {
-        TFIDFCalculator tfidf = new TFIDFCalculator();
-   //     DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/stemmed/", TFIDFCalculator.TRIGRAM, false);
         HashMap<String, Document> docSet = documentCollection.getDocumentSet();
 
         /***
@@ -204,6 +202,7 @@ public class LanguageModeling {
                 }
 
             }
+
             HashMap<String, Double> termLMProbMap = doc.getLMProb();
             LinkedList<Map.Entry<String, Double>> entryList = new LinkedList<Map.Entry<String, Double>>(termLMProbMap.entrySet());
             Collections.sort(entryList, new Comparator() {
@@ -223,12 +222,12 @@ public class LanguageModeling {
              *****/
             int idx = 0;
             LinkedList<String> newUnigrams = new LinkedList<String>();
-            if (termWindow > entryList.size())
-                termWindow = entryList.size();
+            if (k > entryList.size())
+                k = entryList.size();
             for (Map.Entry<String, Double> e : entryList) {
                 if (idx++ > k) break;
                 newUnigrams.add(e.getKey());
-        //    System.out.println(e.getKey() + "\t " + e.getValue());
+        //         System.out.println(e.getKey() + "\t " + e.getValue());
             }
             doc.setUnigrams(newUnigrams);
             // because we're testing unigrams arnked by language modeling, set bigrams and trigrams to null
@@ -237,6 +236,30 @@ public class LanguageModeling {
             doc.setTrigrams(null);
         }
     }
+
+    /**
+     * 2014/3/23
+     * To conclude that language modeling extracts better terms (in terms of clustering accuracy)
+     * this sets top K terms sorted by TFIDF score.
+     */
+    public void TFIDFBaselineRun() {
+        HashMap<String, Document> docSet = documentCollection.getDocumentSet();
+        for (String docName : docSet.keySet()) {
+            LinkedList<String> newUnigrams = new LinkedList<String>();
+            Document doc = docSet.get(docName);
+            System.out.println(doc.getName());
+            LinkedList<Map.Entry<String, Double>> entryList = doc.getTopTermsTFIDF(k);
+            for (Map.Entry<String, Double> e : entryList) {
+                System.out.println(e.getKey() + "\t" + e.getValue());
+                newUnigrams.add(e.getKey());
+            }
+            doc.setUnigrams(newUnigrams);
+            // because we're testing unigrams arnked by language modeling, set bigrams and trigrams to null
+            // so that getAllGrams() only returns unigrams later
+            doc.setBigrams(null);
+            doc.setTrigrams(null);
+        }
+        }
 
 
     private static void printListToLine(ArrayList<String> tokensInLine) {

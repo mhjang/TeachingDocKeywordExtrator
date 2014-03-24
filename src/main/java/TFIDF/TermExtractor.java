@@ -35,7 +35,7 @@ public class TermExtractor {
         attachInstruction();
         String[] colors = {"yellow", "Coral", "orange", "DarkSalmon", "DarkTurquoise", "GreenYellow", "lime", "teal", "Pink", "Salmon", "SlateBlue", "Skyblue", "RoyalBlue", "Violet", "Tomato"};
         HashMap<Integer, LinkedList<String>> goldSet = ClusteringFMeasure.readGoldstandard("./annotation/goldstandard_v2.csv");
-        TFIDFCalculator tfidf = new TFIDFCalculator();
+        TFIDFCalculator tfidf = new TFIDFCalculator(true);
         DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/extracted/", TFIDFCalculator.TRIGRAM, true);
       //  dc.printDocumentList();
         /** topic name -> topic index -> gold documents **/

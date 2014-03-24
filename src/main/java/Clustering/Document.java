@@ -148,17 +148,19 @@ public class Document {
     public LinkedList<Map.Entry<String, Double>> getTopTermsTFIDF(int k) {
         LinkedList<Map.Entry<String, Double>> list =
                 new LinkedList<Map.Entry<String, Double>>(termTFIDFMap.entrySet());
+        if(k > list.size()) return list;
         Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
             @Override
             public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
                 return (o2.getValue().compareTo(o1.getValue()));
             }
         });
-         LinkedList<Map.Entry<String, Double>> sublist = new LinkedList<Map.Entry<String, Double>>();
+        LinkedList<Map.Entry<String, Double>> sublist = new LinkedList<Map.Entry<String, Double>>();
         for(int i=0; i<k; i++) {
-            sublist.add(list.get(i));
+           sublist.add(list.get(i));
         }
         return sublist;
+
     }
 
     public LinkedList<Map.Entry<String, Integer>> getTopTermsTF(int k) {

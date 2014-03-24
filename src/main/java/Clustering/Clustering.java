@@ -25,7 +25,7 @@ public class Clustering {
         File file = new File("log.txt");
         FileOutputStream fos = new FileOutputStream(file);
         PrintStream ps = new PrintStream(fos);
-  //      System.setOut(ps);
+        //      System.setOut(ps);
 
         /***
          * Setting the parameters
@@ -35,31 +35,35 @@ public class Clustering {
         int infrequentTermThreshold = 0;
         int kgramsTermThreshold = 1;
 
-        Clustering clustering = new Clustering();
-        TFIDFCalculator tfidf = new TFIDFCalculator();
-        DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/stemmed/", TFIDFCalculator.TRIGRAM, false);
-        HashMap<String, Document> documentMap = dc.getDocumentSet();
-        HashMap<String, Integer> termOccurrenceDic = dc.getglobalTermCountMap();
+        double[] alpha = {0.1, 0.2, 0.3, 0.4};
+        double beta = 0.5;
 
-        /**
-         * Applying language modeling
-         * After this method, dc.unigram contains upto top K terms sorted by language modeling
-         * by default, k = 50
-         * NOTE that this method nullifies bigrams and trigrams.
-         */
-      //  dc.printUnigramStats();
+    //    for (int i = 0; i < 5; i++) {
+            Clustering clustering = new Clustering();
+            TFIDFCalculator tfidf = new TFIDFCalculator(true);
+            DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/stemmed/", TFIDFCalculator.TRIGRAM, false);
+            System.out.println("Documents features ready");
+            HashMap<String, Document> documentMap = dc.getDocumentSet();
+            HashMap<String, Integer> termOccurrenceDic = dc.getglobalTermCountMap();
 
-        LanguageModeling lm = new LanguageModeling(dc, 30, 0.7, 0.2);
-        lm.run();
+            /**
+             * Applying language modeling
+             * After this method, dc.unigram contains upto top K terms sorted by language modeling
+             * by default, k = 50
+             * NOTE that this method nullifies bigrams and trigrams.
+             */
+            //  dc.printUnigramStats();
+            LanguageModeling lm = new LanguageModeling(dc, 10, 0.7, 0.2);
+            lm.run();
+            //   lm.TFIDFBaselineRun();
 
+            clustering.dc = dc;
+            /**
+             * cleaning the document terms by dropping a bunch of infrequent bigrams and trigrams
+             */
+            //    clustering.documentTermCleansing(documentMap);
 
-        clustering.dc = dc;
-        /**
-         * cleaning the document terms by dropping a bunch of infrequent bigrams and trigrams
-         */
-        // clustering.documentTermCleansing(documentMap);
-
-       // Setting documents' first K term words
+            // Setting documents' first K term words
          /*
         System.out.println("Kgrams : " + kgramsTermThreshold);
         HashSet<String> firstKWords = new HashSet<String>();
@@ -71,21 +75,21 @@ public class Clustering {
         clustering.documentFirstKTerms = firstKWords;
         */
 
-     //   String[] topics = {"list and array representation", "graph traverse", "sorting algorithm"};
-      // added this, because when topic names are long.. it's hard to recognize the cluster and the gold standard cluster name when parsing
-      // It's simpler if I use a separate label index by line
-        Integer clusterLabelIndex = 0;
-        HashMap<String, Integer> clusterLabelMap = new HashMap<String, Integer>();
-      // reading a topic file
-        BufferedReader br = new BufferedReader(new FileReader(new File("./topics_resource/topics_v2_stemmed")));
-        ArrayList<String> topiclist = new ArrayList<String>();
-        String line = null;
-        while((line= br.readLine()) != null) {
-            topiclist.add(line);
-            clusterLabelMap.put(line, clusterLabelIndex++);
-        }
-        clusterLabelMap.put("dummy", clusterLabelIndex);
-        topiclist.add("dummy");
+            //   String[] topics = {"list and array representation", "graph traverse", "sorting algorithm"};
+            // added this, because when topic names are long.. it's hard to recognize the cluster and the gold standard cluster name when parsing
+            // It's simpler if I use a separate label index by line
+            Integer clusterLabelIndex = 0;
+            HashMap<String, Integer> clusterLabelMap = new HashMap<String, Integer>();
+            // reading a topic file
+            BufferedReader br = new BufferedReader(new FileReader(new File("./topics_resource/topics_v2_stemmed")));
+            ArrayList<String> topiclist = new ArrayList<String>();
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                topiclist.add(line);
+                clusterLabelMap.put(line, clusterLabelIndex++);
+            }
+            clusterLabelMap.put("dummy", clusterLabelIndex);
+            topiclist.add("dummy");
 
     /*    double[] thresholdSettings = {0.03, 0.07};
         for(int i=0; i<7; i++) {
@@ -94,15 +98,15 @@ public class Clustering {
             ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "/Users/mhjang/Documents/teaching_documents/evaluation/01.csv");
         }
 */
-        HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdate(documentMap, topiclist, infrequentTermThreshold, clusteringThreshold);
-      //  HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdateDuplicate(documentMap, topiclist, 0, 0.05);
+            HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdate(documentMap, topiclist, infrequentTermThreshold, clusteringThreshold);
+            //  HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdateDuplicate(documentMap, topiclist, 0, 0.05);
 
-        ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "./annotation/goldstandard_v2.csv");
-        cfm.getAccuracy();
-        //     HashMap<String, LinkedList<String>> clusters= clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
+            ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "./annotation/goldstandard_v2.csv", dc);
+            cfm.getAccuracy();
+            //     HashMap<String, LinkedList<String>> clusters= clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
 
-     }
-
+        }
+  //  }
     /**
      * Written 2/17/2014 8:34 PM
      *
@@ -286,9 +290,9 @@ public class Clustering {
             }
             clusters.put(DUMMY, dummyCluster);
             if(dummyCluster.isEmpty()) finished = true;
-            System.out.println("# of dummy Docs: " + numOfDummyDocs +", # of documents moved: " + numOfDocMoved);
+   //         System.out.println("# of dummy Docs: " + numOfDummyDocs +", # of documents moved: " + numOfDocMoved);
         }
-        printCluster(clusters, topics);
+   //     printCluster(clusters, topics);
         return clusters;
    }
 
@@ -360,7 +364,7 @@ public class Clustering {
             }
             clusters.put(DUMMY, dummyCluster);
             if(dummyCluster.isEmpty()) finished = true;
-            System.out.println("# of dummy Docs: " + numOfDummyDocs +", # of documents moved: " + numOfDocMoved);
+      //      System.out.println("# of dummy Docs: " + numOfDummyDocs +", # of documents moved: " + numOfDocMoved);
         }
         printCluster(clusters, topics);
         return clusters;
@@ -436,10 +440,10 @@ public class Clustering {
             Document topicDoc = new Document(topicTokens);
             topicDoc.setTermFrequency(topicTokensFreq);
             TFIDFCalculator.calculateTFIDFGivenCollection(topicDoc, dc, TFIDFCalculator.LOGTFIDF);
-            for(String t : topicDoc.termTFIDFMap.keySet()) {
-                System.out.print(t + ": " + topicDoc.getTFIDF(t));
-            }
-            System.out.println();
+ //           for(String t : topicDoc.termTFIDFMap.keySet()) {
+  //              System.out.print(t + ": " + topicDoc.getTFIDF(t));
+   //         }
+   //         System.out.println();
             clusterFeatureMap.put(topic, topicDoc);
         }
         // I know this is an abuse of "Entry" for using a tuple.. but it works!
