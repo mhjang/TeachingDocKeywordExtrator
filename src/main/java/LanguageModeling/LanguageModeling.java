@@ -58,6 +58,29 @@ public class LanguageModeling {
         return collectionProb;
     }
 
+
+
+    public void selectHighTFTerms() {
+        HashMap<String, Document> docSet = documentCollection.getDocumentSet();
+
+        /***
+         * Dirichlet smoothing
+         */
+
+        int mu = 2000;
+        int shiftFactor = 100;
+        // slice window
+        // taking top k terms
+        boolean debugMode = false;
+        //      String docName = "lect21.html.txt";
+        for (String docName : docSet.keySet()) {
+            Document d = docSet.get(docName);
+            d.setUnigrams(d.getTopTermsTF2(k));
+            d.setBigrams(null);
+            d.setTrigrams(null);
+
+        }
+    }
     /**
      * 2014/3/23
      * This method computes language modeling score, unigram, bigram and trigram model using google n-gram data as background probability.
@@ -92,6 +115,7 @@ public class LanguageModeling {
             /**
              * 5 window unigram language modeling
              */
+        //    termWindow = 1;
             for (int i = 0; i < len; i += termWindow) {
                 int endIdx = (i + termWindow >= len) ? (len) : (i + termWindow);
                 List<String> sublist = new LinkedList();
@@ -114,7 +138,7 @@ public class LanguageModeling {
              * Bigram language model
              * segment window size = k
              ***/
-
+    //        termWindow = 2;
             for (int i = 0; i < len; i += termWindow) {
                 int endIdx = (i + termWindow >= len) ? (len) : (i + termWindow);
                 List<String> sublist = new LinkedList();
@@ -152,6 +176,7 @@ public class LanguageModeling {
              * Trigram language model
              * segment window size = k
              ***/
+    //        termWindow = 3;
             for (int i = 0; i < len; i += termWindow) {
                 int endIdx = (i + termWindow >= len) ? (len) : (i + termWindow);
                 List<String> sublist = new LinkedList();

@@ -2,8 +2,10 @@ package TFIDF;
 
 import Clustering.Document;
 import Clustering.DocumentCollection;
+import LanguageModeling.LanguageModeling;
 import QueryExpansion.QueryExpander;
 import evaluation.ClusteringFMeasure;
+import indexing.NGramReader;
 import parser.Tokenizer;
 
 import java.io.*;
@@ -25,10 +27,11 @@ public class TermExtractor {
 
     static int lineIndex = 0;
     static DecimalFormat numberFormat = new DecimalFormat(("#.000"));
+    static NGramReader ngReader;
     public static void main(String[] args) throws IOException {
 
         PrintStream console = System.out;
-        File file = new File("table.html");
+        File file = new File("table_code_rm.html");
         FileOutputStream fos = new FileOutputStream(file);
         PrintStream ps = new PrintStream(fos);
         System.setOut(ps);
@@ -36,7 +39,12 @@ public class TermExtractor {
         String[] colors = {"yellow", "Coral", "orange", "DarkSalmon", "DarkTurquoise", "GreenYellow", "lime", "teal", "Pink", "Salmon", "SlateBlue", "Skyblue", "RoyalBlue", "Violet", "Tomato"};
         HashMap<Integer, LinkedList<String>> goldSet = ClusteringFMeasure.readGoldstandard("./annotation/goldstandard_v2.csv");
         TFIDFCalculator tfidf = new TFIDFCalculator(true);
-        DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/extracted/", TFIDFCalculator.TRIGRAM, true);
+        DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/coderm", Tokenizer.UNIGRAM, false);
+        ngReader = new NGramReader();
+
+    //    LanguageModeling lm = new LanguageModeling(dc, 10, 0.7, 0.2);
+     //   lm.run();
+
       //  dc.printDocumentList();
         /** topic name -> topic index -> gold documents **/
         Integer clusterLabelIndex = 0;
@@ -61,7 +69,7 @@ public class TermExtractor {
         int colorIdx = 0;
         for(String topicName: topiclist) {
             Document wikiDoc = wikiDocMap.get(topicName);
-            LinkedList<Map.Entry<String, Integer>> topRankedTermsWiki = wikiDoc.getTopTermsTF(30);
+            LinkedList<Map.Entry<String, Integer>> topRankedTermsWiki = wikiDoc.getTopTermsTF(10);
             generateHTMLTableWiki(topicName, topRankedTermsWiki, colors[colorIdx]);
             // print wikiDoc.top20TFTerms
       //      System.out.println(topicName);
@@ -72,8 +80,10 @@ public class TermExtractor {
        //         System.out.println("document name:" + docName);
                 Document relevantDoc = dc.getDocument(docName);
                 if(relevantDoc != null) {
-                    LinkedList<String> topRankedTerms = relevantDoc.getFirstKGrams(30, Tokenizer.TRIGRAM, dc.getglobalTermCountMap(), 5);
-                    generateHTMLTableFirstTopK(docName, topRankedTerms, colors[colorIdx]);
+               //     LinkedList<String> topRankedTerms = relevantDoc.getTopTermsTF2(10);
+                    LinkedList<Map.Entry<String, Double>> topRankedTerms = relevantDoc.getTopTermsTFIDF(10);
+                    generateHTMLTable(relevantDoc.getName(), topRankedTerms, colors[colorIdx]);
+               //     generateHTMLTableFirstTopK(relevantDoc, topRankedTerms, colors[colorIdx]);
                 }
             }
             colorIdx++;
@@ -135,17 +145,19 @@ public class TermExtractor {
         lineIndex++;
     }
 
-    public static void generateHTMLTableFirstTopK(String tableName, LinkedList<String> elements, String tableColor) {
+    public static void generateHTMLTableFirstTopK(Document doc, LinkedList<String> elements, String tableColor) {
         if(lineIndex % 5 == 0) {
             System.out.println("</tr>");
             System.out.println("<tr>");
         }
+        String tableName = doc.getName();
+        HashMap<String, Integer> tfMap = doc.getTermFrequency();
         System.out.println("<td>");
         System.out.println("<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\" style=\"width:250px\" text-align: center;\">");
         System.out.println("<tr> <td style=\"background-color: "+tableColor +" class=\""+ tableName + "\"><b>" + tableName + "</b></td></tr>");
         for(String ele : elements) {
             String[] tokens = ele.split(" ");
-            System.out.println("<tr> <td class=\""+tokens[0]+"\">" + ele +" </td></tr>");
+            System.out.println("<tr> <td class=\""+tokens[0]+"\">" + ele +" ("+tfMap.get(ele) + "/ " + ngReader.lookUpTerm(ele)+") </td></tr>");
         }
         System.out.println("</table>");
         System.out.println("</td>");

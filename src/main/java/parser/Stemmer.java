@@ -19,7 +19,7 @@ public class Stemmer {
     public static void main(String[] args) {
         Stemmer stemmer = new Stemmer();
       //  stemmer.stemOneFileOutput("./topics_resource/topics_v2");
-     //   stemmer.stemAllFilesOutput("/Users/mhjang/Documents/teaching_documents/newdocs_tobestemmed/");
+        stemmer.stemAllFilesOutput("/Users/mhjang/Documents/teaching_documents/extracted");
     }
 
     public void stemAllFilesOutput(String path) {
@@ -72,8 +72,10 @@ public class Stemmer {
             String token = st.nextToken();
             String stem = stemmer.stem(token);
             sb.append(stem + " ");
+     //       System.out.println(token + "->" + stem);
         }
         sb.append("\n");
+   //     System.out.println();
         return sb.toString();
     }
 
@@ -82,8 +84,8 @@ public class Stemmer {
             File fileEntry = new File(path);
             LineNumberReader reader = new LineNumberReader(new FileReader(fileEntry));
             String pathPreFix = path.substring(0, path.lastIndexOf('/'));
-        //    BufferedWriter bw = new BufferedWriter(new FileWriter(new File(pathPreFix + "/stemmed/"+fileEntry.getName())));
-            BufferedWriter bw = new BufferedWriter(new FileWriter(new File(pathPreFix +"/" +fileEntry.getName() + "_stemmed")));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(new File(pathPreFix + "/stemmed_annotated/"+fileEntry.getName())));
+           // BufferedWriter bw = new BufferedWriter(new FileWriter(new File(pathPreFix +"/" +fileEntry.getName() + "_stemmed")));
             System.out.println(pathPreFix +"/" + fileEntry.getName() + "_stemmed");
 
             String line;
@@ -92,6 +94,8 @@ public class Stemmer {
                 while (line != null) {
                     line = line.trim();
                     StringTokenizer st = new StringTokenizer(line, " ,\n", false);
+                    // for annotation purpose
+                    bw.write("R\t");
                     while(st.hasMoreTokens()) {
                         String stem = stemmer.stem(st.nextToken());
                         bw.write(stem + " ");

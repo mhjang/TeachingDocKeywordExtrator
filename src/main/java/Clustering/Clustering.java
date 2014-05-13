@@ -7,6 +7,7 @@ import TFIDF.StopWordRemover;
 import TFIDF.TFIDFCalculator;
 import evaluation.ClusteringFMeasure;
 import org.lemurproject.galago.core.parse.stem.KrovetzStemmer;
+import parser.Tokenizer;
 
 import java.io.*;
 import java.util.*;
@@ -25,7 +26,7 @@ public class Clustering {
         File file = new File("log.txt");
         FileOutputStream fos = new FileOutputStream(file);
         PrintStream ps = new PrintStream(fos);
-        //      System.setOut(ps);
+         //     System.setOut(ps);
 
         /***
          * Setting the parameters
@@ -38,46 +39,53 @@ public class Clustering {
         double[] alpha = {0.1, 0.2, 0.3, 0.4};
         double beta = 0.5;
 
-    //    for (int i = 0; i < 5; i++) {
-            Clustering clustering = new Clustering();
-            TFIDFCalculator tfidf = new TFIDFCalculator(true);
-            DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/stemmed/", TFIDFCalculator.TRIGRAM, false);
-            System.out.println("Documents features ready");
-            HashMap<String, Document> documentMap = dc.getDocumentSet();
-            HashMap<String, Integer> termOccurrenceDic = dc.getglobalTermCountMap();
+        Clustering clustering = new Clustering();
+        // parameter: whether to use Google N-gram
+        TFIDFCalculator tfidf = new TFIDFCalculator(true);
 
-            /**
-             * Applying language modeling
-             * After this method, dc.unigram contains upto top K terms sorted by language modeling
-             * by default, k = 50
-             * NOTE that this method nullifies bigrams and trigrams.
-             */
-            //  dc.printUnigramStats();
-            LanguageModeling lm = new LanguageModeling(dc, 10, 0.7, 0.2);
+        DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/extracted/stemmed/parsed/feature_tokens", Tokenizer.TRIGRAM, false);
+
+        System.out.println("Documents features ready");
+        HashMap<String, Document> documentMap = dc.getDocumentSet();
+        HashMap<String, Integer> termOccurrenceDic = dc.getglobalTermCountMap();
+
+        /**
+         * Applying language modeling
+         * After this method, dc.unigram contains upto top K terms sorted by language modeling
+         * by default, k = 50
+         * NOTE that this method NULLIFIES bigrams and trigrams.
+         */
+            LanguageModeling lm = new LanguageModeling(dc, 30, 0.7, 0.2);
             lm.run();
-            //   lm.TFIDFBaselineRun();
+        //  lm.selectHighTFTerms();
+        //  lm.TFIDFBaselineRun();
 
             clustering.dc = dc;
-            /**
-             * cleaning the document terms by dropping a bunch of infrequent bigrams and trigrams
-             */
-            //    clustering.documentTermCleansing(documentMap);
+         /**
+          * cleaning the document terms by dropping a bunch of infrequent bigrams and trigrams
+          * If NullPointException occurs, that's probably because above language modeling methods nullfied bigrams and trigrams
+          */
+        //  clustering.documentTermCleansing(documentMap);
 
-            // Setting documents' first K term words
+        /**
+         *  Setting documents' first K term words
+         *  Taking the first K terms from each document, and keep the pool of terms
+         *  Intended to remove all terms that have not occurred within the first K terms in any of the documents
+         */
          /*
-        System.out.println("Kgrams : " + kgramsTermThreshold);
-        HashSet<String> firstKWords = new HashSet<String>();
-        for(String docID : documentMap.keySet()) {
-            Document doc = documentMap.get(docID);
-            LinkedList<String> kGrams = doc.getFirstKGrams(firstTopK, Document.BIGRAM, termOccurrenceDic, kgramsTermThreshold);
-             firstKWords.addAll(kGrams);
-        }
-        clustering.documentFirstKTerms = firstKWords;
+            System.out.println("Kgrams : " + kgramsTermThreshold);
+            HashSet<String> firstKWords = new HashSet<String>();
+            for(String docID : documentMap.keySet()) {
+                Document doc = documentMap.get(docID);
+                LinkedList<String> kGrams = doc.getFirstKGrams(firstTopK, Document.BIGRAM, termOccurrenceDic, kgramsTermThreshold);
+                firstKWords.addAll(kGrams);
+            }
+            clustering.documentFirstKTerms = firstKWords;
         */
 
-            //   String[] topics = {"list and array representation", "graph traverse", "sorting algorithm"};
-            // added this, because when topic names are long.. it's hard to recognize the cluster and the gold standard cluster name when parsing
-            // It's simpler if I use a separate label index by line
+       //   String[] topics = {"list and array representation", "graph traverse", "sorting algorithm"};
+       // added this, because when topic names are long.. it's hard to recognize the cluster and the gold standard cluster name when parsing
+       // It's simpler if I use a separate label index by line
             Integer clusterLabelIndex = 0;
             HashMap<String, Integer> clusterLabelMap = new HashMap<String, Integer>();
             // reading a topic file
@@ -103,7 +111,9 @@ public class Clustering {
 
             ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "./annotation/goldstandard_v2.csv", dc);
             cfm.getAccuracy();
-            //     HashMap<String, LinkedList<String>> clusters= clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
+       //     cfm.analyzeCodeRemovedPerCluster(topiclist);
+
+       //   HashMap<String, LinkedList<String>> clusters= clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
 
         }
   //  }
@@ -119,8 +129,8 @@ public class Clustering {
             Document doc = documentMap.get(docID);
             int removedTerms = 0;
 //            removedTerms += Document.removeInfrequentTerms(doc, Document.UNIGRAM, termOccurrenceDic, threshold);
-            removedTerms += Document.removeInfrequentTerms(doc, Document.BIGRAM, dc.getglobalTermCountMap(), 10);
-            removedTerms += Document.removeInfrequentTerms(doc, Document.TRIGRAM, dc.getglobalTermCountMap(), 5);
+            removedTerms += Document.removeInfrequentTerms(doc, Tokenizer.BIGRAM, dc.getglobalTermCountMap(), 10);
+            removedTerms += Document.removeInfrequentTerms(doc, Tokenizer.TRIGRAM, dc.getglobalTermCountMap(), 5);
             System.out.println("removed terms: " + docID + ": " + removedTerms);
         }
     }
@@ -234,8 +244,8 @@ public class Clustering {
         /***
          * Query Expansion
          */
-    //    QueryExpander qe = new QueryExpander(dc);
-    //    qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", dc.getglobalTermCountMap(), termFilterThreshold);
+ //       QueryExpander qe = new QueryExpander(dc);
+//        qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", dc.getglobalTermCountMap(), termFilterThreshold);
    //    qe.expandTopicQueriesWithFirstKTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", documentFirstKTerms);
 
         /****
@@ -256,8 +266,8 @@ public class Clustering {
                 for(String clusterTopic : clusterFeatureMap.keySet()) {
                     if(clusterTopic == DUMMY) continue;
                     Document clusterDoc = clusterFeatureMap.get(clusterTopic);
-                    sim = CosineSimilarity.BinaryCosineSimilarity(document, clusterDoc);
-                 //   sim = CosineSimilarity.TFIDFCosineSimilarity(document, clusterDoc);
+                //    sim = CosineSimilarity.BinaryCosineSimilarity(document, clusterDoc);
+                    sim = CosineSimilarity.TFIDFCosineSimilarity(document, clusterDoc);
 
                     if(sim > maxSim) {
                         maxSim = sim;
@@ -292,7 +302,7 @@ public class Clustering {
             if(dummyCluster.isEmpty()) finished = true;
    //         System.out.println("# of dummy Docs: " + numOfDummyDocs +", # of documents moved: " + numOfDocMoved);
         }
-   //     printCluster(clusters, topics);
+        printCluster(clusters, topics);
         return clusters;
    }
 

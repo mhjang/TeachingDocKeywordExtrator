@@ -179,6 +179,27 @@ public class Document {
         return sublist;
     }
 
+    /**
+     * This one returns LinkedList<String> whereas getTopTermsTF returns LInkedLIst<Entry<String, Integer>>
+     * @param k
+     * @return
+     */
+    public LinkedList<String> getTopTermsTF2(int k) {
+        LinkedList<Map.Entry<String, Integer>> list =
+                new LinkedList<Map.Entry<String, Integer>>(termFrequency.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                return (o2.getValue().compareTo(o1.getValue()));
+            }
+        });
+        LinkedList<String> sublist = new LinkedList<String>();
+        if(k>list.size()) k = list.size();
+        for(int i=0; i<k; i++) {
+            sublist.add(list.get(i).getKey());
+        }
+        return sublist;
+    }
 
     public boolean hasBigrams() {
         if(bigrams == null) return false;
@@ -211,7 +232,7 @@ public class Document {
         for(int i=0; i<k; i++) {
             sublist.add(unigrams.get(i));
         }
-        Tokenizer tokenizer = new Tokenizer(false);
+        Tokenizer tokenizer = new Tokenizer();
         if(ngramType == Document.UNIGRAM) return sublist;
         else if(ngramType == Document.BIGRAM) {
             sublist.addAll(tokenizer.generateNramsWrapper(sublist, Document.BIGRAM));
@@ -258,11 +279,12 @@ public class Document {
     public static int removeInfrequentTerms(Document doc, int ngramType, HashMap<String, Integer> termOccrurenceDic, int threshold) {
         LinkedList<String> terms = null;
         int removedTerms = 0;
-        if(ngramType == Document.UNIGRAM)
+        System.out.println(doc.getName());
+        if(ngramType == Tokenizer.UNIGRAM)
             terms = new LinkedList<String>(doc.getUnigrams());
-        else if(ngramType == Document.BIGRAM)
+        else if(ngramType == Tokenizer.BIGRAM)
             terms = new LinkedList<String>(doc.getBigrams());
-        else if(ngramType == Document.TRIGRAM)
+        else if(ngramType == Tokenizer.TRIGRAM)
             terms = new LinkedList<String>(doc.getTrigrams());
         for(String term : terms) {
             if(termOccrurenceDic.containsKey(term)) {

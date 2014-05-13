@@ -2,7 +2,6 @@ package parser;
 
 import Clustering.Document;
 import TFIDF.StopWordRemover;
-import com.google.cloud.bigquery.samples.BigQuerySender;
 import db.DBConnector;
 
 import java.io.BufferedReader;
@@ -24,7 +23,6 @@ public class Tokenizer {
     public static int UNIGRAM = 0;
     public static int BIGRAM = 1;
     public static int TRIGRAM = 2;
-    BigQuerySender bigquery;
     boolean useGoogleTrigram = false;
     DBConnector db;
 
@@ -32,10 +30,6 @@ public class Tokenizer {
 
     }
 
-    public Tokenizer(boolean useGoogleTrigram) {
-        if(useGoogleTrigram) bigquery = new BigQuerySender();
-        this.useGoogleTrigram = useGoogleTrigram;
-    }
 
     /**
      * takes String and convert it to a document with unigram/bigram/trigrams and term frequency information
@@ -71,7 +65,7 @@ public class Tokenizer {
                 if(wikiFiltering) unigrams = filterWikiAnchor(unigrams);
             }
             else if(ngram == Tokenizer.BIGRAM) {
-                unigrams = generateUnigrams(wordlist);
+      //          unigrams = generateUnigrams(wordlist);
                 bigrams = generateBigrams(wordlist);
                 if(wikiFiltering) {
                     unigrams = filterWikiAnchor(unigrams);
@@ -82,12 +76,14 @@ public class Tokenizer {
             else {
                 unigrams = generateUnigrams(wordlist);
                 bigrams = generateBigrams(wordlist);
-                trigrams = generateTrigrams(wordlist, this.useGoogleTrigram);
+                trigrams = generateTrigrams(wordlist);
                 if(wikiFiltering) {
                     unigrams = filterWikiAnchor(unigrams);
                     bigrams = filterWikiAnchor(bigrams);
                     trigrams = filterWikiAnchor(trigrams);
                 }
+                if(trigrams.size() == 0)
+                    System.out.println(docName);
 
             }
         }
@@ -138,9 +134,12 @@ public class Tokenizer {
      */
     private HashMap<String, String> readFiles(String dir) {
         HashMap<String, String> documentTextMap = new HashMap<String, String>();
+        Stemmer stemmer = new  Stemmer();
         File folder = new File(dir);
         for (final File fileEntry : folder.listFiles()) {
             try {
+                if(fileEntry.getName().contains(".ds_store")) continue;
+                if(fileEntry.isDirectory()) continue;
                 BufferedReader br = new BufferedReader(new FileReader(fileEntry));
                 StringBuilder sb = new StringBuilder();
                 String line = br.readLine();
@@ -152,7 +151,8 @@ public class Tokenizer {
                     line = br.readLine();
                 }
                 String text = sb.toString();
-                documentTextMap.put(fileEntry.getName().toLowerCase(), text);
+
+                documentTextMap.put(fileEntry.getName().toLowerCase(), stemmer.stemString(text));
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -213,14 +213,15 @@ public class Tokenizer {
      * @param wordlist
      * @return
      */
-    private LinkedList<String> generateTrigrams(ArrayList<String> wordlist, boolean useGoogleTrigram) {
+    private LinkedList<String> generateTrigrams(ArrayList<String> wordlist) {
         //    uncomment star-marked (*) lines if you want to generate *UPTO* trigrams in addition to unigrams (this line includes unigrams)
         //*     LinkedList<String> wordPool = new LinkedList<String>(wordlist);
+        LinkedList<String> termList = new LinkedList<String>();
+
         if(wordlist.size() < 3) {
             System.out.println("There is less than 3 words in the list; can't build trigrams");
-            return generateBigrams(wordlist);
+            return termList;
         }
-        LinkedList<String> termList = new LinkedList<String>();
         String bigram = wordlist.get(0) + " " + wordlist.get(1);
         //*    wordPool.add(bigram);
         int count = 0;
@@ -229,17 +230,7 @@ public class Tokenizer {
             prevBigram = bigram;
             bigram = wordlist.get(i-1) + " " + wordlist.get(i);
             trigram = prevBigram + " " + wordlist.get(i);
-           if(useGoogleTrigram) {
-                if(bigquery.googleContainsTrigram(trigram)) {
-                    termList.add(trigram);
-
-                }
-               System.out.println(count + ": " + trigram);
-               count++;
-
-            }
-            else
-               termList.add(trigram);
+            termList.add(trigram);
         }
             //*     wordPool.add(bigram);
         return termList;
@@ -280,7 +271,7 @@ public class Tokenizer {
         if(ngramType == Tokenizer.BIGRAM)
             return generateBigrams(unigramList);
         else if(ngramType == Tokenizer.TRIGRAM)
-            return generateTrigrams(unigramList, useGoogleTrigram);
+            return generateTrigrams(unigramList);
         else return null;
     }
 }

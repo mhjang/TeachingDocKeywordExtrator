@@ -1,17 +1,84 @@
 package NoiseRemoval;
 ;
 
+import NLP.DetectCodeComponent;
+
 import java.io.*;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by mhjang on 5/10/14.
  */
+
+
 public class NoiseRemoval {
-    public static void main(String[] args) {
-        NoisyRemoval nrm = new NoisyRemoval();
-        nrm.decodeClassification();
+    static Pattern numberPattern = Pattern.compile("^[a-zA-Z]*([0-9]+).*");
+    static Pattern puctPattern = Pattern.compile("[\\p{Punct}‘]");
+
+    public static void main(String[] args) throws IOException {
+        NoiseRemoval nrm = new NoiseRemoval();
+   //     nrm.decodeClassification();
+        nrm.heuristics();
     }
+
+    /**
+     * let's try removing noises using heursitics
+     */
+    public void heuristics() throws IOException {
+ //       File folder = new File("/Users/mhjang/Documents/SVMlight/Source/svm_light/result/");
+        String docDir = "/Users/mhjang/Documents/teaching_documents/extracted/stemmed/parsed/feature_tokens/";
+        String outputDir = "/Users/mhjang/Documents/teaching_documents/extracted/stemmed/parsed/noise_removed_h/";
+        File folder = new File(docDir);
+
+        DetectCodeComponent dcc = new DetectCodeComponent();
+        for (final File fileEntry : folder.listFiles()) {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(outputDir + fileEntry.getName()));
+            int notNoisyTokens = 0, noiseTokens = 0;
+            if (fileEntry.getName().contains(".DS_Store")) continue;
+            System.out.print(fileEntry.getName() + "\t");
+            BufferedReader br = new BufferedReader(new FileReader(fileEntry));
+            String line;
+            ArrayList<Boolean> noisyLabels = new ArrayList<Boolean>();
+            while ((line = br.readLine()) != null) {
+                line = line.trim();
+                if (dcc.isCodeLine(line)) {
+           //         System.out.println(line);
+                    noiseTokens += line.split(" ").length;
+                    continue;
+                } // remove
+                String[] tokens = line.split(" ");
+                for (int i = 0; i < tokens.length; i++) {
+                    tokens[i] = tokens[i].trim();
+                    Matcher m1 = numberPattern.matcher(tokens[i]);
+                    if (m1.find()) {
+                 //       System.out.print(tokens[i] + " ");
+                        noiseTokens++;
+                        continue;
+                    }
+                    Matcher m2 = puctPattern.matcher(tokens[i]);
+                    if (m2.find()) {
+               //         System.out.print(tokens[i] + " ");
+                        noiseTokens++;
+                        continue;
+                    }
+
+                    if (tokens[i].length() == 1) {
+               //         System.out.print(tokens[i] + " ");
+                        noiseTokens++;
+                        continue;
+                    }
+                    bw.write(tokens[i] + " ");
+                    notNoisyTokens++;
+                }
+                bw.write("\n");
+            }
+            System.out.println(noiseTokens + "\t" + notNoisyTokens + "\t" + (double)(noiseTokens)/(double)(noiseTokens + notNoisyTokens));
+        }
+    }
+
 
     public void decodeClassification() {
         try {
@@ -21,7 +88,7 @@ public class NoiseRemoval {
             for (final File fileEntry : folder.listFiles()) {
                 int notNoisyTokens = 0, noisyTokens = 0;
                 if(fileEntry.getName().contains(".DS_Store")) continue;
-                System.out.println(fileEntry.getName());
+                System.out.print(fileEntry.getName() + "\t");
                 BufferedReader br = new BufferedReader(new FileReader(fileEntry));
                 String line;
                 ArrayList<Boolean> noisyLabels = new ArrayList<Boolean>();
@@ -44,12 +111,12 @@ public class NoiseRemoval {
                                 notNoisyTokens++;
                             }
                             else {
-                                System.out.print(tokens[i] + " ");
+                            //    System.out.print(tokens[i] + " ");
                                 noisyTokens++;
                             }
                         }
                         bw.write("\n");
-                        //       System.out.println();
+                    //          System.out.println();
                     }
                     bw.close();
                     System.out.println((double)(noisyTokens) / (double)(notNoisyTokens + noisyTokens));

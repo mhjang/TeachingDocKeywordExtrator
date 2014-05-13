@@ -12,10 +12,6 @@ import java.util.*;
  * Created by mhjang on 1/21/14.
  */
 public class TFIDFCalculator {
-    public static int UNIGRAM = 1;
-    public static int BIGRAM = 2;
-    public static int TRIGRAM = 3;
-
     public static int BINARYTFIDF = 0;
     public static int LOGTFIDF = 1;
     public static int AUGMENTEDTFIDF = 2;
@@ -40,14 +36,18 @@ public class TFIDFCalculator {
      * @return a collection of document set with tokenized n-grams and term frequency
      */
     public DocumentCollection getDocumentCollection(String dir, int ngram, boolean wikifiltering) throws IOException {
-        Tokenizer tokenizer = new Tokenizer(false);
+        Tokenizer tokenizer = new Tokenizer();
         documentSet = tokenizer.tokenize(dir, wikifiltering, ngram);
         return calculateTFIDF(TFIDFCalculator.LOGTFIDF);
     }
 
 
-
-
+    /**
+     * compute TFIDF score of the terms in a given doc (1st arg) given the document collection distribution (2nd arg)
+     * @param doc
+     * @param dc
+     * @param TFIDFOption
+     */
     public static void calculateTFIDFGivenCollection(Document doc, DocumentCollection dc, int TFIDFOption) {
         calculateTFIDFGivenDistribution(TFIDFOption, dc.getglobalTermCountMap(), doc, dc.getBinaryTermFreqInDoc(), false);
     }
@@ -88,12 +88,10 @@ public class TFIDFCalculator {
             }
         }
 
-  //     filterInfrequentTerms(2, Tokenizer.TRIGRAM);
 
         /**************************************************
          *               Calculating TF * IDF
          **************************************************/
-      //  System.out.println("document set size = " + documentSet.size());
         if(this.useGoogleNGram) {
              ngReader = new NGramReader();
         }
@@ -128,11 +126,9 @@ public class TFIDFCalculator {
                 }
                 else {
                     idf = Math.log(ngReader.termCollectionProbability(term));
-      //              System.out.println("idf= " + idf);
                 }
                 double tfidf = tf * idf;
                 termTFIDFMap.put(term, tfidf);
-            //    System.out.println(docName + "\t" + term + "\t" + (termFreqMap.get(term)+1) + "\t" + tf + "\t" + binaryTermFreqInDoc.get(term) + "\t" + idf + "\t" + tfidf);
             }
             doc.setTermTFIDF(termTFIDFMap);
         }

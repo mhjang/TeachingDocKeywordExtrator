@@ -59,7 +59,7 @@ public class NGramReader {
         }
         if(data != null) {
             String count = Utility.toString(data);
-            double v =  total.doubleValue() * 100 / (Double.parseDouble(count));
+            double v =  total.doubleValue() / (Double.parseDouble(count));
             return v;
         }
         else {
