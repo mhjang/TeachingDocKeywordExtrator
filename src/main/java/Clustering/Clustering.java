@@ -1,5 +1,6 @@
 package Clustering;
 
+import Clustering.KMeans.KMeansClustering;
 import LanguageModeling.LanguageModeling;
 import QueryExpansion.QueryExpander;
 import Similarity.CosineSimilarity;
@@ -26,7 +27,7 @@ public class Clustering {
         File file = new File("log.txt");
         FileOutputStream fos = new FileOutputStream(file);
         PrintStream ps = new PrintStream(fos);
-         //     System.setOut(ps);
+        //     System.setOut(ps);
 
         /***
          * Setting the parameters
@@ -39,11 +40,11 @@ public class Clustering {
         double[] alpha = {0.1, 0.2, 0.3, 0.4};
         double beta = 0.5;
 
-        Clustering clustering = new Clustering();
         // parameter: whether to use Google N-gram
-        TFIDFCalculator tfidf = new TFIDFCalculator(true);
+        TFIDFCalculator tfidf = new TFIDFCalculator(false);
 
-        DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/extracted/stemmed/parsed/feature_tokens", Tokenizer.TRIGRAM, false);
+        DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/extracted/stemmed/parsed/feature_tokens", Tokenizer.UNIGRAM, false);
+ //       DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/extracted/stemmed/parsed/noise_removed", Tokenizer.TRIGRAM, false);
 
         System.out.println("Documents features ready");
         HashMap<String, Document> documentMap = dc.getDocumentSet();
@@ -55,16 +56,18 @@ public class Clustering {
          * by default, k = 50
          * NOTE that this method NULLIFIES bigrams and trigrams.
          */
-            LanguageModeling lm = new LanguageModeling(dc, 30, 0.7, 0.2);
-            lm.run();
+    //    LanguageModeling lm = new LanguageModeling(dc, 30, 0.7, 0.2);
+    //    lm.run();
         //  lm.selectHighTFTerms();
         //  lm.TFIDFBaselineRun();
 
-            clustering.dc = dc;
-         /**
-          * cleaning the document terms by dropping a bunch of infrequent bigrams and trigrams
-          * If NullPointException occurs, that's probably because above language modeling methods nullfied bigrams and trigrams
-          */
+ //      Clustering clustering = new Clustering();
+ //      clustering.dc = dc;
+
+        /**
+         * cleaning the document terms by dropping a bunch of infrequent bigrams and trigrams
+         * If NullPointException occurs, that's probably because above language modeling methods nullfied bigrams and trigrams
+         */
         //  clustering.documentTermCleansing(documentMap);
 
         /**
@@ -83,21 +86,21 @@ public class Clustering {
             clustering.documentFirstKTerms = firstKWords;
         */
 
-       //   String[] topics = {"list and array representation", "graph traverse", "sorting algorithm"};
-       // added this, because when topic names are long.. it's hard to recognize the cluster and the gold standard cluster name when parsing
-       // It's simpler if I use a separate label index by line
-            Integer clusterLabelIndex = 0;
-            HashMap<String, Integer> clusterLabelMap = new HashMap<String, Integer>();
-            // reading a topic file
-            BufferedReader br = new BufferedReader(new FileReader(new File("./topics_resource/topics_v2_stemmed")));
-            ArrayList<String> topiclist = new ArrayList<String>();
-            String line = null;
-            while ((line = br.readLine()) != null) {
-                topiclist.add(line);
-                clusterLabelMap.put(line, clusterLabelIndex++);
-            }
-            clusterLabelMap.put("dummy", clusterLabelIndex);
-            topiclist.add("dummy");
+        //   String[] topics = {"list and array representation", "graph traverse", "sorting algorithm"};
+        // added this, because when topic names are long.. it's hard to recognize the cluster and the gold standard cluster name when parsing
+        // It's simpler if I use a separate label index by line
+        Integer clusterLabelIndex = 0;
+        HashMap<String, Integer> clusterLabelMap = new HashMap<String, Integer>();
+        // reading a topic file
+        BufferedReader br = new BufferedReader(new FileReader(new File("./topics_resource/topics_v2_stemmed")));
+        ArrayList<String> topiclist = new ArrayList<String>();
+        String line = null;
+        while ((line = br.readLine()) != null) {
+            topiclist.add(line);
+            clusterLabelMap.put(line, clusterLabelIndex++);
+        }
+        clusterLabelMap.put("dummy", clusterLabelIndex);
+        topiclist.add("dummy");
 
     /*    double[] thresholdSettings = {0.03, 0.07};
         for(int i=0; i<7; i++) {
@@ -106,17 +109,29 @@ public class Clustering {
             ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "/Users/mhjang/Documents/teaching_documents/evaluation/01.csv");
         }
 */
-            HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdate(documentMap, topiclist, infrequentTermThreshold, clusteringThreshold);
+        KMeansClustering kmeans = new KMeansClustering(topiclist, dc);
+        kmeans.clusterRun(10, 0.1);
+    }
+
+    /*        HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdate(documentMap, topiclist, infrequentTermThreshold, clusteringThreshold);
             //  HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdateDuplicate(documentMap, topiclist, 0, 0.05);
 
             ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "./annotation/goldstandard_v2.csv", dc);
-            cfm.getAccuracy();
+            cfm.computeAccuracy();
+            HashMap<String, LinkedList<String>> clustersInGold = cfm.compAccuracyOnlyItemsInGold();
+            clustering.printCluster(clustersInGold, topiclist);
+
        //     cfm.analyzeCodeRemovedPerCluster(topiclist);
 
        //   HashMap<String, LinkedList<String>> clusters= clustering.naiveAssignmentFirstRandomAssign(documentMap, topiclist);
 
         }
   //  }
+
+    */
+    public Clustering(DocumentCollection dc) {
+        this.dc = dc;
+    }
     /**
      * Written 2/17/2014 8:34 PM
      *
@@ -166,6 +181,7 @@ public class Clustering {
 
 
 
+
     /**
      *
      * @param documentMap
@@ -175,7 +191,7 @@ public class Clustering {
     public HashMap<String, LinkedList<String>> naiveAssignmentFirstRandomAssign(HashMap<String, Document> documentMap, ArrayList<String> topics) {
 
         try {
-            AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(documentMap, topics);
+            AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(topics);
             HashMap<String, LinkedList<String>> clusters = entry.getKey();
             HashMap<String, Document> clusterFeatureMap = entry.getValue();
 
@@ -237,15 +253,15 @@ public class Clustering {
      *@param termFilterThreshold @throws java.io.IOException
      */
     public HashMap<String, LinkedList<String>> naiveAssignmentLazyUpdate(HashMap<String, Document> documentMap, ArrayList<String> topics, int termFilterThreshold, double clusterThreshold) throws IOException {
-        AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(documentMap, topics);
+        AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(topics);
         HashMap<String, LinkedList<String>> clusters = entry.getKey();
         HashMap<String, Document> clusterFeatureMap = entry.getValue();
 
         /***
          * Query Expansion
          */
- //       QueryExpander qe = new QueryExpander(dc);
-//        qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", dc.getglobalTermCountMap(), termFilterThreshold);
+   //     QueryExpander qe = new QueryExpander(dc);
+    //    qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "/Users/mhjang/Documents/workspace/TeachingTest/wikiexpansion_resource/ver2/html", dc.getglobalTermCountMap(), termFilterThreshold);
    //    qe.expandTopicQueriesWithFirstKTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", documentFirstKTerms);
 
         /****
@@ -302,7 +318,7 @@ public class Clustering {
             if(dummyCluster.isEmpty()) finished = true;
    //         System.out.println("# of dummy Docs: " + numOfDummyDocs +", # of documents moved: " + numOfDocMoved);
         }
-        printCluster(clusters, topics);
+   //     printCluster(clusters, topics);
         return clusters;
    }
 
@@ -319,15 +335,15 @@ public class Clustering {
      *@param termFilterThreshold @throws java.io.IOException
      */
     public HashMap<String, LinkedList<String>> naiveAssignmentLazyUpdateDuplicate(HashMap<String, Document> documentMap, ArrayList<String> topics, int termFilterThreshold, double clusterThreshold) throws IOException {
-        AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(documentMap, topics);
+        AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(topics);
         HashMap<String, LinkedList<String>> clusters = entry.getKey();
         HashMap<String, Document> clusterFeatureMap = entry.getValue();
 
         /***
          * Query Expansion
          */
-        QueryExpander qe = new QueryExpander(dc);
-        qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", dc.getglobalTermCountMap(), termFilterThreshold);
+  //      QueryExpander qe = new QueryExpander(dc);
+  //      qe.expandTopicQueriesWithFrequentTerms(clusterFeatureMap, "./wikiexpansion_resource/ver2/html", dc.getglobalTermCountMap(), termFilterThreshold);
 
         /****
          * clustering
@@ -384,7 +400,7 @@ public class Clustering {
 
     public void naiveAssignmentSortByPurity(HashMap<String, Document> documentMap, ArrayList<String> topics) throws IOException {
 
-        AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(documentMap, topics);
+        AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(topics);
         HashMap<String, LinkedList<String>> clusters = entry.getKey();
         HashMap<String, Document> clusterFeatureMap = entry.getValue();
 
@@ -401,10 +417,11 @@ public class Clustering {
     }
 
 
-    private void printCluster(HashMap<String, LinkedList<String>> clusters, ArrayList<String> topics) {
+    public void printCluster(HashMap<String, LinkedList<String>> clusters, ArrayList<String> topics) {
         for(String topic : topics) {
             LinkedList<String> cluster = clusters.get(topic);
             System.out.println(topic + ":" + cluster.toString());
+            System.out.println();
         }
         System.out.println(clusters.get(DUMMY).toString());
     }
@@ -413,13 +430,11 @@ public class Clustering {
     /**
      * 2014/2/2 3:05 pm
      * Made a separate method for this. Let's try not to duplicate any code component..
-     * it'll get crazy when you try to modify the same thing over the multiple duplicate code components!
-     * @param documentMap
      * @param topics
      * @return
      * @throws java.io.IOException
      */
-    private Map.Entry<HashMap<String, LinkedList<String>>, HashMap<String, Document>> convertTopicToDocument(HashMap<String, Document> documentMap, ArrayList<String> topics) throws IOException {
+    public Map.Entry<HashMap<String, LinkedList<String>>, HashMap<String, Document>> convertTopicToDocument(ArrayList<String> topics) throws IOException {
         // initializing the cluster dictionary
         HashMap<String, LinkedList<String>> clusters = initializeTopicCluster(topics);
         /***
@@ -450,9 +465,9 @@ public class Clustering {
             Document topicDoc = new Document(topicTokens);
             topicDoc.setTermFrequency(topicTokensFreq);
             TFIDFCalculator.calculateTFIDFGivenCollection(topicDoc, dc, TFIDFCalculator.LOGTFIDF);
- //           for(String t : topicDoc.termTFIDFMap.keySet()) {
-  //              System.out.print(t + ": " + topicDoc.getTFIDF(t));
-   //         }
+   //         for(String t : topicDoc.termTFIDFMap.keySet()) {
+   //             System.out.print(t + ": " + topicDoc.getTFIDF(t));
+    //        }
    //         System.out.println();
             clusterFeatureMap.put(topic, topicDoc);
         }

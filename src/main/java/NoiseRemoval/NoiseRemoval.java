@@ -20,8 +20,8 @@ public class NoiseRemoval {
 
     public static void main(String[] args) throws IOException {
         NoiseRemoval nrm = new NoiseRemoval();
-   //     nrm.decodeClassification();
-        nrm.heuristics();
+        nrm.decodeClassification();
+   //     nrm.heuristics();
     }
 
     /**
@@ -70,11 +70,16 @@ public class NoiseRemoval {
                         noiseTokens++;
                         continue;
                     }
+                    if (tokens[i].contains("ln") || tokens[i].contains("log") || tokens[i].contains("lg")) {
+                        noiseTokens++;
+                        continue;
+                    }
                     bw.write(tokens[i] + " ");
                     notNoisyTokens++;
                 }
                 bw.write("\n");
             }
+            bw.close();
             System.out.println(noiseTokens + "\t" + notNoisyTokens + "\t" + (double)(noiseTokens)/(double)(noiseTokens + notNoisyTokens));
         }
     }

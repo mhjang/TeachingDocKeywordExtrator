@@ -31,15 +31,16 @@ public class TermExtractor {
     public static void main(String[] args) throws IOException {
 
         PrintStream console = System.out;
-        File file = new File("table_code_rm.html");
+        File file = new File("noise_removed_classifier.html");
         FileOutputStream fos = new FileOutputStream(file);
         PrintStream ps = new PrintStream(fos);
         System.setOut(ps);
         attachInstruction();
         String[] colors = {"yellow", "Coral", "orange", "DarkSalmon", "DarkTurquoise", "GreenYellow", "lime", "teal", "Pink", "Salmon", "SlateBlue", "Skyblue", "RoyalBlue", "Violet", "Tomato"};
-        HashMap<Integer, LinkedList<String>> goldSet = ClusteringFMeasure.readGoldstandard("./annotation/goldstandard_v2.csv");
+        ClusteringFMeasure cfm = new ClusteringFMeasure();
+        HashMap<Integer, LinkedList<String>> goldSet = cfm.readGoldstandard("./annotation/goldstandard_v2.csv");
         TFIDFCalculator tfidf = new TFIDFCalculator(true);
-        DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/coderm", Tokenizer.UNIGRAM, false);
+        DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/extracted/stemmed/parsed/noise_removed", Tokenizer.UNIGRAM, false);
         ngReader = new NGramReader();
 
     //    LanguageModeling lm = new LanguageModeling(dc, 10, 0.7, 0.2);
@@ -81,7 +82,7 @@ public class TermExtractor {
                 Document relevantDoc = dc.getDocument(docName);
                 if(relevantDoc != null) {
                //     LinkedList<String> topRankedTerms = relevantDoc.getTopTermsTF2(10);
-                    LinkedList<Map.Entry<String, Double>> topRankedTerms = relevantDoc.getTopTermsTFIDF(10);
+                    LinkedList<Map.Entry<String, Double>> topRankedTerms = relevantDoc.getTopTermsTFIDF(20);
                     generateHTMLTable(relevantDoc.getName(), topRankedTerms, colors[colorIdx]);
                //     generateHTMLTableFirstTopK(relevantDoc, topRankedTerms, colors[colorIdx]);
                 }

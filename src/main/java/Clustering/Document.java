@@ -10,15 +10,15 @@ import java.util.*;
  * Created by mhjang on 1/31/14.
  */
 public class Document {
-    private LinkedList<String> unigrams;
-    private LinkedList<String> bigrams;
-    private LinkedList<String> trigrams;
+    public LinkedList<String> unigrams;
+    public LinkedList<String> bigrams;
+    public LinkedList<String> trigrams;
     public static int UNIGRAM = 0;
     public static int BIGRAM = 1;
     public static int TRIGRAM = 2;
     private String docName;
     HashMap<String, Integer> termFrequency = null;
-    HashMap<String, Double> termTFIDFMap = new HashMap<String, Double>();
+    public HashMap<String, Double> termTFIDFMap = new HashMap<String, Double>();
     LinkedList<ArrayList<String>> corpusByLine;
     LinkedList<String> corpus = new LinkedList<String>();
     private HashMap<String, Double> languageModelProb = new HashMap<String, Double>();
@@ -44,6 +44,9 @@ public class Document {
     }
 
 
+    public HashMap<String, Double> getTFIDFMap() {
+        return termTFIDFMap;
+    }
 
     /**
      * I preserved the original sequence of words separated by lines,
@@ -215,6 +218,7 @@ public class Document {
         if(termTFIDFMap.containsKey(term)) return termTFIDFMap.get(term);
         else return 0.0;
     }
+
 
     /**
      * added 2/17/2014 3:08 am

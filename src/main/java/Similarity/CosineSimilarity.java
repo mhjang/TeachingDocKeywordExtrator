@@ -69,7 +69,7 @@ public class CosineSimilarity extends TestCase {
 */
 
         // similarity calculatin between two vectors
-        int sum = 0, sizeOfV1 = 0, sizeOfV2 = 0;
+        double sum = 0.0, sizeOfV1 = 0.0, sizeOfV2 = 0.0;
         for(int i=0; i<vecLen; i++) {
             sum += v1[i] * v2[i];
             sizeOfV1 += v1[i] * v1[i];

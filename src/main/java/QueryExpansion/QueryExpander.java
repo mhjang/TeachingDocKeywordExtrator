@@ -133,6 +133,7 @@ public class QueryExpander {
         Stemmer stemmer = new Stemmer();
         int numOfExpandedTerms = 0;
         for(File file: listOfFiles) {
+            System.out.println(file.getPath());
             String parsedText = wikiparser.parse(file.getPath());
             parsedText = stemmer.stemString(parsedText);
             String topicName = file.getName().substring(0, file.getName().length()-5);

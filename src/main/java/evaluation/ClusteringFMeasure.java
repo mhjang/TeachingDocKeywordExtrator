@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.HashSet;
 
 /**
  * Created by mhjang on 2/7/14.
@@ -17,6 +18,7 @@ public class ClusteringFMeasure {
     HashMap<String, LinkedList<String>> clusters;
     HashMap<String, Integer> clusterLabelMap;
     HashMap<Integer, LinkedList<String>> goldClusters;
+    HashSet<String> goldpool = new HashSet<String>();
     ArrayList<String> topiclist;
     DocumentCollection dc;
 
@@ -28,12 +30,13 @@ public class ClusteringFMeasure {
         this.dc = dc;
     }
 
-    public void getAccuracy() {
-        computeAccuracy(topiclist);
+    public ClusteringFMeasure() {
 
     }
+
+
     // read goldstandard
-    public static HashMap<Integer, LinkedList<String>> readGoldstandard(String goldDir) {
+    public  HashMap<Integer, LinkedList<String>> readGoldstandard(String goldDir) {
         HashMap<Integer, LinkedList<String>> goldstandard = null;
         Integer clusterID = 0;
         try{
@@ -46,6 +49,7 @@ public class ClusteringFMeasure {
                 for(int i=0; i<elements.length; i++) {
                     if(elements[i].length() >0) {
                         documents.add(elements[i]);
+                        goldpool.add(elements[i]);
         //                System.out.print(elements[i] + "\t");
                     }
                 }
@@ -62,8 +66,8 @@ public class ClusteringFMeasure {
     /**
      * to see how many lines of codes were affected in each cluster
      */
-    public void analyzeCodeRemovedPerCluster(ArrayList<String> topicList) throws FileNotFoundException {
-        for (String clusterName : topicList) {
+    public void analyzeCodeRemovedPerCluster() throws FileNotFoundException {
+        for (String clusterName : topiclist) {
             LinkedList<String> goldCluster = goldClusters.get(clusterLabelMap.get(clusterName));
             int count = 0, otherlines = 0;
             for (String element : goldCluster) {
@@ -89,9 +93,28 @@ public class ClusteringFMeasure {
         }
     }
 
-    private void computeAccuracy(ArrayList<String> topicList) {
+    /**
+     * compute accuracy only the items that are present in gold standard
+     * filter out the clustering result by removing the ones not in gold standard, and call computeAccuracy
+     *
+     */
+    public HashMap<String, LinkedList<String>> compAccuracyOnlyItemsInGold() {
+        System.out.println("Accuracy in Gold Standard");
+        for(String clusterName : topiclist) {
+            LinkedList<String> cluster = clusters.get(clusterName);
+            LinkedList<String> newCluster = new LinkedList<String>();
+            for (String d : cluster) {
+                if (goldpool.contains(d))
+                    newCluster.add(d);
+            }
+            clusters.put(clusterName, newCluster);
+        }
+        computeAccuracy();
+        return clusters;
+    }
+    public void computeAccuracy() {
         double avgPrecision = 0.0, avgRecall = 0.0;
-        for(String clusterName : topicList) {
+        for(String clusterName : topiclist) {
             LinkedList<String> goldCluster = goldClusters.get(clusterLabelMap.get(clusterName));
             LinkedList<String> cluster = clusters.get(clusterName);
             /***
@@ -121,7 +144,7 @@ public class ClusteringFMeasure {
             fMeasure = (2 * precision * recall) / (precision + recall);
             System.out.println(clusterName + "\t" + precision + "\t" + recall + "\t" + fMeasure);
         }
-        double length = (double)topicList.size()-1;
+        double length = (double)topiclist.size()-1;
         avgPrecision /= length;
         avgRecall /= length;
         System.out.println("Avg Precision: " + avgPrecision+ "\t Avg Recall: " + avgRecall + "\t Avg F-measure:" + (2*avgPrecision*avgRecall)/(avgPrecision + avgRecall));
