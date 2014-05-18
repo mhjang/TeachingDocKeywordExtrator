@@ -19,6 +19,11 @@ public class KMeansClustering extends Clustering{
         this.dc = dc;
     }
 
+    /**
+     * initialize centroid with the given topic label vectors
+     * @return
+     * @throws IOException
+     */
     public CentroidDocument[] initCentroid() throws IOException {
         AbstractMap.SimpleEntry<HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(topiclist);
         CentroidDocument[] centroids = new CentroidDocument[(entry.getValue().size())];
@@ -43,6 +48,7 @@ public class KMeansClustering extends Clustering{
             for(int i = 0; i<centroids.length; i++) {
                 clusterAssignments.add(new LinkedList<Document>());
             }
+            // assign a document to each cluster that has the highest cosine similarity
             for (Document d : collection) {
                 double maxScore = 0.0;
                 int bestClusterIdx = -1;
@@ -56,6 +62,7 @@ public class KMeansClustering extends Clustering{
                 }
                 if(bestClusterIdx > 0) clusterAssignments.get(bestClusterIdx).add(d);
             }
+            // update the centroid vector values by the means of the assigned documents
             for (int i = 0; i < centroids.length; i++) {
                 CentroidDocument centroid = centroids[i];
                 System.out.println("cluster: " + clusterAssignments.get(i).size());
@@ -73,18 +80,20 @@ public class KMeansClustering extends Clustering{
                 curRSS += computeRSS(clusterAssignments.get(i));
             }
             System.out.println("RSS : " + curRSS);
-            if (Math.abs(curRSS - prevRSS) < rssThreshold) break;
+            if (Math.abs(curRSS / prevRSS) < rssThreshold) break;
+        for(int i=0; i< centroids.length; i++) {
+                System.out.print(topiclist.get(i) + ": \t");
+                LinkedList<Document> cluster = clusterAssignments.get(i);
+                for (Document d : cluster) {
+                    System.out.print(d.getName() + "\t");
+                }
+                System.out.println();
+            }
         }
         /**
          * print the clusters
          */
-        for(int i=0; i< centroids.length; i++) {
-            System.out.print(topiclist.get(i) + "\t");
-            LinkedList<Document> cluster = clusterAssignments.get(i);
-            for (Document d : cluster) {
-                System.out.println(d.getName() + "\t");
-            }
-        }
+
     }
 
 

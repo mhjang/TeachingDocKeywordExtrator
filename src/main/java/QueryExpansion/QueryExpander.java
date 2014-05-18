@@ -2,7 +2,7 @@ package QueryExpansion;
 
 import Clustering.Document;
 import Clustering.DocumentCollection;
-import TFIDF.TFIDFCalculator;
+import TermScoring.TFIDF.TFIDFCalculator;
 import parser.Stemmer;
 import parser.Tokenizer;
 import parser.WikiParser;

@@ -1,6 +1,6 @@
 package test;
 
-import TFIDF.StopWordRemover;
+import parser.StopWordRemover;
 import junit.framework.TestCase;
 
 import java.util.LinkedList;

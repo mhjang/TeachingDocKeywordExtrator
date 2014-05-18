@@ -33,7 +33,9 @@ public class DocumentCollection {
         }
         System.out.println("Unigram Stats: " + (double)(sum)/(double)(documentSet.size()));
     }
-
+    public int getCollectionSize() {
+        return documentSet.size();
+    }
     public HashMap<String, Double> getWordProbablity() {
         HashMap<String, Double> wordProb = new HashMap<String, Double>();
         int wordCountSum = 0;

@@ -1,7 +1,6 @@
 package parser;
 
 import Clustering.Document;
-import TFIDF.StopWordRemover;
 import db.DBConnector;
 
 import java.io.BufferedReader;

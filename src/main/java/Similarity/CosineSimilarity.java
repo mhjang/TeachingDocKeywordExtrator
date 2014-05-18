@@ -21,7 +21,7 @@ public class CosineSimilarity extends TestCase {
      * @return
      */
     public static double CosineSimilarity(Document d1, Document d2) {
-        double similarity = CosineSimilarity.CosineSimilarity(d1.getAllGrams(), d2.getAllGrams(), d1.getTermFrequency(), d2.getTermFrequency());
+        double similarity = CosineSimilarity.CosineSimilarity(d1.getAllGrams(), d2.getAllGrams(), d1.getTermFrequencyMap(), d2.getTermFrequencyMap());
         return similarity;
 
     }

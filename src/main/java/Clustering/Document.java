@@ -219,7 +219,6 @@ public class Document {
         else return 0.0;
     }
 
-
     /**
      * added 2/17/2014 3:08 am
      * @param k
@@ -257,7 +256,14 @@ public class Document {
         }
         return finalList;
      }
-    public HashMap<String, Integer> getTermFrequency() {
+
+    public int getTermFrequency(String term) {
+        if(termFrequency.containsKey(term))
+            return termFrequency.get(term);
+        else
+            return 0;
+    }
+    public HashMap<String, Integer> getTermFrequencyMap() {
         return termFrequency;
     }
     public void mergeDocument(Document d) {

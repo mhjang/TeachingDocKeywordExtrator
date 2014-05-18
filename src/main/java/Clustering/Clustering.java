@@ -1,12 +1,9 @@
 package Clustering;
 
 import Clustering.KMeans.KMeansClustering;
-import LanguageModeling.LanguageModeling;
-import QueryExpansion.QueryExpander;
 import Similarity.CosineSimilarity;
-import TFIDF.StopWordRemover;
-import TFIDF.TFIDFCalculator;
-import evaluation.ClusteringFMeasure;
+import parser.StopWordRemover;
+import TermScoring.TFIDF.TFIDFCalculator;
 import org.lemurproject.galago.core.parse.stem.KrovetzStemmer;
 import parser.Tokenizer;
 
@@ -42,8 +39,8 @@ public class Clustering {
 
         // parameter: whether to use Google N-gram
         TFIDFCalculator tfidf = new TFIDFCalculator(false);
-
-        DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/extracted/stemmed/parsed/feature_tokens", Tokenizer.UNIGRAM, false);
+        tfidf.calulateTFIDF(TFIDFCalculator.LOGTFIDF, "/Users/mhjang/Documents/teaching_documents/extracted/stemmed/parsed/feature_tokens", Tokenizer.UNIGRAM, false);
+         DocumentCollection dc = tfidf.getDocumentCollection();
  //       DocumentCollection dc = tfidf.getDocumentCollection("/Users/mhjang/Documents/teaching_documents/extracted/stemmed/parsed/noise_removed", Tokenizer.TRIGRAM, false);
 
         System.out.println("Documents features ready");

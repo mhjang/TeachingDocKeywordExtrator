@@ -2,7 +2,7 @@ package test;
 
 import Clustering.Document;
 import Clustering.DocumentCollection;
-import TFIDF.TFIDFCalculator;
+import TermScoring.TFIDF.TFIDFCalculator;
 import junit.framework.TestCase;
 import parser.Tokenizer;
 
@@ -82,7 +82,7 @@ public class TFIDFTest extends TestCase {
             Document d = dc.getDocument(docName);
             LinkedList<Map.Entry<String, Integer>> tfidfMap = d.getTopTermsTF(10);
             for (Map.Entry<String, Integer> entry : tfidfMap) {
-                assertEquals(Math.log(d.getTermFrequency(entry.getKey()) + 1) * Math.log((double)dc.getCollectionSize()/(double)globaltermBinaryMap.get(entry.getKey())), d.getTFIDF(entry.getKey()));
+                assertEquals(Math.log(d.getTermFrequency(entry.getKey()) + 1) * Math.log((double) dc.getCollectionSize() / (double) globaltermBinaryMap.get(entry.getKey())), d.getTFIDF(entry.getKey()));
             }
         }
     }

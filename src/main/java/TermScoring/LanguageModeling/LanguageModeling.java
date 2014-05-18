@@ -1,8 +1,7 @@
-package LanguageModeling;
+package TermScoring.LanguageModeling;
 
 import Clustering.Document;
 import Clustering.DocumentCollection;
-import TFIDF.TFIDFCalculator;
 import indexing.NGramReader;
 
 import java.io.File;
@@ -106,7 +105,7 @@ public class LanguageModeling {
             if(debugMode) System.out.println(docName);
             Document doc = docSet.get(docName.toLowerCase());
 
-            HashMap<String, Integer> wordFreq = doc.getTermFrequency();
+            HashMap<String, Integer> wordFreq = doc.getTermFrequencyMap();
             int D = doc.getWordCountSum();
             LinkedList<String> corpus = doc.getCorpus();
             int len = corpus.size();
