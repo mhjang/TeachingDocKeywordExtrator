@@ -5,7 +5,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-/////����Ƽ�...
+/**
+ * I am just sick and tired of writing unncessarily long-winded codes for simple I/O task
+ * so here comes my simple file reader!
+ */
 public class SimpleFileReader {
 	String line;
 	BufferedReader br; 
