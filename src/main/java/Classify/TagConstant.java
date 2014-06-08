@@ -32,5 +32,32 @@ public class TagConstant {
     static String equCloseTag = "</EQUATION>";
     static String miscCloseTag = "</MISCELLANEOUS>";
 
+    static String tableIntTag = "<TABLE-I>";
+    static String codeIntTag = "<CODE-I>";
+    static String equIntTag = "<EQUATION-I>";
+    static String miscIntTag = "<MISCELLANEOUS-I>";
+
+    /**
+     * for printing out test output
+     * @param tagIdx
+     * @return
+     */
+    static String getTagLabel(int tagIdx) {
+        if(tagIdx == BEGINTABLE) return tableTag;
+        if(tagIdx == INTTABLE) return tableIntTag;
+        if(tagIdx == ENDTABLE) return tableCloseTag;
+        if(tagIdx == BEGINCODE) return codeTag;
+        if(tagIdx == INTCODE) return codeIntTag;
+        if(tagIdx == ENDCODE) return codeCloseTag;
+        if(tagIdx == BEGINEQU) return equTag;
+        if(tagIdx == INTEQU) return equIntTag;
+        if(tagIdx == ENDEQU) return equCloseTag;
+        if(tagIdx == BEGINMISC) return miscTag;
+        if(tagIdx == INTMISC) return miscIntTag;
+        if(tagIdx == ENDMISC) return miscCloseTag;
+        else return "TEXT";
+
+    }
+
 
 }

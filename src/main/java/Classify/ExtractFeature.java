@@ -45,7 +45,7 @@ public class ExtractFeature {
         public int begin, intermediate, end;
         public Component(int begin, int intermidiate, int end) {
             this.begin = begin;
-            this.intermediate = intermediate;
+            this.intermediate = intermidiate;
             this.end = end;
         }
     }
@@ -119,15 +119,13 @@ public class ExtractFeature {
         problem.y = Arrays.copyOfRange(ef.answers, 0, allFeatures.size());
         problem.l = allFeatures.size();
 
-        double numOfNoises = 0.0;
-        for(int i = 0; i < ef.answers.length; i++) {
-            numOfNoises += ef.answers[i];
-        }
 
-        System.out.println("average length of noises : " + (double)ef.averageNoiseTokenLength / (double)numOfNoises);
+
+      /*  System.out.println("average length of noises : " + (double)ef.averageNoiseTokenLength / (double)numOfNoises);
         System.out.println("average length of X noises : " + (double)ef.averageNotNoiseTokenLength / ((double)ef.allFeatures.size()- numOfNoises));
         System.out.println("# of Noises: " + numOfNoises);
         System.out.println("# of X Noises: " + ((double)ef.allFeatures.size() - numOfNoises));
+        */
 
         SolverType solver = SolverType.L2R_LR; // -s 0
         double C = 1.0;    // cost of constraints violation
@@ -140,11 +138,25 @@ public class ExtractFeature {
         Linear.crossValidation(problem, param, nr_fold, target);
 
 
-        double error = 0.0;
+        int error = 0;
+        HashMap<Integer, Integer> classLabelCount = new HashMap<Integer, Integer>();
         for (int i = 0; i < target.length; i++) {
-            error += Math.abs(problem.y[i] - target[i]);
+            System.out.println("predicted label: " + target[i] + " answer: " + problem.y[i]);
+            if((int)problem.y[i] != 0) error++;
+            if(classLabelCount.containsKey((int)problem.y[i])) {
+                int c = classLabelCount.get((int)problem.y[i]);
+                classLabelCount.put((int) problem.y[i], c + 1);
+            }
+            else
+                classLabelCount.put((int) problem.y[i], 1);
+
         }
-        System.out.println("error : " + error / (double) target.length);
+        for(int i=0; i<13; i++) {
+            System.out.println(TagConstant.getTagLabel(i) + ":" + classLabelCount.get(i));
+        }
+        System.out.println(error);
+        System.out.println(target.length);
+        System.out.println("error : " + (double)error / (double) target.length);
 
 
     }
@@ -191,14 +203,14 @@ public class ExtractFeature {
         return featureMap.get(word);
     }
 
-    private String findMatchingEndTag(Tag beginTag) {
-        if(beginTag == Tag.tableTag) return EndTag.tableCloseTag.toString();
-        else if(beginTag == Tag.codeTag) return EndTag.codeCloseTag.toString();
-        else if(beginTag == Tag.equTag) return EndTag.equCloseTag.toString();
-        else return EndTag.miscCloseTag.toString();
+    private String findMatchingEndTag(String beginTag) {
+        if(beginTag == TagConstant.tableTag) return TagConstant.tableCloseTag;
+        else if(beginTag == TagConstant.codeTag) return TagConstant.codeCloseTag;
+        else if(beginTag == TagConstant.equTag) return TagConstant.equCloseTag;
+        else return TagConstant.miscCloseTag;
     }
 
-    public void generateClassifyFeatures(ArrayList<String> data) throws IOException {
+    public LinkedList<Feature[]> generateClassifyFeatures(ArrayList<String> data) throws IOException {
         //     read all annotated files from the directory
         //     String directory = "/Users/mhjang/Desktop/clearnlp/trainingdata/annotation/";
         String parsedDir = "/Users/mhjang/Desktop/clearnlp/all/parsed/";
@@ -213,57 +225,127 @@ public class ExtractFeature {
                 ArrayList<DEPTree> treelist = new ArrayList<DEPTree>();
                 while ((tree = reader.next()) != null) {
                     treelist.add(tree);
-                }
 
+               }
+                System.out.println("Tree size: " + treelist.size());
                 // then open an annotation file
                 int treeIdx = 0;
                 String line;
                 SimpleFileReader freader = new SimpleFileReader("/Users/mhjang/Desktop/clearnlp/all/annotation/" + filename);
+                System.out.println("opening" + filename);
+
+                boolean isTagBeginLine = false, tagClosed = false;
+                String endTag = null;
                 while(freader.hasMoreLines()) {
                     line = freader.readLine();
-                    if (!line.trim().isEmpty()) {
+                    /**
+                     * beginToken: begin of the component over the lines. It is set only if the begin tag is present in the current line; Otherwise set to -1
+                       endToken: end of the component over the lines. It is set only if the end tag is present in the current line; Otherwise set to -1
+                       componentBegin: begin of the component in this line.
+                       componentEnd: begin of the component in this line.
+                    */
+                    int beginToken = -1, endToken = -1;
+                    int componentBegin= -1, componentEnd = -1;
+                    /**
+                     * treeIdxSkip: a flag that determines whether or not to skip current line
+                     * clearNLP skipped an empty line. To find the matching tree, an empty line in the annotation should also be skipped.
+                     *
+                     */
+                    boolean treeIdxSkip = false;
+                    line = line.trim();
+
+                    if (!line.isEmpty()) {
                         LinkedList<String> tokens = new LinkedList<String>();
                         int startIdx = 0;
-                        for(Tag tag : Tag.values()) {
-                            if(line.contains(tag.toString())) {
-                             //   initiatedTag = tag.toString();
+                     // If currently no tag was opened
+                        if (initiatedTag == null) {
+                            for (String tag : tags) {
+                                if (line.contains(tag)) {
+                                    initiatedTag = tag;
+                                    isTagBeginLine = true;
+                                    break;
+                                }
                             }
                         }
-                        if(initiatedTag != null) {
-                            String tag = initiatedTag.toString();
-                            String endTag = findMatchingEndTag(initiatedTag);
-                            startIdx = (line.indexOf(tag) + tag.length() < line.length()) ? line.indexOf(tag) + startIdx : 0;
-                            int endIdx = line.indexOf(endTag);
-                            // this line doesn't contain the end tag
-                            if (endIdx == -1) endIdx = line.length();
+                        if (initiatedTag != null) {
+                            /**
+                             * If initiated tag is JUST SET, that means we have a begin tag in this line.
+                               (1) To set this location to beginToken, first find the character offset of this begin tag to find the token location
+                               (2) Find the matching end tag
+                             */
+                            if (isTagBeginLine) {
+                                endTag = findMatchingEndTag(initiatedTag);
+                                startIdx = (line.indexOf(initiatedTag) + initiatedTag.length() + 1 < line.length()) ? line.indexOf(initiatedTag) + initiatedTag.length() + 1 : 0;
+                              // because of the tag itself, minus one
+                                beginToken = componentBegin = StringTokenizerIndx.findTokenNthfromIndex(line, startIdx) - 1; // location - (startTag)
+                              // If a line only contains a tag, in the original file that clearNLP parsed on, that line was empty.
+                                if (line.replace(initiatedTag, "").trim().length() == 0) treeIdxSkip = true;
+                                isTagBeginLine = false;
+                            } else {
+                              // the component is being continued from previous lines
+                                componentBegin = 0;
+                            }
+                            int endIdx;
+                            if(line.contains(endTag)) {
+                                if (line.replace(endTag, "").trim().length() == 0) treeIdxSkip = true;
+                                endIdx = line.indexOf(endTag);
+                                tagClosed = true;
+                            }
                             else {
-                                initiatedTag = null;
+                                endIdx = line.length();
                             }
-                            String[] componentFrag = line.substring(startIdx, endIdx).split(" ");
-                            for (int i = 0; i < componentFrag.length; i++) {
-                                tokens.add(componentFrag[i]);
-                            }
-                            extractFeatureFromTree(tokens, treelist.get(treeIdx), initiatedTag);
-                       }
-                   }
+                            // If there is a begin tag in the line, subtract one from the found index
+                            if (isTagBeginLine) {
+                                componentEnd = StringTokenizerIndx.findTokenNthfromIndex(line, endIdx) - 1;
+                            } else
+                                componentEnd = StringTokenizerIndx.findTokenNthfromIndex(line, endIdx);
+
+                            if (tagClosed) endToken = componentEnd;
+                        }
+                        if (treeIdxSkip) continue;
+                 //       printTree(treeIdx, treelist.get(treeIdx));
+                 //       System.out.println(treeIdx + ":" + line);
+                        extractFeatureFromTree(componentBegin, componentEnd, treelist.get(treeIdx), initiatedTag, beginToken, endToken);
+
+
+                        if (tagClosed) {
+                            initiatedTag = null;
+                            tagClosed = false;
+                        }
+
+                        treeIdx++;
+                    }
+
+                    }
               }
-           }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        return allFeatures;
     }
 
-
+    private void printTree(int n, DEPTree tree) {
+        int size = tree.size();
+        DEPNode node;
+        System.out.print(n + ": ");
+        for (int i = 1; i < size; i++) {
+            node = tree.get(i);
+            System.out.print(node.form + " ");
+        }
+        System.out.println();
+    }
 
     /**
      * 6/1/2014
      * extract features for each token in a parsing tree
-     * @param noiseFragment
      * @param tree
-     * @return
+     * @param componentFragBegin, componentFragEnd: a fragment idx that should be at least tagged as <COMPONENT-I> in this line
+     * @param beginTokenIdx: begin of the component, not the line. If this line doesn't contain the begin token, it is set to -1
+     *        endTokenIdx: end of the component, not the line.
+     *                            * @return
      */
-    private void extractFeatureFromTree(LinkedList<String> noiseFragment, DEPTree tree, Tag tagType) {
+    private void extractFeatureFromTree(int componentFragBegin, int componentFragEnd, DEPTree tree, String tagType, int beginTokenIdx, int endTokenIdx) {
         int i, size = tree.size(), npSum = 0;
         tree.resetDependents();
         DEPNode node;
@@ -274,11 +356,14 @@ public class ExtractFeature {
         if(tagType == null) {
             component = null;
         }
-        else if(tagType == Tag.tableTag) {
+        else if(tagType == TagConstant.tableTag) {
             component = table;
         }
-        else if(tagType == Tag.codeTag) {
+        else if(tagType == TagConstant.codeTag) {
             component = code;
+        }
+        else if(tagType == TagConstant.equTag) {
+            component = equation;
         }
         else {
             component = misc;
@@ -288,21 +373,21 @@ public class ExtractFeature {
             LinkedList<Feature> features = new LinkedList<Feature>();
             node = tree.get(i);
             Matcher m1 = numberPattern.matcher(node.form);
-           /* if (m1.find())
+            if (m1.find())
                 features.add(feature1True);
             else
                 features.add(feature1False);
 
 
-            Matcher m2 = puctPattern.matcher(node.form);
+           // Matcher m2 = puctPattern.matcher(node.form);
             // whether token is a punctuation
            /* if (m2.find())
                 features.add(feature2True);
             else
                 features.add(feature2False);
 */
-              int charlen = node.form.length();
-              features.add(new FeatureNode(1, charlen));
+      //        int charlen = node.form.length();
+      //        features.add(new FeatureNode(1, charlen));
 
          /*   List<DEPArc> dependents = node.getDependents();
             for (DEPArc arc : dependents) {
@@ -312,7 +397,7 @@ public class ExtractFeature {
                     features.add(fn);
             }
     */
-            Collections.sort(features, fc);
+    //        Collections.sort(features, fc);
      /*       System.out.println(node.form);
             for(Feature f : features) {
                 System.out.println(f.getIndex() + ": " + f.getValue());
@@ -321,16 +406,21 @@ public class ExtractFeature {
             Feature[] featureArray;
             featureArray = features.toArray(new Feature[features.size()]);
             allFeatures.add(featureArray);
-            if(component == null)
-                answers[featureIdx] = TEXT;
-            else {
-                if(noiseFragment.get(0) == node.form)
-                    answers[featureIdx] = component.begin;
-                else if(noiseFragment.get(noiseFragment.size()-1) == node.form)
-                    answers[featureIdx] = component.end;
-                else
+            if(component != null) {
+                if (beginTokenIdx == i - 1) answers[featureIdx] = component.begin;
+                else if (beginTokenIdx + 1 == i - 1 && componentFragEnd > i - 1)
                     answers[featureIdx] = component.intermediate;
+                else if (endTokenIdx -1 == i - 1) answers[featureIdx] = component.end;
+                else if (componentFragBegin <= i - 1 && componentFragEnd > i - 1)
+                    answers[featureIdx] = component.intermediate;
+                else
+                    answers[featureIdx] = TagConstant.TEXT;
             }
+            else {
+                answers[featureIdx] = TagConstant.TEXT;
+            }
+            if(answers[featureIdx] != TagConstant.TEXT)
+                System.out.println(node.form + "\t" + TagConstant.getTagLabel((int) answers[featureIdx]));
             featureIdx++;
 
         }
