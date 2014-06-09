@@ -1,7 +1,7 @@
 package evaluation;
 
 import Clustering.DocumentCollection;
-import NLP.DetectCodeComponent;
+import componentDetection.DetectCodeComponent;
 
 import java.io.*;
 import java.util.ArrayList;

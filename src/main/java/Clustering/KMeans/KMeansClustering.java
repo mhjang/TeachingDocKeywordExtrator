@@ -13,10 +13,33 @@ import java.util.*;
 public class KMeansClustering extends Clustering{
     ArrayList<String> topiclist;
     DocumentCollection dc;
-    public KMeansClustering(ArrayList<String> topiclist, DocumentCollection dc) {
+    CentroidDocument[] centroids;
+    public KMeansClustering(ArrayList<String> topiclist, DocumentCollection dc) throws IOException {
         super(dc);
         this.topiclist = topiclist;
         this.dc = dc;
+        centroids = initCentroid();
+    }
+
+    public KMeansClustering(HashMap<String, Document> centroidFeatures, DocumentCollection dc) throws IOException {
+        super(dc);
+        this.dc = dc;
+        LinkedList<Document> initFeatures = new LinkedList<Document>();
+        for(String topic : topiclist) {
+            initFeatures.add(centroidFeatures.get(topic));
+        }
+        centroids = initCentroid(initFeatures);
+
+    }
+
+    public CentroidDocument[] initCentroid(LinkedList<Document> initFeatures) throws IOException {
+        CentroidDocument[] centroids = new CentroidDocument[initFeatures.size()];
+        int i=0;
+        for(Document d : initFeatures) {
+            CentroidDocument cd = new CentroidDocument(d);
+            centroids[i++] = cd;
+        }
+        return centroids;
     }
 
     /**
@@ -29,13 +52,14 @@ public class KMeansClustering extends Clustering{
         CentroidDocument[] centroids = new CentroidDocument[(entry.getValue().size())];
         HashMap<String, Document> topicDocMap = entry.getValue();
         int i=0;
-        for(Document d : topicDocMap.values()) {
+        for(String topic : topiclist) {
+            Document d = topicDocMap.get(topic);
             CentroidDocument cd = new CentroidDocument(d);
             centroids[i++] = cd;
-        }
+         }
         return centroids;
     }
-    public void clusterRun(int maxIteration, double rssThreshold) throws IOException {
+    public  LinkedList<LinkedList<Document>> clusterRun(int maxIteration, double rssThreshold) throws IOException {
         CentroidDocument[] centroids = initCentroid();
         double curRSS = 0.0, prevRSS = 0.0;
         int[] aa = new int[5];
@@ -81,7 +105,7 @@ public class KMeansClustering extends Clustering{
             }
             System.out.println("RSS : " + curRSS);
             if (Math.abs(curRSS / prevRSS) < rssThreshold) break;
-        for(int i=0; i< centroids.length; i++) {
+            for(int i=0; i< centroids.length; i++) {
                 System.out.print(topiclist.get(i) + ": \t");
                 LinkedList<Document> cluster = clusterAssignments.get(i);
                 for (Document d : cluster) {
@@ -93,6 +117,24 @@ public class KMeansClustering extends Clustering{
         /**
          * print the clusters
          */
+        return clusterAssignments;
+    }
+
+    /**
+     * just turn a linkedlist to hashmap with topic list to fit in evaluation method
+     */
+    public HashMap<String, LinkedList<String>> convertToTopicMap(LinkedList<LinkedList<Document>> clusters) {
+        HashMap<String, LinkedList<String>> list = new HashMap<String, LinkedList<String>>();
+        int i = 0;
+        for(LinkedList<Document> c : clusters) {
+            LinkedList<String> clusterFilename = new LinkedList<String>();
+            for(Document d : c) {
+                clusterFilename.add(d.getName());
+            }
+            list.put(topiclist.get(i++), clusterFilename);
+
+        }
+        return list;
 
     }
 

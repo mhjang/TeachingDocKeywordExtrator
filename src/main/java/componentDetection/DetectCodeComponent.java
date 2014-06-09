@@ -1,4 +1,4 @@
-package NLP;
+package componentDetection;
 
 import java.io.*;
 import java.util.StringTokenizer;

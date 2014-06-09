@@ -1,11 +1,10 @@
 package NoiseRemoval;
 ;
 
-import NLP.DetectCodeComponent;
+import componentDetection.DetectCodeComponent;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

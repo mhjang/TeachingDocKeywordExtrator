@@ -2,6 +2,7 @@ package Clustering;
 
 import Clustering.KMeans.KMeansClustering;
 import Similarity.CosineSimilarity;
+import evaluation.ClusteringFMeasure;
 import parser.StopWordRemover;
 import TermScoring.TFIDF.TFIDFCalculator;
 import org.lemurproject.galago.core.parse.stem.KrovetzStemmer;
@@ -18,6 +19,9 @@ public class Clustering {
     private String DUMMY = "dummy";
     HashSet<String> documentFirstKTerms;
     DocumentCollection dc;
+
+    HashMap<String, Document> clusterFeatureMap;
+
     public static void main(String[] args) throws IOException {
         // redirecting a system output to a file
         PrintStream console = System.out;
@@ -36,6 +40,7 @@ public class Clustering {
 
         double[] alpha = {0.1, 0.2, 0.3, 0.4};
         double beta = 0.5;
+
 
         // parameter: whether to use Google N-gram
         TFIDFCalculator tfidf = new TFIDFCalculator(false);
@@ -58,8 +63,6 @@ public class Clustering {
         //  lm.selectHighTFTerms();
         //  lm.TFIDFBaselineRun();
 
- //      Clustering clustering = new Clustering();
- //      clustering.dc = dc;
 
         /**
          * cleaning the document terms by dropping a bunch of infrequent bigrams and trigrams
@@ -98,6 +101,10 @@ public class Clustering {
         }
         clusterLabelMap.put("dummy", clusterLabelIndex);
         topiclist.add("dummy");
+    //    Clustering clustering = new Clustering(dc);
+    //    clustering.naiveAssignmentLazyUpdate(documentMap, topiclist, infrequentTermThreshold, clusteringThreshold);
+
+
 
     /*    double[] thresholdSettings = {0.03, 0.07};
         for(int i=0; i<7; i++) {
@@ -106,8 +113,12 @@ public class Clustering {
             ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "/Users/mhjang/Documents/teaching_documents/evaluation/01.csv");
         }
 */
+ //       KMeansClustering kmeans = new KMeansClustering(clustering.getClusterFeatures(), dc);
         KMeansClustering kmeans = new KMeansClustering(topiclist, dc);
-        kmeans.clusterRun(10, 0.1);
+        HashMap<String, LinkedList<String>> clusters = kmeans.convertToTopicMap(kmeans.clusterRun(10, 0.1));
+        ClusteringFMeasure cfm = new ClusteringFMeasure(clusters, clusterLabelMap, topiclist, "./annotation/goldstandard_v2.csv", dc);
+        cfm.computeAccuracy();
+
     }
 
     /*        HashMap<String, LinkedList<String>> clusters = clustering.naiveAssignmentLazyUpdate(documentMap, topiclist, infrequentTermThreshold, clusteringThreshold);
@@ -252,7 +263,7 @@ public class Clustering {
     public HashMap<String, LinkedList<String>> naiveAssignmentLazyUpdate(HashMap<String, Document> documentMap, ArrayList<String> topics, int termFilterThreshold, double clusterThreshold) throws IOException {
         AbstractMap.SimpleEntry <HashMap<String, LinkedList<String>>, HashMap<String, Document>> entry = (AbstractMap.SimpleEntry) convertTopicToDocument(topics);
         HashMap<String, LinkedList<String>> clusters = entry.getKey();
-        HashMap<String, Document> clusterFeatureMap = entry.getValue();
+        clusterFeatureMap = entry.getValue();
 
         /***
          * Query Expansion
@@ -320,6 +331,9 @@ public class Clustering {
    }
 
 
+    public HashMap<String, Document> getClusterFeatures() {
+        return clusterFeatureMap;
+    }
 
     /**
      * Written in in 2/2 3:23 pm

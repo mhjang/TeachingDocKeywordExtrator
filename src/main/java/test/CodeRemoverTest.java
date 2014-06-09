@@ -1,11 +1,7 @@
 package test;
 
-import NLP.DetectCodeComponent;
+import componentDetection.DetectCodeComponent;
 import junit.framework.TestCase;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.PrintStream;
 
 /**
  * Created by mhjang on 4/6/14.
