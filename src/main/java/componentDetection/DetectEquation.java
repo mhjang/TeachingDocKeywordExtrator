@@ -9,7 +9,8 @@ public class DetectEquation {
     static Pattern numberPattern = Pattern.compile("^[a-zA-Z]*([0-9]+).*");
     static Character.UnicodeBlock[] codeset = {Character.UnicodeBlock.MATHEMATICAL_ALPHANUMERIC_SYMBOLS,
     Character.UnicodeBlock.MATHEMATICAL_OPERATORS, Character.UnicodeBlock.BASIC_LATIN};
-    public static boolean isEquation(String[] tokens) {
+    public static boolean isEquation(String line) {
+        String[] tokens = line.split(" ");
         for(int i=0; i<tokens.length; i++) {
             boolean codeMatch = false;
             if(numberPattern.matcher(tokens[i]).find()) codeMatch = true;

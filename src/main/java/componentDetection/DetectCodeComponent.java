@@ -48,8 +48,13 @@ public class DetectCodeComponent {
         System.out.println(count + " lines of codes are removed!");
 	}
     public static boolean isCodeLine(String line) {
-        if(!isSemicolon(line) && !isParenthesis(line) && !isBracket(line) && !isComment(line) && !isOperator(line) && !isVariable(line) && !isCopyright(line)) return false;
-        else return true;
+        String[] tokens = line.split(" ");
+        for(int i=0; i<tokens.length; i++) {
+            if(isSemicolon(tokens[i]) || isParenthesis(tokens[i]) || isBracket(tokens[i]) || isComment(tokens[i]) || isOperator(tokens[i]) || isVariable(tokens[i]))
+                return true;
+
+        }
+        return false;
 
     }
 	/**
@@ -57,7 +62,7 @@ public class DetectCodeComponent {
 	 * @param line
 	 * @return
 	 */
-	static boolean isCopyright(String line) {
+	 public static boolean isCopyright(String line) {
 		if(line.contains("©") || line.contains("rights reserved")) {
 	//		System.out.println("copyright: " + line);
 			return true;
@@ -73,49 +78,41 @@ public class DetectCodeComponent {
 		return false;
 		
 	}
-	
-	
-	static boolean isSemicolon(String line) {
-		if(line.charAt(line.length()-1) == ';') {
+
+
+    public static boolean isSemicolon(String token) {
+        char lastChar = token.charAt(token.length()-1);
+		if(lastChar == ';') {
 	//		System.out.println("Semicolon: " + line);
 			return true; 
 		}
 		else return false; 
 	}
-	
-	static boolean isParenthesis(String line) {
-		StringTokenizer st = new StringTokenizer(line);
-		while(st.hasMoreTokens()) {
-			String token = st.nextToken();
-			if(token.matches("\\w*\\[\\w*\\]")) {
+
+    public static boolean isParenthesis(String token) {
+		if(token.matches("\\w*\\[\\w*\\]")) {
 	//			System.out.println("Parenthesis: " + line);
 				return true;
 			}
-		}
 		return false;
 	}
-	
-	static boolean isBracket(String line) {
-		StringTokenizer st = new StringTokenizer(line);
-		while(st.hasMoreTokens()) {
-			String token = st.nextToken();
-			if(token.matches("\\w*\\(\\)")) {
+
+    public static boolean isBracket(String token) {
+        if(token.matches("\\w*\\(\\)")) {
 //				System.out.println("bracket: " + line);
-				return true; 
-			}
-		}
+            return true;
+        }
 		 return false; 
 	}
-	
-	static boolean isComment(String line) {
-		if(line.contains("//") || line.contains("/*") || line.contains("*/")) {
-	//		System.out.println("comment: " + line);
-			return true;
-		}
-		else return false; 
+
+    public static boolean isComment(String token) {
+        if (token.contains("//") || token.contains("/*") || token.contains("*/")) {
+                return true;
+        }
+        return false;
 	}
-	
-	static boolean isOperator(String line) {
+
+    public static boolean isOperator(String line) {
 		String[] operators = {"+", "&&", "||", "<", ">", "==", "!=", ">=", "<=", ">>", "<<", "::", "__", "</"};
 		StringTokenizer st = new StringTokenizer(line);
 		while(st.hasMoreTokens()) {
@@ -129,11 +126,8 @@ public class DetectCodeComponent {
 		}
 		return false; 
 	}
-	
-	static boolean isVariable(String line) {
-		StringTokenizer st = new StringTokenizer(line, " (");
-		while(st.hasMoreTokens()) {
-			String token = st.nextToken();
+
+    public static boolean isVariable(String token) {
 			if(token.matches("[a-z]+[A-Z][a-z]+")) {
 	//			System.out.println("camelcase: " + line);
 				return true;
@@ -143,7 +137,6 @@ public class DetectCodeComponent {
 				return true;
 			}
 		
-		}
-			return false; 
+			return false;
 	}
 }

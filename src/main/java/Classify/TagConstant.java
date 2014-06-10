@@ -44,20 +44,33 @@ public class TagConstant {
      */
     static String getTagLabel(int tagIdx) {
         if(tagIdx == BEGINTABLE) return tableTag;
-        if(tagIdx == INTTABLE) return tableIntTag;
-        if(tagIdx == ENDTABLE) return tableCloseTag;
-        if(tagIdx == BEGINCODE) return codeTag;
-        if(tagIdx == INTCODE) return codeIntTag;
-        if(tagIdx == ENDCODE) return codeCloseTag;
-        if(tagIdx == BEGINEQU) return equTag;
-        if(tagIdx == INTEQU) return equIntTag;
-        if(tagIdx == ENDEQU) return equCloseTag;
-        if(tagIdx == BEGINMISC) return miscTag;
-        if(tagIdx == INTMISC) return miscIntTag;
-        if(tagIdx == ENDMISC) return miscCloseTag;
+        else if(tagIdx == INTTABLE) return tableIntTag;
+        else if(tagIdx == ENDTABLE) return tableCloseTag;
+        else if(tagIdx == BEGINCODE) return codeTag;
+        else if(tagIdx == INTCODE) return codeIntTag;
+        else if(tagIdx == ENDCODE) return codeCloseTag;
+        else if(tagIdx == BEGINEQU) return equTag;
+        else if(tagIdx == INTEQU) return equIntTag;
+        else if(tagIdx == ENDEQU) return equCloseTag;
+        else if(tagIdx == BEGINMISC) return miscTag;
+        else if(tagIdx == INTMISC) return miscIntTag;
+        else if(tagIdx == ENDMISC) return miscCloseTag;
         else return "TEXT";
 
     }
 
+    /**
+     * for printing out test output
+     * @param tagIdx
+     * @return
+     */
+    static String getTagLabelByComponent(int tagIdx) {
+        if(tagIdx == BEGINTABLE || tagIdx == INTTABLE || tagIdx == ENDTABLE) return tableTag;
+        else if(tagIdx == BEGINCODE || tagIdx == INTCODE || tagIdx == ENDCODE) return codeTag;
+        else if(tagIdx == BEGINEQU || tagIdx == INTEQU || tagIdx == ENDEQU ) return equTag;
+        else if(tagIdx == BEGINMISC || tagIdx == INTMISC || tagIdx == ENDMISC) return miscTag;
+        else return "TEXT";
+
+    }
 
 }
